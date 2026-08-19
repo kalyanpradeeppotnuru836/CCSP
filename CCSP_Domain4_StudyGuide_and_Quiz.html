@@ -412,17 +412,69 @@
   </div>
 
   <h3>Common cloud vulnerabilities and the reference lists</h3>
-  <p>Cloud's reliance on network systems exposes it to data breaches, compromised integrity, insecure APIs, and denial of service, with applications and transmissions operating in potentially hostile environments. Five reference lists are named in the outline, and you should know what each covers:</p>
+  <p>Cloud's reliance on network systems exposes it to data breaches, compromised integrity, insecure APIs, and denial of service, with applications and transmissions operating in potentially hostile environments. Five reference lists are named in the outline. Each is set out in full below, since the exam expects recognition of individual entries rather than the list's general purpose.</p>
+
+  <h3>OWASP Top 10 (web applications)</h3>
+  <p>The most widely used catalogue of critical web application security risks. The current edition is organised as ten categories rather than ten individual bugs.</p>
   <ul class="plain">
-    <li><strong>OWASP Top 10</strong>, the widely used list of the most critical web application security risks, including broken access control, cryptographic failures, injection, insecure design, and security misconfiguration.</li>
-    <li><strong>OWASP Application Security Verification Standard (ASVS)</strong>, a framework for evaluating the technical security measures in web applications, establishing a balanced and standardised approach to verification.</li>
-    <li><strong>OWASP Top 10 API Security Risks</strong>, focused specifically on API weaknesses such as broken object level authorisation and excessive data exposure, which differ from traditional web application risks.</li>
-    <li><strong>OWASP Top 10 for Large Language Model Applications</strong>, new to this outline, covering risks such as prompt injection, insecure output handling, training data poisoning, model denial of service, and supply chain vulnerabilities in models and datasets.</li>
-    <li><strong>SANS Top 25</strong>, the most dangerous software errors, oriented toward coding weaknesses rather than deployed application risks.</li>
+    <li><strong>A01 Broken Access Control</strong>, users acting outside their intended permissions. <em>Example: changing an account number in a URL and viewing another customer's statement.</em></li>
+    <li><strong>A02 Cryptographic Failures</strong>, sensitive data exposed through weak, missing, or misapplied cryptography. <em>Example: card numbers transmitted over unencrypted HTTP, or stored using an obsolete hashing algorithm.</em></li>
+    <li><strong>A03 Injection</strong>, untrusted input interpreted as a command, covering SQL, command, and cross-site scripting injection. <em>Example: a login form where entering a crafted string returns every row in the users table.</em></li>
+    <li><strong>A04 Insecure Design</strong>, flaws originating in the design itself rather than the implementation, which no amount of correct coding can fix. <em>Example: a password reset flow relying solely on a security question that is publicly discoverable.</em></li>
+    <li><strong>A05 Security Misconfiguration</strong>, insecure defaults, incomplete hardening, verbose errors, or unnecessary features left enabled. <em>Example: a cloud storage bucket left publicly readable, or an admin console reachable with factory credentials.</em></li>
+    <li><strong>A06 Vulnerable and Outdated Components</strong>, using libraries, frameworks, or runtimes with known vulnerabilities. <em>Example: an application still shipping a logging library with a published remote code execution flaw.</em></li>
+    <li><strong>A07 Identification and Authentication Failures</strong>, weaknesses in confirming who a user is, including credential stuffing and poor session management. <em>Example: session identifiers that never expire and are accepted indefinitely after logout.</em></li>
+    <li><strong>A08 Software and Data Integrity Failures</strong>, trusting code or data whose integrity has not been verified, including insecure deserialisation and unsigned updates. <em>Example: a build pipeline pulling an unsigned dependency from an unverified source.</em></li>
+    <li><strong>A09 Security Logging and Monitoring Failures</strong>, insufficient recording or alerting, so breaches go undetected. <em>Example: authentication failures never logged, leaving a months-long brute force attempt invisible.</em></li>
+    <li><strong>A10 Server-Side Request Forgery (SSRF)</strong>, an application fetching a remote resource from a user-supplied URL without validation. <em>Example: submitting an internal metadata service address so the server retrieves cloud credentials and returns them.</em></li>
   </ul>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
-    <p>Do not confuse prompt injection with insecure output handling. Prompt injection is crafted input manipulating the model into ignoring its instructions. Insecure output handling is the application failing to sanitise what the model produced before using it downstream. They sit at opposite ends of the same request, and questions often describe one while offering both.</p>
+    <p>A01 Broken Access Control and A07 Identification and Authentication Failures are frequently confused. Authentication asks who you are; access control asks what you may do once identified. A user correctly logged in who then reaches another customer's data is an access control failure, not an authentication one.</p>
+  </div>
+
+  <h3>OWASP Application Security Verification Standard (ASVS)</h3>
+  <p>Not a risk list but a verification framework, giving developers and testers a common standard of security requirements to assess an application against. It is organised into levels of increasing rigour, so an organisation can state which level a given application must meet. Where the Top 10 raises awareness of what commonly goes wrong, ASVS defines what must be demonstrably right.</p>
+
+  <h3>OWASP Top 10 API Security Risks</h3>
+  <p>APIs fail differently from web front ends, chiefly because authorisation must be enforced per object and per function on every endpoint rather than once at a page boundary.</p>
+  <ul class="plain">
+    <li><strong>API1 Broken Object Level Authorization</strong>, an endpoint returning any object whose identifier is supplied, without checking ownership. <em>Example: requesting /orders/1002 and receiving another customer's order.</em></li>
+    <li><strong>API2 Broken Authentication</strong>, weak or missing verification of the caller's identity. <em>Example: an API accepting an expired token because expiry is never validated.</em></li>
+    <li><strong>API3 Broken Object Property Level Authorization</strong>, exposing or accepting fields the caller should not see or set, covering excessive data exposure and mass assignment. <em>Example: a profile endpoint returning the full record including an internal creditRating field, or accepting isAdmin=true in an update.</em></li>
+    <li><strong>API4 Unrestricted Resource Consumption</strong>, no limits on requests, payload size, or downstream cost. <em>Example: an unthrottled search endpoint driven at volume until the database and the bill both collapse.</em></li>
+    <li><strong>API5 Broken Function Level Authorization</strong>, administrative functions reachable by ordinary users because authorisation is enforced in the interface rather than the API. <em>Example: calling DELETE /users/44 directly as a standard user.</em></li>
+    <li><strong>API6 Unrestricted Access to Sensitive Business Flows</strong>, automation abusing a legitimate flow at scale. <em>Example: bots completing a ticket purchase flow thousands of times to corner inventory.</em></li>
+    <li><strong>API7 Server Side Request Forgery</strong>, as in the web list, but especially damaging in APIs that routinely fetch remote resources on request.</li>
+    <li><strong>API8 Security Misconfiguration</strong>, permissive CORS policies, missing security headers, unnecessary HTTP methods, or verbose errors. <em>Example: a CORS policy allowing any origin to call an authenticated endpoint.</em></li>
+    <li><strong>API9 Improper Inventory Management</strong>, forgotten, undocumented, or deprecated endpoints left running. <em>Example: an old v1 API still live without the authorisation fixes applied to v2.</em></li>
+    <li><strong>API10 Unsafe Consumption of APIs</strong>, trusting responses from third-party APIs without validation. <em>Example: passing a partner API's response straight into a database query.</em></li>
+  </ul>
+
+  <h3>OWASP Top 10 for Large Language Model Applications</h3>
+  <p>New to this exam outline. The current edition is the 2025 release, and several categories were renamed from the original 2023 list, so material written before then uses different names for the same risks.</p>
+  <ul class="plain">
+    <li><strong>LLM01 Prompt Injection</strong>, crafted input altering the model's behaviour or causing it to disregard its instructions, whether supplied directly by a user or indirectly through content the model reads. <em>Example: a web page containing hidden text instructing a summarising agent to exfiltrate the user's data.</em></li>
+    <li><strong>LLM02 Sensitive Information Disclosure</strong>, secrets, personal data, or confidential material leaking through model outputs. <em>Example: a support assistant reproducing another customer's details that appeared in its context.</em></li>
+    <li><strong>LLM03 Supply Chain</strong>, compromised or vulnerable third-party models, datasets, libraries, or hosting. <em>Example: fine-tuning on a public model checkpoint that carries an implanted backdoor.</em></li>
+    <li><strong>LLM04 Data and Model Poisoning</strong>, deliberate manipulation of training, fine-tuning, or retrieval data to shape behaviour. <em>Example: seeding a public dataset so the resulting model misclassifies a specific fraud pattern as legitimate.</em></li>
+    <li><strong>LLM05 Improper Output Handling</strong>, downstream systems trusting model output without validation. <em>Example: rendering a model's response into a dashboard unsanitised, so embedded script executes in an analyst's browser.</em></li>
+    <li><strong>LLM06 Excessive Agency</strong>, granting the model or agent more capability, autonomy, or permission than is safe. <em>Example: an agent given write access to a production database when read access would serve.</em></li>
+    <li><strong>LLM07 System Prompt Leakage</strong>, internal prompts, policies, or tool definitions being extracted. <em>Example: a user coaxing the assistant into reprinting its configuration, revealing which controls it enforces and how to evade them.</em></li>
+    <li><strong>LLM08 Vector and Embedding Weaknesses</strong>, attack and leakage paths introduced by retrieval-augmented generation, indexing, and embeddings. <em>Example: weak tenant separation in a vector database returning another customer's documents in a retrieval result.</em></li>
+    <li><strong>LLM09 Misinformation</strong>, confidently incorrect output being acted upon as fact. <em>Example: an assistant inventing a regulatory citation that staff then rely on in a compliance filing.</em></li>
+    <li><strong>LLM10 Unbounded Consumption</strong>, cost, latency, or capacity exhausted through abuse or missing limits. <em>Example: an unauthenticated endpoint driven with long prompts until inference spend runs away.</em></li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep prompt injection and improper output handling apart, since both appear together in options. Prompt injection is manipulation arriving on the way in. Improper output handling is failure to validate on the way out. A single incident often involves both, and the question will describe which end it means. Note also that older material calls LLM05 insecure output handling, LLM04 training data poisoning, and LLM10 model denial of service.</p>
+  </div>
+
+  <h3>SANS Top 25 (CWE Most Dangerous Software Errors)</h3>
+  <p>Maintained as the CWE Top 25, this list catalogues the specific coding weaknesses behind most exploited vulnerabilities. Where the OWASP lists describe risks in deployed applications, this one names the underlying implementation defects, which is why it is aimed at developers rather than architects. Recurring entries include out-of-bounds write and out-of-bounds read, cross-site scripting, SQL injection, use after free, OS command injection, improper input validation, cross-site request forgery, path traversal, unrestricted upload of dangerous file types, missing authorisation, integer overflow, deserialisation of untrusted data, and use of hard-coded credentials. For the exam, recognise its purpose and its developer orientation rather than memorising the ranking, which is re-ordered annually.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Do not confuse prompt injection with improper output handling. Prompt injection is crafted input manipulating the model into ignoring its instructions. Improper output handling is the application failing to sanitise what the model produced before using it downstream. They sit at opposite ends of the same request, and questions often describe one while offering both.</p>
   </div>
 </div>
 
@@ -640,10 +692,10 @@
       <div class="qmeta">Question 2 &middot; Domain 4.1</div>
       <p class="qstem">A crafted user input causes a large language model application to disregard its system instructions and reveal its internal configuration. Which OWASP Top 10 for LLM Applications risk is this?</p>
       <div class="qoptions">
-        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Training data poisoning</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Data and model poisoning</label></div>
         <div class="qoption"><input type="radio" name="q2" id="q2b" value="B"><label for="q2b">B. Prompt injection</label></div>
-        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Model denial of service</label></div>
-        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Insecure output handling</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Unbounded consumption</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Improper output handling</label></div>
       </div>
       <div class="qactions">
         <button class="submit-btn" data-qid="q2">Submit answer</button>
@@ -1360,10 +1412,10 @@
       <div class="qmeta">Question 47 &middot; Domain 4.1</div>
       <p class="qstem">Which risk in the OWASP Top 10 for Large Language Model Applications concerns an adversary corrupting the data used to train a model in order to alter its behaviour?</p>
       <div class="qoptions">
-        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Model denial of service</label></div>
-        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Insecure output handling</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Unbounded consumption</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Improper output handling</label></div>
         <div class="qoption"><input type="radio" name="q47" id="q47c" value="C"><label for="q47c">C. Prompt injection</label></div>
-        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Training data poisoning</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Data and model poisoning</label></div>
       </div>
       <div class="qactions">
         <button class="submit-btn" data-qid="q47">Submit answer</button>
@@ -1616,7 +1668,7 @@
       <div class="qmeta">Question 63 &middot; Domain 4.1</div>
       <p class="qstem">An application renders a language model&#x27;s response directly into an internal dashboard without sanitisation, allowing an embedded script to execute in an analyst&#x27;s browser. Which risk category does this represent?</p>
       <div class="qoptions">
-        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Insecure output handling</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Improper output handling</label></div>
         <div class="qoption"><input type="radio" name="q63" id="q63b" value="B"><label for="q63b">B. Broken object level authorisation</label></div>
         <div class="qoption"><input type="radio" name="q63" id="q63c" value="C"><label for="q63c">C. Prompt injection</label></div>
         <div class="qoption"><input type="radio" name="q63" id="q63d" value="D"><label for="q63d">D. Excessive agency</label></div>
@@ -1758,7 +1810,7 @@ const quizData = {
       correct: "B",
       rationale: {
         correct: "Prompt injection occurs when crafted input manipulates a large language model into ignoring its original instructions or system prompt, which is exactly the behaviour described.",
-        incorrect: "The correct answer is B, Prompt injection. Insecure output handling concerns the application failing to validate or sanitise what the model produced before using it downstream. It sits at the opposite end of the same request from the input manipulation described here."
+        incorrect: "The correct answer is B, Prompt injection. Improper output handling concerns the application failing to validate or sanitise what the model produced before using it downstream. It sits at the opposite end of the same request from the input manipulation described here."
       }
     },
     q3: {
@@ -2072,8 +2124,8 @@ const quizData = {
     q47: {
       correct: "D",
       rationale: {
-        correct: "Training data poisoning is the risk of an adversary corrupting the dataset a model learns from, changing the model's behaviour in ways that may be difficult to detect after deployment.",
-        incorrect: "The correct answer is D, Training data poisoning. Model denial of service concerns resource exhaustion, where an attacker submits requests designed to consume disproportionate compute and degrade availability for others. It affects the service rather than what the model learned."
+        correct: "Data and model poisoning is the risk of an adversary corrupting the dataset a model learns from, changing the model's behaviour in ways that may be difficult to detect after deployment.",
+        incorrect: "The correct answer is D, Data and model poisoning. Unbounded consumption concerns resource exhaustion, where an attacker submits requests designed to consume disproportionate compute and degrade availability for others. It affects the service rather than what the model learned."
       }
     },
     q48: {
@@ -2184,8 +2236,8 @@ const quizData = {
     q63: {
       correct: "A",
       rationale: {
-        correct: "Insecure output handling is the failure to validate or sanitise model output before it is used downstream, such as rendering it into a page where it can execute as script.",
-        incorrect: "The correct answer is A, Insecure output handling. Prompt injection may well have been the mechanism that caused the model to emit the malicious content, but the vulnerability being described is the application's failure to sanitise the output before rendering it, which is a separate defect."
+        correct: "Improper output handling is the failure to validate or sanitise model output before it is used downstream, such as rendering it into a page where it can execute as script.",
+        incorrect: "The correct answer is A, Improper output handling. Prompt injection may well have been the mechanism that caused the model to emit the malicious content, but the vulnerability being described is the application's failure to sanitise the output before rendering it, which is a separate defect."
       }
     },
     q64: {

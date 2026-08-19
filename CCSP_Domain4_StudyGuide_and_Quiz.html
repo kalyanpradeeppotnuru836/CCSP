@@ -199,6 +199,26 @@
     display:block;
   }
   .example-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .li-eg{
+    display:block;
+    background:#FBF8F2;
+    border-left:3px solid var(--gold);
+    border-radius:4px;
+    padding:.5rem .75rem;
+    margin:.45rem 0 .1rem;
+    font-size:13.5px;
+    color:var(--text-secondary);
+    font-style:normal;
+  }
+  .li-eg .label{
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:block;
+    margin-bottom:.15rem;
+  }
   ul.plain{ margin:.25rem 0 .75rem; padding-left:1.2rem; }
   ul.plain li{ font-size:15px; margin-bottom:.3rem; }
 
@@ -417,16 +437,16 @@
   <h3>OWASP Top 10 (web applications)</h3>
   <p>The most widely used catalogue of critical web application security risks. The current edition is organised as ten categories rather than ten individual bugs.</p>
   <ul class="plain">
-    <li><strong>A01 Broken Access Control</strong>, users acting outside their intended permissions. <em>Example: changing an account number in a URL and viewing another customer's statement.</em></li>
-    <li><strong>A02 Cryptographic Failures</strong>, sensitive data exposed through weak, missing, or misapplied cryptography. <em>Example: card numbers transmitted over unencrypted HTTP, or stored using an obsolete hashing algorithm.</em></li>
-    <li><strong>A03 Injection</strong>, untrusted input interpreted as a command, covering SQL, command, and cross-site scripting injection. <em>Example: a login form where entering a crafted string returns every row in the users table.</em></li>
-    <li><strong>A04 Insecure Design</strong>, flaws originating in the design itself rather than the implementation, which no amount of correct coding can fix. <em>Example: a password reset flow relying solely on a security question that is publicly discoverable.</em></li>
-    <li><strong>A05 Security Misconfiguration</strong>, insecure defaults, incomplete hardening, verbose errors, or unnecessary features left enabled. <em>Example: a cloud storage bucket left publicly readable, or an admin console reachable with factory credentials.</em></li>
-    <li><strong>A06 Vulnerable and Outdated Components</strong>, using libraries, frameworks, or runtimes with known vulnerabilities. <em>Example: an application still shipping a logging library with a published remote code execution flaw.</em></li>
-    <li><strong>A07 Identification and Authentication Failures</strong>, weaknesses in confirming who a user is, including credential stuffing and poor session management. <em>Example: session identifiers that never expire and are accepted indefinitely after logout.</em></li>
-    <li><strong>A08 Software and Data Integrity Failures</strong>, trusting code or data whose integrity has not been verified, including insecure deserialisation and unsigned updates. <em>Example: a build pipeline pulling an unsigned dependency from an unverified source.</em></li>
-    <li><strong>A09 Security Logging and Monitoring Failures</strong>, insufficient recording or alerting, so breaches go undetected. <em>Example: authentication failures never logged, leaving a months-long brute force attempt invisible.</em></li>
-    <li><strong>A10 Server-Side Request Forgery (SSRF)</strong>, an application fetching a remote resource from a user-supplied URL without validation. <em>Example: submitting an internal metadata service address so the server retrieves cloud credentials and returns them.</em></li>
+    <li><strong>A01 Broken Access Control</strong>, users acting outside their intended permissions. <span class="li-eg"><span class="label">Example</span>changing an account number in a URL and viewing another customer's statement.</span></li>
+    <li><strong>A02 Cryptographic Failures</strong>, sensitive data exposed through weak, missing, or misapplied cryptography. <span class="li-eg"><span class="label">Example</span>card numbers transmitted over unencrypted HTTP, or stored using an obsolete hashing algorithm.</span></li>
+    <li><strong>A03 Injection</strong>, untrusted input interpreted as a command, covering SQL, command, and cross-site scripting injection. <span class="li-eg"><span class="label">Example</span>a login form where entering a crafted string returns every row in the users table.</span></li>
+    <li><strong>A04 Insecure Design</strong>, flaws originating in the design itself rather than the implementation, which no amount of correct coding can fix. <span class="li-eg"><span class="label">Example</span>a password reset flow relying solely on a security question that is publicly discoverable.</span></li>
+    <li><strong>A05 Security Misconfiguration</strong>, insecure defaults, incomplete hardening, verbose errors, or unnecessary features left enabled. <span class="li-eg"><span class="label">Example</span>a cloud storage bucket left publicly readable, or an admin console reachable with factory credentials.</span></li>
+    <li><strong>A06 Vulnerable and Outdated Components</strong>, using libraries, frameworks, or runtimes with known vulnerabilities. <span class="li-eg"><span class="label">Example</span>an application still shipping a logging library with a published remote code execution flaw.</span></li>
+    <li><strong>A07 Identification and Authentication Failures</strong>, weaknesses in confirming who a user is, including credential stuffing and poor session management. <span class="li-eg"><span class="label">Example</span>session identifiers that never expire and are accepted indefinitely after logout.</span></li>
+    <li><strong>A08 Software and Data Integrity Failures</strong>, trusting code or data whose integrity has not been verified, including insecure deserialisation and unsigned updates. <span class="li-eg"><span class="label">Example</span>a build pipeline pulling an unsigned dependency from an unverified source.</span></li>
+    <li><strong>A09 Security Logging and Monitoring Failures</strong>, insufficient recording or alerting, so breaches go undetected. <span class="li-eg"><span class="label">Example</span>authentication failures never logged, leaving a months-long brute force attempt invisible.</span></li>
+    <li><strong>A10 Server-Side Request Forgery (SSRF)</strong>, an application fetching a remote resource from a user-supplied URL without validation. <span class="li-eg"><span class="label">Example</span>submitting an internal metadata service address so the server retrieves cloud credentials and returns them.</span></li>
   </ul>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -439,31 +459,31 @@
   <h3>OWASP Top 10 API Security Risks</h3>
   <p>APIs fail differently from web front ends, chiefly because authorisation must be enforced per object and per function on every endpoint rather than once at a page boundary.</p>
   <ul class="plain">
-    <li><strong>API1 Broken Object Level Authorization</strong>, an endpoint returning any object whose identifier is supplied, without checking ownership. <em>Example: requesting /orders/1002 and receiving another customer's order.</em></li>
-    <li><strong>API2 Broken Authentication</strong>, weak or missing verification of the caller's identity. <em>Example: an API accepting an expired token because expiry is never validated.</em></li>
-    <li><strong>API3 Broken Object Property Level Authorization</strong>, exposing or accepting fields the caller should not see or set, covering excessive data exposure and mass assignment. <em>Example: a profile endpoint returning the full record including an internal creditRating field, or accepting isAdmin=true in an update.</em></li>
-    <li><strong>API4 Unrestricted Resource Consumption</strong>, no limits on requests, payload size, or downstream cost. <em>Example: an unthrottled search endpoint driven at volume until the database and the bill both collapse.</em></li>
-    <li><strong>API5 Broken Function Level Authorization</strong>, administrative functions reachable by ordinary users because authorisation is enforced in the interface rather than the API. <em>Example: calling DELETE /users/44 directly as a standard user.</em></li>
-    <li><strong>API6 Unrestricted Access to Sensitive Business Flows</strong>, automation abusing a legitimate flow at scale. <em>Example: bots completing a ticket purchase flow thousands of times to corner inventory.</em></li>
+    <li><strong>API1 Broken Object Level Authorization</strong>, an endpoint returning any object whose identifier is supplied, without checking ownership. <span class="li-eg"><span class="label">Example</span>requesting /orders/1002 and receiving another customer's order.</span></li>
+    <li><strong>API2 Broken Authentication</strong>, weak or missing verification of the caller's identity. <span class="li-eg"><span class="label">Example</span>an API accepting an expired token because expiry is never validated.</span></li>
+    <li><strong>API3 Broken Object Property Level Authorization</strong>, exposing or accepting fields the caller should not see or set, covering excessive data exposure and mass assignment. <span class="li-eg"><span class="label">Example</span>a profile endpoint returning the full record including an internal creditRating field, or accepting isAdmin=true in an update.</span></li>
+    <li><strong>API4 Unrestricted Resource Consumption</strong>, no limits on requests, payload size, or downstream cost. <span class="li-eg"><span class="label">Example</span>an unthrottled search endpoint driven at volume until the database and the bill both collapse.</span></li>
+    <li><strong>API5 Broken Function Level Authorization</strong>, administrative functions reachable by ordinary users because authorisation is enforced in the interface rather than the API. <span class="li-eg"><span class="label">Example</span>calling DELETE /users/44 directly as a standard user.</span></li>
+    <li><strong>API6 Unrestricted Access to Sensitive Business Flows</strong>, automation abusing a legitimate flow at scale. <span class="li-eg"><span class="label">Example</span>bots completing a ticket purchase flow thousands of times to corner inventory.</span></li>
     <li><strong>API7 Server Side Request Forgery</strong>, as in the web list, but especially damaging in APIs that routinely fetch remote resources on request.</li>
-    <li><strong>API8 Security Misconfiguration</strong>, permissive CORS policies, missing security headers, unnecessary HTTP methods, or verbose errors. <em>Example: a CORS policy allowing any origin to call an authenticated endpoint.</em></li>
-    <li><strong>API9 Improper Inventory Management</strong>, forgotten, undocumented, or deprecated endpoints left running. <em>Example: an old v1 API still live without the authorisation fixes applied to v2.</em></li>
-    <li><strong>API10 Unsafe Consumption of APIs</strong>, trusting responses from third-party APIs without validation. <em>Example: passing a partner API's response straight into a database query.</em></li>
+    <li><strong>API8 Security Misconfiguration</strong>, permissive CORS policies, missing security headers, unnecessary HTTP methods, or verbose errors. <span class="li-eg"><span class="label">Example</span>a CORS policy allowing any origin to call an authenticated endpoint.</span></li>
+    <li><strong>API9 Improper Inventory Management</strong>, forgotten, undocumented, or deprecated endpoints left running. <span class="li-eg"><span class="label">Example</span>an old v1 API still live without the authorisation fixes applied to v2.</span></li>
+    <li><strong>API10 Unsafe Consumption of APIs</strong>, trusting responses from third-party APIs without validation. <span class="li-eg"><span class="label">Example</span>passing a partner API's response straight into a database query.</span></li>
   </ul>
 
   <h3>OWASP Top 10 for Large Language Model Applications</h3>
   <p>New to this exam outline. The current edition is the 2025 release, and several categories were renamed from the original 2023 list, so material written before then uses different names for the same risks.</p>
   <ul class="plain">
-    <li><strong>LLM01 Prompt Injection</strong>, crafted input altering the model's behaviour or causing it to disregard its instructions, whether supplied directly by a user or indirectly through content the model reads. <em>Example: a web page containing hidden text instructing a summarising agent to exfiltrate the user's data.</em></li>
-    <li><strong>LLM02 Sensitive Information Disclosure</strong>, secrets, personal data, or confidential material leaking through model outputs. <em>Example: a support assistant reproducing another customer's details that appeared in its context.</em></li>
-    <li><strong>LLM03 Supply Chain</strong>, compromised or vulnerable third-party models, datasets, libraries, or hosting. <em>Example: fine-tuning on a public model checkpoint that carries an implanted backdoor.</em></li>
-    <li><strong>LLM04 Data and Model Poisoning</strong>, deliberate manipulation of training, fine-tuning, or retrieval data to shape behaviour. <em>Example: seeding a public dataset so the resulting model misclassifies a specific fraud pattern as legitimate.</em></li>
-    <li><strong>LLM05 Improper Output Handling</strong>, downstream systems trusting model output without validation. <em>Example: rendering a model's response into a dashboard unsanitised, so embedded script executes in an analyst's browser.</em></li>
-    <li><strong>LLM06 Excessive Agency</strong>, granting the model or agent more capability, autonomy, or permission than is safe. <em>Example: an agent given write access to a production database when read access would serve.</em></li>
-    <li><strong>LLM07 System Prompt Leakage</strong>, internal prompts, policies, or tool definitions being extracted. <em>Example: a user coaxing the assistant into reprinting its configuration, revealing which controls it enforces and how to evade them.</em></li>
-    <li><strong>LLM08 Vector and Embedding Weaknesses</strong>, attack and leakage paths introduced by retrieval-augmented generation, indexing, and embeddings. <em>Example: weak tenant separation in a vector database returning another customer's documents in a retrieval result.</em></li>
-    <li><strong>LLM09 Misinformation</strong>, confidently incorrect output being acted upon as fact. <em>Example: an assistant inventing a regulatory citation that staff then rely on in a compliance filing.</em></li>
-    <li><strong>LLM10 Unbounded Consumption</strong>, cost, latency, or capacity exhausted through abuse or missing limits. <em>Example: an unauthenticated endpoint driven with long prompts until inference spend runs away.</em></li>
+    <li><strong>LLM01 Prompt Injection</strong>, crafted input altering the model's behaviour or causing it to disregard its instructions, whether supplied directly by a user or indirectly through content the model reads. <span class="li-eg"><span class="label">Example</span>a web page containing hidden text instructing a summarising agent to exfiltrate the user's data.</span></li>
+    <li><strong>LLM02 Sensitive Information Disclosure</strong>, secrets, personal data, or confidential material leaking through model outputs. <span class="li-eg"><span class="label">Example</span>a support assistant reproducing another customer's details that appeared in its context.</span></li>
+    <li><strong>LLM03 Supply Chain</strong>, compromised or vulnerable third-party models, datasets, libraries, or hosting. <span class="li-eg"><span class="label">Example</span>fine-tuning on a public model checkpoint that carries an implanted backdoor.</span></li>
+    <li><strong>LLM04 Data and Model Poisoning</strong>, deliberate manipulation of training, fine-tuning, or retrieval data to shape behaviour. <span class="li-eg"><span class="label">Example</span>seeding a public dataset so the resulting model misclassifies a specific fraud pattern as legitimate.</span></li>
+    <li><strong>LLM05 Improper Output Handling</strong>, downstream systems trusting model output without validation. <span class="li-eg"><span class="label">Example</span>rendering a model's response into a dashboard unsanitised, so embedded script executes in an analyst's browser.</span></li>
+    <li><strong>LLM06 Excessive Agency</strong>, granting the model or agent more capability, autonomy, or permission than is safe. <span class="li-eg"><span class="label">Example</span>an agent given write access to a production database when read access would serve.</span></li>
+    <li><strong>LLM07 System Prompt Leakage</strong>, internal prompts, policies, or tool definitions being extracted. <span class="li-eg"><span class="label">Example</span>a user coaxing the assistant into reprinting its configuration, revealing which controls it enforces and how to evade them.</span></li>
+    <li><strong>LLM08 Vector and Embedding Weaknesses</strong>, attack and leakage paths introduced by retrieval-augmented generation, indexing, and embeddings. <span class="li-eg"><span class="label">Example</span>weak tenant separation in a vector database returning another customer's documents in a retrieval result.</span></li>
+    <li><strong>LLM09 Misinformation</strong>, confidently incorrect output being acted upon as fact. <span class="li-eg"><span class="label">Example</span>an assistant inventing a regulatory citation that staff then rely on in a compliance filing.</span></li>
+    <li><strong>LLM10 Unbounded Consumption</strong>, cost, latency, or capacity exhausted through abuse or missing limits. <span class="li-eg"><span class="label">Example</span>an unauthenticated endpoint driven with long prompts until inference spend runs away.</span></li>
   </ul>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>

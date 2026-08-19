@@ -917,6 +917,72 @@
     <p>A bank's fraud detection model starts generating noticeably more false positives over several weeks, with no obvious change in actual fraud patterns. Rather than dismissing this as routine noise, the security team investigates it as a potential incident, since it could point to a subtle problem with the data the model is now receiving.</p>
   </div>
 
+  <h3>Core AI and ML vocabulary</h3>
+  <p>The outline assumes familiarity with the terms, and questions often turn on distinguishing them. A <strong>model</strong> is the artefact produced by training, holding learned parameters or weights. <strong>Training</strong> is the process of deriving those weights from a dataset; <strong>inference</strong> is using the finished model to produce an output for a new input. <strong>Fine-tuning</strong> adapts an existing pre-trained model with additional, usually narrower, data rather than training from scratch. A <strong>foundation model</strong> is a large general-purpose model intended to be adapted for many downstream uses.</p>
+  <p><strong>Retrieval-Augmented Generation (RAG)</strong> supplies a model with relevant documents retrieved at query time rather than relying only on what it learned during training, which keeps answers current without retraining but introduces the retrieval store as a new attack surface. An <strong>agent</strong> is a model given tools and the autonomy to call them, which converts a system that produces text into one that takes actions.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank uses a foundation model, fine-tunes it on its own policy documents, and deploys it with RAG over a live product database. Three distinct trust boundaries now exist: the vendor's original training data, the bank's fine-tuning corpus, and the documents retrieved at query time. A weakness in any of them reaches the answer the customer sees.</p>
+  </div>
+
+  <h3>AI governance frameworks</h3>
+  <p>Because the 3rd Edition study guide predates this material entirely, these frameworks are worth knowing by name and purpose.</p>
+  <ul class="plain">
+    <li><strong>NIST AI Risk Management Framework (AI RMF)</strong>, a voluntary framework structured around four functions: Govern, Map, Measure, and Manage. Govern establishes the culture and accountability, Map establishes context and identifies risks, Measure analyses and tracks them, and Manage allocates resources to treat them.
+      <span class="li-eg"><span class="label">In practice</span>An energy company uses it to demonstrate to its board that AI risk is handled through the same discipline as other enterprise risk rather than as a separate experiment.</span></li>
+    <li><strong>ISO/IEC 42001</strong>, the international standard for an AI management system, structured like ISO/IEC 27001 but for AI. It is certifiable, which matters when customers or regulators want independent evidence rather than self-assertion.
+      <span class="li-eg"><span class="label">In practice</span>A cloud provider certifies against it so customers can rely on an attestation rather than auditing the provider's AI practices themselves.</span></li>
+    <li><strong>EU AI Act</strong>, risk-tiered legislation classifying systems as unacceptable, high, limited, or minimal risk, with obligations escalating accordingly. High-risk systems carry requirements covering data governance, technical documentation, human oversight, accuracy, and robustness.
+      <span class="li-eg"><span class="label">In practice</span>An AI system screening job applicants falls into the high-risk tier, so the employer must document its data, provide meaningful human oversight, and be able to explain outcomes.</span></li>
+    <li><strong>MITRE ATLAS</strong>, an adversarial threat knowledge base for AI systems, structured like MITRE ATT&amp;CK but cataloguing tactics and techniques used against machine learning.
+      <span class="li-eg"><span class="label">In practice</span>A security team uses it to build test cases for AI-specific attacks the way it already uses ATT&amp;CK for conventional intrusion techniques.</span></li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep the four apart by what they are. NIST AI RMF is a voluntary risk process. ISO/IEC 42001 is a certifiable management system. The EU AI Act is binding law with risk tiers. MITRE ATLAS is a threat catalogue, not a governance framework at all.</p>
+  </div>
+
+  <h3>Adversarial attacks against AI systems</h3>
+  <p>Beyond model inversion and extraction covered above, several attack classes recur and are distinguished by which phase they target and what the attacker gains.</p>
+  <ul class="plain">
+    <li><strong>Data poisoning</strong>, corrupting training data so the finished model behaves as the attacker intends. Targets the training phase.
+      <span class="li-eg"><span class="label">Example</span>Contributing crafted samples to a public dataset so a fraud model learns to treat one transaction pattern as legitimate.</span></li>
+    <li><strong>Adversarial examples (evasion)</strong>, crafting an input with small perturbations that cause misclassification at inference time, often imperceptible to a human.
+      <span class="li-eg"><span class="label">Example</span>Modifying a handful of pixels so a malware image classifier reports a malicious file as benign.</span></li>
+    <li><strong>Membership inference</strong>, determining whether a specific individual's record was part of the training set, which is a privacy breach even when the record itself is not recovered.
+      <span class="li-eg"><span class="label">Example</span>Establishing that a named patient's record was in a hospital's training data, thereby revealing they were treated there.</span></li>
+    <li><strong>Model extraction (stealing)</strong>, querying a deployed model systematically to reconstruct an equivalent model, taking the intellectual property without the training cost.
+      <span class="li-eg"><span class="label">Example</span>Driving a public pricing API with thousands of varied queries until the pricing logic can be replicated.</span></li>
+    <li><strong>Model inversion</strong>, reconstructing attributes of training data from model outputs.
+      <span class="li-eg"><span class="label">Example</span>Recovering recognisable features of faces used to train a facial recognition model.</span></li>
+  </ul>
+
+  <h3>AI supply chain and transparency artefacts</h3>
+  <p>An AI system inherits risk from every model, dataset, and library it depends on, most of which the organisation did not create. Two artefacts address this.</p>
+  <ul class="plain">
+    <li><strong>AI Bill of Materials (AI-BOM)</strong>, extending the SBOM concept to record the models, datasets, and frameworks a system depends on, so that when a public model or dataset is found to be compromised the affected systems can be identified quickly.</li>
+    <li><strong>Model cards and datasheets</strong>, structured documentation describing a model's intended use, training data, evaluation results, limitations, and known biases, which supports both governance and the explainability obligations regulators increasingly impose.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A widely used open model checkpoint is found to carry an implanted backdoor. An organisation with an AI-BOM identifies within minutes which of its services fine-tuned from it. An organisation without one begins a manual investigation across every team that has touched machine learning.</p>
+  </div>
+
+  <h3>Guardrails and AI red teaming</h3>
+  <p><strong>Guardrails</strong> are controls placed around a model rather than inside it, filtering what reaches it and what it returns. Input guardrails screen for prompt injection and disallowed requests; output guardrails screen for sensitive data disclosure, unsafe content, and malformed responses before anything downstream consumes them. Because the model itself is probabilistic and cannot be guaranteed to behave, guardrails are where deterministic enforcement lives.</p>
+  <p><strong>AI red teaming</strong> is structured adversarial testing of an AI system, probing for prompt injection, data leakage, unsafe outputs, and excessive agency. It differs from conventional penetration testing in that the same input may produce different outputs on different runs, so findings are expressed as likelihood across repeated attempts rather than as a single reproducible exploit.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank's red team finds that one phrasing extracts internal policy text from its assistant roughly one attempt in twenty. A conventional penetration test might have run it once, seen a refusal, and recorded a pass. The probabilistic nature of the system is precisely why repeated testing matters.</p>
+  </div>
+
+  <h3>Securing agentic AI</h3>
+  <p>An agent that can call tools can take actions with real consequences, which changes the risk profile substantially. Three controls matter most: <strong>least privilege for tools</strong>, granting the agent only the specific capabilities its task requires rather than broad access; <strong>identity per agent</strong>, so actions are attributable and revocable individually rather than hidden behind a shared service account; and <strong>human-in-the-loop approval</strong> for consequential or irreversible actions.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company deploys an agent to reconcile shipping invoices. Given write access to the finance system it could, if manipulated through a crafted invoice, alter payment details. Restricted to read access with a human approving any change, the same manipulation produces a flagged anomaly rather than a fraudulent payment.</p>
+  </div>
+
   <h3>Why this matters for the exam</h3>
   <ul class="plain">
     <li>Do not assume AI replaces human judgement anywhere in the CCSP body of knowledge. Every reference to AI in the outline positions it as a tool that assists and scales human effort, not a replacement for it.</li>

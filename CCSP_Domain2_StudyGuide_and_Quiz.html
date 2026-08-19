@@ -736,6 +736,54 @@
     <span class="label">Example</span>
     <p>A telecom company trains a churn model on customer data in a cloud data lake. Before training, discovery tooling scans the lake and flags fields containing personal data, which are masked. The pipeline verifies each source feed's integrity by checksum before ingestion. Training runs in a region-restricted environment to satisfy UK data residency, and when the training cluster is torn down, the ephemeral volumes are cryptographically erased so no fragment of customer data survives on the recycled hardware.</p>
   </div>
+  <h3>Privacy-preserving techniques compared</h3>
+  <p>Several techniques protect personal data in AI pipelines, and they solve different problems. Selecting the wrong one is a common design error.</p>
+  <ul class="plain">
+    <li><strong>Differential privacy</strong>, adding calibrated statistical noise so no individual record can be reliably inferred from outputs. Protects at the point of release or inference, and carries an accuracy cost that must be tuned deliberately.
+      <span class="li-eg"><span class="label">Example</span>A bank publishes aggregate fraud statistics with noise applied, so the figures remain useful in aggregate while no single customer's transaction can be isolated.</span></li>
+    <li><strong>Homomorphic encryption</strong>, permitting computation on data while it remains encrypted, so it is never exposed in plain form during processing. Computationally expensive, so typically reserved for narrowly scoped high-sensitivity operations.
+      <span class="li-eg"><span class="label">Example</span>A third-party analytics service computes risk scores over encrypted health records without ever being able to read them.</span></li>
+    <li><strong>Federated learning</strong>, training a shared model across distributed datasets without centralising the data, sending model updates rather than records to a coordinating server. Reduces exposure but does not eliminate it, since updates themselves can leak information about the underlying data.
+      <span class="li-eg"><span class="label">Example</span>Several hospitals jointly train a diagnostic model while each patient record remains inside the hospital that holds it.</span></li>
+    <li><strong>Synthetic data</strong>, artificially generated data preserving the statistical properties of the original without containing real records. Useful for development and testing, though poorly generated synthetic data can still leak information about the source.
+      <span class="li-eg"><span class="label">Example</span>A telecom operator generates synthetic subscriber records so a development team can build and test without touching live customer data.</span></li>
+    <li><strong>Data minimisation</strong>, collecting and retaining only the personal data the training purpose genuinely requires. The simplest control and frequently the most overlooked, since machine learning culture tends toward gathering everything available.
+      <span class="li-eg"><span class="label">Example</span>Removing customer names and full addresses from a churn training set once analysis confirms postcode district alone carries the predictive value.</span></li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Match the technique to the constraint. If data must not leave its location, the answer is federated learning. If it must be processed by a party who may not read it, the answer is homomorphic encryption. If outputs must not reveal individuals, the answer is differential privacy. If a realistic dataset is needed for development, the answer is synthetic data.</p>
+  </div>
+
+  <h3>Securing the RAG and vector pipeline</h3>
+  <p>Retrieval-augmented generation introduces a data store that is queried at inference time, which makes it a live data security concern rather than a training-phase one. Three issues recur.</p>
+  <p><strong>Tenant isolation in vector databases</strong> must be enforced explicitly, because embeddings from different customers stored in a shared index can be returned by a semantic search that has no inherent concept of ownership. <strong>Embedding inversion</strong> is the risk that the original text can be partially reconstructed from its vector representation, which means embeddings of sensitive text must be protected as though they were the text itself. <strong>Retrieval poisoning</strong> occurs where an attacker places content into the corpus specifically so it will be retrieved and influence answers.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank indexes internal policy documents alongside customer correspondence in one vector store, assuming the application layer will filter results. A query phrased to match correspondence returns another customer's letter, because the retrieval step ran before any access check. Isolation belongs in the index, not only in the application above it.</p>
+  </div>
+
+  <h3>Applying the data lifecycle to AI assets</h3>
+  <p>The six lifecycle phases apply to training data and to models themselves, and each raises a question that conventional data governance does not.</p>
+  <ul class="plain">
+    <li><strong>Create and store</strong>, where consent and lawful basis must cover the use of personal data for model training specifically, not merely for the purpose it was originally collected.</li>
+    <li><strong>Use</strong>, covering both training and inference, where the model becomes a derived asset carrying information about its training data.</li>
+    <li><strong>Share</strong>, where releasing a trained model may effectively share information about the individuals in the training set, even when no records accompany it.</li>
+    <li><strong>Archive</strong>, where training datasets and model versions must be retained for reproducibility and audit, extending the period over which personal data is held.</li>
+    <li><strong>Destroy</strong>, which raises the hardest question in AI data protection: whether deleting an individual's record obliges the organisation to remove that individual's influence from a model already trained on it.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A customer exercises the right to erasure. Deleting the source record is straightforward. Whether the model trained on that record must also be retrained, or whether machine unlearning techniques suffice, is unsettled and expensive either way. Organisations increasingly address it in advance by minimising personal data in training sets and documenting retraining cycles, rather than resolving it case by case.</p>
+  </div>
+
+  <h3>Data provenance and lineage</h3>
+  <p><strong>Provenance</strong> records where data originated and under what terms; <strong>lineage</strong> records how it was transformed on its way into a model. Together they answer the questions an investigation or regulator will ask: what data trained this model, was the organisation entitled to use it, and can that be evidenced. Provenance also underpins licensing compliance, since public datasets frequently carry terms restricting commercial use that are easy to overlook.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company discovers a production model was fine-tuned on a scraped public dataset whose licence prohibits commercial use. Without provenance records the exposure surfaced only during a due diligence exercise for an acquisition, by which time the model was embedded in a customer-facing service.</p>
+  </div>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Anchor each control to its point in the AI lifecycle. Validation and verification protect the training phase against poisoning. Differential privacy protects the inference phase against individual disclosure. Homomorphic encryption protects data during processing. Data remanence controls protect after the compute is released. A question naming the phase is telling you which control it wants.</p>

@@ -1,0 +1,2317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CCSP Domain 3: Cloud Platform and Infrastructure Security</title>
+<style>
+  :root{
+    --navy:#1F3864;
+    --navy-light:#2E4E8C;
+    --gold:#B08D57;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --border:#E2E1DC;
+    --text:#26251F;
+    --text-secondary:#5B594F;
+    --text-muted:#8A8879;
+    --success-bg:#E9F3E9;
+    --success-text:#1F6B2E;
+    --success-border:#8FCB9A;
+    --danger-bg:#FBEAE8;
+    --danger-text:#A32D2D;
+    --danger-border:#E8A6A0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 4rem;
+  }
+  .masthead{
+    margin-bottom:1rem;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 .35rem;
+  }
+  h1{
+    font-size:28px;
+    font-weight:700;
+    margin:0 0 .25rem;
+    color:var(--navy);
+  }
+  .subhead{
+    font-size:15px;
+    color:var(--text-secondary);
+    margin:0 0 .6rem;
+  }
+  .signature{
+    font-size:13px;
+    color:var(--text-muted);
+    font-style:italic;
+    margin:0;
+    padding-top:.5rem;
+    border-top:1px solid var(--border);
+  }
+  .backlink{
+    display:inline-block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+    text-decoration:none;
+    margin-bottom:1rem;
+  }
+  .backlink:hover{ text-decoration:underline; }
+  .ai-note{
+    background:#FFF8E8;
+    border:1px solid #E8D9A8;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.8rem 1.05rem;
+    margin:1rem 0 0;
+  }
+  .ai-note p{
+    margin:0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--text-secondary);
+  }
+  .ai-note strong{ color:var(--text); }
+  .tabbar{
+    display:flex;
+    gap:4px;
+    border-bottom:2px solid var(--border);
+    margin:1.75rem 0 0;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    z-index:10;
+  }
+  .tabbtn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    padding:.75rem 1.25rem;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-muted);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tabbtn:hover{ color:var(--navy); }
+  .tabbtn.active{
+    color:var(--navy);
+    border-bottom-color:var(--navy);
+  }
+  .tabpanel{ display:none; padding-top:1.75rem; }
+  .tabpanel.active{ display:block; }
+
+  /* ---------- STUDY TAB ---------- */
+  .topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.5rem;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--navy);
+    background:#EAF0FB;
+    border:1px solid #C9D9F2;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:.5rem;
+  }
+  .book-ref{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-secondary);
+    margin-bottom:.85rem;
+  }
+  .book-ref i{
+    color:var(--text-muted);
+    font-style:normal;
+    font-weight:600;
+  }
+  .topic-card h2{
+    font-size:20px;
+    margin:0 0 .75rem;
+    color:var(--navy);
+  }
+  .topic-card h3{
+    font-size:15px;
+    margin:1.25rem 0 .4rem;
+    color:var(--text);
+  }
+  .topic-card p{
+    font-size:15px;
+    color:var(--text);
+    margin:0 0 .75rem;
+  }
+  .note-box{
+    background:#F3F6FC;
+    border-left:3px solid var(--navy-light);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.85rem 0 0;
+  }
+  .note-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .example-box{
+    background:#FBF8F2;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.75rem 0 0;
+  }
+  .example-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .example-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  ul.plain{ margin:.25rem 0 .75rem; padding-left:1.2rem; }
+  ul.plain li{ font-size:15px; margin-bottom:.3rem; }
+
+  .study-subnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:1.5rem;
+  }
+  .study-subnav a{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    padding:5px 12px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+
+  /* ---------- QUIZ TAB ---------- */
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-bottom:1.25rem;
+    padding-bottom:1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .quiz-progress{
+    font-size:14px;
+    color:var(--text-secondary);
+  }
+  .quiz-progress strong{ color:var(--navy); }
+  .reset-btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text-secondary);
+    font-size:13px;
+    font-weight:600;
+    padding:.5rem 1rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .reset-btn:hover{
+    border-color:#D8A0A0;
+    color:var(--danger-text);
+    background:#FDF4F3;
+  }
+  .qcard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.25rem;
+  }
+  .qmeta{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:.5rem;
+  }
+  .qstem{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--text);
+    margin:0 0 1rem;
+  }
+  .qoptions{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem; }
+  .qoption{
+    display:flex;
+    align-items:flex-start;
+    gap:.65rem;
+    padding:.65rem .85rem;
+    border:1px solid var(--border);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .qoption:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .qoption input{
+    margin-top:3px;
+    accent-color:var(--navy);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .qoption label{
+    font-size:14.5px;
+    cursor:pointer;
+    color:var(--text);
+  }
+  .qoption.correct-choice{
+    border-color:var(--success-border);
+    background:var(--success-bg);
+  }
+  .qoption.incorrect-choice{
+    border-color:var(--danger-border);
+    background:var(--danger-bg);
+  }
+  .qactions{ display:flex; align-items:center; gap:.75rem; }
+  .submit-btn{
+    appearance:none;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:600;
+    padding:.6rem 1.3rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .submit-btn:hover{ background:var(--navy-light); }
+  .submit-btn:disabled{ background:#B9C4D6; cursor:not-allowed; }
+  .inline-warn{
+    font-size:13px;
+    color:var(--danger-text);
+    display:none;
+  }
+  .feedback{
+    margin-top:1rem;
+    padding:.9rem 1.1rem;
+    border-radius:8px;
+    font-size:14px;
+    display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.correct{
+    background:var(--success-bg);
+    border:1px solid var(--success-border);
+    color:var(--success-text);
+  }
+  .feedback.incorrect{
+    background:var(--danger-bg);
+    border:1px solid var(--danger-border);
+    color:var(--danger-text);
+  }
+  .feedback .verdict{
+    font-weight:700;
+    margin-bottom:.35rem;
+    display:block;
+  }
+  .feedback .rationale{
+    color:var(--text);
+    font-weight:400;
+    line-height:1.55;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <a class="backlink" href="index.html">&larr; All domains</a>
+    <p class="eyebrow">CCSP &middot; Domain 3</p>
+    <h1>Cloud Platform and Infrastructure Security</h1>
+    <p class="subhead">Study material and a 70-question practice set, aligned to the ISC2 exam outline effective August 1, 2026. Each section notes where it lines up with the Official CCSP Study Guide, 3rd Edition, by Mike Chapple and David Seidl, so the two can be read together.</p>
+    <p class="signature">Prepared by Kalyan Pradeep Potnuru for CCSP Preparation.</p>
+    <div class="ai-note">
+      <p><strong>AI-generated study aid.</strong> This material was produced with AI assistance for rapid preparation and planning. It is not affiliated with, endorsed by, or connected to ISC2. The questions are original practice items written against the published exam outline. They are not real exam questions and are not claimed to resemble what ISC2 will ask. Use this to build familiarity and structure your revision, and verify everything against official sources.</p>
+    </div>
+
+  </div>
+
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="study">Study material</button>
+    <button class="tabbtn" data-tab="quiz">Questionnaire</button>
+  </div>
+
+  <!-- ===================== STUDY TAB ===================== -->
+  <div class="tabpanel active" id="tab-study">
+
+    <div class="study-subnav">
+      <a href="#s31">3.1 Infrastructure components</a>
+      <a href="#s32">3.2 Secure data centre design</a>
+      <a href="#s33">3.3 Risk analysis</a>
+      <a href="#s34">3.4 Security controls</a>
+      <a href="#s35">3.5 BC and DR</a>
+    </div>
+
+    <a id="s31"></a>
+
+<!-- STUDY_3_1_3_2 -->
+<div class="topic-card">
+  <span class="topic-tag">3.1 Cloud infrastructure and platform components</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 5, Cloud Platform, Infrastructure, and Operational Security (physical environment, network, compute, virtualization, storage, and management plane sections).</span>
+  <h2>The building blocks a cloud runs on</h2>
+
+  <p>Cloud infrastructure is the physical and virtual resources inside data centres: compute nodes, storage systems, and networking hardware, together with the virtualisation software and management layer that turn them into a service. The outline names six components, and the exam expects you to know what each covers and who is responsible for it.</p>
+
+  <h3>Physical environment</h3>
+  <p>The server rooms, data centres, and physical locations where the infrastructure sits. Who owns this depends on the deployment model, which is a point worth remembering: in a private cloud built on premises, the organisation is effectively its own provider and owns the physical environment. In a community cloud, a community member often supplies the space and hardware. With a commercial public provider, the provider owns it entirely and the customer typically never sees it.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank running a private cloud in its own data centre is responsible for the locks on the doors, the guards, and the fire suppression. The same bank using a public provider inherits all of that from the provider and can only verify it through audit reports, never by walking the floor.</p>
+  </div>
+
+  <h3>Network and communications</h3>
+  <p>The provider secures the networking components it houses. The customer manages any components in its own facilities. The public internet connecting the two is the primary area of concern, because neither party controls it. The provider must support secure methods such as HTTPS, encryption before transmission, and VPN access, and the customer is expected to actually use them. Both parties implement firewalls and related technologies on their own side of the boundary.</p>
+
+  <h3>Compute</h3>
+  <p>Compute capability is defined mainly by CPU, which determines processing power, and RAM, which holds data actively being processed and keeps latency low. What makes cloud compute distinctive is how it is allocated in a multi-tenant environment, through three mechanisms you should be able to distinguish:</p>
+  <ul class="plain">
+    <li><strong>Reservations</strong>, a guaranteed minimum of resource for a system, ensuring it always has what it needs to perform.</li>
+    <li><strong>Shares</strong>, a relative priority weighting used to decide who gets contested resources when demand exceeds supply.</li>
+    <li><strong>Limits</strong>, a ceiling preventing any one workload from consuming more than its allowed maximum.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company's monitoring workload has a reservation guaranteeing four CPU cores so it never starves during a busy period. A batch reporting job has a limit capping it at two cores so it cannot crowd out anything else. When both compete for whatever is left over, their shares values decide who wins.</p>
+  </div>
+
+  <h3>Storage</h3>
+  <p>Cloud storage spreads data across distributed and often replicated resources. The two primary types at infrastructure level are <strong>volume storage</strong>, which behaves like a traditional hard drive attached to a virtual machine and suits file systems and databases needing low latency, and <strong>object storage</strong>, which suits unstructured data such as media, backups, and analytics datasets. Two underlying technologies support them: <strong>RAID</strong>, improving data integrity and performance through redundancy across disks, and <strong>SAN</strong>, connecting storage devices over a separate high speed network for reliable, flexible capacity.</p>
+
+  <h3>Virtualisation</h3>
+  <p>Virtualisation is the backbone of every cloud hosting model. It is what makes resource pooling, on-demand self-service, and scalability possible in the first place: without the ability to carve physical hardware into isolated logical instances, none of the essential characteristics could be delivered. It also introduces the hypervisor as a high value target and tenant isolation as a security requirement.</p>
+
+  <h3>Management plane</h3>
+  <p>The management plane enables remote administration of one or many hosts, providing the functions that define cloud operation: creating, starting, and stopping virtual machines, provisioning storage, and configuring networking. It is the single most security-sensitive component in the infrastructure, because compromising it grants control over everything beneath it. A stolen credential for a virtual machine costs you one machine; a stolen management plane credential can cost you the entire environment.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Reservations, shares, and limits are frequently swapped in distractors. Reservation is a guaranteed floor, limit is a hard ceiling, and shares are relative priority during contention. If a scenario describes a workload that must never be starved, it wants a reservation. If it describes a workload that must never run away with the host, it wants a limit.</p>
+  </div>
+</div>
+
+<a id="s32"></a>
+<div class="topic-card">
+  <span class="topic-tag">3.2 Design a secure data center</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 5, Cloud Platform, Infrastructure, and Operational Security (logical, physical, and environmental design sections).</span>
+  <h2>Logical, physical, environmental, and resilient design</h2>
+
+  <h3>Logical design</h3>
+  <p>The logical layout is the abstract representation of the data centre, and in a public cloud it is what the customer actually builds using the provider's tools and services. Getting it right is central to security. It covers tenant partitioning and access control, and in practice includes access management, regulatory compliance monitoring, patch management, log analysis, and service configuration, with Identity and Access Management establishing the secure perimeter.</p>
+  <p>Consistency of configuration is the recurring theme. The business specifies how each authorised cloud service should be configured and used, and uniform configuration makes administration simpler and usually more secure. Deviations from the established pattern should not be approved without first assessing the risk the variance introduces.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank defines one approved configuration pattern for its cloud storage buckets: encryption on, public access blocked, logging enabled. When a project team asks for an exception to allow public access for a marketing asset, the request goes through risk assessment before approval rather than being granted as a routine change. The pattern is what makes the exception visible.</p>
+  </div>
+
+  <h3>Physical design</h3>
+  <p>Physical design is normally the owner's responsibility, which in a public cloud means the provider. Multi-tenancy adds complexity, but otherwise a provider's data centre resembles an on-premises one. Two considerations dominate:</p>
+  <ul class="plain">
+    <li><strong>Location</strong>, which materially reduces disaster risk. Regions prone to natural disasters, civil unrest, or similar instability should be avoided.</li>
+    <li><strong>Buy or build, and buy and hold</strong>, recognising that moving to a cloud data centre is a long-term commitment. The decision weighs data sensitivity, the legal regulations governing where data may be stored, and the availability of qualified staff for on-premises maintenance. Where law prevents data crossing borders, the customer may have to keep data on premises unless the provider's contract can guarantee compliance.</li>
+  </ul>
+
+  <h3>Environmental design</h3>
+  <p>Except in private clouds, the provider owns environmental design, and it directly affects the availability of cloud resources. For customers, evaluating a vendor's environmental design is part of vendor risk analysis.</p>
+  <ul class="plain">
+    <li><strong>HVAC</strong>, heating, ventilation, and air conditioning. Every computing facility must prioritise electrical service and climate control. Local climate shapes the emphasis: a facility near the equator worries far more about cooling than heating. The key exam point is that an HVAC failure can take out computing resources just as completely as an electrical or communications outage, which is why HVAC capacity and redundancy belong in any provider evaluation.</li>
+    <li><strong>Multi-vendor pathway connectivity</strong>, using multiple internet service providers or connectivity vendors so that a single carrier failure does not sever access. The problem is usually not the internet as a whole but the connectivity of one specific customer or provider, which is exactly what multiple independent pathways solve.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A contractor severs a fibre run outside a data centre. With a single connectivity vendor, the facility is unreachable however healthy the servers inside are. With multi-vendor pathway connectivity over physically separate routes, traffic shifts to the second carrier and the outage is invisible to users.</p>
+  </div>
+
+  <h3>Design for resilience</h3>
+  <p>Resilience is the ability to adapt to changing conditions and recover from disruption, achieved by proactive design rather than reaction. The outline anchors it to power, HVAC, and connectivity, the three utilities whose loss stops a data centre regardless of anything else. Practical design actions include siting the facility away from known hazard regions, designing with flexibility, building reliable and simple systems, adding redundancy wherever possible, and applying passive design principles that keep working without active intervention.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Match the design category to the concern. Tenant partitioning and access control are logical design. Site selection and the buy or build decision are physical design. HVAC and multi-vendor connectivity are environmental design. Redundant power, cooling, and connectivity are resilience. Questions often describe one concern and offer all four categories as options.</p>
+  </div>
+</div>
+
+<a id="s33"></a>
+<!-- STUDY_3_3_3_4_3_5 -->
+<div class="topic-card">
+  <span class="topic-tag">3.3 Risks associated with cloud infrastructure and platforms</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 4, Security in the Cloud (cloud risks and risk management sections) and Chapter 5.</span>
+  <h2>Assessing, understanding, and treating cloud risk</h2>
+
+  <h3>Risk assessment</h3>
+  <p>Industry bodies publish useful risk lists, but every organisation, whether providing or consuming cloud services, must conduct its own assessment, because risk depends on the organisation's own data, obligations, and tolerance. Risk assessment has two parts: <strong>identification</strong>, finding what could go wrong, and <strong>analysis</strong>, judging how likely it is and how much it would hurt.</p>
+  <p>The organisational and regulatory risks that recur in cloud adoption include <strong>lock-in</strong>, where dependence on a single provider reduces flexibility; <strong>governance</strong>, ensuring policies actually manage cloud resources effectively and compliantly; <strong>data security and privacy</strong>, protecting stored data from unauthorised access; and compliance and jurisdictional exposure arising from where data and processing sit.</p>
+
+  <h3>Cloud vulnerabilities, threats, and attacks</h3>
+  <p>The fundamental risk of cloud is its internet-based model: the service is reachable by anyone with a connection, which means attacks can originate anywhere in the world. Threats may target the customer, the provider, or another of the provider's customers, and may also stem from the geographic location of the data centre itself. Denial of service is the classic example of an attack whose effect can reach a customer who was never the intended target, because shared infrastructure means shared consequences.</p>
+  <p>A second category is the insider risk on the provider's side: the possibility of data theft by provider employees. Contractual agreements help, but prevention is stronger. The practical defence is encryption with the customer managing its own keys externally, so that data exposed at the provider is unreadable without keys the provider never holds.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A volumetric denial of service attack aimed at one tenant saturates shared network capacity, degrading service for unrelated customers on the same infrastructure. None of them were targeted, and none of them could have prevented it, which is the essence of shared technology risk.</p>
+  </div>
+
+  <h3>Risk treatment strategies</h3>
+  <p>Once risk is identified and analysed, it must be treated. The five formal treatments are the ones to know precisely, because distractors trade on confusing them:</p>
+  <ul class="plain">
+    <li><strong>Avoid</strong>, eliminating the risk by not undertaking the activity at all.</li>
+    <li><strong>Mitigate</strong>, applying controls that reduce likelihood or impact.</li>
+    <li><strong>Transfer</strong>, shifting the financial consequence to another party, typically through insurance.</li>
+    <li><strong>Share</strong>, distributing risk across parties, for example through a partnership or contractual allocation.</li>
+    <li><strong>Accept</strong>, consciously deciding to bear the risk because treatment costs more than the exposure warrants.</li>
+  </ul>
+  <p>Alongside the formal taxonomy, the practical mitigation measures emphasised for cloud infrastructure are data encryption at rest, two-factor authentication, eliminating shared accounts so actions are attributable to individuals, insisting on a well-defined shared responsibility model, and using standardised cloud assessment questionnaires when evaluating providers.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Transfer moves the financial impact, usually via insurance, but the incident still happens and the reputational damage is still yours. Mitigate reduces likelihood or impact through controls. Accept is a deliberate documented decision, not the absence of one. A scenario describing cyber insurance is transfer, never mitigation.</p>
+  </div>
+</div>
+
+<a id="s34"></a>
+<div class="topic-card">
+  <span class="topic-tag">3.4 Plan and implement security controls</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 5, Cloud Platform, Infrastructure, and Operational Security (physical and environmental protection, system and communication protection, IAM, and audit mechanisms sections).</span>
+  <h2>Protecting systems, controlling access, and proving it happened</h2>
+
+  <h3>Physical and environmental protection</h3>
+  <p>Site selection drives physical protection. Placing a data centre near water in a region subject to storms, flooding, tornadoes, or seismic activity is poor practice. The selection criteria include the ability to restrict physical access, an adequate available workforce, and reliable access to power and other essential resources. Network capacity is a baseline requirement for any data centre, and for a provider serving many clients across a wide geography these standards are often more demanding than for an on-premises facility.</p>
+
+  <h3>System, storage, and communication protection</h3>
+  <ul class="plain">
+    <li><strong>Policy and procedures</strong>, the documented foundation that makes every other control consistent and enforceable.</li>
+    <li><strong>Security function isolation</strong>, separating security functions from other system operations so that compromising an application does not hand over the controls protecting it.</li>
+    <li><strong>Denial of service protection</strong>, combining resilience, prompt detection and response, and effective bandwidth and capacity management.</li>
+    <li><strong>Boundary protection</strong>, firewalls, intrusion detection and prevention, and related controls at the edges between trust zones.</li>
+  </ul>
+  <p>For <strong>data in transit</strong>, the recommended protections are TLS, IPSec, and VPNs, ensuring transmitted data cannot be read or altered in flight.</p>
+
+  <h3>Identification, authentication, and authorisation</h3>
+  <p>Organisations either extend existing on-premises IAM into the cloud or adopt cloud-based IAM services, weighing ease of management, security requirements, and the prospect of single sign-on across systems. Provider-supplied IAM systems are an option but tie the organisation more closely to that provider. User education underpins all of it: teaching people not to reuse passwords and to recognise phishing protects the identity layer in a way no technical control fully can.</p>
+  <p>The <strong>shared responsibility model</strong> governs the split. Providers are generally responsible for securing the infrastructure supporting the services. Customers are responsible for the security of their own data within those services, including encryption at rest and in transit and the implementation of robust access controls.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom company extends its corporate identity provider into its cloud accounts so engineers use one set of credentials with single sign-on and central revocation. When an engineer leaves, disabling one account removes access everywhere, rather than leaving forgotten local accounts scattered across cloud services.</p>
+  </div>
+
+  <h3>Audit mechanisms</h3>
+  <p>The purpose of an audit is to confirm that enough risk controls exist and that they work. Audits are commonly driven by regulatory or compliance requirements, and they work best integrated into corporate governance and enterprise risk management, where legal, technical, jurisdictional, contractual, and compliance requirements can be consolidated in one place.</p>
+  <p>Two mechanisms carry a cloud-specific complication that the exam tests directly, and both follow the same pattern: <strong>how much you can collect depends on the service model and your contract.</strong></p>
+  <ul class="plain">
+    <li><strong>Log collection</strong>. The central challenge in cloud is determining which logs the customer can actually access. In IaaS the customer has extensive access to operating system, virtual device, platform, and application logs. In PaaS that comprehensive access is reduced, since the provider operates the layers beneath the application. In SaaS the customer sees only what the provider chooses to expose.</li>
+    <li><strong>Packet capture</strong>. The same constraint applies. In IaaS, capture on the customer's own virtual machine is normally achievable. In PaaS or SaaS, capability depends entirely on the provider, because the customer does not control the network appliances or the capture points.</li>
+    <li><strong>Correlation</strong>, bringing events from multiple sources together so that patterns invisible in any single log become apparent.</li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>The audit visibility gradient is a reliable exam theme. Moving from IaaS toward SaaS, the customer's ability to collect logs and capture packets shrinks as the provider assumes more of the stack. If a scenario needs deep packet capture but the workload is SaaS, the honest answer involves the contract and the provider, not a technical control the customer can deploy alone.</p>
+  </div>
+</div>
+
+<a id="s35"></a>
+<div class="topic-card">
+  <span class="topic-tag">3.5 Business continuity and disaster recovery</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 4, Security in the Cloud (Disaster Recovery and Business Continuity section), with supporting material in Chapter 5.</span>
+  <h2>Strategy, objectives, and getting the plan tested</h2>
+
+  <p>BC and DR protect against data being unavailable and the business processes depending on it being non-functional, both of which carry adverse consequences for the organisation. Business continuity is about keeping operating; disaster recovery is about restoring after a disruptive event.</p>
+
+  <h3>Main components of a BCDR strategy</h3>
+  <ul class="plain">
+    <li><strong>Location</strong>, where the recovery capability sits, and crucially far enough from the primary site that one event cannot take both.</li>
+    <li><strong>Data replication</strong>, keeping a current copy of the data at the recovery location.</li>
+    <li><strong>Functionality replication</strong>, ensuring the recovery site can actually run the workload, not merely hold the data.</li>
+    <li><strong>Planning, preparing, and provisioning</strong>, arranging the capacity and procedures in advance rather than during the incident.</li>
+    <li><strong>Failover capability</strong>, the mechanism that shifts operations to the recovery site.</li>
+    <li><strong>Returning to normal</strong>, the failback to primary operations, which is regularly overlooked and frequently the harder half of the exercise.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company replicates its tracking database to a second region and assumes it is covered. During a test, the failover succeeds but the application tier does not exist in the second region, so there is nothing to serve the data. Data replication without functionality replication produces a recoverable database and an unusable service.</p>
+  </div>
+
+  <h3>Business requirements: RPO, RTO, and RSL</h3>
+  <p>Three terms define recovery expectations, and the third is the one candidates most often miss:</p>
+  <ul class="plain">
+    <li><strong>Recovery Point Objective (RPO)</strong>, how much data loss is tolerable, expressed as a period of time. It determines how much information must be restored and therefore how frequently data must be replicated or backed up.</li>
+    <li><strong>Recovery Time Objective (RTO)</strong>, how quickly a system must be operational again after a disruption.</li>
+    <li><strong>Recovery Service Level (RSL)</strong>, the proportion of normal service capacity that must be available during recovery. Recovery is rarely all or nothing: an organisation may accept running at a defined percentage of full capacity while operating from the recovery site.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank sets an RPO of fifteen minutes, an RTO of two hours, and an RSL of sixty percent. Translated: it can lose at most the last fifteen minutes of transactions, must be serving customers again within two hours, and can run at sixty percent of normal capacity while in recovery, accepting degraded throughput but not an outage.</p>
+  </div>
+
+  <h3>Creating, implementing, and testing the plan</h3>
+  <p>Implementing a BCDR plan runs through defining the <strong>scope</strong> of what the plan covers, <strong>gathering requirements</strong> from the business, <strong>analysing</strong> the resulting plan, and <strong>risk assessment</strong> of the arrangements themselves, followed by implementation and, critically, testing. An untested plan is an assumption. Testing is what converts a document into a capability, and it routinely reveals gaps such as missing dependencies, stale credentials, or capacity that exists on paper but not in practice.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep the three objectives separate. RPO is data loss measured in time. RTO is time to restore service. RSL is the percentage of capacity available during recovery. A scenario that meets its restoration deadline but loses more data than allowed has failed its RPO, not its RTO, and the corrective action belongs with replication frequency rather than failover speed.</p>
+  </div>
+</div>
+
+
+  </div>
+  <!-- END STUDY TAB -->
+
+  <!-- ===================== QUIZ TAB ===================== -->
+  <div class="tabpanel" id="tab-quiz">
+
+    <div class="quiz-header">
+      <div class="quiz-progress">Answered: <strong id="progress-count">0</strong> / <span id="progress-total">70</span> &nbsp;&middot;&nbsp; Correct: <strong id="progress-correct">0</strong></div>
+      <button class="reset-btn" id="reset-all">Reset all answers</button>
+    </div>
+
+
+    <div class="qcard" data-qid="q1">
+      <div class="qmeta">Question 1 &middot; Domain 3.3</div>
+      <p class="qstem">An organisation is concerned about the possibility of data theft by cloud provider employees. Beyond contractual agreements, what is identified as the strongest practical defence?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q1" id="q1a" value="A"><label for="q1a">A. Increasing the frequency of data backups</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1b" value="B"><label for="q1b">B. Choosing a provider with fewer employees</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1c" value="C"><label for="q1c">C. Requesting the provider&#x27;s staff records annually</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1d" value="D"><label for="q1d">D. Encryption with the customer managing its own keys externally</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q1">Submit answer</button>
+        <span class="inline-warn" data-warn="q1">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q1"></div>
+    </div>
+
+    <div class="qcard" data-qid="q2">
+      <div class="qmeta">Question 2 &middot; Domain 3.3</div>
+      <p class="qstem">Which set of measures is identified as practical risk mitigation for cloud infrastructure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Removing all access controls to simplify administration</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2b" value="B"><label for="q2b">B. Data encryption at rest, two-factor authentication, eliminating shared accounts, a well-defined shared responsibility model, and standardised cloud assessment questionnaires</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Avoiding contracts with any provider that publishes audit reports</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Disabling logging to reduce storage costs and sharing administrator credentials for convenience</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q2">Submit answer</button>
+        <span class="inline-warn" data-warn="q2">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q2"></div>
+    </div>
+
+    <div class="qcard" data-qid="q3">
+      <div class="qmeta">Question 3 &middot; Domain 3.5</div>
+      <p class="qstem">Which component of a BCDR strategy addresses the requirement that the recovery capability be far enough from the primary site that one event cannot take both?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q3" id="q3a" value="A"><label for="q3a">A. Planning, preparing, and provisioning</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3b" value="B"><label for="q3b">B. Failover capability</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3c" value="C"><label for="q3c">C. Data replication</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3d" value="D"><label for="q3d">D. Location</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q3">Submit answer</button>
+        <span class="inline-warn" data-warn="q3">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q3"></div>
+    </div>
+
+    <div class="qcard" data-qid="q4">
+      <div class="qmeta">Question 4 &middot; Domain 3.3</div>
+      <p class="qstem">Which organisational and regulatory risk arises specifically from dependence on a single cloud provider?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q4" id="q4a" value="A"><label for="q4a">A. Lock-in, which reduces flexibility</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4b" value="B"><label for="q4b">B. Data remanence on shared media</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4c" value="C"><label for="q4c">C. Excessive RAM allocation</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4d" value="D"><label for="q4d">D. HVAC failure at the customer&#x27;s premises</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q4">Submit answer</button>
+        <span class="inline-warn" data-warn="q4">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q4"></div>
+    </div>
+
+    <div class="qcard" data-qid="q5">
+      <div class="qmeta">Question 5 &middot; Domain 3.1</div>
+      <p class="qstem">Which cloud infrastructure component provides remote administration of one or many hosts, including creating, starting, and stopping virtual machines and provisioning storage?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q5" id="q5a" value="A"><label for="q5a">A. The boundary firewall</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5b" value="B"><label for="q5b">B. The management plane</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5c" value="C"><label for="q5c">C. The physical environment</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5d" value="D"><label for="q5d">D. Volume storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q5">Submit answer</button>
+        <span class="inline-warn" data-warn="q5">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q5"></div>
+    </div>
+
+    <div class="qcard" data-qid="q6">
+      <div class="qmeta">Question 6 &middot; Domain 3.2</div>
+      <p class="qstem">In a public cloud arrangement, who is normally responsible for the environmental design of the data centre?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q6" id="q6a" value="A"><label for="q6a">A. The cloud service provider</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6b" value="B"><label for="q6b">B. The internet service provider</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6c" value="C"><label for="q6c">C. The cloud service customer</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6d" value="D"><label for="q6d">D. The regulator</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q6">Submit answer</button>
+        <span class="inline-warn" data-warn="q6">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q6"></div>
+    </div>
+
+    <div class="qcard" data-qid="q7">
+      <div class="qmeta">Question 7 &middot; Domain 3.4</div>
+      <p class="qstem">Why may physical and environmental standards be more stringent for a cloud provider&#x27;s data centre than for an on-premises one?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q7" id="q7a" value="A"><label for="q7a">A. Because on-premises data centres are exempt from physical security requirements</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7b" value="B"><label for="q7b">B. Because cloud hardware is more fragile than on-premises hardware</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7c" value="C"><label for="q7c">C. Because a provider may serve a multitude of clients across a vast geographic area, so the consequences of failure are far broader</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7d" value="D"><label for="q7d">D. Because providers use fundamentally different electricity</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q7">Submit answer</button>
+        <span class="inline-warn" data-warn="q7">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q7"></div>
+    </div>
+
+    <div class="qcard" data-qid="q8">
+      <div class="qmeta">Question 8 &middot; Domain 3.2</div>
+      <p class="qstem">Which data centre design category covers tenant partitioning and access control, and in a public cloud is built by the customer using the provider&#x27;s tools?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q8" id="q8a" value="A"><label for="q8a">A. Logical design</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8b" value="B"><label for="q8b">B. Resilience design</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8c" value="C"><label for="q8c">C. Environmental design</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8d" value="D"><label for="q8d">D. Physical design</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q8">Submit answer</button>
+        <span class="inline-warn" data-warn="q8">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q8"></div>
+    </div>
+
+    <div class="qcard" data-qid="q9">
+      <div class="qmeta">Question 9 &middot; Domain 3.1</div>
+      <p class="qstem">Which technology enhances data integrity and performance by distributing data across multiple disks with redundancy?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q9" id="q9a" value="A"><label for="q9a">A. RAID</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9b" value="B"><label for="q9b">B. SAN</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9c" value="C"><label for="q9c">C. IPSec</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9d" value="D"><label for="q9d">D. TLS</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q9">Submit answer</button>
+        <span class="inline-warn" data-warn="q9">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q9"></div>
+    </div>
+
+    <div class="qcard" data-qid="q10">
+      <div class="qmeta">Question 10 &middot; Domain 3.5</div>
+      <p class="qstem">Which recovery objective determines how much information must be restored and therefore how frequently data must be replicated?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q10" id="q10a" value="A"><label for="q10a">A. Recovery Point Objective</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10b" value="B"><label for="q10b">B. Recovery Service Level</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10c" value="C"><label for="q10c">C. Recovery Time Objective</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10d" value="D"><label for="q10d">D. Mean Time To Repair</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q10">Submit answer</button>
+        <span class="inline-warn" data-warn="q10">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q10"></div>
+    </div>
+
+    <div class="qcard" data-qid="q11">
+      <div class="qmeta">Question 11 &middot; Domain 3.4</div>
+      <p class="qstem">A security team needs packet capture for an investigation, but the workload runs on SaaS. What is the realistic position?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q11" id="q11a" value="A"><label for="q11a">A. Packet capture is always fully available regardless of service model</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11b" value="B"><label for="q11b">B. The customer can deploy a packet capture agent on the SaaS provider&#x27;s infrastructure</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11c" value="C"><label for="q11c">C. Packet capture is never possible in any cloud service model</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11d" value="D"><label for="q11d">D. Capability depends entirely on the provider, since the customer controls neither the network appliances nor the capture points</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q11">Submit answer</button>
+        <span class="inline-warn" data-warn="q11">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q11"></div>
+    </div>
+
+    <div class="qcard" data-qid="q12">
+      <div class="qmeta">Question 12 &middot; Domain 3.2</div>
+      <p class="qstem">A project team requests an exception to the organisation&#x27;s standard cloud storage configuration pattern. According to logical design principles, what should happen before the exception is approved?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q12" id="q12a" value="A"><label for="q12a">A. Migration of the workload to a different provider</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12b" value="B"><label for="q12b">B. Removal of the standard pattern for all teams</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12c" value="C"><label for="q12c">C. An assessment of the risk introduced by the variance</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12d" value="D"><label for="q12d">D. Automatic approval, since standards are advisory</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q12">Submit answer</button>
+        <span class="inline-warn" data-warn="q12">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q12"></div>
+    </div>
+
+    <div class="qcard" data-qid="q13">
+      <div class="qmeta">Question 13 &middot; Domain 3.3</div>
+      <p class="qstem">Which statement best describes the obligation to perform risk assessment in cloud computing?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q13" id="q13a" value="A"><label for="q13a">A. Only cloud service providers need to assess risk</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13b" value="B"><label for="q13b">B. Published industry risk lists remove the need for organisational assessment</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13c" value="C"><label for="q13c">C. Every organisation, whether providing or consuming cloud services, must conduct its own assessment despite the availability of published industry risk lists</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13d" value="D"><label for="q13d">D. Risk assessment is required only after an incident has occurred</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q13">Submit answer</button>
+        <span class="inline-warn" data-warn="q13">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q13"></div>
+    </div>
+
+    <div class="qcard" data-qid="q14">
+      <div class="qmeta">Question 14 &middot; Domain 3.1</div>
+      <p class="qstem">A batch reporting job occasionally consumes so much CPU that it degrades other workloads on the same host. Which allocation mechanism most directly prevents this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q14" id="q14a" value="A"><label for="q14a">A. Multi-vendor pathway connectivity</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14b" value="B"><label for="q14b">B. Reservations</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14c" value="C"><label for="q14c">C. RAID</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14d" value="D"><label for="q14d">D. Limits</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q14">Submit answer</button>
+        <span class="inline-warn" data-warn="q14">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q14"></div>
+    </div>
+
+    <div class="qcard" data-qid="q15">
+      <div class="qmeta">Question 15 &middot; Domain 3.5</div>
+      <p class="qstem">An organisation restores service within its agreed recovery time but loses four hours of data against a stated maximum of thirty minutes. Which objective was missed and where should corrective effort focus?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q15" id="q15a" value="A"><label for="q15a">A. No objective was missed, since service was restored in time</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15b" value="B"><label for="q15b">B. RSL was missed, so effort belongs with capacity provisioning</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15c" value="C"><label for="q15c">C. RPO was missed, so effort belongs with replication or backup frequency</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15d" value="D"><label for="q15d">D. RTO was missed, so effort belongs with failover speed</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q15">Submit answer</button>
+        <span class="inline-warn" data-warn="q15">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q15"></div>
+    </div>
+
+    <div class="qcard" data-qid="q16">
+      <div class="qmeta">Question 16 &middot; Domain 3.3</div>
+      <p class="qstem">A volumetric denial of service attack aimed at one tenant degrades service for unrelated customers on the same infrastructure. Which cloud risk characteristic does this illustrate?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q16" id="q16a" value="A"><label for="q16a">A. Shared technology risk, where attacks against one party affect others sharing the infrastructure</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16b" value="B"><label for="q16b">B. Data remanence, where residual data persists after deletion</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16c" value="C"><label for="q16c">C. Non-repudiation failure, where actions cannot be attributed</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16d" value="D"><label for="q16d">D. Vendor lock-in, where switching providers becomes costly</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q16">Submit answer</button>
+        <span class="inline-warn" data-warn="q16">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q16"></div>
+    </div>
+
+    <div class="qcard" data-qid="q17">
+      <div class="qmeta">Question 17 &middot; Domain 3.3</div>
+      <p class="qstem">An organisation cannot fully control a risk alone and allocates portions of it to partners through contractual arrangement. Which treatment strategy does this describe?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q17" id="q17a" value="A"><label for="q17a">A. Risk avoidance</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17b" value="B"><label for="q17b">B. Risk acceptance</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17c" value="C"><label for="q17c">C. Risk mitigation</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17d" value="D"><label for="q17d">D. Risk sharing</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q17">Submit answer</button>
+        <span class="inline-warn" data-warn="q17">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q17"></div>
+    </div>
+
+    <div class="qcard" data-qid="q18">
+      <div class="qmeta">Question 18 &middot; Domain 3.5</div>
+      <p class="qstem">What does BCDR fundamentally protect against?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q18" id="q18a" value="A"><label for="q18a">A. The risk of data being unavailable and the business processes it supports becoming non-functional</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18b" value="B"><label for="q18b">B. The risk of paying too much for cloud storage</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18c" value="C"><label for="q18c">C. The risk of using an outdated encryption algorithm</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18d" value="D"><label for="q18d">D. The risk of data being read by unauthorised parties</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q18">Submit answer</button>
+        <span class="inline-warn" data-warn="q18">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q18"></div>
+    </div>
+
+    <div class="qcard" data-qid="q19">
+      <div class="qmeta">Question 19 &middot; Domain 3.2</div>
+      <p class="qstem">What does resilience mean in the context of data centre and infrastructure design?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q19" id="q19a" value="A"><label for="q19a">A. The ability to encrypt data faster than an attacker can decrypt it</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19b" value="B"><label for="q19b">B. The ability to adapt to changing conditions and recover from disruptions, achieved through proactive design</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19c" value="C"><label for="q19c">C. The ability to operate without any staff</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19d" value="D"><label for="q19d">D. The ability to store unlimited data at no cost</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q19">Submit answer</button>
+        <span class="inline-warn" data-warn="q19">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q19"></div>
+    </div>
+
+    <div class="qcard" data-qid="q20">
+      <div class="qmeta">Question 20 &middot; Domain 3.3</div>
+      <p class="qstem">Which practical mitigation measure ensures that actions taken in a cloud environment can be attributed to a specific individual?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q20" id="q20a" value="A"><label for="q20a">A. Enabling data dispersion</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20b" value="B"><label for="q20b">B. Extending the retention period for archives</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20c" value="C"><label for="q20c">C. Eliminating shared accounts</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20d" value="D"><label for="q20d">D. Increasing storage redundancy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q20">Submit answer</button>
+        <span class="inline-warn" data-warn="q20">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q20"></div>
+    </div>
+
+    <div class="qcard" data-qid="q21">
+      <div class="qmeta">Question 21 &middot; Domain 3.3</div>
+      <p class="qstem">Which governance-related risk should an organisation assess when adopting cloud services?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q21" id="q21a" value="A"><label for="q21a">A. Whether policies effectively and compliantly manage cloud resources</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21b" value="B"><label for="q21b">B. Whether the provider offers volume discounts</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21c" value="C"><label for="q21c">C. Whether staff prefer the provider&#x27;s user interface</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21d" value="D"><label for="q21d">D. Whether the provider&#x27;s logo is recognisable</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q21">Submit answer</button>
+        <span class="inline-warn" data-warn="q21">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q21"></div>
+    </div>
+
+    <div class="qcard" data-qid="q22">
+      <div class="qmeta">Question 22 &middot; Domain 3.4</div>
+      <p class="qstem">Under the shared responsibility model as applied to security controls, which responsibilities remain with the customer?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q22" id="q22a" value="A"><label for="q22a">A. Security of its own data within the services, including encryption at rest and in transit and robust access controls</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22b" value="B"><label for="q22b">B. Patching the provider&#x27;s network switches</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22c" value="C"><label for="q22c">C. Maintenance of the provider&#x27;s hypervisor</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22d" value="D"><label for="q22d">D. Physical security of the provider&#x27;s data centre</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q22">Submit answer</button>
+        <span class="inline-warn" data-warn="q22">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q22"></div>
+    </div>
+
+    <div class="qcard" data-qid="q23">
+      <div class="qmeta">Question 23 &middot; Domain 3.1</div>
+      <p class="qstem">In a community cloud arrangement, who typically provides the physical environment?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q23" id="q23a" value="A"><label for="q23a">A. The regulator overseeing the community</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23b" value="B"><label for="q23b">B. A community member who supplies space and hardware</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23c" value="C"><label for="q23c">C. Every member equally, with no single owner</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23d" value="D"><label for="q23d">D. The end users of the applications</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q23">Submit answer</button>
+        <span class="inline-warn" data-warn="q23">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q23"></div>
+    </div>
+
+    <div class="qcard" data-qid="q24">
+      <div class="qmeta">Question 24 &middot; Domain 3.2</div>
+      <p class="qstem">An organisation faces legal restrictions preventing its data from crossing national borders. Under the buy or build consideration, what is the likely consequence?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q24" id="q24a" value="A"><label for="q24a">A. The organisation must abandon all use of computing infrastructure</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24b" value="B"><label for="q24b">B. Data may need to remain on premises unless the provider&#x27;s contract can guarantee compliance</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24c" value="C"><label for="q24c">C. The organisation should choose the cheapest available provider</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24d" value="D"><label for="q24d">D. Legal restrictions on data location never apply to cloud arrangements</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q24">Submit answer</button>
+        <span class="inline-warn" data-warn="q24">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q24"></div>
+    </div>
+
+    <div class="qcard" data-qid="q25">
+      <div class="qmeta">Question 25 &middot; Domain 3.5</div>
+      <p class="qstem">Which BCDR strategy component is most frequently overlooked and often proves the harder half of the exercise?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q25" id="q25a" value="A"><label for="q25a">A. Data replication</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25b" value="B"><label for="q25b">B. Location</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25c" value="C"><label for="q25c">C. Returning to normal</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25d" value="D"><label for="q25d">D. Failover capability</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q25">Submit answer</button>
+        <span class="inline-warn" data-warn="q25">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q25"></div>
+    </div>
+
+    <div class="qcard" data-qid="q26">
+      <div class="qmeta">Question 26 &middot; Domain 3.1</div>
+      <p class="qstem">Which two compute characteristics primarily define cloud computing resources, and what does each contribute?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q26" id="q26a" value="A"><label for="q26a">A. Disk capacity, determining processing power, and fan speed, reducing latency</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26b" value="B"><label for="q26b">B. Licence count, determining processing power, and rack height, reducing latency</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26c" value="C"><label for="q26c">C. Bandwidth, determining processing power, and cable length, reducing latency</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26d" value="D"><label for="q26d">D. CPU, determining processing power, and RAM, holding actively processed data and reducing latency</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q26">Submit answer</button>
+        <span class="inline-warn" data-warn="q26">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q26"></div>
+    </div>
+
+    <div class="qcard" data-qid="q27">
+      <div class="qmeta">Question 27 &middot; Domain 3.3</div>
+      <p class="qstem">What is described as the fundamental risk of the cloud model itself?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q27" id="q27a" value="A"><label for="q27a">A. Its internet-based nature, making it reachable by anyone with a connection from anywhere in the world</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27b" value="B"><label for="q27b">B. Its use of RAID for storage redundancy</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27c" value="C"><label for="q27c">C. Its reliance on relational databases</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27d" value="D"><label for="q27d">D. Its requirement for on-premises hardware</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q27">Submit answer</button>
+        <span class="inline-warn" data-warn="q27">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q27"></div>
+    </div>
+
+    <div class="qcard" data-qid="q28">
+      <div class="qmeta">Question 28 &middot; Domain 3.4</div>
+      <p class="qstem">An IaaS customer needs comprehensive logs covering the operating system, virtual devices, platform, and application levels. Is this achievable, and why?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q28" id="q28a" value="A"><label for="q28a">A. Only if the customer also purchases a SaaS subscription</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28b" value="B"><label for="q28b">B. No, because providers never expose logs to customers</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28c" value="C"><label for="q28c">C. Only if the data is unencrypted</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28d" value="D"><label for="q28d">D. Yes, because in IaaS the customer has extensive access to logs across those levels</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q28">Submit answer</button>
+        <span class="inline-warn" data-warn="q28">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q28"></div>
+    </div>
+
+    <div class="qcard" data-qid="q29">
+      <div class="qmeta">Question 29 &middot; Domain 3.2</div>
+      <p class="qstem">Which aspects does logical design encompass in practice, beyond tenant partitioning and access control?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q29" id="q29a" value="A"><label for="q29a">A. Fibre routing, carrier contracts, and cable trays</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29b" value="B"><label for="q29b">B. Access management, regulatory compliance monitoring, patch management, log analysis, and service configuration</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29c" value="C"><label for="q29c">C. Fire suppression, perimeter fencing, and guard rotas</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29d" value="D"><label for="q29d">D. Chiller capacity, airflow modelling, and humidity control</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q29">Submit answer</button>
+        <span class="inline-warn" data-warn="q29">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q29"></div>
+    </div>
+
+    <div class="qcard" data-qid="q30">
+      <div class="qmeta">Question 30 &middot; Domain 3.4</div>
+      <p class="qstem">An organisation must decide between extending its on-premises identity system into the cloud and adopting a cloud-based IAM service. Which factors should drive the decision?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q30" id="q30a" value="A"><label for="q30a">A. Whether the provider sponsors industry conferences</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30b" value="B"><label for="q30b">B. The colour scheme of the administrative console</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30c" value="C"><label for="q30c">C. Ease of management, security requirements, and the potential to achieve single sign-on across systems</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30d" value="D"><label for="q30d">D. The number of characters in the vendor&#x27;s name</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q30">Submit answer</button>
+        <span class="inline-warn" data-warn="q30">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q30"></div>
+    </div>
+
+    <div class="qcard" data-qid="q31">
+      <div class="qmeta">Question 31 &middot; Domain 3.1</div>
+      <p class="qstem">Which technology connects storage devices over a separate high-speed network to provide reliable and flexible storage infrastructure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q31" id="q31a" value="A"><label for="q31a">A. RAID</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31b" value="B"><label for="q31b">B. VPN</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31c" value="C"><label for="q31c">C. HVAC</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31d" value="D"><label for="q31d">D. SAN</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q31">Submit answer</button>
+        <span class="inline-warn" data-warn="q31">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q31"></div>
+    </div>
+
+    <div class="qcard" data-qid="q32">
+      <div class="qmeta">Question 32 &middot; Domain 3.4</div>
+      <p class="qstem">Why is user education treated as an essential part of identity and access management rather than an optional extra?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q32" id="q32a" value="A"><label for="q32a">A. Because educated users no longer require authentication</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32b" value="B"><label for="q32b">B. Because training eliminates the need for access reviews</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32c" value="C"><label for="q32c">C. Because practices such as avoiding password reuse and recognising phishing protect the identity layer in ways technical controls cannot fully replace</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32d" value="D"><label for="q32d">D. Because regulators mandate a fixed number of training hours globally</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q32">Submit answer</button>
+        <span class="inline-warn" data-warn="q32">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q32"></div>
+    </div>
+
+    <div class="qcard" data-qid="q33">
+      <div class="qmeta">Question 33 &middot; Domain 3.4</div>
+      <p class="qstem">Which criteria should guide site selection for physical and environmental protection of a data centre?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q33" id="q33a" value="A"><label for="q33a">A. Availability of retail amenities nearby</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33b" value="B"><label for="q33b">B. Lowest possible land purchase price alone</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33c" value="C"><label for="q33c">C. Proximity to the chief executive&#x27;s residence</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33d" value="D"><label for="q33d">D. Ability to restrict physical access, adequate available workforce, and reliable access to power and essential resources</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q33">Submit answer</button>
+        <span class="inline-warn" data-warn="q33">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q33"></div>
+    </div>
+
+    <div class="qcard" data-qid="q34">
+      <div class="qmeta">Question 34 &middot; Domain 3.2</div>
+      <p class="qstem">A contractor severs the single fibre run serving a data centre, cutting off access despite all servers remaining healthy. Which environmental design measure addresses this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q34" id="q34a" value="A"><label for="q34a">A. Increasing HVAC capacity</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34b" value="B"><label for="q34b">B. Multi-vendor pathway connectivity using multiple ISPs over separate routes</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34c" value="C"><label for="q34c">C. Adding more RAM to each host</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34d" value="D"><label for="q34d">D. Reclassifying the affected data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q34">Submit answer</button>
+        <span class="inline-warn" data-warn="q34">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q34"></div>
+    </div>
+
+    <div class="qcard" data-qid="q35">
+      <div class="qmeta">Question 35 &middot; Domain 3.4</div>
+      <p class="qstem">Which combination is recommended for protecting data in transit in cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q35" id="q35a" value="A"><label for="q35a">A. TLS, IPSec, or VPNs</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35b" value="B"><label for="q35b">B. Reservations, shares, and limits</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35c" value="C"><label for="q35c">C. CRL, OCSP, and protection profiles</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35d" value="D"><label for="q35d">D. RAID, SAN, and object storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q35">Submit answer</button>
+        <span class="inline-warn" data-warn="q35">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q35"></div>
+    </div>
+
+    <div class="qcard" data-qid="q36">
+      <div class="qmeta">Question 36 &middot; Domain 3.4</div>
+      <p class="qstem">Which audit mechanism brings events from multiple sources together so that patterns invisible in any single log become apparent?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q36" id="q36a" value="A"><label for="q36a">A. Data dispersion</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36b" value="B"><label for="q36b">B. Correlation</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36c" value="C"><label for="q36c">C. Packet capture</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36d" value="D"><label for="q36d">D. Erasure coding</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q36">Submit answer</button>
+        <span class="inline-warn" data-warn="q36">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q36"></div>
+    </div>
+
+    <div class="qcard" data-qid="q37">
+      <div class="qmeta">Question 37 &middot; Domain 3.1</div>
+      <p class="qstem">Which storage type in cloud infrastructure behaves like a traditional hard drive attached to a virtual machine, suiting file systems and databases that need low latency?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q37" id="q37a" value="A"><label for="q37a">A. Ephemeral storage</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37b" value="B"><label for="q37b">B. Object storage</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37c" value="C"><label for="q37c">C. Archival storage</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37d" value="D"><label for="q37d">D. Volume storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q37">Submit answer</button>
+        <span class="inline-warn" data-warn="q37">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q37"></div>
+    </div>
+
+    <div class="qcard" data-qid="q38">
+      <div class="qmeta">Question 38 &middot; Domain 3.5</div>
+      <p class="qstem">A maritime company replicates its database to a second region, but a failover test reveals the application tier does not exist there. Which BCDR strategy component was missing?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q38" id="q38a" value="A"><label for="q38a">A. Returning to normal</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38b" value="B"><label for="q38b">B. Data replication</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38c" value="C"><label for="q38c">C. Functionality replication</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38d" value="D"><label for="q38d">D. Location</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q38">Submit answer</button>
+        <span class="inline-warn" data-warn="q38">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q38"></div>
+    </div>
+
+    <div class="qcard" data-qid="q39">
+      <div class="qmeta">Question 39 &middot; Domain 3.3</div>
+      <p class="qstem">A bank purchases cyber insurance to cover the financial consequences of a potential cloud breach, without changing any technical control. Which risk treatment is this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q39" id="q39a" value="A"><label for="q39a">A. Risk acceptance</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39b" value="B"><label for="q39b">B. Risk transfer</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39c" value="C"><label for="q39c">C. Risk avoidance</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39d" value="D"><label for="q39d">D. Risk mitigation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q39">Submit answer</button>
+        <span class="inline-warn" data-warn="q39">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q39"></div>
+    </div>
+
+    <div class="qcard" data-qid="q40">
+      <div class="qmeta">Question 40 &middot; Domain 3.1</div>
+      <p class="qstem">Two workloads compete for capacity that remains after reservations are satisfied. Which mechanism determines their relative priority?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q40" id="q40a" value="A"><label for="q40a">A. Shares</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40b" value="B"><label for="q40b">B. Data dispersion</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40c" value="C"><label for="q40c">C. Reservations</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40d" value="D"><label for="q40d">D. Limits</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q40">Submit answer</button>
+        <span class="inline-warn" data-warn="q40">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q40"></div>
+    </div>
+
+    <div class="qcard" data-qid="q41">
+      <div class="qmeta">Question 41 &middot; Domain 3.3</div>
+      <p class="qstem">After analysis, an organisation documents a decision to bear a low-impact risk because the cost of treating it exceeds the exposure. Which treatment is this, and what makes it legitimate?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q41" id="q41a" value="A"><label for="q41a">A. Risk transfer, legitimate because the cost was calculated</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41b" value="B"><label for="q41b">B. Risk mitigation, legitimate because the risk was analysed</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41c" value="C"><label for="q41c">C. Risk avoidance, legitimate because no action was taken</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41d" value="D"><label for="q41d">D. Risk acceptance, legitimate because it is a deliberate documented decision rather than an oversight</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q41">Submit answer</button>
+        <span class="inline-warn" data-warn="q41">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q41"></div>
+    </div>
+
+    <div class="qcard" data-qid="q42">
+      <div class="qmeta">Question 42 &middot; Domain 3.3</div>
+      <p class="qstem">An organisation decides not to move a particular highly sensitive workload to any public cloud at all, eliminating the associated exposure. Which risk treatment strategy is this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q42" id="q42a" value="A"><label for="q42a">A. Risk acceptance</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42b" value="B"><label for="q42b">B. Risk sharing</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42c" value="C"><label for="q42c">C. Risk avoidance</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42d" value="D"><label for="q42d">D. Risk transfer</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q42">Submit answer</button>
+        <span class="inline-warn" data-warn="q42">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q42"></div>
+    </div>
+
+    <div class="qcard" data-qid="q43">
+      <div class="qmeta">Question 43 &middot; Domain 3.4</div>
+      <p class="qstem">Why is it recommended to integrate audits into existing corporate governance and enterprise risk management structures?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q43" id="q43a" value="A"><label for="q43a">A. Because it transfers audit responsibility to the regulator</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43b" value="B"><label for="q43b">B. Because all requirements for risk controls, including legal, technical, jurisdictional, contractual, and compliance, can be consolidated in one place</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43c" value="C"><label for="q43c">C. Because it reduces the number of controls needed to zero</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43d" value="D"><label for="q43d">D. Because governance structures are exempt from audit</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q43">Submit answer</button>
+        <span class="inline-warn" data-warn="q43">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q43"></div>
+    </div>
+
+    <div class="qcard" data-qid="q44">
+      <div class="qmeta">Question 44 &middot; Domain 3.2</div>
+      <p class="qstem">Why is the decision to move to a cloud-based data centre described as a long-term commitment requiring careful evaluation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q44" id="q44a" value="A"><label for="q44a">A. Because providers require a minimum twenty year term</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44b" value="B"><label for="q44b">B. Because factors such as data sensitivity, legal storage regulations, and availability of qualified on-premises personnel all bear on a choice that is difficult to reverse</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44c" value="C"><label for="q44c">C. Because cloud contracts cannot be terminated under any circumstances</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44d" value="D"><label for="q44d">D. Because hardware purchased for cloud use cannot be resold</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q44">Submit answer</button>
+        <span class="inline-warn" data-warn="q44">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q44"></div>
+    </div>
+
+    <div class="qcard" data-qid="q45">
+      <div class="qmeta">Question 45 &middot; Domain 3.4</div>
+      <p class="qstem">Which control category uses firewalls and intrusion detection systems at the edges between trust zones?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q45" id="q45a" value="A"><label for="q45a">A. Policy and procedures</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45b" value="B"><label for="q45b">B. Security function isolation</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45c" value="C"><label for="q45c">C. Resource pooling</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45d" value="D"><label for="q45d">D. Boundary protection</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q45">Submit answer</button>
+        <span class="inline-warn" data-warn="q45">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q45"></div>
+    </div>
+
+    <div class="qcard" data-qid="q46">
+      <div class="qmeta">Question 46 &middot; Domain 3.1</div>
+      <p class="qstem">In the network and communications component, which element is identified as the primary area of concern because neither the provider nor the customer controls it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q46" id="q46a" value="A"><label for="q46a">A. The provider&#x27;s internal switching fabric</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46b" value="B"><label for="q46b">B. The provider&#x27;s rack cabling</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46c" value="C"><label for="q46c">C. The public internet connecting the customer to the provider</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46d" value="D"><label for="q46d">D. The customer&#x27;s on-premises patch panel</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q46">Submit answer</button>
+        <span class="inline-warn" data-warn="q46">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q46"></div>
+    </div>
+
+    <div class="qcard" data-qid="q47">
+      <div class="qmeta">Question 47 &middot; Domain 3.5</div>
+      <p class="qstem">Why is testing described as the step that converts a BCDR plan from a document into a capability?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Because testing is a regulatory formality with no operational value</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Because a tested plan never needs updating again</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47c" value="C"><label for="q47c">C. Because an untested plan is an assumption, and testing routinely exposes missing dependencies, stale credentials, and capacity that exists only on paper</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Because testing replaces the need to define recovery objectives</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q47">Submit answer</button>
+        <span class="inline-warn" data-warn="q47">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q47"></div>
+    </div>
+
+    <div class="qcard" data-qid="q48">
+      <div class="qmeta">Question 48 &middot; Domain 3.2</div>
+      <p class="qstem">Which three utilities does the exam outline anchor resilience design to, because losing any one of them stops a data centre regardless of other conditions?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q48" id="q48a" value="A"><label for="q48a">A. Lighting, signage, and parking</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48b" value="B"><label for="q48b">B. Power, HVAC, and connectivity</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48c" value="C"><label for="q48c">C. CPU, RAM, and disk</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48d" value="D"><label for="q48d">D. Encryption, hashing, and tokenization</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q48">Submit answer</button>
+        <span class="inline-warn" data-warn="q48">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q48"></div>
+    </div>
+
+    <div class="qcard" data-qid="q49">
+      <div class="qmeta">Question 49 &middot; Domain 3.1</div>
+      <p class="qstem">Which statement correctly describes the division of responsibility for networking components between provider and customer?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q49" id="q49a" value="A"><label for="q49a">A. The provider is responsible for all networking including the customer&#x27;s premises equipment</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49b" value="B"><label for="q49b">B. The provider secures the components it houses, the customer manages components in its own facilities, and both implement firewalls on their own side</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49c" value="C"><label for="q49c">C. Neither party is responsible for networking once traffic is encrypted</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49d" value="D"><label for="q49d">D. The customer is responsible for all networking including the provider&#x27;s data centre switches</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q49">Submit answer</button>
+        <span class="inline-warn" data-warn="q49">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q49"></div>
+    </div>
+
+    <div class="qcard" data-qid="q50">
+      <div class="qmeta">Question 50 &middot; Domain 3.1</div>
+      <p class="qstem">Which secure methods should a provider support, and the customer actually use, to protect communications across the public internet?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q50" id="q50a" value="A"><label for="q50a">A. HTTPS, encryption prior to transmission, and VPN access</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50b" value="B"><label for="q50b">B. Unencrypted FTP with strong passwords</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50c" value="C"><label for="q50c">C. Telnet restricted by IP address</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50d" value="D"><label for="q50d">D. Plain HTTP with obscure port numbers</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q50">Submit answer</button>
+        <span class="inline-warn" data-warn="q50">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q50"></div>
+    </div>
+
+    <div class="qcard" data-qid="q51">
+      <div class="qmeta">Question 51 &middot; Domain 3.2</div>
+      <p class="qstem">Which design consideration does HVAC belong to, and why does it warrant attention when evaluating a cloud provider?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q51" id="q51a" value="A"><label for="q51a">A. Environmental design, because an HVAC failure can take out computing resources as completely as an electrical or communications outage</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51b" value="B"><label for="q51b">B. Risk transfer, because HVAC failures are always insured</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51c" value="C"><label for="q51c">C. Data classification, because temperature is a data attribute</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51d" value="D"><label for="q51d">D. Logical design, because cooling is configured through the management plane</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q51">Submit answer</button>
+        <span class="inline-warn" data-warn="q51">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q51"></div>
+    </div>
+
+    <div class="qcard" data-qid="q52">
+      <div class="qmeta">Question 52 &middot; Domain 3.2</div>
+      <p class="qstem">Why does the physical location of a data centre matter to its design?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q52" id="q52a" value="A"><label for="q52a">A. It sets the maximum number of tenants the facility may host</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52b" value="B"><label for="q52b">B. It determines the encryption algorithms available on the hardware</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52c" value="C"><label for="q52c">C. It fixes the service categories the provider may offer</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52d" value="D"><label for="q52d">D. It materially reduces disaster risk when regions prone to natural disasters or civil unrest are avoided</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q52">Submit answer</button>
+        <span class="inline-warn" data-warn="q52">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q52"></div>
+    </div>
+
+    <div class="qcard" data-qid="q53">
+      <div class="qmeta">Question 53 &middot; Domain 3.5</div>
+      <p class="qstem">Which recovery objective expresses the proportion of normal service capacity that must be available while operating from a recovery site?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q53" id="q53a" value="A"><label for="q53a">A. Recovery Time Objective</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53b" value="B"><label for="q53b">B. Mean Time Between Failures</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53c" value="C"><label for="q53c">C. Recovery Service Level</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53d" value="D"><label for="q53d">D. Recovery Point Objective</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q53">Submit answer</button>
+        <span class="inline-warn" data-warn="q53">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q53"></div>
+    </div>
+
+    <div class="qcard" data-qid="q54">
+      <div class="qmeta">Question 54 &middot; Domain 3.1</div>
+      <p class="qstem">Which storage type is best suited to unstructured data such as multimedia files, backups, and big data analytics workloads?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q54" id="q54a" value="A"><label for="q54a">A. Volume storage</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54b" value="B"><label for="q54b">B. Object storage</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54c" value="C"><label for="q54c">C. Register memory</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54d" value="D"><label for="q54d">D. Block storage attached to a single VM</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q54">Submit answer</button>
+        <span class="inline-warn" data-warn="q54">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q54"></div>
+    </div>
+
+    <div class="qcard" data-qid="q55">
+      <div class="qmeta">Question 55 &middot; Domain 3.1</div>
+      <p class="qstem">A workload must never be starved of processing capacity during periods of contention on a shared host. Which resource allocation mechanism guarantees it a minimum?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q55" id="q55a" value="A"><label for="q55a">A. Limits</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55b" value="B"><label for="q55b">B. Reservations</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55c" value="C"><label for="q55c">C. Erasure coding</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55d" value="D"><label for="q55d">D. Shares</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q55">Submit answer</button>
+        <span class="inline-warn" data-warn="q55">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q55"></div>
+    </div>
+
+    <div class="qcard" data-qid="q56">
+      <div class="qmeta">Question 56 &middot; Domain 3.4</div>
+      <p class="qstem">What is the stated purpose of conducting an audit?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q56" id="q56a" value="A"><label for="q56a">A. To increase the volume of documentation produced annually</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56b" value="B"><label for="q56b">B. To replace the need for any security controls</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56c" value="C"><label for="q56c">C. To ensure a sufficient number of risk controls exist and that they are operationally effective</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56d" value="D"><label for="q56d">D. To determine the market value of the organisation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q56">Submit answer</button>
+        <span class="inline-warn" data-warn="q56">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q56"></div>
+    </div>
+
+    <div class="qcard" data-qid="q57">
+      <div class="qmeta">Question 57 &middot; Domain 3.2</div>
+      <p class="qstem">A data centre located near the equator will place greater emphasis on which aspect of its HVAC design?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q57" id="q57a" value="A"><label for="q57a">A. Heating rather than air conditioning</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57b" value="B"><label for="q57b">B. Neither, since climate does not affect HVAC design</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57c" value="C"><label for="q57c">C. Humidity removal only, with no temperature control</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57d" value="D"><label for="q57d">D. Air conditioning rather than heating</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q57">Submit answer</button>
+        <span class="inline-warn" data-warn="q57">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q57"></div>
+    </div>
+
+    <div class="qcard" data-qid="q58">
+      <div class="qmeta">Question 58 &middot; Domain 3.4</div>
+      <p class="qstem">Which principle explains why a customer&#x27;s ability to collect logs and capture packets narrows as they move from IaaS toward SaaS?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q58" id="q58a" value="A"><label for="q58a">A. SaaS providers are legally prohibited from generating logs</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58b" value="B"><label for="q58b">B. Encryption prevents any logging in SaaS environments</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58c" value="C"><label for="q58c">C. Log formats become incompatible at higher service levels</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58d" value="D"><label for="q58d">D. The provider assumes responsibility for progressively more of the stack, and visibility follows control</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q58">Submit answer</button>
+        <span class="inline-warn" data-warn="q58">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q58"></div>
+    </div>
+
+    <div class="qcard" data-qid="q59">
+      <div class="qmeta">Question 59 &middot; Domain 3.1</div>
+      <p class="qstem">An organisation builds a private cloud on its own premises. Under the physical environment component, who acts as the cloud service provider in this arrangement?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q59" id="q59a" value="A"><label for="q59a">A. No provider exists in a private cloud</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59b" value="B"><label for="q59b">B. The internet service provider carrying the traffic</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59c" value="C"><label for="q59c">C. The business or customer itself</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59d" value="D"><label for="q59d">D. The nearest commercial hyperscale provider</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q59">Submit answer</button>
+        <span class="inline-warn" data-warn="q59">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q59"></div>
+    </div>
+
+    <div class="qcard" data-qid="q60">
+      <div class="qmeta">Question 60 &middot; Domain 3.5</div>
+      <p class="qstem">Which BCDR component covers arranging capacity and procedures in advance rather than during an incident?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q60" id="q60a" value="A"><label for="q60a">A. Location</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60b" value="B"><label for="q60b">B. Planning, preparing, and provisioning</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60c" value="C"><label for="q60c">C. Data replication</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60d" value="D"><label for="q60d">D. Returning to normal</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q60">Submit answer</button>
+        <span class="inline-warn" data-warn="q60">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q60"></div>
+    </div>
+
+    <div class="qcard" data-qid="q61">
+      <div class="qmeta">Question 61 &middot; Domain 3.1</div>
+      <p class="qstem">Why is virtualisation described as the backbone of cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q61" id="q61a" value="A"><label for="q61a">A. Because it enables resource pooling, on-demand self-service, and scalability, which the essential cloud characteristics depend on</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61b" value="B"><label for="q61b">B. Because it encrypts all data at rest automatically</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61c" value="C"><label for="q61c">C. Because it guarantees regulatory compliance in every jurisdiction</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61d" value="D"><label for="q61d">D. Because it removes the need for physical data centres</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q61">Submit answer</button>
+        <span class="inline-warn" data-warn="q61">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q61"></div>
+    </div>
+
+    <div class="qcard" data-qid="q62">
+      <div class="qmeta">Question 62 &middot; Domain 3.5</div>
+      <p class="qstem">Which steps make up the implementation of a BCDR plan?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q62" id="q62a" value="A"><label for="q62a">A. Purchasing insurance and filing the policy documents</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62b" value="B"><label for="q62b">B. Selecting a provider based on price alone</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62c" value="C"><label for="q62c">C. Encrypting all backups and deleting the originals</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62d" value="D"><label for="q62d">D. Defining scope, gathering requirements, analysing the plan, and assessing risk, followed by implementation and testing</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q62">Submit answer</button>
+        <span class="inline-warn" data-warn="q62">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q62"></div>
+    </div>
+
+    <div class="qcard" data-qid="q63">
+      <div class="qmeta">Question 63 &middot; Domain 3.5</div>
+      <p class="qstem">A bank sets an RPO of fifteen minutes, an RTO of two hours, and an RSL of sixty percent. What does the RSL figure commit the bank to?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Retaining sixty percent of its backup copies</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63b" value="B"><label for="q63b">B. Recovering sixty percent of lost transactions</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63c" value="C"><label for="q63c">C. Completing recovery within sixty percent of two hours</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63d" value="D"><label for="q63d">D. Running at sixty percent of normal capacity while operating from the recovery site</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q63">Submit answer</button>
+        <span class="inline-warn" data-warn="q63">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q63"></div>
+    </div>
+
+    <div class="qcard" data-qid="q64">
+      <div class="qmeta">Question 64 &middot; Domain 3.3</div>
+      <p class="qstem">Why can threats to a cloud customer originate from the geographic location of the provider&#x27;s data centre?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q64" id="q64a" value="A"><label for="q64a">A. Because regional instability, local legal exposure, and physical hazards at that location can affect the services hosted there</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64b" value="B"><label for="q64b">B. Because currency exchange rates affect billing</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64c" value="C"><label for="q64c">C. Because time zones complicate support hours</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64d" value="D"><label for="q64d">D. Because latency increases with distance</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q64">Submit answer</button>
+        <span class="inline-warn" data-warn="q64">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q64"></div>
+    </div>
+
+    <div class="qcard" data-qid="q65">
+      <div class="qmeta">Question 65 &middot; Domain 3.2</div>
+      <p class="qstem">A customer evaluating a prospective provider wants to assess the provider&#x27;s environmental design. Where does this assessment properly belong?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q65" id="q65a" value="A"><label for="q65a">A. Within the customer&#x27;s own patch management process</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65b" value="B"><label for="q65b">B. Within the customer&#x27;s incident response runbook</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65c" value="C"><label for="q65c">C. Within vendor risk analysis, since the customer cannot control the provider&#x27;s environmental design directly</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65d" value="D"><label for="q65d">D. Within the customer&#x27;s data classification policy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q65">Submit answer</button>
+        <span class="inline-warn" data-warn="q65">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q65"></div>
+    </div>
+
+    <div class="qcard" data-qid="q66">
+      <div class="qmeta">Question 66 &middot; Domain 3.1</div>
+      <p class="qstem">A security architect argues the management plane deserves the strongest protection of any infrastructure component. What is the strongest justification?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q66" id="q66a" value="A"><label for="q66a">A. Compromising it grants control over the entire environment beneath it, rather than a single resource</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66b" value="B"><label for="q66b">B. It is physically located outside the data centre</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66c" value="C"><label for="q66c">C. It is the component with the highest licensing cost</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66d" value="D"><label for="q66d">D. It is the only component that stores customer data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q66">Submit answer</button>
+        <span class="inline-warn" data-warn="q66">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q66"></div>
+    </div>
+
+    <div class="qcard" data-qid="q67">
+      <div class="qmeta">Question 67 &middot; Domain 3.3</div>
+      <p class="qstem">Which two activities make up risk assessment?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q67" id="q67a" value="A"><label for="q67a">A. Identification of what could go wrong, and analysis of likelihood and impact</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67b" value="B"><label for="q67b">B. Logging events and archiving them</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67c" value="C"><label for="q67c">C. Encrypting data and rotating keys</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67d" value="D"><label for="q67d">D. Purchasing insurance and filing claims</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q67">Submit answer</button>
+        <span class="inline-warn" data-warn="q67">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q67"></div>
+    </div>
+
+    <div class="qcard" data-qid="q68">
+      <div class="qmeta">Question 68 &middot; Domain 3.2</div>
+      <p class="qstem">Which set of actions best reflects designing for resilience against disaster impact?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q68" id="q68a" value="A"><label for="q68a">A. Concentrate all capacity in one location for easier management</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68b" value="B"><label for="q68b">B. Rely entirely on insurance rather than design measures</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68c" value="C"><label for="q68c">C. Site away from known hazard regions, design with flexibility, build reliable simple systems, and add redundancy wherever possible</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68d" value="D"><label for="q68d">D. Defer all resilience decisions until after an outage occurs</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q68">Submit answer</button>
+        <span class="inline-warn" data-warn="q68">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q68"></div>
+    </div>
+
+    <div class="qcard" data-qid="q69">
+      <div class="qmeta">Question 69 &middot; Domain 3.4</div>
+      <p class="qstem">Which element of denial of service protection addresses the system&#x27;s capacity to absorb attack traffic rather than merely detect it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q69" id="q69a" value="A"><label for="q69a">A. Increasing the data retention period</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69b" value="B"><label for="q69b">B. Enhancing system resilience and managing bandwidth and capacity effectively</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69c" value="C"><label for="q69c">C. Rotating encryption keys more frequently</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69d" value="D"><label for="q69d">D. Reclassifying affected data as public</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q69">Submit answer</button>
+        <span class="inline-warn" data-warn="q69">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q69"></div>
+    </div>
+
+    <div class="qcard" data-qid="q70">
+      <div class="qmeta">Question 70 &middot; Domain 3.4</div>
+      <p class="qstem">Which control involves separating security functions from other system operations so that compromising an application does not surrender the controls protecting it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q70" id="q70a" value="A"><label for="q70a">A. Denial of service protection</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70b" value="B"><label for="q70b">B. Security function isolation</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70c" value="C"><label for="q70c">C. Multi-vendor pathway connectivity</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70d" value="D"><label for="q70d">D. Boundary protection</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q70">Submit answer</button>
+        <span class="inline-warn" data-warn="q70">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q70"></div>
+    </div>
+
+  </div>
+  <!-- END QUIZ TAB -->
+
+</div>
+
+<script>
+const quizData = {
+    q1: {
+      correct: "D",
+      rationale: {
+        correct: "Contractual agreements may be the only recourse once the risk materialises, but prevention is stronger. Encryption with customer-managed keys held externally means data exposed at the provider remains unreadable, because the provider never holds the keys.",
+        incorrect: "The correct answer is D. More frequent backups improve recoverability from loss or corruption, but they do nothing about confidentiality. If anything, additional copies expand the surface across which an insider could access the data."
+      }
+    },
+    q2: {
+      correct: "B",
+      rationale: {
+        correct: "The named mitigation strategies are data encryption at rest, two-factor authentication, elimination of shared accounts, insistence on a well-defined shared responsibility model, and the use of standardised cloud assessment questions when evaluating providers.",
+        incorrect: "The correct answer is B. Disabling logging and sharing administrator credentials would each remove a control rather than add one, destroying both visibility and accountability. These are the practices mitigation strategies exist to eliminate."
+      }
+    },
+    q3: {
+      correct: "D",
+      rationale: {
+        correct: "Location is a named component of BCDR strategy, covering where the recovery capability sits. Sufficient separation from the primary site is what prevents a single regional event from destroying both simultaneously.",
+        incorrect: "The correct answer is D, Location. Failover capability is the mechanism that shifts operations to the recovery site. It determines how the transition happens rather than where the recovery capability is positioned relative to the primary."
+      }
+    },
+    q4: {
+      correct: "A",
+      rationale: {
+        correct: "Lock-in is named among the organisational and regulatory risks: dependence on a single cloud provider reduces flexibility, making it difficult or costly to change direction later.",
+        incorrect: "The correct answer is A, Lock-in, which reduces flexibility. Data remanence is a genuine cloud risk, but it concerns residual data persisting on storage media after deletion or reallocation. It arises from multi-tenant infrastructure rather than from commercial dependence on one vendor."
+      }
+    },
+    q5: {
+      correct: "B",
+      rationale: {
+        correct: "The management plane enables remote administration across hosts and provides the core provisioning functions of cloud infrastructure, which is why compromising it grants control over everything beneath it.",
+        incorrect: "The correct answer is B, The management plane. The physical environment refers to the server rooms and data centres housing the hardware. It is where the infrastructure sits, not the administrative layer through which virtual resources are created and controlled."
+      }
+    },
+    q6: {
+      correct: "A",
+      rationale: {
+        correct: "With the exception of private clouds, the provider or cloud vendor is responsible for environmental design, just as with any physical data centre location. For customers, evaluating that design forms part of vendor risk analysis.",
+        incorrect: "The correct answer is A, The cloud service provider. The customer builds the logical design using the provider's services, but has no control over the facility's cooling, power, or physical layout in a public cloud. Its influence is limited to assessing the provider's design during due diligence."
+      }
+    },
+    q7: {
+      correct: "C",
+      rationale: {
+        correct: "Because a cloud service provider may serve a multitude of clients across a vast geographic area, potentially worldwide, physical and environmental standards for its data centre may be more stringent than for an on-premises facility serving one organisation.",
+        incorrect: "The correct answer is C. On-premises data centres carry their own physical security obligations and are not exempt from them. The difference is one of scale and blast radius, since a provider failure affects many organisations simultaneously."
+      }
+    },
+    q8: {
+      correct: "A",
+      rationale: {
+        correct: "The logical layout is an abstract representation that customers create using the provider's tools and services, covering tenant partitioning, access control, compliance monitoring, patch management, log analysis, and service configuration.",
+        incorrect: "The correct answer is A, Logical design. Physical design concerns the facility itself, including site location and the buy or build decision. In a public cloud that responsibility sits with the provider as owner, not with the customer configuring services."
+      }
+    },
+    q9: {
+      correct: "A",
+      rationale: {
+        correct: "RAID, a redundant array of inexpensive disks, enhances data integrity and performance by spreading data across multiple disks so that the failure of one does not destroy the data.",
+        incorrect: "The correct answer is A, RAID. IPSec is a protocol suite securing data in transit across networks. It protects communications rather than providing redundancy or performance benefits at the storage layer."
+      }
+    },
+    q10: {
+      correct: "A",
+      rationale: {
+        correct: "Recovery Point Objective helps determine how much information must be restored and recovered, which directly drives how frequently data must be replicated or backed up to keep potential loss within the tolerable window.",
+        incorrect: "The correct answer is A, Recovery Point Objective. Recovery Time Objective measures how quickly each system must be operational again. It drives investment in failover speed and standby capacity rather than in the frequency of data replication."
+      }
+    },
+    q11: {
+      correct: "D",
+      rationale: {
+        correct: "Packet capture faces the same constraint as log collection. In PaaS or SaaS the customer's capability depends on the provider, because the customer does not control the essential network appliances or the points at which capture would occur.",
+        incorrect: "The correct answer is D. Customers cannot install capture agents on infrastructure a provider operates and does not expose. That level of access is precisely what distinguishes IaaS, where capture on the customer's own virtual machine is normally achievable."
+      }
+    },
+    q12: {
+      correct: "C",
+      rationale: {
+        correct: "Uniform configuration makes administration simpler and generally more secure, and it is the business that specifies how each authorised service should be configured. Before approving any deviation from the established pattern, the risk associated with the variance must be assessed.",
+        incorrect: "The correct answer is C, An assessment of the risk introduced by the variance. Treating standards as advisory defeats the purpose of having a defined pattern. The value of the pattern is that it makes exceptions visible and forces them through deliberate risk evaluation rather than allowing silent drift."
+      }
+    },
+    q13: {
+      correct: "C",
+      rationale: {
+        correct: "Industry organisations publish valuable risk lists, but every organisation providing or consuming cloud services must nonetheless conduct its own risk assessment, because risk depends on that organisation's own data, obligations, and tolerance.",
+        incorrect: "The correct answer is C. Published lists are useful starting points that cannot account for a specific organisation's data sensitivity, regulatory context, or risk appetite. Treating a generic list as sufficient substitutes someone else's circumstances for your own."
+      }
+    },
+    q14: {
+      correct: "D",
+      rationale: {
+        correct: "Limits impose a maximum on how much resource a workload may consume, preventing any single system from monopolising capacity and degrading others sharing the same host.",
+        incorrect: "The correct answer is D, Limits. A reservation would guarantee the batch job a minimum allocation, which is the opposite of what is needed. The problem is the job taking too much, so the control required is a ceiling rather than a floor."
+      }
+    },
+    q15: {
+      correct: "C",
+      rationale: {
+        correct: "Recovery Point Objective expresses maximum tolerable data loss measured in time. Losing four hours against a thirty minute RPO is an RPO failure, and the corrective focus belongs with how frequently data is replicated or backed up.",
+        incorrect: "The correct answer is C. The scenario states explicitly that service was restored within the agreed recovery time, so the RTO was met. Directing effort at failover speed would address a problem that did not occur while leaving the actual failure untouched."
+      }
+    },
+    q16: {
+      correct: "A",
+      rationale: {
+        correct: "Because cloud is internet-based and multi-tenant, an attack can reach customers who were never the intended target. Shared infrastructure means shared consequences, and a denial of service attack against one tenant can degrade service for others.",
+        incorrect: "The correct answer is A. Vendor lock-in concerns the difficulty and cost of moving between providers. It is a genuine cloud risk, but it describes a commercial and technical dependency rather than the collateral effect of an attack on shared infrastructure."
+      }
+    },
+    q17: {
+      correct: "D",
+      rationale: {
+        correct: "Risk sharing distributes risk across multiple parties, for example through partnership arrangements or contractual allocation, so that no single party bears the whole exposure.",
+        incorrect: "The correct answer is D, Risk sharing. Risk mitigation reduces likelihood or impact through controls the organisation implements itself. Distributing exposure among several parties changes who carries the risk rather than reducing the risk that exists."
+      }
+    },
+    q18: {
+      correct: "A",
+      rationale: {
+        correct: "Business continuity and disaster recovery protect against the risk of data not being available and the possibility that the business processes it supports become non-functional, both of which carry adverse consequences for the organisation.",
+        incorrect: "The correct answer is A. Unauthorised reading of data is a confidentiality concern addressed by encryption and access control. BCDR is fundamentally an availability discipline, concerned with keeping data and processes usable rather than secret."
+      }
+    },
+    q19: {
+      correct: "B",
+      rationale: {
+        correct: "Resilience is the ability to adapt to changing conditions and recover from disruptions or interruptions, focusing on proactive design that enhances robustness and flexibility against known vulnerabilities.",
+        incorrect: "The correct answer is B. Cryptographic strength protects confidentiality and integrity, which are distinct security properties. Resilience concerns continuity of operation through disruption, which encryption neither provides nor addresses."
+      }
+    },
+    q20: {
+      correct: "C",
+      rationale: {
+        correct: "Eliminating shared accounts is a named mitigation strategy for cloud infrastructure risk. When several people use one credential, no log entry can identify who actually performed an action, which destroys accountability and non-repudiation.",
+        incorrect: "The correct answer is C, Eliminating shared accounts. Data dispersion distributes data across storage devices to improve availability and resilience. It concerns how data is stored rather than who can be held accountable for actions taken against it."
+      }
+    },
+    q21: {
+      correct: "A",
+      rationale: {
+        correct: "Governance is named among the organisational and regulatory risks, covering whether the organisation's policies actually manage cloud resources effectively and in a compliant manner as adoption spreads across the business.",
+        incorrect: "The correct answer is A. Volume discounts are a commercial consideration relevant to cost management. They have no bearing on whether policies are adequate to govern how cloud resources are used and kept compliant."
+      }
+    },
+    q22: {
+      correct: "A",
+      rationale: {
+        correct: "Providers are generally responsible for securing the infrastructure supporting cloud services, while customers must manage the security of their data within those services, including the use of encryption for data at rest and in transit and the implementation of robust access controls.",
+        incorrect: "The correct answer is A. Maintaining the hypervisor is squarely a provider responsibility, since the customer has no access to that layer in any public cloud service model. Assigning it to the customer inverts the shared responsibility boundary."
+      }
+    },
+    q23: {
+      correct: "B",
+      rationale: {
+        correct: "In a community cloud the provider role is often filled by a community member who provides the space and hardware, in contrast to a private cloud where the organisation itself is the provider and a public cloud where a commercial vendor is.",
+        incorrect: "The correct answer is B, A community member who supplies space and hardware. A regulator sets and enforces rules that the arrangement must comply with. It is an oversight role rather than an operational one, and regulators do not supply data centre space or hardware to the organisations they oversee."
+      }
+    },
+    q24: {
+      correct: "B",
+      rationale: {
+        correct: "Where legal restrictions prevent data crossing borders, the customer's data may need to be kept on premises unless the provider's contract allows for compliance with those restrictions. This is part of the long-term commitment that the buy and hold decision represents.",
+        incorrect: "The correct answer is B. Legal restrictions on data location apply with full force to cloud arrangements, which is precisely why data residency and sovereignty feature so heavily across this certification. Cloud adoption does not suspend a jurisdiction's laws."
+      }
+    },
+    q25: {
+      correct: "C",
+      rationale: {
+        correct: "Returning to normal, the failback to primary operations, is regularly overlooked in planning and frequently proves harder than the failover itself, since data has diverged during the recovery period and must be reconciled.",
+        incorrect: "The correct answer is C, Returning to normal. Failover capability receives substantial attention in most plans and is the component organisations most commonly test. The neglected half is what happens after the emergency, when operations must move back."
+      }
+    },
+    q26: {
+      correct: "D",
+      rationale: {
+        correct: "Compute capability is defined primarily by CPU, which determines the processing power available to applications, and RAM, which provides temporary storage for data actively being used and keeps access fast, reducing latency.",
+        incorrect: "The correct answer is D. Disk capacity governs how much data can be stored rather than how quickly it can be processed, and fan speed is a hardware health metric. Neither defines the compute capability available to a workload."
+      }
+    },
+    q27: {
+      correct: "A",
+      rationale: {
+        correct: "The fundamental risk of cloud lies in its internet-based model, which makes services vulnerable to attack from anyone with an internet connection, wherever in the world they are, whether they target the customer, the provider, or another tenant.",
+        incorrect: "The correct answer is A. RAID is a storage redundancy technique that improves data integrity and availability. It is a protective measure within the infrastructure rather than a source of the model's inherent exposure."
+      }
+    },
+    q28: {
+      correct: "D",
+      rationale: {
+        correct: "In an IaaS environment cloud customers have extensive access to logs from the operating system, virtual devices, platform, and application levels, because they operate those layers themselves.",
+        incorrect: "The correct answer is D. Providers routinely expose substantial logging, and the amount varies by service model rather than being universally withheld. The real constraint is that visibility narrows as the provider assumes more of the stack, not that it is absent altogether."
+      }
+    },
+    q29: {
+      correct: "B",
+      rationale: {
+        correct: "The logical design of a cloud data centre includes access management, regulatory compliance monitoring, patch management, log analysis, and service configuration, with Identity and Access Management establishing the secure perimeter.",
+        incorrect: "The correct answer is B. Fire suppression, perimeter fencing, and guard rotas are physical security measures protecting the facility itself. They belong to physical design and, in a public cloud, sit entirely with the provider rather than the customer."
+      }
+    },
+    q30: {
+      correct: "C",
+      rationale: {
+        correct: "Organisations may extend on-premises IAM solutions to the cloud or adopt cloud-based IAM services, and the decision should consider ease of management, security requirements, and the potential for achieving single sign-on across multiple systems.",
+        incorrect: "The correct answer is C. Conference sponsorship reflects a vendor's marketing activity and says nothing about how well its identity service will meet the organisation's management and security needs, or whether it can deliver single sign-on."
+      }
+    },
+    q31: {
+      correct: "D",
+      rationale: {
+        correct: "A Storage Area Network connects storage devices on a dedicated high-speed network separate from the main data network, providing reliable and flexible storage infrastructure.",
+        incorrect: "The correct answer is D, SAN. RAID also serves storage, but it works by distributing data across multiple disks within a system to enhance integrity and performance. It is a redundancy scheme rather than a separate network connecting storage devices."
+      }
+    },
+    q32: {
+      correct: "C",
+      rationale: {
+        correct: "Educating users on secure practices such as avoiding password reuse and recognising phishing attempts is essential to safeguarding identity and access management systems, because a user persuaded to hand over credentials defeats controls that are otherwise working correctly.",
+        incorrect: "The correct answer is C. Training reduces the likelihood that users are deceived, but it never removes the need for authentication. Education complements technical controls rather than substituting for them."
+      }
+    },
+    q33: {
+      correct: "D",
+      rationale: {
+        correct: "Site selection criteria encompass the ability to restrict physical access, the availability of an adequate workforce, and reliable access to power and other essential resources, alongside substantial network capacity.",
+        incorrect: "The correct answer is D. Selecting purely on land price ignores every factor that determines whether the facility can operate safely and continuously. A cheap site in a flood plain with unreliable power costs far more over its life than the purchase saving."
+      }
+    },
+    q34: {
+      correct: "B",
+      rationale: {
+        correct: "Multi-vendor pathway connectivity uses multiple internet service providers or connectivity vendors so that failure of one carrier does not sever access. The problem is usually the connectivity of a specific customer or provider rather than the internet at large.",
+        incorrect: "The correct answer is B. HVAC capacity addresses cooling and climate control. It has no bearing on whether network traffic can reach the facility, so no amount of additional cooling restores a severed connection."
+      }
+    },
+    q35: {
+      correct: "A",
+      rationale: {
+        correct: "To protect data in transit, employing encryption protocols such as TLS and IPSec, or using virtual private networks, ensures that transmitted data cannot be read or altered while crossing networks the organisation does not control.",
+        incorrect: "The correct answer is A, TLS, IPSec, or VPNs. Reservations, shares, and limits are compute resource allocation mechanisms used to manage contention in multi-tenant environments. They govern how capacity is distributed, not how communications are secured."
+      }
+    },
+    q36: {
+      correct: "B",
+      rationale: {
+        correct: "Correlation combines events from multiple sources so that relationships and patterns which no individual log would reveal become visible, which is why it sits alongside log collection and packet capture as a named audit mechanism.",
+        incorrect: "The correct answer is B, Correlation. Packet capture records network traffic in fine detail at a specific capture point. It provides depth on one source rather than combining events across many sources to reveal patterns."
+      }
+    },
+    q37: {
+      correct: "D",
+      rationale: {
+        correct: "Volume storage provides block storage attached to a virtual machine as if it were a physical disk, making it well suited to traditional file systems and database applications requiring low latency and high performance.",
+        incorrect: "The correct answer is D, Volume storage. Object storage manages data as discrete objects with embedded metadata and suits unstructured content such as media files, backups, and analytics datasets, rather than the low latency block access a database requires."
+      }
+    },
+    q38: {
+      correct: "C",
+      rationale: {
+        correct: "Functionality replication ensures the recovery site can actually run the workload rather than merely holding a copy of the data. Data replication without functionality replication produces a recoverable database and an unusable service.",
+        incorrect: "The correct answer is C, Functionality replication. Data replication was clearly in place, since the database was successfully copied to the second region. The gap was in the ability to run the application against that data once failover occurred."
+      }
+    },
+    q39: {
+      correct: "B",
+      rationale: {
+        correct: "Risk transfer shifts the financial consequence of a risk to another party, typically through insurance. The likelihood and technical impact of the incident are unchanged, and reputational damage remains with the organisation.",
+        incorrect: "The correct answer is B, Risk transfer. Mitigation reduces likelihood or impact by implementing controls. Buying a policy changes who pays when something goes wrong without making it any less likely to happen, which is exactly what distinguishes transfer from mitigation."
+      }
+    },
+    q40: {
+      correct: "A",
+      rationale: {
+        correct: "Shares define the priority of resource allocation in a multi-tenant environment, determining which workload wins when demand for the remaining capacity exceeds supply.",
+        incorrect: "The correct answer is A, Shares. Reservations have already been satisfied by the point the question describes. The mechanism that arbitrates between competing claims on what is left over is the relative weighting that shares provide."
+      }
+    },
+    q41: {
+      correct: "D",
+      rationale: {
+        correct: "Risk acceptance is consciously deciding to bear a risk because treatment would cost more than the exposure warrants. What makes it legitimate is that it is deliberate and documented, distinguishing it from simply failing to notice or address the risk.",
+        incorrect: "The correct answer is D. Avoidance means not undertaking the risky activity at all. Continuing the activity while choosing to bear the consequences is acceptance, and describing inaction as avoidance confuses a decision to proceed with a decision to abstain."
+      }
+    },
+    q42: {
+      correct: "C",
+      rationale: {
+        correct: "Risk avoidance eliminates a risk by not undertaking the activity that creates it. Declining to place the workload in public cloud removes the exposure entirely rather than reducing, transferring, or accepting it.",
+        incorrect: "The correct answer is C, Risk avoidance. Risk sharing distributes risk across multiple parties, for example through partnership or contractual allocation. The organisation here is not distributing the exposure to anyone; it is ensuring the exposure never arises."
+      }
+    },
+    q43: {
+      correct: "B",
+      rationale: {
+        correct: "Integrating audits into existing corporate governance and enterprise risk management frameworks allows all requirements for risk controls to be consolidated, including legal, technical, jurisdictional, contractual, and compliance requirements.",
+        incorrect: "The correct answer is B. Regulators set and enforce requirements; they do not assume an organisation's audit obligations. Integration organises the work internally rather than shifting it to an external body."
+      }
+    },
+    q44: {
+      correct: "B",
+      rationale: {
+        correct: "The buy and hold consideration recognises that transitioning to a cloud data centre is typically a long-term commitment, weighing data sensitivity, the legal regulations governing data storage, and the availability of qualified personnel for on-premises maintenance.",
+        incorrect: "The correct answer is B. Cloud contracts do include termination provisions, and reversibility is explicitly one of the cloud shared considerations. The commitment is long-term because of the practical difficulty and cost of unwinding a migration, not because exit is contractually impossible."
+      }
+    },
+    q45: {
+      correct: "D",
+      rationale: {
+        correct: "Boundary protection uses firewalls, intrusion detection systems, and related controls at the boundaries between trust zones, forming part of system, storage, and communication protection.",
+        incorrect: "The correct answer is D, Boundary protection. Policy and procedures form the documented foundation that makes other controls consistent and enforceable. They govern how controls are applied rather than being the technical mechanism deployed at a trust boundary."
+      }
+    },
+    q46: {
+      correct: "C",
+      rationale: {
+        correct: "The provider secures the networking components it houses and the customer manages components in its own facilities, but the public internet connecting the two is controlled by neither, making it the primary area of concern.",
+        incorrect: "The correct answer is C. The provider's internal switching fabric sits squarely within the provider's own facility and responsibility. Because one party clearly owns it, it does not present the shared-control gap that makes the public internet the focus."
+      }
+    },
+    q47: {
+      correct: "C",
+      rationale: {
+        correct: "An untested plan is an assumption rather than a capability. Testing is what proves the arrangements work, and it routinely reveals gaps such as missing dependencies, stale credentials, or capacity that exists in documentation but not in reality.",
+        incorrect: "The correct answer is C. A successful test proves the plan worked under the conditions tested at that moment. Systems, dependencies, and staff change continuously, so plans require ongoing review and retesting rather than a single validation."
+      }
+    },
+    q48: {
+      correct: "B",
+      rationale: {
+        correct: "Resilience design is anchored to power, HVAC, and connectivity. These are the three utilities whose loss halts a facility no matter how healthy everything else is, which is why redundancy across all three is the design goal.",
+        incorrect: "The correct answer is B, Power, HVAC, and connectivity. CPU, RAM, and disk are compute and storage resources within the infrastructure rather than the facility utilities that keep it running. A fully specified server is useless if the building has lost power or cooling."
+      }
+    },
+    q49: {
+      correct: "B",
+      rationale: {
+        correct: "The provider is responsible for the networking components it houses and maintaining their security, the customer manages components located within its own facilities, and both parties implement firewalls and related technologies at their respective boundaries.",
+        incorrect: "The correct answer is B. Extending provider responsibility to the customer's own premises equipment misreads the boundary. The provider cannot secure hardware sitting in a building it does not operate and cannot access, which is why responsibility follows control."
+      }
+    },
+    q50: {
+      correct: "A",
+      rationale: {
+        correct: "The provider must support secure methods such as HTTPS, encryption of data before transmission, and VPN usage, and the customer is expected to use them. Both parties also implement firewalls on their own side of the boundary.",
+        incorrect: "The correct answer is A, HTTPS, encryption prior to transmission, and VPN access. Obscure port numbers provide no cryptographic protection at all. Traffic over plain HTTP remains readable and modifiable in transit regardless of which port carries it, which is security through obscurity rather than actual protection."
+      }
+    },
+    q51: {
+      correct: "A",
+      rationale: {
+        correct: "HVAC belongs to environmental design. Every computing facility must prioritise electrical service and climate control, and an HVAC failure can impact computing resources just as severely as an electrical or communication outage, which is why HVAC capacity forms part of provider evaluation.",
+        incorrect: "The correct answer is A. Cooling is a physical plant function, not something configured through a cloud management console. Placing it in logical design confuses the abstract configuration layer the customer controls with the physical facility the provider operates."
+      }
+    },
+    q52: {
+      correct: "D",
+      rationale: {
+        correct: "The physical location plays a critical role in reducing disaster risk, which is why it is advisable to avoid regions prone to natural disasters, civil unrest, or comparable instability when selecting a site.",
+        incorrect: "The correct answer is D. Encryption algorithms are a function of the software and cryptographic modules deployed, not of geography. A facility anywhere can run the same cryptography, which is why location matters for availability and legal exposure rather than for cipher choice."
+      }
+    },
+    q53: {
+      correct: "C",
+      rationale: {
+        correct: "Recovery Service Level expresses the percentage of normal service capacity that must be available during recovery, recognising that recovery is rarely all or nothing and an organisation may accept degraded throughput while in its recovery state.",
+        incorrect: "The correct answer is C, Recovery Service Level. Recovery Time Objective measures how quickly a system must be operational again after a disruption. It addresses speed of restoration rather than the level of capacity delivered once service resumes."
+      }
+    },
+    q54: {
+      correct: "B",
+      rationale: {
+        correct: "Object storage is suited to unstructured data such as multimedia files, backups, and big data analytics, where content is managed as discrete objects rather than through a traditional file system.",
+        incorrect: "The correct answer is B, Object storage. Volume storage provides block-level access attached to a virtual machine, which suits databases and file systems needing low latency. It is a poor fit for the large volumes of unstructured content object storage handles efficiently."
+      }
+    },
+    q55: {
+      correct: "B",
+      rationale: {
+        correct: "Reservations set a guaranteed minimum of resource for a system, ensuring availability and performance regardless of what other tenants or workloads are doing on the same host.",
+        incorrect: "The correct answer is B, Reservations. Limits impose a maximum ceiling rather than a guaranteed floor. A limit prevents a workload from consuming too much; it does nothing to guarantee it receives enough when resources are contested."
+      }
+    },
+    q56: {
+      correct: "C",
+      rationale: {
+        correct: "The purpose of an audit is to ensure that a sufficient number of risk controls exist and that they are operationally efficient. Audits are most commonly driven by regulatory or compliance requirements.",
+        incorrect: "The correct answer is C. Audits verify that controls exist and function; they presuppose controls rather than replacing them. An audit finding that no controls exist is a failure, not a substitute for having them."
+      }
+    },
+    q57: {
+      correct: "D",
+      rationale: {
+        correct: "Local climate shapes HVAC emphasis. A data centre closer to the equator will have a greater focus on air conditioning than on heating, which is one reason HVAC design cannot be assessed generically without reference to location.",
+        incorrect: "The correct answer is D, Air conditioning rather than heating. Climate is precisely what determines the balance of heating and cooling capacity a facility needs. Claiming it has no effect would mean identical HVAC designs served Arctic and equatorial sites equally well, which they plainly do not."
+      }
+    },
+    q58: {
+      correct: "D",
+      rationale: {
+        correct: "Audit visibility follows the shared responsibility boundary. As the provider takes on more of the stack moving from IaaS to PaaS to SaaS, the customer operates less of it and can therefore observe less of it directly.",
+        incorrect: "The correct answer is D. SaaS providers generate extensive logs for their own operations and often expose subsets to customers. No legal prohibition exists; the limitation is one of access and contract rather than of law or technical possibility."
+      }
+    },
+    q59: {
+      correct: "C",
+      rationale: {
+        correct: "In a private cloud developed on premises, the business or customer acts as the cloud service provider, which means it owns and is responsible for the physical environment including the facility and its controls.",
+        incorrect: "The correct answer is C, The business or customer itself. A private cloud still has a provider role; what changes is who fills it. Saying no provider exists confuses the absence of an external commercial vendor with the absence of the responsibilities the provider role carries."
+      }
+    },
+    q60: {
+      correct: "B",
+      rationale: {
+        correct: "Planning, preparing, and provisioning is the named component covering arrangements made ahead of time, ensuring capacity and procedures are in place before they are needed rather than being assembled under the pressure of an active incident.",
+        incorrect: "The correct answer is B, Planning, preparing, and provisioning. Returning to normal covers the failback to primary operations once the disruption has passed. It concerns the end of the recovery cycle rather than the advance preparation that makes recovery possible at all."
+      }
+    },
+    q61: {
+      correct: "A",
+      rationale: {
+        correct: "Virtualisation is what allows physical hardware to be carved into isolated logical instances, which is precisely what makes resource pooling, on-demand self-service, and scalability deliverable. Without it, the essential characteristics could not be provided.",
+        incorrect: "The correct answer is A. Virtualisation abstracts physical hardware; it does not eliminate it. Every virtual machine still runs on a physical host in a real data centre, which is why physical and environmental design remain part of this domain."
+      }
+    },
+    q62: {
+      correct: "D",
+      rationale: {
+        correct: "Implementing a BCDR plan involves defining the scope of the plan, gathering requirements from the business, analysing the resulting plan, and assessing the risk of the arrangements themselves, followed by implementation and testing.",
+        incorrect: "The correct answer is D. Insurance transfers financial consequence but produces no operational capability. A filed policy document does not restore a service, which is why implementation focuses on scope, requirements, analysis, and testing."
+      }
+    },
+    q63: {
+      correct: "D",
+      rationale: {
+        correct: "Recovery Service Level defines the proportion of normal service capacity available during recovery. An RSL of sixty percent commits the bank to serving customers at sixty percent of normal throughput while in its recovery state, accepting degradation but not outage.",
+        incorrect: "The correct answer is D. How much data is recovered is governed by the RPO, which here is fifteen minutes of tolerable loss. RSL concerns service capacity delivered rather than the quantity of transactions restored."
+      }
+    },
+    q64: {
+      correct: "A",
+      rationale: {
+        correct: "Threats may be linked to risks in the geographic location of the cloud data centre. Regional instability, local legal exposure, and physical hazards at that site all affect the services hosted there, regardless of where the customer is based.",
+        incorrect: "The correct answer is A. Latency does increase with distance, and it is a genuine design consideration, but it is a performance characteristic rather than a security threat. The location risk in question concerns hazards and legal exposure, not response times."
+      }
+    },
+    q65: {
+      correct: "C",
+      rationale: {
+        correct: "For cloud customers, the vendor's risk analysis may include an assessment of the provider's underlying environmental design. Since the customer cannot influence that design directly in a public cloud, evaluating it during due diligence is the available control.",
+        incorrect: "The correct answer is C. Patch management concerns keeping software current against known vulnerabilities within the customer's own scope of responsibility. It has no mechanism for evaluating a provider's cooling, power, or facility design."
+      }
+    },
+    q66: {
+      correct: "A",
+      rationale: {
+        correct: "The management plane provides administration across hosts and the ability to create, start, and stop resources. A stolen virtual machine credential costs one machine, whereas a compromised management plane credential can cost the entire environment.",
+        incorrect: "The correct answer is A. The management plane is a control and administration layer rather than a data repository. Customer data lives in the storage and database services it provisions, so describing it as the sole data store misidentifies its function."
+      }
+    },
+    q67: {
+      correct: "A",
+      rationale: {
+        correct: "Risk assessment consists of identification, finding what could go wrong, and analysis, judging how likely each risk is and how much damage it would cause. Treatment decisions follow from the analysis rather than forming part of the assessment itself.",
+        incorrect: "The correct answer is A. Encrypting data and rotating keys are control activities that may result from a risk assessment, but they are treatment measures applied after risks have been identified and analysed, not the assessment process itself."
+      }
+    },
+    q68: {
+      correct: "C",
+      rationale: {
+        correct: "Resilience is achieved through proactive design: locating the project away from known hazard regions, designing with flexibility in mind, constructing reliable and simple systems, adding redundancy wherever possible, and applying passive design principles.",
+        incorrect: "The correct answer is C. Insurance transfers financial consequence but does nothing to keep systems running. Resilience is about adapting to conditions and recovering from disruption through design, which insurance cannot deliver no matter how comprehensive the policy."
+      }
+    },
+    q69: {
+      correct: "B",
+      rationale: {
+        correct: "Denial of service protection combines enhanced system resilience, prompt detection and response, and effective bandwidth and capacity management, so that the system can absorb and withstand attack traffic as well as recognise it.",
+        incorrect: "The correct answer is B. Key rotation limits the exposure window if a key is compromised, which serves confidentiality. It has no effect on a system's capacity to remain available when flooded with traffic."
+      }
+    },
+    q70: {
+      correct: "B",
+      rationale: {
+        correct: "Security function isolation separates security functions from other system operations, helping prevent unauthorised access and preserving the integrity of security operations even when other parts of the system are compromised.",
+        incorrect: "The correct answer is B, Security function isolation. Boundary protection uses firewalls, intrusion detection, and similar controls at the edges between trust zones. It defends the perimeter between zones rather than isolating security functions from other operations within a system."
+      }
+    }
+};
+
+  // Tab switching
+  document.querySelectorAll('.tabbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'auto'});
+    });
+  });
+
+  // Study subnav smooth scroll (stay within study tab)
+  document.querySelectorAll('.study-subnav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  const state = {}; // { qid: { answered: bool, correct: bool } }
+
+  function updateProgress(){
+    const ids = Object.keys(quizData);
+    const answered = ids.filter(id => state[id] && state[id].answered).length;
+    const correct = ids.filter(id => state[id] && state[id].correct).length;
+    document.getElementById('progress-count').textContent = answered;
+    document.getElementById('progress-correct').textContent = correct;
+    document.getElementById('progress-total').textContent = ids.length;
+  }
+
+  function submitAnswer(qid){
+    const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+    const selected = card.querySelector('input[name="'+qid+'"]:checked');
+    const warn = card.querySelector('.inline-warn[data-warn="'+qid+'"]');
+
+    if(!selected){
+      warn.style.display = 'inline';
+      return;
+    }
+    warn.style.display = 'none';
+
+    const chosen = selected.value;
+    const correctVal = quizData[qid].correct;
+    const isCorrect = chosen === correctVal;
+
+    card.querySelectorAll('.qoption').forEach(opt => {
+      opt.classList.remove('correct-choice','incorrect-choice');
+    });
+
+    const chosenOpt = card.querySelector('input[value="'+chosen+'"]').closest('.qoption');
+    chosenOpt.classList.add(isCorrect ? 'correct-choice' : 'incorrect-choice');
+
+    if(!isCorrect){
+      const correctOpt = card.querySelector('input[value="'+correctVal+'"]').closest('.qoption');
+      correctOpt.classList.add('correct-choice');
+    }
+
+    const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.innerHTML = '<span class="verdict">' + (isCorrect ? '&#10003; Correct' : '&#10007; Incorrect') + '</span>' +
+                    '<span class="rationale">' + (isCorrect ? quizData[qid].rationale.correct : quizData[qid].rationale.incorrect) + '</span>';
+
+    state[qid] = { answered: true, correct: isCorrect };
+    updateProgress();
+  }
+
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    btn.addEventListener('click', () => submitAnswer(btn.dataset.qid));
+  });
+
+  document.querySelectorAll('.qoptions input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const qid = input.name;
+      const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+      card.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+      const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+      fb.classList.remove('show');
+    });
+  });
+
+  document.getElementById('reset-all').addEventListener('click', () => {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+    document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show'); fb.innerHTML=''; });
+    document.querySelectorAll('.inline-warn').forEach(w => w.style.display = 'none');
+    Object.keys(state).forEach(k => delete state[k]);
+    updateProgress();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>

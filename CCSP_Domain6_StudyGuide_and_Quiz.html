@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CCSP Domain 6: Legal, Risk and Compliance</title>
+<style>
+  :root{
+    --navy:#1F3864;
+    --navy-light:#2E4E8C;
+    --gold:#B08D57;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --border:#E2E1DC;
+    --text:#26251F;
+    --text-secondary:#5B594F;
+    --text-muted:#8A8879;
+    --success-bg:#E9F3E9;
+    --success-text:#1F6B2E;
+    --success-border:#8FCB9A;
+    --danger-bg:#FBEAE8;
+    --danger-text:#A32D2D;
+    --danger-border:#E8A6A0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 4rem;
+  }
+  .masthead{
+    margin-bottom:1rem;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 .35rem;
+  }
+  h1{
+    font-size:28px;
+    font-weight:700;
+    margin:0 0 .25rem;
+    color:var(--navy);
+  }
+  .subhead{
+    font-size:15px;
+    color:var(--text-secondary);
+    margin:0 0 .6rem;
+  }
+  .signature{
+    font-size:13px;
+    color:var(--text-muted);
+    font-style:italic;
+    margin:0;
+    padding-top:.5rem;
+    border-top:1px solid var(--border);
+  }
+  .backlink{
+    display:inline-block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+    text-decoration:none;
+    margin-bottom:1rem;
+  }
+  .backlink:hover{ text-decoration:underline; }
+  .ai-note{
+    background:#FFF8E8;
+    border:1px solid #E8D9A8;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.8rem 1.05rem;
+    margin:1rem 0 0;
+  }
+  .ai-note p{
+    margin:0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--text-secondary);
+  }
+  .ai-note strong{ color:var(--text); }
+  .tabbar{
+    display:flex;
+    gap:4px;
+    border-bottom:2px solid var(--border);
+    margin:1.75rem 0 0;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    z-index:10;
+  }
+  .tabbtn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    padding:.75rem 1.25rem;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-muted);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tabbtn:hover{ color:var(--navy); }
+  .tabbtn.active{
+    color:var(--navy);
+    border-bottom-color:var(--navy);
+  }
+  .tabpanel{ display:none; padding-top:1.75rem; }
+  .tabpanel.active{ display:block; }
+
+  /* ---------- STUDY TAB ---------- */
+  .topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.5rem;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--navy);
+    background:#EAF0FB;
+    border:1px solid #C9D9F2;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:.5rem;
+  }
+  .book-ref{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-secondary);
+    margin-bottom:.85rem;
+  }
+  .book-ref i{
+    color:var(--text-muted);
+    font-style:normal;
+    font-weight:600;
+  }
+  .topic-card h2{
+    font-size:20px;
+    margin:0 0 .75rem;
+    color:var(--navy);
+  }
+  .topic-card h3{
+    font-size:15px;
+    margin:1.25rem 0 .4rem;
+    color:var(--text);
+  }
+  .topic-card p{
+    font-size:15px;
+    color:var(--text);
+    margin:0 0 .75rem;
+  }
+  .note-box{
+    background:#F3F6FC;
+    border-left:3px solid var(--navy-light);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.85rem 0 0;
+  }
+  .note-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .example-box{
+    background:#FBF8F2;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.75rem 0 0;
+  }
+  .example-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .example-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  ul.plain{ margin:.25rem 0 .75rem; padding-left:1.2rem; }
+  ul.plain li{ font-size:15px; margin-bottom:.3rem; }
+
+  .study-subnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:1.5rem;
+  }
+  .study-subnav a{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    padding:5px 12px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+
+  /* ---------- QUIZ TAB ---------- */
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-bottom:1.25rem;
+    padding-bottom:1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .quiz-progress{
+    font-size:14px;
+    color:var(--text-secondary);
+  }
+  .quiz-progress strong{ color:var(--navy); }
+  .reset-btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text-secondary);
+    font-size:13px;
+    font-weight:600;
+    padding:.5rem 1rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .reset-btn:hover{
+    border-color:#D8A0A0;
+    color:var(--danger-text);
+    background:#FDF4F3;
+  }
+  .qcard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.25rem;
+  }
+  .qmeta{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:.5rem;
+  }
+  .qstem{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--text);
+    margin:0 0 1rem;
+  }
+  .qoptions{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem; }
+  .qoption{
+    display:flex;
+    align-items:flex-start;
+    gap:.65rem;
+    padding:.65rem .85rem;
+    border:1px solid var(--border);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .qoption:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .qoption input{
+    margin-top:3px;
+    accent-color:var(--navy);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .qoption label{
+    font-size:14.5px;
+    cursor:pointer;
+    color:var(--text);
+  }
+  .qoption.correct-choice{
+    border-color:var(--success-border);
+    background:var(--success-bg);
+  }
+  .qoption.incorrect-choice{
+    border-color:var(--danger-border);
+    background:var(--danger-bg);
+  }
+  .qactions{ display:flex; align-items:center; gap:.75rem; }
+  .submit-btn{
+    appearance:none;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:600;
+    padding:.6rem 1.3rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .submit-btn:hover{ background:var(--navy-light); }
+  .submit-btn:disabled{ background:#B9C4D6; cursor:not-allowed; }
+  .inline-warn{
+    font-size:13px;
+    color:var(--danger-text);
+    display:none;
+  }
+  .feedback{
+    margin-top:1rem;
+    padding:.9rem 1.1rem;
+    border-radius:8px;
+    font-size:14px;
+    display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.correct{
+    background:var(--success-bg);
+    border:1px solid var(--success-border);
+    color:var(--success-text);
+  }
+  .feedback.incorrect{
+    background:var(--danger-bg);
+    border:1px solid var(--danger-border);
+    color:var(--danger-text);
+  }
+  .feedback .verdict{
+    font-weight:700;
+    margin-bottom:.35rem;
+    display:block;
+  }
+  .feedback .rationale{
+    color:var(--text);
+    font-weight:400;
+    line-height:1.55;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <a class="backlink" href="index.html">&larr; All domains</a>
+    <p class="eyebrow">CCSP &middot; Domain 6</p>
+    <h1>Legal, Risk and Compliance</h1>
+    <p class="subhead">Study material and a 70-question practice set, aligned to the ISC2 exam outline effective August 1, 2026. Each section notes where it lines up with the Official CCSP Study Guide, 3rd Edition, by Mike Chapple and David Seidl, so the two can be read together.</p>
+    <p class="signature">Prepared by Kalyan Pradeep Potnuru for CCSP Preparation.</p>
+    <div class="ai-note">
+      <p><strong>AI-generated study aid.</strong> This material was produced with AI assistance for rapid preparation and planning. It is not affiliated with, endorsed by, or connected to ISC2. The questions are original practice items written against the published exam outline. They are not real exam questions and are not claimed to resemble what ISC2 will ask. Use this to build familiarity and structure your revision, and verify everything against official sources.</p>
+    </div>
+
+  </div>
+
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="study">Study material</button>
+    <button class="tabbtn" data-tab="quiz">Questionnaire</button>
+  </div>
+
+  <!-- ===================== STUDY TAB ===================== -->
+  <div class="tabpanel active" id="tab-study">
+
+    <div class="study-subnav">
+      <a href="#s61">6.1 Legal requirements</a>
+      <a href="#s62">6.2 Privacy issues</a>
+      <a href="#s63">6.3 Audit process</a>
+      <a href="#s64">6.4 Enterprise risk</a>
+      <a href="#s65">6.5 Outsourcing and contracts</a>
+    </div>
+
+    <a id="s61"></a>
+
+<!-- STUDY_6_1_6_2_6_3 -->
+<div class="topic-card">
+  <span class="topic-tag">6.1 Legal requirements and unique risks</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 9, Legal and Compliance Issues (legal requirements, eDiscovery, and forensics sections).</span>
+  <h2>Conflicting law, cloud legal risk, eDiscovery, and forensics</h2>
+
+  <h3>Conflicting international legislation</h3>
+  <p>Laws on data protection, privacy, and cybersecurity vary significantly between countries and regions, and organisations operating globally can find themselves subject to requirements that genuinely conflict. One jurisdiction may compel disclosure of data that another jurisdiction forbids transferring. Cloud sharpens this because data moves and replicates across regions by default unless deliberately restricted.</p>
+
+  <h3>Legal risks specific to cloud computing</h3>
+  <p>These arise from the nature of cloud itself, where data is stored, processed, and managed remotely on third-party servers. Key risks include data privacy and protection obligations following the data wherever it goes; uncertainty over which jurisdiction's law applies; loss of direct control over data handling; contractual gaps where the provider's standard terms do not meet the customer's regulatory duties; and difficulty exercising rights such as audit or evidence collection on infrastructure the customer does not own.</p>
+
+  <h3>Legal frameworks and guidelines</h3>
+  <p>The framework is the set of laws, regulations, standards, and ethical guidelines governing how data is handled, processed, and stored, designed to protect individual privacy and secure sensitive data. A CCSP is not expected to give legal advice but must recognise which regimes apply and when to involve counsel.</p>
+
+  <h3>eDiscovery</h3>
+  <p>eDiscovery is the process of identifying, collecting, preserving, and reviewing electronic information for use as evidence in legal proceedings. In cloud it is complicated by not controlling the infrastructure, by data being dispersed across regions, and by the need to extract only the requesting party's data without capturing other tenants' information. <strong>ISO/IEC 27050</strong> provides the standard for electronic discovery, and <strong>CSA guidance</strong> addresses the cloud-specific dimension. A legal hold suspends normal retention and deletion for data within its scope until proceedings conclude.</p>
+
+  <h3>Forensics requirements</h3>
+  <p>Forensic requirements are the standards, practices, and tools for investigating and analysing digital evidence after an incident, essential for establishing cause and extent, identifying perpetrators, and taking remedial action. The named standards form a family: <strong>ISO/IEC 27037</strong> covers identification, collection, acquisition, and preservation of digital evidence; <strong>27041</strong> addresses assurance of investigation methods; <strong>27042</strong> covers analysis and interpretation; and <strong>27043</strong> covers incident investigation principles and processes. CSA guidance again supplies the cloud-specific layer.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep the standards separated. ISO/IEC 27050 is eDiscovery. The 27037/27041/27042/27043 family is digital forensics. ISO/IEC 27018 is PII protection in public clouds and belongs to privacy, not forensics. Questions routinely offer all three groups together.</p>
+  </div>
+</div>
+
+<a id="s62"></a>
+<div class="topic-card">
+  <span class="topic-tag">6.2 Privacy issues</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 9, Legal and Compliance Issues (privacy, PII, and jurisdictional differences sections).</span>
+  <h2>Contractual versus regulated data, national law, and privacy assessments</h2>
+
+  <h3>Contractual versus regulated private data</h3>
+  <p>This distinction is heavily tested. <strong>Contractual private data</strong> is protected because an agreement between parties says so; the obligation arises from the contract, and breach is a contractual matter with commercial consequences. <strong>Regulated private data</strong> is protected by law regardless of what any contract says; the obligation arises from statute, and breach carries regulatory penalties that no contract can waive. PHI under HIPAA and personal data under GDPR are regulated. A confidentiality clause covering a client's commercial information is contractual.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank's contract with a supplier requires both to keep pricing terms confidential, which is contractual private data. The same bank's customer records are regulated private data under UK GDPR. If the pricing leaks, the remedy is contractual. If the customer records leak, the regulator becomes involved regardless of what any contract said.</p>
+  </div>
+
+  <h3>Country-specific legislation</h3>
+  <ul class="plain">
+    <li><strong>GDPR</strong>, the comprehensive European regulation centred on consent, rights of access, and the right to be forgotten, with extraterritorial reach over anyone processing EU residents' data.</li>
+    <li><strong>HIPAA</strong>, governing protected health information in the United States, including its Breach Notification Rule.</li>
+    <li><strong>FERPA</strong>, governing student education records in the United States.</li>
+    <li><strong>PIPEDA</strong>, Canada's private-sector personal information law.</li>
+    <li><strong>Digital Personal Data Protection Act</strong>, India's personal data legislation.</li>
+  </ul>
+
+  <h3>Jurisdictional differences</h3>
+  <p>Some regions such as the EU maintain robust comprehensive frameworks emphasising individual rights, strict consent, and strong enforcement. Others take a sectoral approach, regulating particular industries rather than personal data generally, and some have limited protection. An organisation operating across borders must satisfy the strictest applicable regime for each dataset rather than assuming one standard suffices.</p>
+
+  <h3>Standard privacy requirements</h3>
+  <p><strong>ISO/IEC 27018</strong> is the code of practice for protecting PII in public clouds acting as PII processors. <strong>GAPP</strong>, the Generally Accepted Privacy Principles, provides a recognised set of privacy principles. GDPR itself functions as a standard many organisations align to globally.</p>
+
+  <h3>Privacy Impact Assessments</h3>
+  <p>A PIA is a proactive assessment conducted before processing begins, identifying privacy risks in a proposed activity and the measures to address them. It is forward-looking, which distinguishes it from breach notification, an obligation that arises after something has gone wrong.</p>
+</div>
+
+<a id="s63"></a>
+<div class="topic-card">
+  <span class="topic-tag">6.3 Audit process and methodologies</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 9, Legal and Compliance Issues (audit controls, report types, scope restrictions, gap analysis, and policy sections).</span>
+  <h2>Audit controls, assurance challenges, report types, and policy</h2>
+
+  <h3>Internal and external audit controls</h3>
+  <p>Organisations moving to cloud need ongoing assurance that controls remain in place. Internal audit serves as a third line of defence, independent of the operational teams it examines. External audit brings independent third-party attestation that carries weight with customers and regulators. Both are needed: internal audit provides continuous visibility, external audit provides credible independent assurance.</p>
+
+  <h3>Assurance challenges of virtualisation and cloud</h3>
+  <p>Virtualisation introduces a complex management architecture that adds an abstraction layer auditors must understand. Further challenges include limited physical access to infrastructure, multi-tenancy making it impossible to examine shared components without touching other tenants, dynamic and elastic resources meaning the environment audited today differs from tomorrow's, and dependence on provider-supplied evidence rather than direct observation.</p>
+
+  <h3>Audit report types</h3>
+  <ul class="plain">
+    <li><strong>SOC 1</strong>, reporting on controls relevant to financial reporting.</li>
+    <li><strong>SOC 2</strong>, reporting against the Trust Service Criteria covering security, availability, processing integrity, confidentiality, and privacy. It is the report security teams actually need.</li>
+    <li><strong>SOC 3</strong>, a high-level public summary of a SOC 2 without the detailed controls and test results, suitable for general distribution but too thin for real assurance work.</li>
+    <li><strong>Type I versus Type II</strong>, applying to both SOC 1 and SOC 2. Type I assesses whether controls are suitably designed at a single point in time. Type II assesses whether they operated effectively over a period, typically six to twelve months.</li>
+  </ul>
+  <p><strong>SSAE 18</strong> is the US attestation standard under which SOC reports are produced, and <strong>ISAE 3402</strong> is its international equivalent.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>SOC 1 is financial reporting, SOC 2 is the security and privacy criteria, SOC 3 is the public summary. Type I is design at a point in time, Type II is effectiveness over a period. If a scenario asks for evidence controls actually worked, only a Type II answers it.</p>
+  </div>
+
+  <h3>Restrictions of audit scope statements</h3>
+  <p>Audit scope is deliberately bounded, and understanding the boundaries matters as much as reading the findings. Restrictions include <strong>asset restrictions</strong>, where critical or sensitive assets are explicitly excluded to protect them; <strong>accepted times and time periods</strong>, scheduling audits when disruption is least; and geographic or service limitations covering only certain regions or offerings. A clean report over a narrow scope proves far less than its cover page suggests.</p>
+
+  <h3>Gap analysis</h3>
+  <p>Gap analysis compares the current control state against a required or desired state, identifying the difference to be closed. It draws on control analysis, baselines, and risk and control self-assessment, and it typically precedes a formal audit so that known gaps are remediated first.</p>
+
+  <h3>Audit planning</h3>
+  <p>Planning sets the foundation for the engagement: understanding the audit objectives, defining scope, assessing risk to focus effort where it matters, allocating resources, and agreeing the schedule and evidence requirements with the parties involved.</p>
+
+  <h3>Internal ISMS, controls system, and policies</h3>
+  <p>An internal Information Security Management System provides the governing structure for security, most commonly following ISO/IEC 27001. The internal information security controls system is the set of controls implemented within it. Policies operate at two levels: <strong>organisational policies</strong> such as the overarching information security policy expressing management commitment, and <strong>functional policies</strong> addressing specific areas such as access control, acceptable use, and data classification. Cloud computing policy governs how cloud services may be selected, configured, and used.</p>
+
+  <h3>Stakeholders and specialised compliance</h3>
+  <p>Identifying and involving relevant stakeholders is crucial to cloud adoption, since engaging them surfaces perspectives, concerns, and requirements early. Highly regulated industries carry additional layers: <strong>NERC CIP</strong> for electric utilities, <strong>HIPAA and HITECH</strong> for healthcare, and <strong>PCI DSS</strong> for payment card handling, layered on top of jurisdictional requirements.</p>
+
+  <h3>Impact of distributed IT models</h3>
+  <p>Distributed IT brings advantages but must not undermine communication, coordination, management, and governance. Diverse geographic locations mean crossing legal jurisdictions, and dispersed teams and systems make consistent policy enforcement and clear accountability harder to maintain.</p>
+</div>
+
+<a id="s64"></a>
+<!-- STUDY_6_4_6_5 -->
+<div class="topic-card">
+  <span class="topic-tag">6.4 Cloud and enterprise risk management</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 9, Legal and Compliance Issues and Chapter 10, Cloud Vendor Management (risk management, data roles, and risk framework sections).</span>
+  <h2>Provider risk programmes, data roles, transparency, treatment, and frameworks</h2>
+
+  <h3>Assessing a provider's risk management programme</h3>
+  <p>Because the customer hosts its services and data in the provider's environment, the provider's risk management processes and its risk acceptance decisions directly affect the customer's own security posture. Assessment should cover the provider's controls, methodologies, policies, risk profile, and risk appetite. A provider that accepts risks the customer would not accept has effectively made that decision on the customer's behalf.</p>
+
+  <h3>Data roles</h3>
+  <p>This is among the most frequently tested distinctions in the certification:</p>
+  <ul class="plain">
+    <li><strong>Data owner or controller</strong>, the party that determines the purposes and means of processing. Accountability for the data rests here and cannot be outsourced.</li>
+    <li><strong>Data processor</strong>, the party that processes data on the controller's behalf and under its instructions.</li>
+    <li><strong>Data custodian</strong>, the party with day-to-day technical responsibility for safeguarding the data, implementing the controls the owner requires.</li>
+    <li><strong>Data steward</strong>, responsible for data quality, meaning, and fitness for business use.</li>
+    <li><strong>Data subject</strong>, the individual the personal data relates to.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank decides what customer data it collects and why, making it the controller. Its cloud provider stores and processes that data under the bank's instructions, making it the processor. The bank's database administrators implement the encryption and access controls day to day, acting as custodians. The customer is the data subject. When the regulator asks who is accountable, the answer is the bank, regardless of which party's systems held the data.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Owner and controller determine purpose. Custodian and processor act on instruction. Accountability stays with the controller even when processing is fully outsourced, which is why a scenario asking who is accountable after a provider breach almost always answers with the customer.</p>
+  </div>
+
+  <h3>Regulatory transparency requirements</h3>
+  <p>Transparency obligations require organisations to disclose certain matters to regulators, individuals, or markets. <strong>Breach notification</strong> is the principal example: the HIPAA Breach Notification Rule requires covered entities and their business associates to notify following a breach of unsecured protected health information, and GDPR requires notification to the supervisory authority, generally within 72 hours of becoming aware of a qualifying breach. <strong>Sarbanes-Oxley</strong> imposes disclosure and internal control requirements on financial reporting for listed companies.</p>
+
+  <h3>Risk treatment</h3>
+  <p>Risk measures the threats an organisation, its systems, and its data are exposed to. Risk assessment evaluates vulnerability, identifies threats, judges the likelihood of a threat succeeding, and considers mitigations. The five treatments are:</p>
+  <ul class="plain">
+    <li><strong>Avoid</strong>, not undertaking the activity that creates the risk.</li>
+    <li><strong>Mitigate</strong>, applying controls to reduce likelihood or impact.</li>
+    <li><strong>Transfer</strong>, shifting financial consequence to another party, typically insurance.</li>
+    <li><strong>Share</strong>, distributing risk across parties through partnership or contractual allocation.</li>
+    <li><strong>Accept</strong>, deliberately bearing the risk where treatment costs more than the exposure warrants.</li>
+  </ul>
+
+  <h3>Risk frameworks</h3>
+  <p>The named frameworks are <strong>ISO 31000</strong>, providing generic risk management principles and guidelines applicable to any organisation; <strong>ENISA</strong>, the European Union Agency for Cybersecurity, whose cloud risk assessment work addresses cloud specifically; and <strong>NIST</strong>, particularly its cloud computing synopsis and recommendations alongside the Risk Management Framework.</p>
+
+  <h3>Metrics and assessment of the risk environment</h3>
+  <p>Risks must be described clearly enough to communicate both internally and externally, which requires an agreed set of risk management metrics with probability and impact assessed separately for each risk. Assessment of the risk environment extends beyond a single system to cover the service, the vendor, the infrastructure, and the business, because risk in any of these reaches the others.</p>
+</div>
+
+<a id="s65"></a>
+<div class="topic-card">
+  <span class="topic-tag">6.5 Outsourcing and cloud contract design</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 10, Cloud Vendor Management (business requirements, vendor management, contract management, and supply chain sections).</span>
+  <h2>Agreements, vendor management, contract terms, and supply chain</h2>
+
+  <h3>Business requirements</h3>
+  <p>Before contracting with a provider, an organisation should evaluate its own needs, which form the foundation of its cloud strategy. Key organisational assets must be identified and assessed for suitability in cloud environments. Three instruments define the relationship:</p>
+  <ul class="plain">
+    <li><strong>Service Level Agreement (SLA)</strong>, defining measurable service commitments such as availability and support response, with remedies where they are not met.</li>
+    <li><strong>Master Service Agreement (MSA)</strong>, the overarching contract setting general terms governing the whole relationship.</li>
+    <li><strong>Statement of Work (SOW)</strong>, specifying the particular deliverables, tasks, and timelines for a defined piece of work under the MSA.</li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>The MSA is the umbrella agreement, the SOW defines specific work under it, and the SLA sets measurable performance commitments. Questions describing recurring general terms want the MSA; those describing defined deliverables want the SOW; those describing uptime percentages and credits want the SLA.</p>
+  </div>
+
+  <h3>Vendor management</h3>
+  <p>Rapid growth in the provider market means many new entrants competing for share, and not all will prove durable. Vendor management covers <strong>vendor assessments</strong> of security, financial, and operational fitness; <strong>vendor lock-in risks</strong>, where proprietary dependency makes switching impractical; <strong>vendor viability</strong>, the provider's financial stability and prospects as a going concern; and <strong>escrow</strong>, placing source code or critical materials with a neutral third party so the customer can continue operating if the vendor fails.</p>
+
+  <h3>Contract management</h3>
+  <p>Effective contract management requires appropriate governance and covers monitoring contract performance, addressing ongoing needs, adhering to terms, and managing incidents, outages, discrepancies, and violations of contractual obligations. The terms the outline names:</p>
+  <ul class="plain">
+    <li><strong>Right to audit</strong>, permitting the customer to verify the provider's controls independently.</li>
+    <li><strong>Metrics and definitions</strong>, so that terms such as availability mean the same thing to both parties.</li>
+    <li><strong>Termination</strong>, setting out how the relationship ends and what happens to data.</li>
+    <li><strong>Litigation and assurance</strong>, covering dispute handling and the evidence the provider must supply.</li>
+    <li><strong>Compliance and access to cloud and data</strong>, ensuring the customer can meet its own regulatory duties and retrieve its data.</li>
+    <li><strong>Cyber risk insurance</strong>, allocating financial consequence.</li>
+    <li><strong>Data ownership</strong>, stating unambiguously that the customer's data remains the customer's.</li>
+    <li><strong>Security requirements</strong>, specifying the controls the provider must maintain.</li>
+  </ul>
+
+  <h3>Supply chain management</h3>
+  <p>Organisations invest heavily in protecting key assets and intellectual property, and changes in supply chain practice can put that at risk. The governing principle is that security is only as strong as the weakest link: a provider's own dependencies become the customer's exposure, even where no direct contract exists. <strong>ISO/IEC 27036</strong> is the standard for information security in supplier relationships, covering how security requirements are defined, agreed, and monitored across the chain.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company contracts with a SaaS vendor that subcontracts data processing to a smaller analytics firm. The energy company has no contract with that firm, yet a breach there exposes its data just as directly. Assessing only the immediate vendor leaves the actual weakest link unexamined, which is precisely what supply chain management exists to prevent.</p>
+  </div>
+</div>
+
+
+  </div>
+  <!-- END STUDY TAB -->
+
+  <!-- ===================== QUIZ TAB ===================== -->
+  <div class="tabpanel" id="tab-quiz">
+
+    <div class="quiz-header">
+      <div class="quiz-progress">Answered: <strong id="progress-count">0</strong> / <span id="progress-total">70</span> &nbsp;&middot;&nbsp; Correct: <strong id="progress-correct">0</strong></div>
+      <button class="reset-btn" id="reset-all">Reset all answers</button>
+    </div>
+
+
+    <div class="qcard" data-qid="q1">
+      <div class="qmeta">Question 1 &middot; Domain 6.5</div>
+      <p class="qstem">Why does a contract need agreed metrics and definitions?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q1" id="q1a" value="A"><label for="q1a">A. So that the provider can change definitions unilaterally during the term</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1b" value="B"><label for="q1b">B. So that the contract need not specify any security requirements</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1c" value="C"><label for="q1c">C. So that the customer can avoid paying for the service</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1d" value="D"><label for="q1d">D. So that terms such as availability carry the same meaning for both parties and performance can be measured objectively</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q1">Submit answer</button>
+        <span class="inline-warn" data-warn="q1">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q1"></div>
+    </div>
+
+    <div class="qcard" data-qid="q2">
+      <div class="qmeta">Question 2 &middot; Domain 6.1</div>
+      <p class="qstem">What role should a CCSP take regarding legal frameworks governing data handling?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Rely solely on the cloud provider&#x27;s assessment of applicable law</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2b" value="B"><label for="q2b">B. Ignore legal considerations as they fall outside security responsibilities</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Recognise which regimes apply and know when to involve legal counsel, without providing legal advice</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Provide definitive legal opinions to the organisation on regulatory interpretation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q2">Submit answer</button>
+        <span class="inline-warn" data-warn="q2">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q2"></div>
+    </div>
+
+    <div class="qcard" data-qid="q3">
+      <div class="qmeta">Question 3 &middot; Domain 6.4</div>
+      <p class="qstem">Under GDPR, within what period must a controller generally notify the supervisory authority of a qualifying personal data breach?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q3" id="q3a" value="A"><label for="q3a">A. 72 hours of becoming aware of it</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3b" value="B"><label for="q3b">B. 30 days of becoming aware of it</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3c" value="C"><label for="q3c">C. Only at the next annual compliance filing</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3d" value="D"><label for="q3d">D. Six months after the investigation concludes</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q3">Submit answer</button>
+        <span class="inline-warn" data-warn="q3">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q3"></div>
+    </div>
+
+    <div class="qcard" data-qid="q4">
+      <div class="qmeta">Question 4 &middot; Domain 6.2</div>
+      <p class="qstem">A bank&#x27;s supplier contract requires both parties to keep pricing terms confidential. How should this data be categorised?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q4" id="q4a" value="A"><label for="q4a">A. Regulated private data, since all commercial data is statutorily protected</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4b" value="B"><label for="q4b">B. Public data, since it appears in a contract</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4c" value="C"><label for="q4c">C. Contractual private data, since the protection arises from the agreement between the parties</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4d" value="D"><label for="q4d">D. Protected health information under HIPAA</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q4">Submit answer</button>
+        <span class="inline-warn" data-warn="q4">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q4"></div>
+    </div>
+
+    <div class="qcard" data-qid="q5">
+      <div class="qmeta">Question 5 &middot; Domain 6.5</div>
+      <p class="qstem">What does effective contract management encompass beyond signing the agreement?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q5" id="q5a" value="A"><label for="q5a">A. Filing the contract and reviewing it only at renewal</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5b" value="B"><label for="q5b">B. Delegating all oversight to the provider</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5c" value="C"><label for="q5c">C. Monitoring performance, addressing ongoing needs, adhering to terms, and managing incidents, outages, discrepancies, and violations</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5d" value="D"><label for="q5d">D. Renegotiating the price every month</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q5">Submit answer</button>
+        <span class="inline-warn" data-warn="q5">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q5"></div>
+    </div>
+
+    <div class="qcard" data-qid="q6">
+      <div class="qmeta">Question 6 &middot; Domain 6.3</div>
+      <p class="qstem">What is the internal Information Security Management System, and which standard most commonly governs it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q6" id="q6a" value="A"><label for="q6a">A. A technical firewall configuration standard defined by PCI DSS</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6b" value="B"><label for="q6b">B. The governing structure for security within the organisation, most commonly following ISO/IEC 27001</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6c" value="C"><label for="q6c">C. A contractual instrument negotiated with the cloud provider</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6d" value="D"><label for="q6d">D. An attestation report issued under SSAE 18</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q6">Submit answer</button>
+        <span class="inline-warn" data-warn="q6">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q6"></div>
+    </div>
+
+    <div class="qcard" data-qid="q7">
+      <div class="qmeta">Question 7 &middot; Domain 6.3</div>
+      <p class="qstem">Which consideration must distributed IT models avoid undermining?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q7" id="q7a" value="A"><label for="q7a">A. The colour scheme of monitoring dashboards</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7b" value="B"><label for="q7b">B. Communication, coordination, management, and governance</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7c" value="C"><label for="q7c">C. The physical size of the data centre</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7d" value="D"><label for="q7d">D. The number of programming languages in use</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q7">Submit answer</button>
+        <span class="inline-warn" data-warn="q7">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q7"></div>
+    </div>
+
+    <div class="qcard" data-qid="q8">
+      <div class="qmeta">Question 8 &middot; Domain 6.1</div>
+      <p class="qstem">Which ISO/IEC standard within the forensics family addresses incident investigation principles and processes?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q8" id="q8a" value="A"><label for="q8a">A. ISO/IEC 27043</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8b" value="B"><label for="q8b">B. ISO/IEC 27050</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8c" value="C"><label for="q8c">C. ISO/IEC 27002</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8d" value="D"><label for="q8d">D. ISO/IEC 27041</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q8">Submit answer</button>
+        <span class="inline-warn" data-warn="q8">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q8"></div>
+    </div>
+
+    <div class="qcard" data-qid="q9">
+      <div class="qmeta">Question 9 &middot; Domain 6.5</div>
+      <p class="qstem">What is the governing principle of supply chain security?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q9" id="q9a" value="A"><label for="q9a">A. Suppliers without direct customer contact carry no risk</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9b" value="B"><label for="q9b">B. Security is only as strong as the weakest link, so a provider&#x27;s own dependencies become the customer&#x27;s exposure</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9c" value="C"><label for="q9c">C. Only the largest supplier in the chain needs assessment</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9d" value="D"><label for="q9d">D. Risk ends at the first contractual boundary</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q9">Submit answer</button>
+        <span class="inline-warn" data-warn="q9">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q9"></div>
+    </div>
+
+    <div class="qcard" data-qid="q10">
+      <div class="qmeta">Question 10 &middot; Domain 6.3</div>
+      <p class="qstem">Which framework defines the criteria a SOC 2 report assesses controls against?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q10" id="q10a" value="A"><label for="q10a">A. The Generally Accepted Accounting Principles</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10b" value="B"><label for="q10b">B. The Cloud Controls Matrix</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10c" value="C"><label for="q10c">C. The OWASP Top 10</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10d" value="D"><label for="q10d">D. The Trust Service Criteria covering security, availability, processing integrity, confidentiality, and privacy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q10">Submit answer</button>
+        <span class="inline-warn" data-warn="q10">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q10"></div>
+    </div>
+
+    <div class="qcard" data-qid="q11">
+      <div class="qmeta">Question 11 &middot; Domain 6.4</div>
+      <p class="qstem">Why must a customer assess a provider&#x27;s risk acceptance decisions as part of vendor evaluation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q11" id="q11a" value="A"><label for="q11a">A. Because the customer hosts its services and data in that environment, so the provider&#x27;s risk acceptance directly affects the customer&#x27;s security posture</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11b" value="B"><label for="q11b">B. Because regulators require customers to approve each provider risk decision individually</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11c" value="C"><label for="q11c">C. Because risk acceptance is the only treatment strategy providers may use</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11d" value="D"><label for="q11d">D. Because provider risk decisions have no bearing on customer systems</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q11">Submit answer</button>
+        <span class="inline-warn" data-warn="q11">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q11"></div>
+    </div>
+
+    <div class="qcard" data-qid="q12">
+      <div class="qmeta">Question 12 &middot; Domain 6.1</div>
+      <p class="qstem">What is the primary purpose of forensic requirements following a security incident?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q12" id="q12a" value="A"><label for="q12a">A. Calculating the organisation&#x27;s annual cloud spend</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12b" value="B"><label for="q12b">B. Selecting a replacement cloud provider</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12c" value="C"><label for="q12c">C. Determining which employees should receive performance bonuses</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12d" value="D"><label for="q12d">D. Uncovering the cause and extent of the incident, identifying perpetrators, and enabling appropriate remedial action</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q12">Submit answer</button>
+        <span class="inline-warn" data-warn="q12">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q12"></div>
+    </div>
+
+    <div class="qcard" data-qid="q13">
+      <div class="qmeta">Question 13 &middot; Domain 6.5</div>
+      <p class="qstem">Why has the growth of the cloud provider market created additional vendor management risk?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q13" id="q13a" value="A"><label for="q13a">A. Increased competition removes the need for vendor assessment</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13b" value="B"><label for="q13b">B. Market growth guarantees every provider is financially sound</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13c" value="C"><label for="q13c">C. Providers are now legally prohibited from ceasing operations</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13d" value="D"><label for="q13d">D. Rapid growth has attracted many new entrants competing for share, and not all will prove durable</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q13">Submit answer</button>
+        <span class="inline-warn" data-warn="q13">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q13"></div>
+    </div>
+
+    <div class="qcard" data-qid="q14">
+      <div class="qmeta">Question 14 &middot; Domain 6.4</div>
+      <p class="qstem">How should each risk be assessed when establishing risk management metrics?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q14" id="q14a" value="A"><label for="q14a">A. Probability and impact assessed separately for each risk</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14b" value="B"><label for="q14b">B. Probability only, since impact varies too much to measure</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14c" value="C"><label for="q14c">C. A single combined score with no underlying components</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14d" value="D"><label for="q14d">D. Impact only, since probability cannot be estimated</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q14">Submit answer</button>
+        <span class="inline-warn" data-warn="q14">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q14"></div>
+    </div>
+
+    <div class="qcard" data-qid="q15">
+      <div class="qmeta">Question 15 &middot; Domain 6.5</div>
+      <p class="qstem">Which contract term permits the customer to independently verify the provider&#x27;s security controls?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q15" id="q15a" value="A"><label for="q15a">A. Cyber risk insurance clause</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15b" value="B"><label for="q15b">B. Data ownership clause</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15c" value="C"><label for="q15c">C. Right to audit</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15d" value="D"><label for="q15d">D. Termination clause</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q15">Submit answer</button>
+        <span class="inline-warn" data-warn="q15">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q15"></div>
+    </div>
+
+    <div class="qcard" data-qid="q16">
+      <div class="qmeta">Question 16 &middot; Domain 6.1</div>
+      <p class="qstem">A legal hold is issued covering data held in a cloud service. What effect does it have on the organisation&#x27;s retention policy?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q16" id="q16a" value="A"><label for="q16a">A. It has no effect, since retention policies take precedence</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16b" value="B"><label for="q16b">B. It accelerates deletion so less data is subject to review</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16c" value="C"><label for="q16c">C. It suspends normal retention and deletion for data within its scope until proceedings conclude</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16d" value="D"><label for="q16d">D. It applies only to data created after the hold was issued</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q16">Submit answer</button>
+        <span class="inline-warn" data-warn="q16">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q16"></div>
+    </div>
+
+    <div class="qcard" data-qid="q17">
+      <div class="qmeta">Question 17 &middot; Domain 6.4</div>
+      <p class="qstem">Which risk treatment strategy distributes exposure across multiple parties through partnership or contractual allocation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q17" id="q17a" value="A"><label for="q17a">A. Risk sharing</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17b" value="B"><label for="q17b">B. Risk mitigation</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17c" value="C"><label for="q17c">C. Risk avoidance</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17d" value="D"><label for="q17d">D. Risk transfer</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q17">Submit answer</button>
+        <span class="inline-warn" data-warn="q17">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q17"></div>
+    </div>
+
+    <div class="qcard" data-qid="q18">
+      <div class="qmeta">Question 18 &middot; Domain 6.1</div>
+      <p class="qstem">Which standard specifically addresses electronic discovery of digital information for use in legal proceedings?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q18" id="q18a" value="A"><label for="q18a">A. ISO/IEC 27018</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18b" value="B"><label for="q18b">B. ISO/IEC 27037</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18c" value="C"><label for="q18c">C. ISO/IEC 27050</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18d" value="D"><label for="q18d">D. ISO/IEC 27036</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q18">Submit answer</button>
+        <span class="inline-warn" data-warn="q18">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q18"></div>
+    </div>
+
+    <div class="qcard" data-qid="q19">
+      <div class="qmeta">Question 19 &middot; Domain 6.5</div>
+      <p class="qstem">An energy company contracts with a SaaS vendor that subcontracts processing to a smaller analytics firm the company has no contract with. What does effective supply chain management require?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q19" id="q19a" value="A"><label for="q19a">A. Assessing the vendor&#x27;s own dependencies, since a breach at the subcontractor exposes the company&#x27;s data just as directly</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19b" value="B"><label for="q19b">B. Relying on the vendor&#x27;s assurance that no subcontractors are used</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19c" value="C"><label for="q19c">C. Contracting directly with every party in the chain before proceeding</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19d" value="D"><label for="q19d">D. Ignoring the subcontractor, since no contract exists with it</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q19">Submit answer</button>
+        <span class="inline-warn" data-warn="q19">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q19"></div>
+    </div>
+
+    <div class="qcard" data-qid="q20">
+      <div class="qmeta">Question 20 &middot; Domain 6.3</div>
+      <p class="qstem">Which layer of requirements applies specifically because of the geographic location where data is stored or processed?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q20" id="q20a" value="A"><label for="q20a">A. Jurisdictional requirements</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20b" value="B"><label for="q20b">B. Functional policies</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20c" value="C"><label for="q20c">C. Statement of Work terms</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20d" value="D"><label for="q20d">D. Trust Service Criteria</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q20">Submit answer</button>
+        <span class="inline-warn" data-warn="q20">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q20"></div>
+    </div>
+
+    <div class="qcard" data-qid="q21">
+      <div class="qmeta">Question 21 &middot; Domain 6.2</div>
+      <p class="qstem">How should an organisation operating across multiple jurisdictions approach differing data privacy requirements?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q21" id="q21a" value="A"><label for="q21a">A. Satisfy the strictest applicable regime for each dataset rather than assuming a single standard suffices everywhere</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21b" value="B"><label for="q21b">B. Apply the least restrictive regime found among the jurisdictions involved</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21c" value="C"><label for="q21c">C. Assume cloud adoption exempts the organisation from national privacy law</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21d" value="D"><label for="q21d">D. Apply only the law of the country where the head office is located</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q21">Submit answer</button>
+        <span class="inline-warn" data-warn="q21">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q21"></div>
+    </div>
+
+    <div class="qcard" data-qid="q22">
+      <div class="qmeta">Question 22 &middot; Domain 6.5</div>
+      <p class="qstem">Which instrument specifies the particular deliverables, tasks, and timelines for a defined piece of work?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q22" id="q22a" value="A"><label for="q22a">A. Service Level Agreement</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22b" value="B"><label for="q22b">B. Statement of Work</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22c" value="C"><label for="q22c">C. Certificate Revocation List</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22d" value="D"><label for="q22d">D. Master Service Agreement</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q22">Submit answer</button>
+        <span class="inline-warn" data-warn="q22">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q22"></div>
+    </div>
+
+    <div class="qcard" data-qid="q23">
+      <div class="qmeta">Question 23 &middot; Domain 6.3</div>
+      <p class="qstem">Which US attestation standard governs the production of SOC reports, and what is its international equivalent?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q23" id="q23a" value="A"><label for="q23a">A. PCI DSS, with GDPR as the international equivalent</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23b" value="B"><label for="q23b">B. SSAE 18, with ISAE 3402 as the international equivalent</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23c" value="C"><label for="q23c">C. NERC CIP, with HITECH as the international equivalent</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23d" value="D"><label for="q23d">D. ISO 31000, with ENISA as the international equivalent</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q23">Submit answer</button>
+        <span class="inline-warn" data-warn="q23">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q23"></div>
+    </div>
+
+    <div class="qcard" data-qid="q24">
+      <div class="qmeta">Question 24 &middot; Domain 6.2</div>
+      <p class="qstem">Which standard provides a code of practice for protecting personally identifiable information in public clouds acting as PII processors?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q24" id="q24a" value="A"><label for="q24a">A. ISO/IEC 27017</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24b" value="B"><label for="q24b">B. ISO/IEC 27018</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24c" value="C"><label for="q24c">C. ISO/IEC 27036</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24d" value="D"><label for="q24d">D. ISO/IEC 27050</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q24">Submit answer</button>
+        <span class="inline-warn" data-warn="q24">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q24"></div>
+    </div>
+
+    <div class="qcard" data-qid="q25">
+      <div class="qmeta">Question 25 &middot; Domain 6.3</div>
+      <p class="qstem">Which specialised compliance requirement applies specifically to electric utilities and critical infrastructure protection?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q25" id="q25a" value="A"><label for="q25a">A. HIPAA</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25b" value="B"><label for="q25b">B. NERC CIP</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25c" value="C"><label for="q25c">C. PIPEDA</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25d" value="D"><label for="q25d">D. FERPA</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q25">Submit answer</button>
+        <span class="inline-warn" data-warn="q25">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q25"></div>
+    </div>
+
+    <div class="qcard" data-qid="q26">
+      <div class="qmeta">Question 26 &middot; Domain 6.4</div>
+      <p class="qstem">Which data role determines the purposes and means of processing, and retains accountability that cannot be outsourced?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q26" id="q26a" value="A"><label for="q26a">A. Data owner or controller</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26b" value="B"><label for="q26b">B. Data custodian</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26c" value="C"><label for="q26c">C. Data steward</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26d" value="D"><label for="q26d">D. Data processor</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q26">Submit answer</button>
+        <span class="inline-warn" data-warn="q26">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q26"></div>
+    </div>
+
+    <div class="qcard" data-qid="q27">
+      <div class="qmeta">Question 27 &middot; Domain 6.3</div>
+      <p class="qstem">A provider&#x27;s audit report is clean, but the scope statement excludes the specific region hosting the customer&#x27;s workload. What should the customer conclude?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q27" id="q27a" value="A"><label for="q27a">A. The clean finding extends automatically to all the provider&#x27;s regions</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27b" value="B"><label for="q27b">B. A clean report over a narrow scope proves far less than it appears, and evidence covering the relevant region must be sought</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27c" value="C"><label for="q27c">C. Scope statements are formalities that can be disregarded</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27d" value="D"><label for="q27d">D. The exclusion indicates the provider has failed the audit</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q27">Submit answer</button>
+        <span class="inline-warn" data-warn="q27">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q27"></div>
+    </div>
+
+    <div class="qcard" data-qid="q28">
+      <div class="qmeta">Question 28 &middot; Domain 6.5</div>
+      <p class="qstem">What should an enterprise do before entering into a contract with a cloud supplier?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q28" id="q28a" value="A"><label for="q28a">A. Migrate all workloads first and assess requirements afterwards</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28b" value="B"><label for="q28b">B. Sign the provider&#x27;s standard terms without amendment to speed adoption</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28c" value="C"><label for="q28c">C. Evaluate its own needs and requirements and assess key organisational assets for suitability in cloud environments</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28d" value="D"><label for="q28d">D. Select the provider with the lowest headline price</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q28">Submit answer</button>
+        <span class="inline-warn" data-warn="q28">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q28"></div>
+    </div>
+
+    <div class="qcard" data-qid="q29">
+      <div class="qmeta">Question 29 &middot; Domain 6.3</div>
+      <p class="qstem">Why is identifying and involving relevant stakeholders described as crucial to cloud adoption?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q29" id="q29a" value="A"><label for="q29a">A. Because engaging them surfaces perspectives, concerns, and requirements early, supporting a smoother transition</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29b" value="B"><label for="q29b">B. Because it removes the need for a business case</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29c" value="C"><label for="q29c">C. Because stakeholders are legally required to approve every technical configuration</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29d" value="D"><label for="q29d">D. Because it transfers accountability for the migration to the stakeholders</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q29">Submit answer</button>
+        <span class="inline-warn" data-warn="q29">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q29"></div>
+    </div>
+
+    <div class="qcard" data-qid="q30">
+      <div class="qmeta">Question 30 &middot; Domain 6.2</div>
+      <p class="qstem">Which characteristic of GDPR extends its reach beyond organisations located in the European Union?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q30" id="q30a" value="A"><label for="q30a">A. Its replacement of all national laws worldwide</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30b" value="B"><label for="q30b">B. Its requirement that all data be stored on EU-manufactured hardware</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30c" value="C"><label for="q30c">C. Its applicability only to organisations with EU offices</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30d" value="D"><label for="q30d">D. Its extraterritorial application to any organisation processing EU residents&#x27; personal data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q30">Submit answer</button>
+        <span class="inline-warn" data-warn="q30">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q30"></div>
+    </div>
+
+    <div class="qcard" data-qid="q31">
+      <div class="qmeta">Question 31 &middot; Domain 6.3</div>
+      <p class="qstem">An auditor must confirm that a provider&#x27;s controls operated effectively across the past nine months. Which report satisfies this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q31" id="q31a" value="A"><label for="q31a">A. SOC 3</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31b" value="B"><label for="q31b">B. A gap analysis</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31c" value="C"><label for="q31c">C. SOC 2 Type II</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31d" value="D"><label for="q31d">D. SOC 2 Type I</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q31">Submit answer</button>
+        <span class="inline-warn" data-warn="q31">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q31"></div>
+    </div>
+
+    <div class="qcard" data-qid="q32">
+      <div class="qmeta">Question 32 &middot; Domain 6.4</div>
+      <p class="qstem">Which data role holds day-to-day technical responsibility for safeguarding data, implementing the controls the owner requires?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q32" id="q32a" value="A"><label for="q32a">A. Data controller</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32b" value="B"><label for="q32b">B. Data custodian</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32c" value="C"><label for="q32c">C. Data steward</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32d" value="D"><label for="q32d">D. Data subject</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q32">Submit answer</button>
+        <span class="inline-warn" data-warn="q32">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q32"></div>
+    </div>
+
+    <div class="qcard" data-qid="q33">
+      <div class="qmeta">Question 33 &middot; Domain 6.4</div>
+      <p class="qstem">Which risk treatment applies when an organisation implements controls to reduce the likelihood or impact of a risk?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q33" id="q33a" value="A"><label for="q33a">A. Risk transfer</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33b" value="B"><label for="q33b">B. Risk acceptance</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33c" value="C"><label for="q33c">C. Risk avoidance</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33d" value="D"><label for="q33d">D. Risk mitigation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q33">Submit answer</button>
+        <span class="inline-warn" data-warn="q33">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q33"></div>
+    </div>
+
+    <div class="qcard" data-qid="q34">
+      <div class="qmeta">Question 34 &middot; Domain 6.3</div>
+      <p class="qstem">What does gap analysis compare, and when is it typically performed?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q34" id="q34a" value="A"><label for="q34a">A. One provider&#x27;s pricing against another&#x27;s, during procurement</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34b" value="B"><label for="q34b">B. Encryption key lengths against industry averages, annually</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34c" value="C"><label for="q34c">C. Actual uptime against the SLA, after an outage</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34d" value="D"><label for="q34d">D. The current control state against a required or desired state, typically before a formal audit so known gaps can be remediated first</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q34">Submit answer</button>
+        <span class="inline-warn" data-warn="q34">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q34"></div>
+    </div>
+
+    <div class="qcard" data-qid="q35">
+      <div class="qmeta">Question 35 &middot; Domain 6.4</div>
+      <p class="qstem">Which regulation imposes disclosure and internal control requirements on financial reporting for listed companies?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q35" id="q35a" value="A"><label for="q35a">A. FERPA</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35b" value="B"><label for="q35b">B. NERC CIP</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35c" value="C"><label for="q35c">C. Sarbanes-Oxley</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35d" value="D"><label for="q35d">D. HIPAA</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q35">Submit answer</button>
+        <span class="inline-warn" data-warn="q35">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q35"></div>
+    </div>
+
+    <div class="qcard" data-qid="q36">
+      <div class="qmeta">Question 36 &middot; Domain 6.3</div>
+      <p class="qstem">Which assurance challenge arises specifically from multi-tenancy in cloud audits?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q36" id="q36a" value="A"><label for="q36a">A. Multi-tenant systems produce no audit logs</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36b" value="B"><label for="q36b">B. Multi-tenancy eliminates the need for auditing</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36c" value="C"><label for="q36c">C. Auditors are legally barred from cloud environments</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36d" value="D"><label for="q36d">D. Shared components cannot be examined without touching data belonging to other tenants</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q36">Submit answer</button>
+        <span class="inline-warn" data-warn="q36">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q36"></div>
+    </div>
+
+    <div class="qcard" data-qid="q37">
+      <div class="qmeta">Question 37 &middot; Domain 6.3</div>
+      <p class="qstem">Which type of audit scope restriction deliberately excludes certain critical or sensitive assets from examination?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q37" id="q37a" value="A"><label for="q37a">A. Asset restrictions</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37b" value="B"><label for="q37b">B. Gap analysis</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37c" value="C"><label for="q37c">C. Trust Service Criteria</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37d" value="D"><label for="q37d">D. Accepted times and time periods</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q37">Submit answer</button>
+        <span class="inline-warn" data-warn="q37">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q37"></div>
+    </div>
+
+    <div class="qcard" data-qid="q38">
+      <div class="qmeta">Question 38 &middot; Domain 6.4</div>
+      <p class="qstem">Which data role refers to the individual whom personal data relates to?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q38" id="q38a" value="A"><label for="q38a">A. Data subject</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38b" value="B"><label for="q38b">B. Data processor</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38c" value="C"><label for="q38c">C. Data custodian</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38d" value="D"><label for="q38d">D. Data steward</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q38">Submit answer</button>
+        <span class="inline-warn" data-warn="q38">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q38"></div>
+    </div>
+
+    <div class="qcard" data-qid="q39">
+      <div class="qmeta">Question 39 &middot; Domain 6.3</div>
+      <p class="qstem">What role does internal audit serve in an organisation&#x27;s assurance structure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q39" id="q39a" value="A"><label for="q39a">A. An external attestation accepted by regulators in place of independent audit</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39b" value="B"><label for="q39b">B. A replacement for all external audit activity</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39c" value="C"><label for="q39c">C. The first line of defence, operating the controls directly</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39d" value="D"><label for="q39d">D. A third line of defence, independent of the operational teams it examines</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q39">Submit answer</button>
+        <span class="inline-warn" data-warn="q39">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q39"></div>
+    </div>
+
+    <div class="qcard" data-qid="q40">
+      <div class="qmeta">Question 40 &middot; Domain 6.5</div>
+      <p class="qstem">What is the purpose of an escrow arrangement in a cloud vendor relationship?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q40" id="q40a" value="A"><label for="q40a">A. Placing source code or critical materials with a neutral third party so the customer can continue operating if the vendor fails</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40b" value="B"><label for="q40b">B. Storing the customer&#x27;s encryption keys with the regulator</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40c" value="C"><label for="q40c">C. Holding the customer&#x27;s payments until the service is delivered</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40d" value="D"><label for="q40d">D. Depositing the customer&#x27;s data with a competing provider</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q40">Submit answer</button>
+        <span class="inline-warn" data-warn="q40">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q40"></div>
+    </div>
+
+    <div class="qcard" data-qid="q41">
+      <div class="qmeta">Question 41 &middot; Domain 6.3</div>
+      <p class="qstem">Which policy type expresses management&#x27;s overarching commitment to information security across the organisation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q41" id="q41a" value="A"><label for="q41a">A. The access control functional policy</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41b" value="B"><label for="q41b">B. The organisational information security policy</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41c" value="C"><label for="q41c">C. The data classification functional policy</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41d" value="D"><label for="q41d">D. The acceptable use functional policy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q41">Submit answer</button>
+        <span class="inline-warn" data-warn="q41">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q41"></div>
+    </div>
+
+    <div class="qcard" data-qid="q42">
+      <div class="qmeta">Question 42 &middot; Domain 6.3</div>
+      <p class="qstem">Which challenge arises from auditors depending on provider-supplied evidence rather than direct observation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q42" id="q42a" value="A"><label for="q42a">A. Provider-supplied evidence is inadmissible in any audit</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42b" value="B"><label for="q42b">B. Direct observation is always available in public cloud</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42c" value="C"><label for="q42c">C. Provider evidence eliminates the need for internal audit</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42d" value="D"><label for="q42d">D. Assurance rests on what the provider chooses to disclose, since the customer lacks physical access to verify independently</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q42">Submit answer</button>
+        <span class="inline-warn" data-warn="q42">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q42"></div>
+    </div>
+
+    <div class="qcard" data-qid="q43">
+      <div class="qmeta">Question 43 &middot; Domain 6.4</div>
+      <p class="qstem">A bank uses a cloud provider to store customer records the bank decides to collect. Following a breach at the provider, who is accountable to the regulator?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q43" id="q43a" value="A"><label for="q43a">A. The data subjects, because they consented to processing</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43b" value="B"><label for="q43b">B. The cloud provider alone, because the breach occurred on its systems</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43c" value="C"><label for="q43c">C. The bank, because accountability remains with the controller even when processing is outsourced</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43d" value="D"><label for="q43d">D. Neither party, because the breach was accidental</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q43">Submit answer</button>
+        <span class="inline-warn" data-warn="q43">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q43"></div>
+    </div>
+
+    <div class="qcard" data-qid="q44">
+      <div class="qmeta">Question 44 &middot; Domain 6.2</div>
+      <p class="qstem">Which Canadian legislation governs personal information in the private sector?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q44" id="q44a" value="A"><label for="q44a">A. FERPA</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44b" value="B"><label for="q44b">B. HITECH</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44c" value="C"><label for="q44c">C. PIPEDA</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44d" value="D"><label for="q44d">D. GAPP</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q44">Submit answer</button>
+        <span class="inline-warn" data-warn="q44">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q44"></div>
+    </div>
+
+    <div class="qcard" data-qid="q45">
+      <div class="qmeta">Question 45 &middot; Domain 6.4</div>
+      <p class="qstem">Which European body&#x27;s work is named among the common risk frameworks relevant to cloud computing?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q45" id="q45a" value="A"><label for="q45a">A. AICPA</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45b" value="B"><label for="q45b">B. SAFECode</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45c" value="C"><label for="q45c">C. ENISA</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45d" value="D"><label for="q45d">D. NERC</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q45">Submit answer</button>
+        <span class="inline-warn" data-warn="q45">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q45"></div>
+    </div>
+
+    <div class="qcard" data-qid="q46">
+      <div class="qmeta">Question 46 &middot; Domain 6.3</div>
+      <p class="qstem">Which SOC report is designed for public distribution but lacks the detailed controls and test results needed for genuine assurance work?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q46" id="q46a" value="A"><label for="q46a">A. SOC 1 Type I</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46b" value="B"><label for="q46b">B. SOC 2 Type II</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46c" value="C"><label for="q46c">C. SSAE 18</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46d" value="D"><label for="q46d">D. SOC 3</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q46">Submit answer</button>
+        <span class="inline-warn" data-warn="q46">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q46"></div>
+    </div>
+
+    <div class="qcard" data-qid="q47">
+      <div class="qmeta">Question 47 &middot; Domain 6.5</div>
+      <p class="qstem">Which contract term ensures the customer can meet its own regulatory duties and retrieve its information from the provider?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Cyber risk insurance</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Litigation clause</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47c" value="C"><label for="q47c">C. Metrics and definitions</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Compliance and access to cloud and data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q47">Submit answer</button>
+        <span class="inline-warn" data-warn="q47">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q47"></div>
+    </div>
+
+    <div class="qcard" data-qid="q48">
+      <div class="qmeta">Question 48 &middot; Domain 6.1</div>
+      <p class="qstem">Which ISO/IEC standard within the digital forensics family covers the analysis and interpretation of digital evidence?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q48" id="q48a" value="A"><label for="q48a">A. ISO/IEC 27037</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48b" value="B"><label for="q48b">B. ISO/IEC 27018</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48c" value="C"><label for="q48c">C. ISO/IEC 27042</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48d" value="D"><label for="q48d">D. ISO/IEC 27050</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q48">Submit answer</button>
+        <span class="inline-warn" data-warn="q48">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q48"></div>
+    </div>
+
+    <div class="qcard" data-qid="q49">
+      <div class="qmeta">Question 49 &middot; Domain 6.4</div>
+      <p class="qstem">Which framework provides generic risk management principles and guidelines applicable to any organisation regardless of sector?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q49" id="q49a" value="A"><label for="q49a">A. PCI DSS</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49b" value="B"><label for="q49b">B. NERC CIP</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49c" value="C"><label for="q49c">C. ISO 31000</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49d" value="D"><label for="q49d">D. HITECH</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q49">Submit answer</button>
+        <span class="inline-warn" data-warn="q49">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q49"></div>
+    </div>
+
+    <div class="qcard" data-qid="q50">
+      <div class="qmeta">Question 50 &middot; Domain 6.1</div>
+      <p class="qstem">Which guidance addresses the cloud-specific dimension of both eDiscovery and forensics requirements?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q50" id="q50a" value="A"><label for="q50a">A. FERPA</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50b" value="B"><label for="q50b">B. Cloud Security Alliance guidance</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50c" value="C"><label for="q50c">C. COSO</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50d" value="D"><label for="q50d">D. SSAE 18</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q50">Submit answer</button>
+        <span class="inline-warn" data-warn="q50">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q50"></div>
+    </div>
+
+    <div class="qcard" data-qid="q51">
+      <div class="qmeta">Question 51 &middot; Domain 6.5</div>
+      <p class="qstem">Which standard addresses information security in supplier relationships across the supply chain?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q51" id="q51a" value="A"><label for="q51a">A. ISO/IEC 27018</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51b" value="B"><label for="q51b">B. ISO 31000</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51c" value="C"><label for="q51c">C. ISO/IEC 27050</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51d" value="D"><label for="q51d">D. ISO/IEC 27036</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q51">Submit answer</button>
+        <span class="inline-warn" data-warn="q51">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q51"></div>
+    </div>
+
+    <div class="qcard" data-qid="q52">
+      <div class="qmeta">Question 52 &middot; Domain 6.4</div>
+      <p class="qstem">Assessment of the risk environment should extend across which areas?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q52" id="q52a" value="A"><label for="q52a">A. Only the physical data centre facility</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52b" value="B"><label for="q52b">B. Service, vendor, infrastructure, and business</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52c" value="C"><label for="q52c">C. Only the individual system being deployed</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52d" value="D"><label for="q52d">D. Only the contractual terms with the provider</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q52">Submit answer</button>
+        <span class="inline-warn" data-warn="q52">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q52"></div>
+    </div>
+
+    <div class="qcard" data-qid="q53">
+      <div class="qmeta">Question 53 &middot; Domain 6.2</div>
+      <p class="qstem">Which legislation governs student education records in the United States?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q53" id="q53a" value="A"><label for="q53a">A. GDPR</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53b" value="B"><label for="q53b">B. FERPA</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53c" value="C"><label for="q53c">C. HIPAA</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53d" value="D"><label for="q53d">D. PIPEDA</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q53">Submit answer</button>
+        <span class="inline-warn" data-warn="q53">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q53"></div>
+    </div>
+
+    <div class="qcard" data-qid="q54">
+      <div class="qmeta">Question 54 &middot; Domain 6.1</div>
+      <p class="qstem">Which legal risk arises specifically because data is stored and processed on servers operated by third parties?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q54" id="q54a" value="A"><label for="q54a">A. Increased electricity consumption at the customer&#x27;s premises</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54b" value="B"><label for="q54b">B. Loss of direct control over how data is handled, alongside uncertainty over which jurisdiction&#x27;s law applies</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54c" value="C"><label for="q54c">C. Higher licensing costs for desktop software</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54d" value="D"><label for="q54d">D. Reduced availability of skilled developers</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q54">Submit answer</button>
+        <span class="inline-warn" data-warn="q54">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q54"></div>
+    </div>
+
+    <div class="qcard" data-qid="q55">
+      <div class="qmeta">Question 55 &middot; Domain 6.2</div>
+      <p class="qstem">Which recognised set of privacy principles is named alongside ISO/IEC 27018 and GDPR as a standard privacy requirement?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q55" id="q55a" value="A"><label for="q55a">A. Cloud Controls Matrix</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55b" value="B"><label for="q55b">B. OWASP ASVS</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55c" value="C"><label for="q55c">C. Generally Accepted Privacy Principles</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55d" value="D"><label for="q55d">D. NERC CIP</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q55">Submit answer</button>
+        <span class="inline-warn" data-warn="q55">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q55"></div>
+    </div>
+
+    <div class="qcard" data-qid="q56">
+      <div class="qmeta">Question 56 &middot; Domain 6.2</div>
+      <p class="qstem">What distinguishes regulated private data from contractual private data?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q56" id="q56a" value="A"><label for="q56a">A. Regulated data is protected only when a contract specifically requires it</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56b" value="B"><label for="q56b">B. Regulated data is protected by law regardless of any contract, with breach carrying regulatory penalties that no agreement can waive</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56c" value="C"><label for="q56c">C. Contractual data always carries higher penalties than regulated data</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56d" value="D"><label for="q56d">D. There is no practical difference between the two categories</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q56">Submit answer</button>
+        <span class="inline-warn" data-warn="q56">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q56"></div>
+    </div>
+
+    <div class="qcard" data-qid="q57">
+      <div class="qmeta">Question 57 &middot; Domain 6.5</div>
+      <p class="qstem">Which contractual instrument is the overarching agreement setting general terms governing the whole relationship with a provider?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q57" id="q57a" value="A"><label for="q57a">A. Master Service Agreement</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57b" value="B"><label for="q57b">B. Service Level Agreement</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57c" value="C"><label for="q57c">C. Privacy Impact Assessment</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57d" value="D"><label for="q57d">D. Statement of Work</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q57">Submit answer</button>
+        <span class="inline-warn" data-warn="q57">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q57"></div>
+    </div>
+
+    <div class="qcard" data-qid="q58">
+      <div class="qmeta">Question 58 &middot; Domain 6.4</div>
+      <p class="qstem">An organisation decides to bear a low-impact risk after analysis shows treatment would cost more than the exposure warrants. What makes this a legitimate treatment?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q58" id="q58a" value="A"><label for="q58a">A. It is a deliberate documented decision following analysis, rather than an oversight</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58b" value="B"><label for="q58b">B. It requires no analysis because the impact is low</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58c" value="C"><label for="q58c">C. It transfers the consequence to the cloud provider automatically</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58d" value="D"><label for="q58d">D. It eliminates the risk entirely</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q58">Submit answer</button>
+        <span class="inline-warn" data-warn="q58">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q58"></div>
+    </div>
+
+    <div class="qcard" data-qid="q59">
+      <div class="qmeta">Question 59 &middot; Domain 6.3</div>
+      <p class="qstem">Which pair of regulations governs healthcare data and its breach notification in the United States?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q59" id="q59a" value="A"><label for="q59a">A. FERPA and PIPEDA</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59b" value="B"><label for="q59b">B. SSAE 18 and ISAE 3402</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59c" value="C"><label for="q59c">C. NERC CIP and PCI DSS</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59d" value="D"><label for="q59d">D. HIPAA and HITECH</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q59">Submit answer</button>
+        <span class="inline-warn" data-warn="q59">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q59"></div>
+    </div>
+
+    <div class="qcard" data-qid="q60">
+      <div class="qmeta">Question 60 &middot; Domain 6.5</div>
+      <p class="qstem">A contract negotiation focuses on uptime percentages, support response times, and the service credits payable if they are missed. Which instrument is being negotiated?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q60" id="q60a" value="A"><label for="q60a">A. Escrow agreement</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60b" value="B"><label for="q60b">B. Service Level Agreement</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60c" value="C"><label for="q60c">C. Statement of Work</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60d" value="D"><label for="q60d">D. Master Service Agreement</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q60">Submit answer</button>
+        <span class="inline-warn" data-warn="q60">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q60"></div>
+    </div>
+
+    <div class="qcard" data-qid="q61">
+      <div class="qmeta">Question 61 &middot; Domain 6.4</div>
+      <p class="qstem">Which data role is responsible for data quality, meaning, and fitness for business use?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q61" id="q61a" value="A"><label for="q61a">A. Data steward</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61b" value="B"><label for="q61b">B. Data custodian</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61c" value="C"><label for="q61c">C. Data controller</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61d" value="D"><label for="q61d">D. Data subject</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q61">Submit answer</button>
+        <span class="inline-warn" data-warn="q61">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q61"></div>
+    </div>
+
+    <div class="qcard" data-qid="q62">
+      <div class="qmeta">Question 62 &middot; Domain 6.3</div>
+      <p class="qstem">Which SOC report addresses controls relevant to financial reporting?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q62" id="q62a" value="A"><label for="q62a">A. SOC 3</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62b" value="B"><label for="q62b">B. SOC 1</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62c" value="C"><label for="q62c">C. ISAE 3402 Type III</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62d" value="D"><label for="q62d">D. SOC 2</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q62">Submit answer</button>
+        <span class="inline-warn" data-warn="q62">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q62"></div>
+    </div>
+
+    <div class="qcard" data-qid="q63">
+      <div class="qmeta">Question 63 &middot; Domain 6.1</div>
+      <p class="qstem">What makes eDiscovery particularly complex in cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Electronic information cannot be used as evidence in cloud cases</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63b" value="B"><label for="q63b">B. Cloud providers are exempt from all discovery obligations</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63c" value="C"><label for="q63c">C. eDiscovery applies only to paper records</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63d" value="D"><label for="q63d">D. The customer does not control the infrastructure, data is dispersed across regions, and only the requesting party&#x27;s data may be extracted without capturing other tenants&#x27; information</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q63">Submit answer</button>
+        <span class="inline-warn" data-warn="q63">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q63"></div>
+    </div>
+
+    <div class="qcard" data-qid="q64">
+      <div class="qmeta">Question 64 &middot; Domain 6.2</div>
+      <p class="qstem">What distinguishes a Privacy Impact Assessment from breach notification?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q64" id="q64a" value="A"><label for="q64a">A. A PIA is proactive, conducted before processing begins to identify risks, whereas breach notification is an obligation arising after something has gone wrong</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64b" value="B"><label for="q64b">B. A PIA is required only after a breach has occurred</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64c" value="C"><label for="q64c">C. They are two names for the same regulatory obligation</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64d" value="D"><label for="q64d">D. Breach notification is voluntary while a PIA is mandatory in all jurisdictions</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q64">Submit answer</button>
+        <span class="inline-warn" data-warn="q64">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q64"></div>
+    </div>
+
+    <div class="qcard" data-qid="q65">
+      <div class="qmeta">Question 65 &middot; Domain 6.5</div>
+      <p class="qstem">Which vendor management consideration concerns the provider&#x27;s financial stability and prospects as a going concern?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q65" id="q65a" value="A"><label for="q65a">A. Vendor lock-in</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65b" value="B"><label for="q65b">B. Data ownership</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65c" value="C"><label for="q65c">C. Vendor viability</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65d" value="D"><label for="q65d">D. Right to audit</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q65">Submit answer</button>
+        <span class="inline-warn" data-warn="q65">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q65"></div>
+    </div>
+
+    <div class="qcard" data-qid="q66">
+      <div class="qmeta">Question 66 &middot; Domain 6.1</div>
+      <p class="qstem">Why does conflicting international legislation pose a particular challenge for cloud deployments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q66" id="q66a" value="A"><label for="q66a">A. Because cloud providers operate outside all national legal systems</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66b" value="B"><label for="q66b">B. Because data moves and replicates across regions by default unless deliberately restricted, potentially subjecting it to requirements that genuinely conflict</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66c" value="C"><label for="q66c">C. Because encryption makes all jurisdictional questions irrelevant</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66d" value="D"><label for="q66d">D. Because international law has been fully harmonised for cloud services</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q66">Submit answer</button>
+        <span class="inline-warn" data-warn="q66">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q66"></div>
+    </div>
+
+    <div class="qcard" data-qid="q67">
+      <div class="qmeta">Question 67 &middot; Domain 6.3</div>
+      <p class="qstem">Why does a dynamic and elastic cloud environment complicate audit assurance?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q67" id="q67a" value="A"><label for="q67a">A. Because auditors cannot access any cloud management console</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67b" value="B"><label for="q67b">B. Because elasticity removes the requirement for controls</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67c" value="C"><label for="q67c">C. Because the environment audited today may differ materially from tomorrow&#x27;s, so findings reflect only a moment in a continuously changing estate</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67d" value="D"><label for="q67d">D. Because elastic resources cannot be configured securely</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q67">Submit answer</button>
+        <span class="inline-warn" data-warn="q67">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q67"></div>
+    </div>
+
+    <div class="qcard" data-qid="q68">
+      <div class="qmeta">Question 68 &middot; Domain 6.3</div>
+      <p class="qstem">What does audit planning establish at the outset of an engagement?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q68" id="q68a" value="A"><label for="q68a">A. The provider&#x27;s pricing for the next contract term</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68b" value="B"><label for="q68b">B. The final audit opinion before testing begins</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68c" value="C"><label for="q68c">C. The penalties to be applied for any findings</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68d" value="D"><label for="q68d">D. Understanding of audit objectives, defined scope, risk assessment to focus effort, resource allocation, and agreed schedule and evidence requirements</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q68">Submit answer</button>
+        <span class="inline-warn" data-warn="q68">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q68"></div>
+    </div>
+
+    <div class="qcard" data-qid="q69">
+      <div class="qmeta">Question 69 &middot; Domain 6.2</div>
+      <p class="qstem">Which legislation is characterised by its focus on data consent, rights of access, and the right to be forgotten?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q69" id="q69a" value="A"><label for="q69a">A. GDPR</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69b" value="B"><label for="q69b">B. NERC CIP</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69c" value="C"><label for="q69c">C. SSAE 18</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69d" value="D"><label for="q69d">D. FERPA</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q69">Submit answer</button>
+        <span class="inline-warn" data-warn="q69">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q69"></div>
+    </div>
+
+    <div class="qcard" data-qid="q70">
+      <div class="qmeta">Question 70 &middot; Domain 6.4</div>
+      <p class="qstem">Which aspects should an assessment of a provider&#x27;s risk management programme cover?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q70" id="q70a" value="A"><label for="q70a">A. Office locations and staff headcount alone</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70b" value="B"><label for="q70b">B. Marketing spend, brand recognition, and social media presence</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70c" value="C"><label for="q70c">C. The provider&#x27;s choice of programming languages</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70d" value="D"><label for="q70d">D. Controls, methodologies, policies, risk profile, and risk appetite</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q70">Submit answer</button>
+        <span class="inline-warn" data-warn="q70">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q70"></div>
+    </div>
+
+  </div>
+  <!-- END QUIZ TAB -->
+
+</div>
+
+<script>
+const quizData = {
+    q1: {
+      correct: "D",
+      rationale: {
+        correct: "Metrics and definitions are named contract management terms ensuring that concepts such as availability mean the same thing to provider and customer, which is what makes performance measurable and disputes resolvable.",
+        incorrect: "The correct answer is D. Allowing unilateral redefinition during the term would defeat the purpose entirely, since the provider could redefine its way out of any performance shortfall it experienced."
+      }
+    },
+    q2: {
+      correct: "C",
+      rationale: {
+        correct: "The legal framework comprises laws, regulations, standards, and ethical guidelines governing data handling. A CCSP is not expected to give legal advice, but must recognise which regimes apply to the organisation and know when counsel should be engaged.",
+        incorrect: "The correct answer is C. Relying solely on the provider's assessment abdicates a responsibility that remains with the customer. The provider's legal analysis serves its own position and may not address the customer's specific regulatory obligations."
+      }
+    },
+    q3: {
+      correct: "A",
+      rationale: {
+        correct: "GDPR requires notification to the relevant supervisory authority generally within 72 hours of the controller becoming aware of a qualifying personal data breach, unless the breach is unlikely to result in risk to individuals.",
+        incorrect: "The correct answer is A, 72 hours of becoming aware of it. Waiting until the investigation concludes would routinely exceed the statutory deadline, which runs from awareness of the breach rather than from full understanding of its cause or extent."
+      }
+    },
+    q4: {
+      correct: "C",
+      rationale: {
+        correct: "Pricing terms protected by a confidentiality clause are contractual private data, because the obligation arises from the agreement between the parties rather than from any statute, and breach is a contractual matter.",
+        incorrect: "The correct answer is C. Commercial pricing information is not generally subject to statutory data protection regimes, which focus on personal data. Treating it as regulated data misidentifies the source of the obligation and the remedy available."
+      }
+    },
+    q5: {
+      correct: "C",
+      rationale: {
+        correct: "Effective contract management requires appropriate governance and encompasses monitoring contract performance, addressing ongoing needs, adhering to terms, and managing incidents, outages, discrepancies, and violations of contractual obligations.",
+        incorrect: "The correct answer is C. Filing the contract and reviewing it only at renewal leaves performance shortfalls and breaches unaddressed throughout the term, which is precisely the neglect the guidance warns against."
+      }
+    },
+    q6: {
+      correct: "B",
+      rationale: {
+        correct: "The internal Information Security Management System provides the governing structure for security within the organisation, and it is most commonly implemented following ISO/IEC 27001, with the internal controls system being the set of controls implemented within it.",
+        incorrect: "The correct answer is B. An attestation report issued under SSAE 18 is evidence produced by an external auditor about a service organisation's controls. It reports on the management system rather than constituting it."
+      }
+    },
+    q7: {
+      correct: "B",
+      rationale: {
+        correct: "Distributed IT systems bring advantages, but it is crucial that these models do not negatively impact communication, coordination, management, governance, and distributed computing, since dispersion makes consistent policy enforcement and clear accountability harder.",
+        incorrect: "The correct answer is B, Communication, coordination, management, and governance. The number of programming languages in use is a technology standardisation matter within development. It does not bear on whether a distributed operating model preserves governance and accountability."
+      }
+    },
+    q8: {
+      correct: "A",
+      rationale: {
+        correct: "ISO/IEC 27043 covers incident investigation principles and processes, completing the forensics family alongside 27037 on evidence handling, 27041 on assurance of methods, and 27042 on analysis and interpretation.",
+        incorrect: "The correct answer is A, ISO/IEC 27043. ISO/IEC 27041 addresses assurance of investigation methods, providing confidence that the techniques used are fit for purpose. It concerns method validation rather than the overarching investigation process."
+      }
+    },
+    q9: {
+      correct: "B",
+      rationale: {
+        correct: "In supply chain management security is only as strong as the weakest link, which means a provider's own dependencies become the customer's exposure even where no direct contractual relationship exists with those parties.",
+        incorrect: "The correct answer is B. Suppliers without direct customer contact frequently process or hold the customer's data on a provider's behalf. Their lack of a direct relationship makes them harder to see rather than less risky."
+      }
+    },
+    q10: {
+      correct: "D",
+      rationale: {
+        correct: "SOC 2 reports assess controls against the Trust Service Criteria, which cover security, availability, processing integrity, confidentiality, and privacy, providing the framework for the controls the report examines.",
+        incorrect: "The correct answer is D. The Cloud Controls Matrix is the Cloud Security Alliance's control catalogue underpinning the STAR registry. It is a genuine cloud assurance framework but is not what a SOC 2 report is assessed against."
+      }
+    },
+    q11: {
+      correct: "A",
+      rationale: {
+        correct: "Because the customer hosts its services and data in the provider's environment, the provider's risk management processes and risk acceptance decisions directly impact the customer's security. A provider that accepts risks the customer would not has effectively made that decision on the customer's behalf.",
+        incorrect: "The correct answer is A. Provider risk decisions demonstrably affect customer systems, since those systems run on the infrastructure the decisions govern. That dependency is the entire reason assessment of the provider's programme is required."
+      }
+    },
+    q12: {
+      correct: "D",
+      rationale: {
+        correct: "Forensic requirements comprise the standards, practices, and tools for investigating and analysing digital evidence after an incident, and they exist to uncover the cause and extent of what happened, identify those responsible, and support appropriate remediation.",
+        incorrect: "The correct answer is D. Calculating annual cloud spend is a financial management activity. It has no connection to establishing what occurred during a security incident or preserving evidence of it."
+      }
+    },
+    q13: {
+      correct: "D",
+      rationale: {
+        correct: "The rapid expansion of the cloud market has attracted a multitude of new players competing for share, and this proliferation means customers must assess which providers are genuinely durable rather than assuming market presence indicates stability.",
+        incorrect: "The correct answer is D. Market growth attracts entrants of widely varying financial strength, and a growing market can conceal weakness by sustaining companies that would otherwise fail. Growth is no guarantee of any individual provider's soundness."
+      }
+    },
+    q14: {
+      correct: "A",
+      rationale: {
+        correct: "Risks must be described in a way that is clear and understandable for both internal and external communication, and to achieve this the organisation agrees a set of metrics under which each risk's probability and impact are assessed separately.",
+        incorrect: "The correct answer is A. A single combined score with no visible components obscures whether a risk rates highly because it is likely, because it would be severe, or both, which are situations calling for quite different treatment."
+      }
+    },
+    q15: {
+      correct: "C",
+      rationale: {
+        correct: "The right to audit clause grants the customer contractual authority to independently verify the provider's security controls, which is otherwise difficult in an environment the customer does not own.",
+        incorrect: "The correct answer is C, Right to audit. The data ownership clause states unambiguously that the customer's data remains the customer's property. It resolves a different question, namely who owns the data, rather than granting verification rights over controls."
+      }
+    },
+    q16: {
+      correct: "C",
+      rationale: {
+        correct: "A legal hold suspends normal retention and deletion schedules for all data within its scope, and the suspension remains in force until the legal proceedings conclude.",
+        incorrect: "The correct answer is C. Accelerating deletion once proceedings are anticipated constitutes spoliation of evidence, exposing the organisation to sanctions far more serious than the cost of retaining and reviewing the data."
+      }
+    },
+    q17: {
+      correct: "A",
+      rationale: {
+        correct: "Risk sharing distributes exposure across multiple parties, for example through partnership arrangements or contractual allocation, so that no single party bears the entire risk.",
+        incorrect: "The correct answer is A, Risk sharing. Risk transfer shifts the financial consequence to another party, typically an insurer, rather than distributing the underlying exposure among parties who each carry a portion of it."
+      }
+    },
+    q18: {
+      correct: "C",
+      rationale: {
+        correct: "ISO/IEC 27050 is the standard for electronic discovery, covering the identification, collection, preservation, and review of electronic information for use as evidence in legal proceedings.",
+        incorrect: "The correct answer is C, ISO/IEC 27050. ISO/IEC 27037 addresses the identification, collection, acquisition, and preservation of digital evidence as part of the forensics family. Forensics and eDiscovery are closely related but the outline names them as separate standards."
+      }
+    },
+    q19: {
+      correct: "A",
+      rationale: {
+        correct: "Because security is only as strong as the weakest link, the vendor's own dependencies become the customer's exposure. Assessing only the immediate vendor leaves the actual weakest link unexamined even though a breach there reaches the customer's data directly.",
+        incorrect: "The correct answer is A. Ignoring the subcontractor because no contract exists mistakes the absence of a legal relationship for the absence of risk. The data reaches that firm regardless of who holds the contract."
+      }
+    },
+    q20: {
+      correct: "A",
+      rationale: {
+        correct: "Jurisdictional requirements are the legal and regulatory obligations specific to the geographic location where data resides or is processed, forming one layer alongside industry-specific and organisational requirements.",
+        incorrect: "The correct answer is A, Jurisdictional requirements. The Trust Service Criteria define the control categories a SOC 2 report assesses. They are an audit framework rather than a body of law tied to geography."
+      }
+    },
+    q21: {
+      correct: "A",
+      rationale: {
+        correct: "Jurisdictional differences are substantial, with some regions maintaining comprehensive rights-based frameworks and others taking sectoral or limited approaches. An organisation crossing borders must satisfy the strictest applicable regime for each dataset.",
+        incorrect: "The correct answer is A. Applying the least restrictive regime would leave the organisation non-compliant everywhere a stricter standard applies, which is precisely where enforcement action and penalties arise."
+      }
+    },
+    q22: {
+      correct: "B",
+      rationale: {
+        correct: "The Statement of Work specifies the deliverables, tasks, and timelines for a defined piece of work carried out under the general terms established by the Master Service Agreement.",
+        incorrect: "The correct answer is B, Statement of Work. The Service Level Agreement defines measurable performance commitments such as availability and support response times, together with the remedies where those commitments are not met."
+      }
+    },
+    q23: {
+      correct: "B",
+      rationale: {
+        correct: "SSAE 18 is the US attestation standard under which SOC reports are produced, and ISAE 3402 is the corresponding international assurance engagement standard.",
+        incorrect: "The correct answer is B, SSAE 18, with ISAE 3402 as the international equivalent. ISO 31000 provides generic risk management principles and guidelines, and ENISA is the European Union Agency for Cybersecurity. Neither governs the production of attestation reports on service organisation controls."
+      }
+    },
+    q24: {
+      correct: "B",
+      rationale: {
+        correct: "ISO/IEC 27018 is the code of practice for protecting PII in public clouds acting as PII processors, extending general privacy guidance into the cloud processor context.",
+        incorrect: "The correct answer is B, ISO/IEC 27018. ISO/IEC 27017 provides cloud-specific security control guidance for providers and customers more broadly. It addresses cloud security generally rather than the specific PII processor obligations 27018 covers."
+      }
+    },
+    q25: {
+      correct: "B",
+      rationale: {
+        correct: "NERC CIP, the North American Electric Reliability Corporation Critical Infrastructure Protection standards, applies to electric utilities and the protection of critical infrastructure in the power sector.",
+        incorrect: "The correct answer is B, NERC CIP. HIPAA governs protected health information in healthcare. Both are sector-specific regimes but they regulate entirely different industries and categories of data."
+      }
+    },
+    q26: {
+      correct: "A",
+      rationale: {
+        correct: "The data owner or controller determines the purposes and means of processing, and accountability for the data rests with this role permanently. Outsourcing the processing does not transfer the accountability.",
+        incorrect: "The correct answer is A, Data owner or controller. The data processor acts on the controller's behalf and under its instructions. It carries genuine obligations of its own, but it does not decide why or how the data is used, which is what defines the controller role."
+      }
+    },
+    q27: {
+      correct: "B",
+      rationale: {
+        correct: "Audit scope is deliberately bounded, and restrictions may cover assets, time periods, geography, or services. Understanding the boundary matters as much as reading the findings, because a clean report over a narrow scope demonstrates far less than its cover page suggests.",
+        incorrect: "The correct answer is B. An exclusion from scope is not a failure finding. It means the area was never examined, which leaves the customer without evidence either way rather than with evidence of a deficiency."
+      }
+    },
+    q28: {
+      correct: "C",
+      rationale: {
+        correct: "Before contracting, an enterprise should evaluate its specific needs and requirements as the foundation of its cloud strategy, identifying key organisational assets and assessing their suitability and adequacy for cloud environments.",
+        incorrect: "The correct answer is C. Migrating first and assessing afterwards reverses the order, committing the organisation to arrangements before establishing whether those arrangements meet its regulatory and business requirements."
+      }
+    },
+    q29: {
+      correct: "A",
+      rationale: {
+        correct: "Identifying and involving relevant stakeholders is crucial to the success of a cloud adoption initiative, because engaging them helps in understanding their perspectives, concerns, and requirements and paves the way for a smoother transition.",
+        incorrect: "The correct answer is A. Involving stakeholders informs decisions and builds support, but accountability for the initiative remains with those leading it. Consultation does not transfer responsibility to the parties consulted."
+      }
+    },
+    q30: {
+      correct: "D",
+      rationale: {
+        correct: "GDPR applies extraterritorially, reaching any organisation that processes the personal data of EU residents regardless of where that organisation is established, which is why it affects businesses globally.",
+        incorrect: "The correct answer is D. Applicability limited to organisations with EU offices would describe a territorial rather than extraterritorial regime, and it is precisely the limitation GDPR was drafted to avoid."
+      }
+    },
+    q31: {
+      correct: "C",
+      rationale: {
+        correct: "A Type II report assesses whether controls operated effectively over a defined period, typically six to twelve months, which is exactly the evidence of sustained effectiveness the auditor requires.",
+        incorrect: "The correct answer is C, SOC 2 Type II. A Type I report assesses whether controls are suitably designed at a single point in time. It says nothing about whether those controls actually worked across the months in question."
+      }
+    },
+    q32: {
+      correct: "B",
+      rationale: {
+        correct: "The data custodian holds day-to-day technical responsibility for safeguarding the data, implementing and operating the controls that the data owner has determined are required.",
+        incorrect: "The correct answer is B, Data custodian. The data steward is responsible for data quality, meaning, and fitness for business use. It is a governance role concerned with the data's integrity as an asset rather than the technical controls protecting it."
+      }
+    },
+    q33: {
+      correct: "D",
+      rationale: {
+        correct: "Risk mitigation applies controls that reduce either the likelihood of a risk materialising or the impact if it does, leaving a reduced residual risk that the organisation then treats by other means if necessary.",
+        incorrect: "The correct answer is D, Risk mitigation. Risk transfer shifts financial consequence to another party, usually through insurance, without changing how likely the event is or how much technical damage it would cause."
+      }
+    },
+    q34: {
+      correct: "D",
+      rationale: {
+        correct: "Gap analysis compares the current state of controls against a required or desired state, drawing on control analysis, baselines, and risk and control self-assessment. It typically precedes a formal audit so identified gaps can be closed beforehand.",
+        incorrect: "The correct answer is D. Comparing actual uptime against SLA commitments is service level management, assessing whether contractual performance targets were met. It measures service delivery rather than control maturity against a required standard."
+      }
+    },
+    q35: {
+      correct: "C",
+      rationale: {
+        correct: "Sarbanes-Oxley imposes disclosure obligations and internal control requirements over financial reporting for publicly listed companies, and it is named among the regulatory transparency requirements.",
+        incorrect: "The correct answer is C, Sarbanes-Oxley. HIPAA governs protected health information and includes its own Breach Notification Rule. It is a transparency requirement in the healthcare context rather than one addressing financial reporting controls."
+      }
+    },
+    q36: {
+      correct: "D",
+      rationale: {
+        correct: "Multi-tenancy means shared components serve many customers simultaneously, so examining them risks reaching data belonging to tenants who are not party to the audit. That constraint is a defining assurance challenge in cloud environments.",
+        incorrect: "The correct answer is D. Multi-tenant systems generate extensive logging, and log availability varies by service model. The challenge concerns what an auditor may examine without affecting other tenants rather than an absence of recorded evidence."
+      }
+    },
+    q37: {
+      correct: "A",
+      rationale: {
+        correct: "Asset restrictions explicitly exclude certain critical or sensitive assets from the audit scope in order to protect them, and they are one of the recognised categories of scope restriction alongside time-based and geographic limitations.",
+        incorrect: "The correct answer is A, Asset restrictions. Accepted times and time periods refer to scheduling audits when they are least disruptive to business operations. That is a timing restriction rather than an exclusion of particular assets from examination."
+      }
+    },
+    q38: {
+      correct: "A",
+      rationale: {
+        correct: "The data subject is the individual to whom the personal data relates, and it is this individual whose rights privacy regimes such as GDPR are designed to protect.",
+        incorrect: "The correct answer is A, Data subject. The data custodian holds day-to-day technical responsibility for safeguarding data. It is an organisational role implementing controls rather than the person the data describes."
+      }
+    },
+    q39: {
+      correct: "D",
+      rationale: {
+        correct: "Internal audit serves as a third line of defence, providing assurance independent of the operational teams that own and operate controls, and giving the organisation continuous visibility into whether controls remain effective.",
+        incorrect: "The correct answer is D. Operating controls directly is the first line of defence, performed by the business functions themselves. Internal audit must remain independent of that activity in order for its assurance to carry weight."
+      }
+    },
+    q40: {
+      correct: "A",
+      rationale: {
+        correct: "Escrow places source code or other critical materials with a neutral third party, so that if the vendor ceases trading or can no longer support the service the customer retains a route to continue operating.",
+        incorrect: "The correct answer is A. Holding payments until delivery is a commercial payment mechanism protecting against non-performance. It addresses financial exposure rather than the operational continuity risk escrow is designed to mitigate."
+      }
+    },
+    q41: {
+      correct: "B",
+      rationale: {
+        correct: "The information security policy is an organisational policy outlining the organisation's overall commitment to information security, providing the foundational framework beneath which functional policies address specific areas.",
+        incorrect: "The correct answer is B, The organisational information security policy. Access control policy is a functional policy addressing one specific domain within the wider framework. It implements part of the commitment the organisational policy establishes rather than setting that commitment."
+      }
+    },
+    q42: {
+      correct: "D",
+      rationale: {
+        correct: "Limited physical access to cloud infrastructure means auditors depend heavily on evidence the provider supplies, so assurance rests substantially on what the provider discloses rather than on independent observation of the environment.",
+        incorrect: "The correct answer is D. Direct physical observation is generally not available to customers in public cloud, which is exactly the constraint that creates this dependence. Providers restrict data centre access precisely because they serve many tenants."
+      }
+    },
+    q43: {
+      correct: "C",
+      rationale: {
+        correct: "The bank determines the purposes and means of processing, making it the controller, and accountability rests with the controller regardless of which party's systems held the data at the time of the breach.",
+        incorrect: "The correct answer is C. The provider acts as processor and carries its own obligations, but locating the breach on its infrastructure does not transfer the controller's accountability. The regulator looks to the party that decided why the data was collected."
+      }
+    },
+    q44: {
+      correct: "C",
+      rationale: {
+        correct: "The Personal Information Protection and Electronic Documents Act is Canada's private-sector personal information legislation.",
+        incorrect: "The correct answer is C, PIPEDA. GAPP, the Generally Accepted Privacy Principles, is a recognised set of privacy principles rather than national legislation. It provides a framework organisations may align to but carries no statutory force of its own."
+      }
+    },
+    q45: {
+      correct: "C",
+      rationale: {
+        correct: "ENISA, the European Union Agency for Cybersecurity, is named among the common risk frameworks, and its cloud risk assessment work addresses cloud computing specifically.",
+        incorrect: "The correct answer is C, ENISA. SAFECode is a forum where executives and technical experts collaborate on software security programmes. It contributes to secure development practice rather than providing a risk management framework."
+      }
+    },
+    q46: {
+      correct: "D",
+      rationale: {
+        correct: "SOC 3 provides a high-level overview without the detailed controls and tests found in SOC 2, which makes it suitable for general public distribution but too thin to support a security team's assurance requirements.",
+        incorrect: "The correct answer is D, SOC 3. A SOC 2 Type II contains detailed descriptions of controls and the results of testing their operating effectiveness over a period. It is restricted-use precisely because of that detail rather than being intended for public release."
+      }
+    },
+    q47: {
+      correct: "D",
+      rationale: {
+        correct: "The compliance and access to cloud and data term ensures the customer can satisfy its own regulatory obligations and can reach and retrieve its data, which is essential where the customer remains accountable despite not operating the infrastructure.",
+        incorrect: "The correct answer is D, Compliance and access to cloud and data. Cyber risk insurance allocates the financial consequence of an incident between the parties. It addresses who bears the cost rather than whether the customer can access its data and meet its regulatory duties."
+      }
+    },
+    q48: {
+      correct: "C",
+      rationale: {
+        correct: "Within the forensics family, ISO/IEC 27042 covers the analysis and interpretation of digital evidence, following 27037 which addresses identification, collection, acquisition, and preservation.",
+        incorrect: "The correct answer is C, ISO/IEC 27042. ISO/IEC 27037 handles the earlier stages of identifying, collecting, acquiring, and preserving evidence. It governs how evidence is obtained rather than how it is subsequently analysed and interpreted."
+      }
+    },
+    q49: {
+      correct: "C",
+      rationale: {
+        correct: "ISO 31000 provides generic risk management principles and guidelines applicable to any organisation, and it is named alongside ENISA and NIST among the common risk frameworks.",
+        incorrect: "The correct answer is C, ISO 31000. PCI DSS is a sector-specific standard mandatory for organisations handling payment card data. It prescribes particular controls for one category of data rather than offering general risk management principles."
+      }
+    },
+    q50: {
+      correct: "B",
+      rationale: {
+        correct: "Cloud Security Alliance guidance supplies the cloud-specific layer for both eDiscovery and forensics, complementing the ISO/IEC standards by addressing the particular difficulties of investigating in shared, provider-operated environments.",
+        incorrect: "The correct answer is B, Cloud Security Alliance guidance. COSO is an enterprise risk management and internal control framework addressing organisational governance. It has no bearing on the collection or handling of digital evidence in cloud environments."
+      }
+    },
+    q51: {
+      correct: "D",
+      rationale: {
+        correct: "ISO/IEC 27036 is the standard for information security in supplier relationships, covering how security requirements are defined, agreed, and monitored across the supply chain.",
+        incorrect: "The correct answer is D, ISO/IEC 27036. ISO/IEC 27050 addresses electronic discovery of information for legal proceedings. It concerns evidence handling rather than the security governance of supplier relationships."
+      }
+    },
+    q52: {
+      correct: "B",
+      rationale: {
+        correct: "Assessment of the risk environment covers the service, the vendor, the infrastructure, and the business, because risk arising in any one of these reaches the others rather than remaining contained.",
+        incorrect: "The correct answer is B, Service, vendor, infrastructure, and business. Limiting assessment to the individual system being deployed would miss vendor viability, infrastructure dependencies, and business context, each of which can produce risk the system-level view never reveals."
+      }
+    },
+    q53: {
+      correct: "B",
+      rationale: {
+        correct: "The Family Educational Rights and Privacy Act governs the privacy of student education records in the United States.",
+        incorrect: "The correct answer is B, FERPA. HIPAA governs protected health information in the United States, covering healthcare providers, plans, clearinghouses, and their business associates. Both are US sectoral laws but they cover entirely different categories of data."
+      }
+    },
+    q54: {
+      correct: "B",
+      rationale: {
+        correct: "Legal risks specific to cloud stem from data being stored, processed, and managed remotely on third-party servers, producing loss of direct control over data handling and uncertainty about which jurisdiction's law governs.",
+        incorrect: "The correct answer is B. Electricity consumption at the customer's premises typically falls when workloads move to cloud. It is an operational cost consideration rather than a legal risk arising from third-party processing."
+      }
+    },
+    q55: {
+      correct: "C",
+      rationale: {
+        correct: "The Generally Accepted Privacy Principles provide a recognised framework of privacy principles, named alongside ISO/IEC 27018 and GDPR among the standard privacy requirements.",
+        incorrect: "The correct answer is C, Generally Accepted Privacy Principles. The Cloud Controls Matrix is the Cloud Security Alliance's catalogue of cloud security controls underpinning the STAR registry. It addresses security control coverage broadly rather than privacy principles specifically."
+      }
+    },
+    q56: {
+      correct: "B",
+      rationale: {
+        correct: "Regulated private data is protected under specific regulatory requirements arising from statute, so the obligation exists independently of any agreement and breach carries regulatory consequences no contract can override. Contractual private data is protected because an agreement between parties says so.",
+        incorrect: "The correct answer is B. Contractual breaches produce commercial remedies between the parties, whereas regulatory breaches can bring substantial statutory penalties and enforcement action. The regulated category generally carries the greater exposure."
+      }
+    },
+    q57: {
+      correct: "A",
+      rationale: {
+        correct: "The Master Service Agreement is the overarching contract establishing the general terms that govern the entire relationship, beneath which specific work and performance commitments are defined.",
+        incorrect: "The correct answer is A, Master Service Agreement. The Statement of Work specifies particular deliverables, tasks, and timelines for a defined piece of work carried out under the umbrella the MSA provides. It is narrower and project-specific."
+      }
+    },
+    q58: {
+      correct: "A",
+      rationale: {
+        correct: "Risk acceptance is a legitimate treatment when it follows analysis and is deliberately documented, which distinguishes a considered decision to bear the risk from simply failing to identify or address it.",
+        incorrect: "The correct answer is A. Acceptance leaves the risk in place by design. Eliminating a risk entirely describes avoidance, which is achieved by not undertaking the activity that gives rise to it."
+      }
+    },
+    q59: {
+      correct: "D",
+      rationale: {
+        correct: "HIPAA governs protected health information, and the HITECH Act strengthened its provisions including breach notification requirements for covered entities and their business associates.",
+        incorrect: "The correct answer is D, HIPAA and HITECH. NERC CIP applies to electric utilities and PCI DSS to payment card data. Both are specialised compliance regimes for highly regulated activities, but neither concerns healthcare information."
+      }
+    },
+    q60: {
+      correct: "B",
+      rationale: {
+        correct: "The Service Level Agreement defines measurable service commitments such as availability and support response, along with the remedies or service credits that apply where the provider fails to meet them.",
+        incorrect: "The correct answer is B, Service Level Agreement. An escrow agreement places source code or critical materials with a neutral third party so the customer can continue operating if the vendor fails. It addresses vendor failure rather than routine performance measurement."
+      }
+    },
+    q61: {
+      correct: "A",
+      rationale: {
+        correct: "The data steward is responsible for data quality, meaning, and fitness for business purpose, ensuring the data remains accurate and usable as a business asset.",
+        incorrect: "The correct answer is A, Data steward. The data controller determines the purposes and means of processing and holds accountability for the data. It decides why data is used rather than managing its quality and business meaning day to day."
+      }
+    },
+    q62: {
+      correct: "B",
+      rationale: {
+        correct: "SOC 1 reports on controls at a service organisation that are relevant to its customers' financial reporting, which distinguishes it from SOC 2's focus on the Trust Service Criteria.",
+        incorrect: "The correct answer is B, SOC 1. SOC 2 reports against the Trust Service Criteria covering security, availability, processing integrity, confidentiality, and privacy. It is the report a security team needs, whereas financial reporting controls are the SOC 1 domain."
+      }
+    },
+    q63: {
+      correct: "D",
+      rationale: {
+        correct: "Cloud complicates eDiscovery because the customer does not control the infrastructure, data may be dispersed across regions, and extraction must isolate only the relevant party's data without capturing information belonging to other tenants sharing the platform.",
+        incorrect: "The correct answer is D. Electronic information is precisely what eDiscovery exists to handle, and cloud-hosted evidence appears routinely in legal proceedings. The difficulty lies in obtaining it cleanly rather than in its admissibility as a category."
+      }
+    },
+    q64: {
+      correct: "A",
+      rationale: {
+        correct: "A Privacy Impact Assessment is a forward-looking assessment conducted before processing begins, identifying privacy risks in a proposed activity and the measures to address them. Breach notification is a reactive obligation triggered once a qualifying breach has occurred.",
+        incorrect: "The correct answer is A. Breach notification is mandatory under regimes such as GDPR and the HIPAA Breach Notification Rule rather than voluntary, with defined deadlines and enforcement consequences for failure to notify."
+      }
+    },
+    q65: {
+      correct: "C",
+      rationale: {
+        correct: "Vendor viability concerns the provider's financial stability and long-term prospects as a going concern, which matters because a technically capable provider that fails commercially creates disruption just as serious as a security incident.",
+        incorrect: "The correct answer is C, Vendor viability. Vendor lock-in concerns proprietary dependency that makes switching providers difficult or impractical. It is a genuine vendor management risk but addresses technical and commercial entanglement rather than financial soundness."
+      }
+    },
+    q66: {
+      correct: "B",
+      rationale: {
+        correct: "Laws on data protection, privacy, and cybersecurity vary significantly across countries, and cloud sharpens the problem because data replicates across regions by default. One jurisdiction may compel disclosure that another forbids.",
+        incorrect: "The correct answer is B. Encryption protects confidentiality but does not remove jurisdictional obligations. Data stored in a country remains subject to that country's law regardless of whether it is encrypted, including any lawful demand for the keys."
+      }
+    },
+    q67: {
+      correct: "C",
+      rationale: {
+        correct: "Dynamic and elastic resources mean the environment changes continuously, so an audit reflects the state at the time it was conducted rather than a stable configuration, which is a defining assurance challenge in cloud.",
+        incorrect: "The correct answer is C. Elastic resources can be configured securely, particularly through Infrastructure as Code which applies consistent configuration at provisioning. The audit difficulty concerns the pace of change rather than an inability to secure the resources."
+      }
+    },
+    q68: {
+      correct: "D",
+      rationale: {
+        correct: "Audit planning sets the foundation for the engagement by establishing a clear understanding of the objectives, defining scope, assessing risk so effort is focused where it matters, allocating resources, and agreeing the schedule and evidence requirements.",
+        incorrect: "The correct answer is D. Determining the audit opinion before testing begins would invert the entire process and destroy the engagement's independence. The opinion follows from the evidence gathered rather than preceding it."
+      }
+    },
+    q69: {
+      correct: "A",
+      rationale: {
+        correct: "The General Data Protection Regulation is the comprehensive European data protection law centred on consent, rights of access, and the right to be forgotten, with extraterritorial reach over any organisation processing EU residents' personal data.",
+        incorrect: "The correct answer is A, GDPR. FERPA governs student education records in the United States. It is genuine privacy legislation but is sectoral and national in scope rather than the comprehensive rights-based framework the question describes."
+      }
+    },
+    q70: {
+      correct: "D",
+      rationale: {
+        correct: "Assessing a provider's risk management programme should cover its controls, methodologies, policies, risk profile, and risk appetite, since all of these shape the risk the customer inherits by hosting in that environment.",
+        incorrect: "The correct answer is D. Marketing spend and brand recognition indicate commercial visibility rather than security maturity. A well-marketed provider may carry a risk appetite quite unsuited to the customer's regulatory obligations."
+      }
+    }
+};
+
+  // Tab switching
+  document.querySelectorAll('.tabbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'auto'});
+    });
+  });
+
+  // Study subnav smooth scroll (stay within study tab)
+  document.querySelectorAll('.study-subnav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  const state = {}; // { qid: { answered: bool, correct: bool } }
+
+  function updateProgress(){
+    const ids = Object.keys(quizData);
+    const answered = ids.filter(id => state[id] && state[id].answered).length;
+    const correct = ids.filter(id => state[id] && state[id].correct).length;
+    document.getElementById('progress-count').textContent = answered;
+    document.getElementById('progress-correct').textContent = correct;
+    document.getElementById('progress-total').textContent = ids.length;
+  }
+
+  function submitAnswer(qid){
+    const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+    const selected = card.querySelector('input[name="'+qid+'"]:checked');
+    const warn = card.querySelector('.inline-warn[data-warn="'+qid+'"]');
+
+    if(!selected){
+      warn.style.display = 'inline';
+      return;
+    }
+    warn.style.display = 'none';
+
+    const chosen = selected.value;
+    const correctVal = quizData[qid].correct;
+    const isCorrect = chosen === correctVal;
+
+    card.querySelectorAll('.qoption').forEach(opt => {
+      opt.classList.remove('correct-choice','incorrect-choice');
+    });
+
+    const chosenOpt = card.querySelector('input[value="'+chosen+'"]').closest('.qoption');
+    chosenOpt.classList.add(isCorrect ? 'correct-choice' : 'incorrect-choice');
+
+    if(!isCorrect){
+      const correctOpt = card.querySelector('input[value="'+correctVal+'"]').closest('.qoption');
+      correctOpt.classList.add('correct-choice');
+    }
+
+    const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.innerHTML = '<span class="verdict">' + (isCorrect ? '&#10003; Correct' : '&#10007; Incorrect') + '</span>' +
+                    '<span class="rationale">' + (isCorrect ? quizData[qid].rationale.correct : quizData[qid].rationale.incorrect) + '</span>';
+
+    state[qid] = { answered: true, correct: isCorrect };
+    updateProgress();
+  }
+
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    btn.addEventListener('click', () => submitAnswer(btn.dataset.qid));
+  });
+
+  document.querySelectorAll('.qoptions input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const qid = input.name;
+      const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+      card.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+      const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+      fb.classList.remove('show');
+    });
+  });
+
+  document.getElementById('reset-all').addEventListener('click', () => {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+    document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show'); fb.innerHTML=''; });
+    document.querySelectorAll('.inline-warn').forEach(w => w.style.display = 'none');
+    Object.keys(state).forEach(k => delete state[k]);
+    updateProgress();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>

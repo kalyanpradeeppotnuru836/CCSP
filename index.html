@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CCSP Exam Preparation: Study Guides and Practice Questions</title>
+<style>
+  :root{
+    --navy:#1F3864;
+    --navy-light:#2E4E8C;
+    --gold:#B08D57;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --border:#E2E1DC;
+    --text:#26251F;
+    --text-secondary:#5B594F;
+    --text-muted:#8A8879;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .page{ max-width:880px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+  .eyebrow{
+    font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold); font-weight:600; margin:0 0 .35rem;
+  }
+  h1{ font-size:30px; font-weight:700; margin:0 0 .3rem; color:var(--navy); }
+  .subhead{ font-size:15.5px; color:var(--text-secondary); margin:0 0 .7rem; }
+  .signature{
+    font-size:13px; color:var(--text-muted); font-style:italic;
+    margin:0; padding-top:.5rem; border-top:1px solid var(--border);
+  }
+  h2{ font-size:20px; color:var(--navy); margin:2.25rem 0 .75rem; }
+  h3{ font-size:15px; margin:1.25rem 0 .4rem; }
+  p{ font-size:15px; margin:0 0 .75rem; }
+
+  .ai-note{
+    background:#FFF8E8; border:1px solid #E8D9A8; border-left:3px solid var(--gold);
+    border-radius:8px; padding:1.05rem 1.25rem; margin:1.5rem 0 0;
+  }
+  .ai-note .label{
+    font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--gold); display:block; margin-bottom:.4rem;
+  }
+  .ai-note p{ margin:0 0 .6rem; font-size:14px; color:var(--text-secondary); }
+  .ai-note p:last-child{ margin-bottom:0; }
+  .ai-note strong{ color:var(--text); }
+
+  .change-box{
+    background:#F3F6FC; border:1px solid #C9D9F2; border-left:3px solid var(--navy-light);
+    border-radius:8px; padding:1.1rem 1.3rem; margin:1rem 0 0;
+  }
+  .change-box .label{
+    font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--navy); display:block; margin-bottom:.45rem;
+  }
+  .change-box p{ font-size:14.5px; color:var(--text-secondary); }
+  .change-box ul{ margin:.4rem 0 .5rem; padding-left:1.2rem; }
+  .change-box li{ font-size:14.5px; color:var(--text-secondary); margin-bottom:.3rem; }
+  .change-box strong{ color:var(--text); }
+
+  table{ width:100%; border-collapse:collapse; margin:.5rem 0 1rem; background:var(--card);
+         border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+  th{ background:var(--navy); color:#fff; font-size:12.5px; font-weight:700;
+      text-align:left; padding:.6rem .8rem; }
+  td{ font-size:14px; padding:.55rem .8rem; border-top:1px solid var(--border); }
+  tr:nth-child(even) td{ background:#FAFAF8; }
+  td.num, th.num{ text-align:center; }
+  .up{ color:#1F6B2E; font-weight:700; }
+  .down{ color:#A32D2D; font-weight:700; }
+  tfoot td{ font-weight:700; background:#EFEFEA !important; }
+
+  .domain-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:.85rem; margin-top:.5rem; }
+  .domain-card{
+    display:block; background:var(--card); border:1px solid var(--border);
+    border-radius:10px; padding:1.1rem 1.25rem; text-decoration:none; color:inherit;
+    transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .domain-card:hover{ border-color:var(--navy-light); transform:translateY(-2px);
+    box-shadow:0 3px 10px rgba(31,56,100,.09); }
+  .domain-card .dnum{
+    font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--gold); display:block; margin-bottom:.25rem;
+  }
+  .domain-card .dtitle{ font-size:16px; font-weight:700; color:var(--navy); display:block; margin-bottom:.3rem; }
+  .domain-card .dmeta{ font-size:12.5px; color:var(--text-muted); display:block; margin-bottom:.5rem; }
+  .domain-card .dtopics{ font-size:13px; color:var(--text-secondary); line-height:1.45; }
+
+  .src-card{ background:var(--card); border:1px solid var(--border); border-radius:10px;
+    padding:1.25rem 1.4rem; margin-top:.5rem; }
+  .src-card ul{ margin:.4rem 0 .5rem; padding-left:1.2rem; }
+  .src-card li{ font-size:14.5px; margin-bottom:.45rem; }
+  a{ color:var(--navy-light); }
+
+  .prompt-box{
+    background:#FBFBF9; border:1px solid var(--border); border-radius:8px;
+    padding:1.1rem 1.3rem; margin-top:.5rem;
+  }
+  .prompt-box ul{ margin:.4rem 0 .6rem; padding-left:1.2rem; }
+  .prompt-box li{ font-size:14px; color:var(--text-secondary); margin-bottom:.35rem; }
+  .prompt-box strong{ color:var(--text); }
+
+  footer{ margin-top:2.5rem; padding-top:1.25rem; border-top:1px solid var(--border);
+    font-size:12.5px; color:var(--text-muted); }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <p class="eyebrow">ISC2 Certified Cloud Security Professional</p>
+  <h1>CCSP Exam Preparation</h1>
+  <p class="subhead">Study material and 420 practice questions across all six domains, aligned to the ISC2 exam outline effective 1 August 2026.</p>
+  <p class="signature">Prepared by Kalyan Pradeep Potnuru for CCSP Preparation.</p>
+
+  <div class="ai-note">
+    <span class="label">Please read before using</span>
+    <p><strong>This is an AI-generated study aid.</strong> The material here was produced with AI assistance to support rapid preparation, revision planning, and building the right mindset for the exam.</p>
+    <p><strong>It has no connection to ISC2.</strong> It is not affiliated with, endorsed by, reviewed by, or associated with ISC2 in any way. ISC2 has no involvement in its creation.</p>
+    <p><strong>These are not exam questions.</strong> Every question is an original practice item written against the publicly published exam outline. None are real CCSP exam questions, and no claim is made that they match the style, difficulty, or content of what ISC2 will actually ask.</p>
+    <p>Treat this as one preparation tool among several. Always verify against the official ISC2 outline and the official study guide, and rely on those for anything that matters.</p>
+  </div>
+
+  <h2>What changed on 1 August 2026</h2>
+  <p>ISC2 updated the CCSP exam outline effective 1 August 2026. The six domains kept their names, but the content and weighting shifted. If you are studying from older material, these are the gaps to close.</p>
+
+  <div class="change-box">
+    <span class="label">Key changes</span>
+    <ul>
+      <li><strong>AI and machine learning security integrated across the outline.</strong> Two entirely new subtopics were added: <strong>1.6 Artificial Intelligence and Machine Learning</strong>, covering threat detection, data source validation, SOAR, ethical concerns, and regulatory requirements; and <strong>2.9 Data protection for AI and ML</strong>, covering dataset and model privacy alongside validation and verification. AI considerations also appear throughout the remaining domains.</li>
+      <li><strong>Domain 4 decreased from 17% to 16%.</strong></li>
+      <li><strong>Domain 5 increased from 16% to 17%</strong>, making Cloud Security Operations jointly the second heaviest domain.</li>
+      <li><strong>Expanded supply chain and pipeline security</strong>, including secrets management, Infrastructure as Code scanning, and Software Bill of Materials.</li>
+    </ul>
+    <p>Domains 1, 2, 3, and 6 kept their existing weightings.</p>
+  </div>
+
+  <h2>Domain weighting</h2>
+  <p>The exam is weighted as follows. Each domain here carries 70 practice questions regardless of weighting, so the heavier domains are not proportionally over-represented in this material. Use the weighting to plan revision time rather than to judge how much practice to do.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th class="num">Domain</th>
+        <th>Title</th>
+        <th class="num">Weight</th>
+        <th class="num">Questions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">1</td><td>Cloud Concepts, Architecture and Design</td><td class="num">17%</td><td class="num">70</td></tr>
+      <tr><td class="num">2</td><td>Cloud Data Security</td><td class="num">20%</td><td class="num">70</td></tr>
+      <tr><td class="num">3</td><td>Cloud Platform and Infrastructure Security</td><td class="num">17%</td><td class="num">70</td></tr>
+      <tr><td class="num">4</td><td>Cloud Application Security</td><td class="num">16% <span class="down">&darr;</span></td><td class="num">70</td></tr>
+      <tr><td class="num">5</td><td>Cloud Security Operations</td><td class="num">17% <span class="up">&uarr;</span></td><td class="num">70</td></tr>
+      <tr><td class="num">6</td><td>Legal, Risk and Compliance</td><td class="num">13%</td><td class="num">70</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td class="num"></td><td>Total</td><td class="num">100%</td><td class="num">420</td></tr>
+    </tfoot>
+  </table>
+
+  <h2>Choose a domain</h2>
+  <p>Each page has two tabs: study material covering every subtopic with worked examples, and a question set with per-question submit, instant feedback, explanations whether you are right or wrong, and a reset button so you can retake it.</p>
+
+  <div class="domain-grid">
+
+    <a class="domain-card" href="CCSP_Domain1_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 1 &middot; 17%</span>
+      <span class="dtitle">Cloud Concepts, Architecture and Design</span>
+      <span class="dmeta">70 questions &middot; 6 subtopics</span>
+      <span class="dtopics">Cloud computing concepts, reference architecture, security concepts, secure design principles, evaluating providers, and AI and ML.</span>
+    </a>
+
+    <a class="domain-card" href="CCSP_Domain2_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 2 &middot; 20%</span>
+      <span class="dtitle">Cloud Data Security</span>
+      <span class="dmeta">70 questions &middot; 9 subtopics</span>
+      <span class="dtopics">Data lifecycle, storage architectures, security technologies, discovery, classification, rights management, retention, auditability, and AI data protection.</span>
+    </a>
+
+    <a class="domain-card" href="CCSP_Domain3_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 3 &middot; 17%</span>
+      <span class="dtitle">Cloud Platform and Infrastructure Security</span>
+      <span class="dmeta">70 questions &middot; 5 subtopics</span>
+      <span class="dtopics">Infrastructure components, secure data centre design, risk analysis, security controls, and business continuity and disaster recovery.</span>
+    </a>
+
+    <a class="domain-card" href="CCSP_Domain4_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 4 &middot; 16%</span>
+      <span class="dtitle">Cloud Application Security</span>
+      <span class="dmeta">70 questions &middot; 7 subtopics</span>
+      <span class="dtopics">Training and awareness, secure SDLC, applying the SDLC, assurance and validation, verified software, application architecture, and identity and access management.</span>
+    </a>
+
+    <a class="domain-card" href="CCSP_Domain5_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 5 &middot; 17%</span>
+      <span class="dtitle">Cloud Security Operations</span>
+      <span class="dmeta">70 questions &middot; 6 subtopics</span>
+      <span class="dtopics">Building infrastructure, operating and maintaining it, operational controls and standards, digital forensics, stakeholder communication, and security operations.</span>
+    </a>
+
+    <a class="domain-card" href="CCSP_Domain6_StudyGuide_and_Quiz.html">
+      <span class="dnum">Domain 6 &middot; 13%</span>
+      <span class="dtitle">Legal, Risk and Compliance</span>
+      <span class="dmeta">70 questions &middot; 5 subtopics</span>
+      <span class="dtopics">Legal requirements and risks, privacy issues, audit process and methodologies, enterprise risk management, and outsourcing and contract design.</span>
+    </a>
+
+  </div>
+
+  <h2>Sources and further reading</h2>
+  <div class="src-card">
+    <ul>
+      <li><strong>ISC2 official exam outline.</strong> The authoritative statement of what is examinable, and the primary source this material was written against. Always check it directly, since ISC2 can revise it at any time.<br>
+      <a href="https://www.isc2.org/certifications/ccsp/ccsp-certification-exam-outline" target="_blank" rel="noopener">isc2.org CCSP exam outline</a></li>
+
+      <li><strong>ISC2 CCSP Official Study Guide, 3rd Edition</strong>, by Mike Chapple and David Seidl. Each study section here notes the chapter it corresponds to, so the two can be read together. Note that the 3rd Edition was written for the 2022 to 2025 objectives, so it predates the August 2026 additions. The foundational material remains valid, but the AI and machine learning content and the expanded pipeline security material are not in it.</li>
+
+      <li><strong>A 4th Edition is on the way.</strong> Chapple and Seidl have a 4th Edition covering the updated objectives, ISBN 9781394316236. Retailer listings indicate a scheduled release around <strong>16 February 2027</strong> at roughly &pound;50, though publication dates can shift, so check before relying on that timing.<br>
+      <a href="https://www.wiley.com/en-us/shop/general-introductory-computer-science/ccsp-certified-cloud-security-professional-study-guide-4th-edition-p-9781394316236" target="_blank" rel="noopener">Wiley product page for the 4th Edition</a></li>
+    </ul>
+  </div>
+
+  <h2>How this material was generated</h2>
+  <p>For transparency, here is the brief used to produce the study material and the question sets.</p>
+
+  <div class="prompt-box">
+    <p><strong>Study material.</strong> For each domain, write material covering every subtopic in the ISC2 exam outline, in the plain and direct register a professional courseware author would use. Explain each concept clearly enough for someone new to it, and give a concrete worked example for every concept rather than definitions alone. Map each section to the corresponding chapter of the Official Study Guide, 3rd Edition, and state plainly where the book predates the current outline. Add exam-trap callouts flagging the distinctions candidates most often confuse.</p>
+
+    <p><strong>Question sets.</strong> Write practice questions in the style of the real exam: scenario-driven, testing applied judgement rather than pure recall, mixing straightforward knowledge checks with longer scenarios that present a business context and ask what the security professional should do next. The task was framed as writing items that prioritise the best or most appropriate answer among several plausible options, not merely correct against obviously wrong.</p>
+
+    <ul>
+      <li>Four options per question, exactly one correct.</li>
+      <li>Distractors must be plausible and reflect genuine misconceptions, such as confusing data owner with data custodian, mixing up SOC 2 Type I with Type II, or misapplying shared responsibility boundaries. No throwaway or obviously absurd options.</li>
+      <li>Cover the key frameworks and standards throughout: ISO/IEC 27001, 27017, 27018, NIST, CSA Cloud Controls Matrix and STAR, GDPR, OWASP, and the shared responsibility model across IaaS, PaaS, and SaaS.</li>
+      <li>Vary the question stems: what to do first, what is the best control, which is the correct sequence, and straight definition checks.</li>
+      <li>Do not test the same concept more than twice, and cover subtopics broadly rather than clustering.</li>
+      <li>Give a rationale for every question explaining why the correct answer is right and why the leading distractor is wrong, shown whether the user answers correctly or not.</li>
+      <li>Label each question with its subtopic so weak areas can be tracked.</li>
+      <li>Interleave question order across subtopics rather than grouping them, and distribute correct answers evenly across the four option positions so there is no pattern to exploit.</li>
+    </ul>
+
+    <p><strong>Interface.</strong> Two tabs per domain, study material and questionnaire. Each question has its own submit button and reveals the outcome immediately. Options stay unlocked so answers can be changed and resubmitted, a progress counter tracks attempts and correct answers, and a reset control clears everything for a retake.</p>
+  </div>
+
+  <footer>
+    <p>Prepared by Kalyan Pradeep Potnuru for CCSP Preparation. Generated with AI assistance. Not affiliated with or endorsed by ISC2. CCSP and ISC2 are trademarks of their respective owner. For personal study use.</p>
+  </footer>
+
+</div>
+</body>
+</html>

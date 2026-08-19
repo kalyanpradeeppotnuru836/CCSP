@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CCSP Domain 2: Cloud Data Security</title>
+<style>
+  :root{
+    --navy:#1F3864;
+    --navy-light:#2E4E8C;
+    --gold:#B08D57;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --border:#E2E1DC;
+    --text:#26251F;
+    --text-secondary:#5B594F;
+    --text-muted:#8A8879;
+    --success-bg:#E9F3E9;
+    --success-text:#1F6B2E;
+    --success-border:#8FCB9A;
+    --danger-bg:#FBEAE8;
+    --danger-text:#A32D2D;
+    --danger-border:#E8A6A0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 4rem;
+  }
+  .masthead{
+    margin-bottom:1rem;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 .35rem;
+  }
+  h1{
+    font-size:28px;
+    font-weight:700;
+    margin:0 0 .25rem;
+    color:var(--navy);
+  }
+  .subhead{
+    font-size:15px;
+    color:var(--text-secondary);
+    margin:0 0 .6rem;
+  }
+  .signature{
+    font-size:13px;
+    color:var(--text-muted);
+    font-style:italic;
+    margin:0;
+    padding-top:.5rem;
+    border-top:1px solid var(--border);
+  }
+  .backlink{
+    display:inline-block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+    text-decoration:none;
+    margin-bottom:1rem;
+  }
+  .backlink:hover{ text-decoration:underline; }
+  .ai-note{
+    background:#FFF8E8;
+    border:1px solid #E8D9A8;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.8rem 1.05rem;
+    margin:1rem 0 0;
+  }
+  .ai-note p{
+    margin:0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--text-secondary);
+  }
+  .ai-note strong{ color:var(--text); }
+  .tabbar{
+    display:flex;
+    gap:4px;
+    border-bottom:2px solid var(--border);
+    margin:1.75rem 0 0;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    z-index:10;
+  }
+  .tabbtn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    padding:.75rem 1.25rem;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-muted);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tabbtn:hover{ color:var(--navy); }
+  .tabbtn.active{
+    color:var(--navy);
+    border-bottom-color:var(--navy);
+  }
+  .tabpanel{ display:none; padding-top:1.75rem; }
+  .tabpanel.active{ display:block; }
+
+  /* ---------- STUDY TAB ---------- */
+  .topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.5rem;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--navy);
+    background:#EAF0FB;
+    border:1px solid #C9D9F2;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:.5rem;
+  }
+  .book-ref{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-secondary);
+    margin-bottom:.85rem;
+  }
+  .book-ref i{
+    color:var(--text-muted);
+    font-style:normal;
+    font-weight:600;
+  }
+  .topic-card h2{
+    font-size:20px;
+    margin:0 0 .75rem;
+    color:var(--navy);
+  }
+  .topic-card h3{
+    font-size:15px;
+    margin:1.25rem 0 .4rem;
+    color:var(--text);
+  }
+  .topic-card p{
+    font-size:15px;
+    color:var(--text);
+    margin:0 0 .75rem;
+  }
+  .note-box{
+    background:#F3F6FC;
+    border-left:3px solid var(--navy-light);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.85rem 0 0;
+  }
+  .note-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .example-box{
+    background:#FBF8F2;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.75rem 0 0;
+  }
+  .example-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .example-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  ul.plain{ margin:.25rem 0 .75rem; padding-left:1.2rem; }
+  ul.plain li{ font-size:15px; margin-bottom:.3rem; }
+
+  .study-subnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:1.5rem;
+  }
+  .study-subnav a{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    padding:5px 12px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+
+  /* ---------- QUIZ TAB ---------- */
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-bottom:1.25rem;
+    padding-bottom:1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .quiz-progress{
+    font-size:14px;
+    color:var(--text-secondary);
+  }
+  .quiz-progress strong{ color:var(--navy); }
+  .reset-btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text-secondary);
+    font-size:13px;
+    font-weight:600;
+    padding:.5rem 1rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .reset-btn:hover{
+    border-color:#D8A0A0;
+    color:var(--danger-text);
+    background:#FDF4F3;
+  }
+  .qcard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.25rem;
+  }
+  .qmeta{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:.5rem;
+  }
+  .qstem{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--text);
+    margin:0 0 1rem;
+  }
+  .qoptions{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem; }
+  .qoption{
+    display:flex;
+    align-items:flex-start;
+    gap:.65rem;
+    padding:.65rem .85rem;
+    border:1px solid var(--border);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .qoption:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .qoption input{
+    margin-top:3px;
+    accent-color:var(--navy);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .qoption label{
+    font-size:14.5px;
+    cursor:pointer;
+    color:var(--text);
+  }
+  .qoption.correct-choice{
+    border-color:var(--success-border);
+    background:var(--success-bg);
+  }
+  .qoption.incorrect-choice{
+    border-color:var(--danger-border);
+    background:var(--danger-bg);
+  }
+  .qactions{ display:flex; align-items:center; gap:.75rem; }
+  .submit-btn{
+    appearance:none;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:600;
+    padding:.6rem 1.3rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .submit-btn:hover{ background:var(--navy-light); }
+  .submit-btn:disabled{ background:#B9C4D6; cursor:not-allowed; }
+  .inline-warn{
+    font-size:13px;
+    color:var(--danger-text);
+    display:none;
+  }
+  .feedback{
+    margin-top:1rem;
+    padding:.9rem 1.1rem;
+    border-radius:8px;
+    font-size:14px;
+    display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.correct{
+    background:var(--success-bg);
+    border:1px solid var(--success-border);
+    color:var(--success-text);
+  }
+  .feedback.incorrect{
+    background:var(--danger-bg);
+    border:1px solid var(--danger-border);
+    color:var(--danger-text);
+  }
+  .feedback .verdict{
+    font-weight:700;
+    margin-bottom:.35rem;
+    display:block;
+  }
+  .feedback .rationale{
+    color:var(--text);
+    font-weight:400;
+    line-height:1.55;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <a class="backlink" href="index.html">&larr; All domains</a>
+    <p class="eyebrow">CCSP &middot; Domain 2</p>
+    <h1>Cloud Data Security</h1>
+    <p class="subhead">Study material and a 70-question practice set, aligned to the ISC2 exam outline effective August 1, 2026. Each section notes where it lines up with the Official CCSP Study Guide, 3rd Edition, by Mike Chapple and David Seidl, so the two can be read together.</p>
+    <p class="signature">Prepared by Kalyan Pradeep Potnuru for CCSP Preparation.</p>
+    <div class="ai-note">
+      <p><strong>AI-generated study aid.</strong> This material was produced with AI assistance for rapid preparation and planning. It is not affiliated with, endorsed by, or connected to ISC2. The questions are original practice items written against the published exam outline. They are not real exam questions and are not claimed to resemble what ISC2 will ask. Use this to build familiarity and structure your revision, and verify everything against official sources.</p>
+    </div>
+
+  </div>
+
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="study">Study material</button>
+    <button class="tabbtn" data-tab="quiz">Questionnaire</button>
+  </div>
+
+  <!-- ===================== STUDY TAB ===================== -->
+  <div class="tabpanel active" id="tab-study">
+
+    <div class="study-subnav">
+      <a href="#s21">2.1 Data concepts</a>
+      <a href="#s22">2.2 Storage architectures</a>
+      <a href="#s23">2.3 Security technologies</a>
+      <a href="#s24">2.4 Data discovery</a>
+      <a href="#s25">2.5 Classification</a>
+      <a href="#s26">2.6 IRM</a>
+      <a href="#s27">2.7 Retention and deletion</a>
+      <a href="#s28">2.8 Auditability</a>
+      <a href="#s29">2.9 AI and ML data</a>
+    </div>
+
+    <a id="s21"></a>
+
+<!-- STUDY_2_1_2_2 -->
+<div class="topic-card">
+  <span class="topic-tag">2.1 Cloud data concepts</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (Cloud Data Lifecycle section). Data dispersion and data flows also appear in Chapter 3.</span>
+  <h2>The data lifecycle, dispersion, and flows</h2>
+
+  <p>Data is intangible, constantly created, moved, and eventually discarded, which makes it harder to secure than a physical asset. The practical answer is to model the stages data passes through and attach the right controls to each stage, rather than trying to track every individual data element in the organisation.</p>
+
+  <h3>The six lifecycle phases</h3>
+  <p>The cloud secure data lifecycle has six phases: create, store, use, share, archive, destroy. The exam expects you to know the sequence, and more importantly, which controls belong to which phase.</p>
+  <ul class="plain">
+    <li><strong>Create</strong>, when data first enters a system or existing data is modified. The critical control here is data classification, because everything downstream depends on knowing how sensitive the data is.</li>
+    <li><strong>Store</strong>, committing data to a repository. Storage often happens at the same moment as creation, for example a document uploaded the instant it is written. Encryption in transit matters here, since data frequently crosses public networks on its way to cloud storage.</li>
+    <li><strong>Use</strong>, accessing, viewing, and processing data. This is typically the longest phase of the lifecycle, and its controls are correspondingly extensive, covering access management, monitoring, and protection of data in use.</li>
+    <li><strong>Share</strong>, granting access to other users or entities. Access controls are the backbone here. Proactive controls include access granting procedures and role based authorisation. Reactive controls include Information Rights Management, Data Loss Prevention, and access reviews, which detect and can sometimes block unauthorised sharing.</li>
+    <li><strong>Archive</strong>, long term storage for data no longer in active use, often driven by mandatory retention in sectors such as healthcare and finance. Archive controls resemble storage controls, with one extra complication: encryption keys age. If a key must be retired, archived data may need to be decrypted and re-encrypted under the new key, which is labour intensive at scale.</li>
+    <li><strong>Destroy</strong>, secure disposal once data has no value and no retention obligation. Methods range from weak, such as deleting filesystem pointers, to strong, such as overwriting or cryptographic erase. The method should be proportionate to the value of the data: public information does not need extraordinary destruction, while personal data does.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank generates a customer statement (create), writes it to cloud object storage over an encrypted connection (store), serves it to the customer through online banking for months (use), sends a copy to the customer's accountant on request (share), moves it to low cost archival storage to satisfy a seven year retention rule (archive), and cryptographically erases it when the retention period ends (destroy). Each handover point has its own control set.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Scenario questions often name an activity and ask which phase it belongs to, or name a control and ask where it applies. Classification belongs to create. IRM and DLP are share phase controls. Key ageing is an archive phase problem. If a question describes the longest running phase, it means use.</p>
+  </div>
+
+  <h3>Data dispersion</h3>
+  <p>Data dispersion breaks data into smaller chunks and distributes them across multiple physical storage devices, much like striping in RAID. Cloud implementations add erasure coding, which works like parity in RAID: if some segments are lost, the remaining segments plus the parity information can reconstruct the missing data.</p>
+  <p>The security effect cuts both ways. Availability improves, because the failure of one physical device does not lose the data, and a single compromised device does not hold a complete usable copy. The risk is jurisdictional: segments dispersed across regions can land in countries with unexpected legal requirements. Most providers now offer geographic restriction features so customers get the resilience benefit without the regulatory exposure.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company's vessel records are dispersed across a provider's storage estate. A failed disk in one data centre loses nothing, because the segments elsewhere reconstruct the data. But without geographic restrictions, some segments could end up stored outside the UK and EU, dragging the data under laws the company never planned for. Configuring region restrictions keeps the resilience and drops the legal surprise.</p>
+  </div>
+
+  <h3>Data flows</h3>
+  <p>Understanding where data travels is a design responsibility. The three states to track are data in transit, moving across networks between users, services, and clouds; data at rest, held in storage; and data in use, being actively processed. Each state has its own protection profile: encryption in transit, encryption at rest with access controls, and emerging protections such as confidential computing for data in use. Mapping data flows also surfaces compliance obligations, since a flow that crosses a border can trigger residency requirements under regimes such as GDPR.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom company maps the flow of customer usage records: collected at network elements, transmitted to a cloud analytics platform, processed into billing data, and stored for audit. The map reveals one leg where records crossed a non-UK region in transit, which the company reroutes to keep the entire flow within approved jurisdictions.</p>
+  </div>
+</div>
+
+<a id="s22"></a>
+<div class="topic-card">
+  <span class="topic-tag">2.2 Cloud data storage architectures</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (Cloud Storage Architectures and threats to storage sections).</span>
+  <h2>Storage types and the threats each one faces</h2>
+
+  <p>Each cloud service category offers its own storage types, and each type has a distinct threat profile. The exam tests whether you can match the storage type to its service model, its typical use, and its characteristic risk.</p>
+
+  <h3>Ephemeral storage</h3>
+  <p>Temporary storage that persists only while the instance is running, commonly implemented in RAM or other volatile memory, and wiped when the instance terminates. Associated with IaaS. Typical use is short lived working data such as session state. The characteristic risk is data loss on unexpected termination, and residual data if the underlying resources are reassigned without proper sanitisation.</p>
+
+  <h3>Raw storage</h3>
+  <p>Direct access to the underlying physical or block level storage media, without a filesystem or higher abstraction imposed by the provider. It offers maximum control and performance for specialised workloads, and correspondingly places responsibility for structure, management, and protection on the customer.</p>
+
+  <h3>Volume storage</h3>
+  <p>Persistent storage that emulates a physical drive attached to a cloud instance. Associated with IaaS. Typical use is databases, application files, and anything that must survive instance reboots. The characteristic risks are unauthorised access and breach where encryption and access controls are weak.</p>
+
+  <h3>Object storage</h3>
+  <p>Data managed as discrete self contained objects, each holding the data itself, its metadata, and a unique identifier, in a distributed storage environment. Associated with IaaS and PaaS. Typical use is large volumes of unstructured data such as images, video, and backups. Characteristic risks are unauthorised access, data manipulation, and compliance violations where management practices drift from regulatory requirements. Misconfigured public access on object storage is one of the most common real world causes of cloud data exposure.</p>
+
+  <h3>Database and BLOB storage</h3>
+  <p>Structured storage such as SQL databases, and Binary Large Objects for big unstructured files, associated with PaaS. Typical use is applications needing structured query access, and storage of large media or document files. The characteristic risks are SQL injection against the structured side and unauthorised access to the unstructured side.</p>
+
+  <h3>SaaS storage</h3>
+  <p>Storage wholly managed by the provider behind a SaaS application, often specialised for that application. The customer interacts with data only through the application interface. The characteristic risk is loss of control: the customer depends entirely on the provider's controls and has limited visibility into how storage is secured.</p>
+
+  <h3>Long-term storage</h3>
+  <p>Archival storage tiers designed for infrequently accessed data retained over years, trading retrieval speed for low cost. The characteristic considerations are retrieval delay, key management over long periods, and ensuring archived data remains readable and compliant for its whole retention life.</p>
+
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company's monitoring platform uses all of these at once: sensor readings buffer in ephemeral storage on the processing instances, the application database sits on volume storage, raw historical readings land in object storage, the reporting application is SaaS with its own managed storage, and seven year compliance archives go to a long-term tier. A single "where is our data" question has at least five answers, each needing its own controls.</p>
+  </div>
+
+  <h3>General threats across storage types</h3>
+  <ul class="plain">
+    <li><strong>Unauthorised access</strong>, mitigated with strong authentication, comprehensive access controls, and encryption at rest and in transit.</li>
+    <li><strong>Regulatory noncompliance</strong>, mitigated by aligning storage configuration with the regulations that apply to the data, and auditing regularly.</li>
+    <li><strong>Jurisdictional issues</strong>, mitigated by knowing where data may legally be stored and using the provider's geographic controls to keep it there.</li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Match the storage type to its service model. Ephemeral and volume belong to IaaS. Object spans IaaS and PaaS. Database and BLOB belong to PaaS. If a question pairs SQL injection with a storage type, it is pointing at database storage. If it pairs session state or volatile memory with a type, it is pointing at ephemeral.</p>
+  </div>
+</div>
+
+<a id="s23"></a>
+<!-- STUDY_2_3 -->
+<div class="topic-card">
+  <span class="topic-tag">2.3 Data security technologies and strategies</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (encryption, hashing, masking, tokenization, and DLP sections).</span>
+  <h2>Encryption, hashing, obfuscation, tokenization, DLP, and secrets management</h2>
+
+  <h3>Encryption levels in cloud environments</h3>
+  <p>Encryption can be applied at several levels, and the level chosen determines who is protected against whom.</p>
+  <ul class="plain">
+    <li><strong>Application-level encryption</strong>, implemented inside the application itself, encrypting data as the user enters it, before it ever reaches storage.</li>
+    <li><strong>Database-level encryption</strong>, protecting whole database files or specific columns and tables. Particularly effective in PaaS where the customer controls the encryption keys.</li>
+    <li><strong>File-level encryption</strong>, performed by client applications at the filesystem level, encrypting and decrypting files on the fly under the user's control, which protects data from other tenants and from provider personnel.</li>
+    <li><strong>Volume-level encryption</strong>, encrypting an entire data volume, with keys managed by the customer, protecting against physical theft and against access by provider staff or other tenants.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank encrypts card numbers at the application level before they reach the database, encrypts the sensitive columns of the database itself, and runs the whole database on an encrypted volume. Three layers, three different attackers defeated: an application layer eavesdropper, a database administrator overreaching, and someone with access to the underlying storage.</p>
+  </div>
+
+  <h3>Key management</h3>
+  <p>Encryption is only as strong as the management of its keys. A cloud Key Management System (KMS) handles cryptographic operations and the key lifecycle inside a secure boundary. Customer Managed Encryption Keys (CMEK) let the customer control its own keys while integrating with the provider's KMS, which matters for compliance regimes that require customer key custody.</p>
+  <p>The key lifecycle runs: <strong>creation</strong>, using cryptographically secure random generation; <strong>storage</strong>, in encrypted vaults or hardware security modules with tightly restricted access; <strong>usage</strong>, under defined protocols with all use logged and monitored; <strong>sharing</strong>, discouraged, and done only through secure channels when unavoidable; and <strong>archiving</strong>, retaining retired keys securely where they are still needed to decrypt historical data. Keys must be stored separately from the data they protect, and rotated on a schedule so a compromised key has a limited exposure window.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>If a scenario stores keys alongside the encrypted data, that is the flaw, whatever else the question says. And remember why archived keys exist at all: destroying a key that still protects archived data is equivalent to destroying the data, which is exactly what cryptographic erase exploits deliberately.</p>
+  </div>
+
+  <h3>Hashing</h3>
+  <p>Hashing is often described as one way encryption, though strictly it is not encryption at all, because it is not reversible. A hash function takes input of any length and produces a fixed unique hash value. Comparing hash values computed at two points in time proves whether data changed, which is why hashing serves the integrity principle: verifying the accuracy of backups, confirming messages arrived unaltered, and detecting file changes that indicate system compromise.</p>
+  <p>Hashing also underpins <strong>digital signatures</strong>, which deliver non-repudiation. The signer computes a hash of the data and encrypts that hash with their private key. The recipient computes their own hash of what arrived and decrypts the signature with the signer's public key. Matching values prove both that the data is unaltered and that it came from the holder of the private key, who cannot later deny having signed it.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom company integrates a third party software library into its cloud platform. Before deployment, the build pipeline verifies the library's digital signature against the vendor's public key. A mismatch would mean the package was altered after signing, or never came from the vendor at all, and the deployment stops.</p>
+  </div>
+
+  <h3>Data obfuscation</h3>
+  <p>Obfuscation, also called de-identification or masking, produces data that looks and behaves like the original without exposing the sensitive values, typically so testers, developers, or researchers can work without being authorised to see live data. Regulations often mandate it when data is used beyond its original operational purpose. Common methods include <strong>substitution</strong>, replacing values with other data, either randomly or following integrity rules; <strong>shuffling</strong>, rearranging real values within a column so each value is genuine but attached to the wrong record; and <strong>value variance</strong>, applying mathematical changes to numerical data such as dates or amounts. Encryption is a poor fit for this purpose, because encrypted data is unreadable and therefore useless for testing.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank refreshes its test environment from production monthly. Customer names are substituted with synthetic ones, account numbers are shuffled within the column, and balances have a small random variance applied. The test data still exercises every code path realistically, but no tester ever sees a real customer's real balance.</p>
+  </div>
+
+  <h3>Anonymization</h3>
+  <p>Anonymization goes further than masking: it aims to remove the link between the data and the individual permanently, including the indirect identifiers that could re-identify someone when combined. Done properly, anonymized data falls outside many privacy regimes entirely. The difficulty is that true anonymization is hard, because seemingly harmless attributes in combination can re-identify individuals.</p>
+
+  <h3>Tokenization</h3>
+  <p>Tokenization substitutes a sensitive data element with a non-sensitive token. It is not encryption: rather than obscuring data with a key, it removes the sensitive value from the environment entirely and stores it in a separate, tightly controlled token vault. The application keeps only the token. When an authorised process needs the real value, it presents the token to the tokenization server, which checks identity and authorisation before returning the original. The classic application is payment cards, where merchants hold tokens rather than card numbers, drastically shrinking their compliance scope under PCI DSS.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A retail bank's mobile app displays a saved card as a token ending in the same four digits. The real card number lives only in the token vault, behind its own access controls. A breach of the app's database yields tokens that are worthless outside the bank's own tokenization system.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep the trio straight. Masking produces realistic fake data for use in place of the real thing. Tokenization removes the real value to a vault and leaves a reversible reference. Anonymization severs the link to the individual permanently. If reversibility through a secure mapping is described, the answer is tokenization. If the goal is test data, the answer is masking. If the goal is escaping privacy regulation entirely, the answer is anonymization, along with a healthy scepticism about whether it was truly achieved.</p>
+  </div>
+
+  <h3>Data Loss Prevention</h3>
+  <p>DLP, also called data leakage prevention, is a set of controls that keep defined types of data, structured and unstructured, inside the organisation's control in line with policy. Its primary function is detecting and preventing unauthorised exfiltration of sensitive data such as account numbers and national identifiers. A DLP capability has three components: <strong>policy management</strong>, defining what data is protected and how; <strong>monitoring and enforcement</strong>, watching data at rest and in transit and acting on violations; and <strong>incident response</strong>, handling what happens when a violation is detected.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company's DLP policy flags any outbound email containing grid asset identifiers. When an engineer attaches a substation schematic to a message addressed outside the company, the DLP engine blocks the send, notifies the security team, and logs the incident, all before the data leaves.</p>
+  </div>
+
+  <h3>Keys, secrets, and certificates management</h3>
+  <p>Beyond encryption keys, cloud environments run on secrets, meaning API keys, passwords, tokens, and connection strings, and on digital certificates. A <strong>secrets manager</strong> centralises storage of these values with access control and audit logging, replacing the dangerous habit of embedding credentials in code or configuration files. A <strong>certificate manager</strong> handles the lifecycle of digital certificates and the secure handling of their private keys, including issuance, renewal, and revocation. Centralising both means credentials can be rotated, audited, and revoked in one place.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company's deployment pipeline once held database passwords in a configuration file inside the code repository. Anyone with repository access could read production credentials. Moving them into a secrets manager meant the pipeline retrieves credentials at run time, every retrieval is logged, and rotating a compromised password is one change in one place rather than a hunt through every repository.</p>
+  </div>
+</div>
+
+<a id="s24"></a>
+<!-- STUDY_2_4_2_5_2_6 -->
+<div class="topic-card">
+  <span class="topic-tag">2.4 Data discovery</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (data discovery and data types sections).</span>
+  <h2>Finding data before you can protect it</h2>
+
+  <p>You cannot classify, protect, or delete data you do not know you have. Data discovery is the process of locating data across an organisation's estate, and it depends on understanding the three structural forms data takes.</p>
+
+  <h3>Structured data</h3>
+  <p>Data with a predefined format and content type, organised into distinct fields, the classic example being a relational database. Its defining attributes are a defined structure, validation before storage, ease of search, and strong suitability for analysis. Discovery in structured data is comparatively straightforward, because the schema itself describes what each field contains.</p>
+
+  <h3>Unstructured data</h3>
+  <p>Data with no imposed structure or format: documents and text files, emails, images, videos, office documents, and scientific datasets. Unstructured data is the hardest to discover and govern, because nothing about its container reliably describes its contents. A spreadsheet named notes.xlsx can hold anything from a lunch rota to a full customer export.</p>
+
+  <h3>Semi-structured data</h3>
+  <p>The middle ground: data that uses markers or tags to delineate semantic elements and hierarchies, without conforming to a rigid tabular schema. XML and JSON are the canonical examples, widely used for data interchange and in object oriented databases. It may carry metadata tags for attributes such as location, date, or source, while the content inside the tags remains unstructured.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom company's customer records sit in a relational database (structured), its call centre voice recordings sit in object storage (unstructured), and the data feeds it exchanges with partner networks are JSON documents (semi-structured). A subject access request under GDPR has to find the customer in all three, which is precisely why discovery tooling must handle every form.</p>
+  </div>
+
+  <h3>Data location</h3>
+  <p>Cloud mobility means customers often do not know precisely where their data physically sits, and for routine operations that may not matter. It matters greatly for regulated and sensitive data, where compliance depends on knowing and controlling location. Organisations with legal, compliance, or operational reasons should define a preferred data location, use the provider's geographic controls to enforce it, and engage the provider proactively for clarity on where data is actually stored, including replicas and backups.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Discovery questions often hinge on matching the data form to the discovery difficulty. Structured data is easiest because the schema is self describing. Unstructured is hardest and is where most undiscovered sensitive data hides. If a question mentions tags, markers, XML, or JSON, it means semi-structured.</p>
+  </div>
+</div>
+
+<a id="s25"></a>
+<div class="topic-card">
+  <span class="topic-tag">2.5 Data classification</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (classification policies, data mapping, and labeling sections).</span>
+  <h2>Classification policies, mapping, and labeling</h2>
+
+  <h3>Data classification policies</h3>
+  <p>A data classification policy is the framework of procedures, processes, and guidelines by which an organisation categorises stored information by sensitivity. Its purposes are consistent handling, guidance across the entire data lifecycle from creation to disposal, and risk reduction against privacy breaches, compliance violations, and security incidents. Two properties matter: the policy must be tailored to the organisation, since a bank's categories will not fit a logistics firm, and it must align with the laws and regulations that apply to the data.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank defines four levels: public, internal, confidential, and restricted. Each level carries defined handling rules, storage requirements, sharing constraints, and destruction methods. Marketing material is public. Board papers are restricted. The point is not the labels themselves but that every employee handling a document knows, from its level alone, exactly what they may and may not do with it.</p>
+  </div>
+
+  <h3>Data mapping</h3>
+  <p>Data mapping builds the picture of where data resides across applications and storage infrastructure. Discovery software scans data sources using a range of attributes, the most important being <strong>metadata</strong>, meaning data about data: details of a file's creator, origin, format, and context. A sound mapping strategy lets the organisation identify precisely where data lives, which is the foundation for governance, and for enforcing security policy, since you can only protect what the map shows you.</p>
+
+  <h3>Data labeling and tagging</h3>
+  <p>Labeling attaches identifying information to data, typically covering attributes such as department, location, and creator, and often carrying the classification itself, with labels such as confidential or restricted. Digital data cannot carry a physical sticker, so labeling uses methods such as <strong>metadata tagging</strong>, associating descriptive metadata with the asset, and <strong>header labels</strong>, embedding the label in the file's header for quick identification. Labels are what allow automated controls, such as DLP, to act on classification: the policy says restricted data may not leave, and the label is how the tooling recognises restricted data when it sees it.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company's document management system stamps a classification label into the metadata and header of every file at creation. Months later, when someone attaches a restricted engineering drawing to an outbound email, the DLP engine does not need to understand the drawing. It reads the label and blocks the send. Classification did the thinking at create time; the label carried the decision forward.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep the sequence straight: discovery finds the data, classification decides its sensitivity, mapping records where it lives, and labeling attaches the decision to the data so controls can enforce it. Questions that ask what must happen first are usually pointing at discovery or classification, depending on whether the scenario is about finding data or deciding how to treat it.</p>
+  </div>
+</div>
+
+<a id="s26"></a>
+<div class="topic-card">
+  <span class="topic-tag">2.6 Information Rights Management</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (Information Rights Management section).</span>
+  <h2>IRM objectives and the certificate machinery behind it</h2>
+
+  <h3>Objectives</h3>
+  <p>Information Rights Management extends protection beyond standard encryption by attaching access control to the data object itself. Its key objectives:</p>
+  <ul class="plain">
+    <li><strong>Layered access control</strong>, an additional control layer over documents and data objects that determines not just who can open a file but what they may do with it: printing, saving, copying, forwarding. This granularity is an application of least privilege to individual actions on a document.</li>
+    <li><strong>Provisioning and access models</strong>, defining how rights are granted to users and roles, and how those rights are managed over the document's life.</li>
+    <li><strong>Location agnosticism</strong>, the defining IRM property: the access control list is embedded in the file itself, so protection travels with the data wherever it goes. This is precisely what makes IRM suited to cloud environments, where data moves constantly between locations the organisation does not control.</li>
+    <li><strong>Protection across data types</strong>, covering financial documents, emails, database columns, web pages, and other objects, making IRM a foundation of information protection policy for critical assets.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company shares a commercially sensitive charter agreement with an external broker. IRM permits the broker to read the document but not print, copy, or forward it, and the restriction holds even after the file leaves the company's systems, because the rights are embedded in the file. When the deal closes, the company revokes access centrally, and the copy sitting in the broker's inbox becomes unreadable.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>The IRM versus DLP boundary is a favourite. DLP watches channels and stops sensitive data leaving. IRM travels with the object and controls use after it has left. If the scenario needs control over a file already outside the organisation, DLP cannot help; the answer is IRM.</p>
+  </div>
+
+  <h3>Appropriate tools: certificates, issuance, and revocation</h3>
+  <p>IRM implementations depend on identity, and identity at scale depends on Public Key Infrastructure. The exam focus is on revocation, the mechanism that ends trust in a certificate before its natural expiry.</p>
+  <ul class="plain">
+    <li><strong>Certificate Revocation List (CRL)</strong>, a list maintained by the Certificate Authority holding the serial numbers of revoked certificates and their revocation times. Clients download and parse the CRL to check a certificate's status. CRLs are distributed through defined channels and have expiry times, and parsing large CRLs is resource intensive, which is why some systems cache them.</li>
+    <li><strong>Online Certificate Status Protocol (OCSP)</strong>, the alternative to CRLs: a real time query to the CA or an OCSP responder about one specific certificate, giving a more immediate answer without downloading the whole list.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A contractor's access certificate is compromised on a Friday. The CA revokes it immediately. A system relying on a weekly CRL download might trust that certificate until the next refresh, while a system using OCSP asks in real time and rejects it within minutes. The trade is freshness against the overhead of a query per check.</p>
+  </div>
+</div>
+
+<a id="s27"></a>
+<!-- STUDY_2_7_2_8_2_9 -->
+<div class="topic-card">
+  <span class="topic-tag">2.7 Retention, deletion, and archiving</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (retention, deletion, archiving, and legal hold sections).</span>
+  <h2>Keeping data as long as required, and no longer</h2>
+
+  <h3>Data retention policies</h3>
+  <p>A retention policy sets out how long information is kept to satisfy regulatory, legal, and business requirements, balanced against the cost and complexity of storing it. Its objectives include compliance, cost management by disposing of data that is no longer needed, risk reduction by not holding sensitive data longer than necessary, and ensuring retained data stays accessible and retrievable. A complete retention policy defines:</p>
+  <ul class="plain">
+    <li><strong>Purpose and scope</strong>, what the policy is for, which data types it covers, and which parts of the organisation it applies to.</li>
+    <li><strong>Retention periods</strong>, specific schedules per data type, grounded in legal, regulatory, and business requirements.</li>
+    <li><strong>Roles and responsibilities</strong>, who implements and oversees the policy: data managers, IT, legal, department heads.</li>
+    <li><strong>Storage, security, and access</strong>, how data is protected during retention and how it can be retrieved.</li>
+    <li><strong>Disposal procedures</strong>, how data is securely and irrecoverably destroyed when its period expires.</li>
+    <li><strong>Review, training, and audit</strong>, mechanisms to keep the policy current, staff aware, and compliance verifiable.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank retains transaction records for the period its regulator requires, then destroys them on schedule. Keeping them longer is not generosity, it is risk: every extra year of retained personal data is another year it can be breached, subpoenaed, or fall within the scope of a subject access request. A good retention policy treats deletion on schedule as seriously as retention on schedule.</p>
+  </div>
+
+  <h3>Data deletion procedures and mechanisms</h3>
+  <p>Deletion procedures define how data is actually destroyed when retention ends, and they must produce irrecoverable results proportionate to the data's sensitivity. In the cloud, where the customer cannot physically destroy media, the practical mechanisms are overwriting and cryptographic erase, with cryptographic erase, destroying the key that protected the data, being the standard answer for multi-tenant storage the customer cannot touch.</p>
+
+  <h3>Data archiving procedures and mechanisms</h3>
+  <p>Archiving identifies inactive data and moves it into specialised long term storage, which keeps primary systems fast and storage costs down. The elements of an archiving policy include data encryption procedures for the archive, data monitoring, the ability to perform e-discovery against archived content when legal proceedings demand it, and backup and disaster recovery arrangements for the archive itself. The long time horizon is what makes archiving distinctive: keys age, formats age, and the archive must remain both secure and readable for its whole life.</p>
+
+  <h3>Legal hold</h3>
+  <p>A legal hold preserves data in response to actual or anticipated legal proceedings, triggered by a judicial or law enforcement order. Its key aspects: the hold notice defines the <strong>scope</strong> of data that must be preserved; the <strong>duration</strong> normally runs until proceedings conclude; the organisation may be required to keep <strong>custody and protection</strong> of the data, safeguarding it from alteration or destruction; and some situations impose <strong>escrow or independent custody</strong> requirements, placing the data with a neutral party.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An energy company receives a hold notice covering all correspondence about a disputed contract. Some of those emails are three weeks from automated deletion under the retention policy. The hold overrides the schedule: deletion is suspended for everything in scope until the litigation ends. Letting the automated deletion run would be spoliation of evidence, with consequences far worse than the storage bill.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Legal hold always beats the retention schedule. Any scenario where scheduled deletion is about to destroy data under hold has one right answer: suspend the deletion for the data in scope. Every distractor that lets the deletion proceed, archives quietly, or asks the provider to delete early is describing evidence destruction.</p>
+  </div>
+</div>
+
+<a id="s28"></a>
+<div class="topic-card">
+  <span class="topic-tag">2.8 Auditability, traceability, and accountability of data events</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (auditability, traceability, and accountability of data events section).</span>
+  <h2>Event sources, logging, and proving who did what</h2>
+
+  <h3>Event sources and event attributes</h3>
+  <p>An event source is any software, hardware, or system that generates activity logs: operating systems, applications, network devices, cloud platform services. Identifying event sources is the first step in monitoring, incident detection, and compliance, because you can only analyse what something actually recorded. Event attributes are the details each event must carry to be meaningful. The attributes the outline names are <strong>identity</strong>, who or what performed the action; <strong>IP address</strong>, where the request came from; and <strong>geolocation</strong>, the physical origin. In practice a useful event also carries a timestamp and the action performed. Rich attributes are what turn a log line into evidence: they support troubleshooting, security analysis, auditing, and compliance reporting.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank investigates an unusual bulk download from its document platform. The event log shows the identity used, the source IP, a geolocation inconsistent with the employee's location, and the exact objects accessed with timestamps. Those attributes let the team reconstruct the incident hour by hour. Without them, the log would say only that something happened.</p>
+  </div>
+
+  <h3>Logging, storage, and analysis of data events</h3>
+  <p>Three interconnected activities. <strong>Logging</strong> records events as they occur. <strong>Storage</strong> keeps logs secure and intact for a defined retention period, which is often itself a regulatory requirement, and protects them from tampering, since an attacker's first move is frequently to alter the logs. <strong>Analysis</strong> turns stored logs into insight: identifying trends, diagnosing issues, and detecting anomalies that indicate security incidents. Each depends on the previous: analysis is only as good as what was logged, and logs are only trustworthy if storage preserved them unaltered.</p>
+
+  <h3>Chain of custody and non-repudiation</h3>
+  <p><strong>Chain of custody</strong> is the documented record of how evidence has been collected, handled, stored, and transferred, capturing who touched it, when, and why. A rigorous chain establishes the integrity and credibility of evidence, demonstrating it could not have been tampered with, which is what makes it admissible in court. <strong>Non-repudiation</strong> is proof that a specific action or communication genuinely originated from a specific party, who cannot later deny it. Digital signatures are the standard mechanism: only the holder of the private key could have signed, so the signature is proof of origin and integrity together. Non-repudiation matters wherever denial would be damaging: financial transactions, contract signing, and system administration actions.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A maritime company suspects an insider altered cargo manifests. The forensic copy of the storage is hashed at collection, every transfer between investigators is logged with names and timestamps, and the analysis is performed on verified copies. When the case reaches an employment tribunal, the chain of custody shows the evidence is exactly what was collected, and the digitally signed change records prove which account made each alteration.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Chain of custody is about the handling of evidence after the fact. Non-repudiation is about proving the origin of an action at the time it happened. Hashing serves integrity, digital signatures serve non-repudiation, and the documented handling record serves admissibility. Questions frequently swap these three, so anchor each mechanism to its purpose.</p>
+  </div>
+</div>
+
+<a id="s29"></a>
+<div class="topic-card">
+  <span class="topic-tag">2.9 Data protection for AI and ML</span>
+  <span class="book-ref"><i>Study guide reference:</i> New to the exam outline as of August 2026. The 3rd Edition study guide predates this subtopic and does not cover it. Treat this section as a standalone supplement.</span>
+  <h2>Protecting the data that trains and feeds AI systems</h2>
+
+  <p>This subtopic was added to the outline in the August 2026 update. It treats AI training data and the models themselves as data assets requiring the same discipline as any other sensitive data, plus some protections unique to machine learning. The outline names two areas: data set and model privacy, and data set and model security through validation and verification.</p>
+
+  <h3>Data set and model privacy</h3>
+  <p>Training data often contains personal information, and a trained model can leak what it learned. An attacker querying a deployed model repeatedly can sometimes infer whether a specific individual's record was in the training set, or reconstruct attributes of that record. Two technical controls address privacy at this level. <strong>Differential privacy</strong> adds calibrated statistical noise so that a model's outputs do not reliably reveal any individual training record, protecting privacy during the inference phase. <strong>Homomorphic encryption</strong> allows computation to be performed on data while it remains encrypted, so sensitive data can be processed, including by a model, without ever being exposed in plain form.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank's fraud model is trained on real transaction histories. Without protection, a determined adversary querying the model's risk scores could infer details about specific customers' transactions. Applying differential privacy to the model's outputs means each answer carries enough statistical noise that no individual customer's history can be reconstructed, while the model remains accurate in aggregate.</p>
+  </div>
+
+  <h3>Data set and model security: validation and verification</h3>
+  <p>The security of an AI system rests on the integrity of its data pipeline. <strong>Validation</strong> checks that training data is accurate, representative, and free of corruption before it is used. <strong>Verification</strong> confirms the data's provenance and integrity, that it came from trusted sources and has not been tampered with. Together they defend against data poisoning, where an adversary corrupts the training set to change the model's behaviour. The same discipline applies at inference time, since a model in production continues to consume data that can be manipulated.</p>
+  <p>Large training sets commonly live in <strong>data lakes</strong>, which concentrate enormous volumes of raw data and therefore concentrate risk: a poorly governed lake mixes sensitive and non-sensitive data with weak visibility. Discovery and classification tooling, increasingly AI assisted itself, identifies sensitive information before it enters an ML pipeline. Two further concerns round out the picture. <strong>Data sovereignty</strong> applies when training data is processed across multiple cloud regions, since each jurisdiction's rules follow the data. And <strong>data remanence</strong> applies to the ephemeral storage used by AI compute nodes: training residuals left on de-provisioned nodes must be purged, typically by cryptographic erase, before the resources return to the shared pool.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom company trains a churn model on customer data in a cloud data lake. Before training, discovery tooling scans the lake and flags fields containing personal data, which are masked. The pipeline verifies each source feed's integrity by checksum before ingestion. Training runs in a region-restricted environment to satisfy UK data residency, and when the training cluster is torn down, the ephemeral volumes are cryptographically erased so no fragment of customer data survives on the recycled hardware.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Anchor each control to its point in the AI lifecycle. Validation and verification protect the training phase against poisoning. Differential privacy protects the inference phase against individual disclosure. Homomorphic encryption protects data during processing. Data remanence controls protect after the compute is released. A question naming the phase is telling you which control it wants.</p>
+  </div>
+</div>
+
+
+  </div>
+  <!-- END STUDY TAB -->
+
+  <!-- ===================== QUIZ TAB ===================== -->
+  <div class="tabpanel" id="tab-quiz">
+
+    <div class="quiz-header">
+      <div class="quiz-progress">Answered: <strong id="progress-count">0</strong> / <span id="progress-total">70</span> &nbsp;&middot;&nbsp; Correct: <strong id="progress-correct">0</strong></div>
+      <button class="reset-btn" id="reset-all">Reset all answers</button>
+    </div>
+
+
+    <div class="qcard" data-qid="q1">
+      <div class="qmeta">Question 1 &middot; Domain 2.8</div>
+      <p class="qstem">A contractor denies having authorised a payment instruction that was digitally signed with their private key. Which security property defeats this denial, and why?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q1" id="q1a" value="A"><label for="q1a">A. Chain of custody, because the storage hardware was inventoried</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1b" value="B"><label for="q1b">B. Non-repudiation, because only the holder of the private key could have produced the signature, proving origin and integrity together</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1c" value="C"><label for="q1c">C. Elasticity, because the system scaled to process the payment</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1d" value="D"><label for="q1d">D. Availability, because the payment system was online at the time</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q1">Submit answer</button>
+        <span class="inline-warn" data-warn="q1">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q1"></div>
+    </div>
+
+    <div class="qcard" data-qid="q2">
+      <div class="qmeta">Question 2 &middot; Domain 2.6</div>
+      <p class="qstem">Why do some systems cache CRLs rather than retrieving them for every verification?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Because parsing large CRLs is resource intensive, and caching minimises the frequency of retrievals</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2b" value="B"><label for="q2b">B. Because cached CRLs never expire</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Because caching converts a CRL into an OCSP responder</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Because certificates cannot be revoked more than once</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q2">Submit answer</button>
+        <span class="inline-warn" data-warn="q2">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q2"></div>
+    </div>
+
+    <div class="qcard" data-qid="q3">
+      <div class="qmeta">Question 3 &middot; Domain 2.4</div>
+      <p class="qstem">Which data form uses markers or tags to delineate semantic elements and hierarchies without conforming to a rigid tabular schema, with XML and JSON as canonical examples?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q3" id="q3a" value="A"><label for="q3a">A. Unstructured data</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3b" value="B"><label for="q3b">B. Raw binary data</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3c" value="C"><label for="q3c">C. Structured data</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3d" value="D"><label for="q3d">D. Semi-structured data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q3">Submit answer</button>
+        <span class="inline-warn" data-warn="q3">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q3"></div>
+    </div>
+
+    <div class="qcard" data-qid="q4">
+      <div class="qmeta">Question 4 &middot; Domain 2.1</div>
+      <p class="qstem">Which pair correctly matches a data state with its characteristic protection?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q4" id="q4a" value="A"><label for="q4a">A. Data in transit protected by data classification; data at rest protected by deleting filesystem pointers</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4b" value="B"><label for="q4b">B. Data at rest protected by geolocation attributes; data in use protected by CRL checks</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4c" value="C"><label for="q4c">C. Data in transit protected by encryption on the network; data at rest protected by storage encryption and access controls</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4d" value="D"><label for="q4d">D. Data in use protected by archiving; data in transit protected by retention schedules</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q4">Submit answer</button>
+        <span class="inline-warn" data-warn="q4">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q4"></div>
+    </div>
+
+    <div class="qcard" data-qid="q5">
+      <div class="qmeta">Question 5 &middot; Domain 2.2</div>
+      <p class="qstem">Which storage type manages data as discrete self-contained units, each containing the data itself, its metadata, and a unique identifier, and is ideal for large volumes of unstructured content such as video and backups?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q5" id="q5a" value="A"><label for="q5a">A. Raw storage</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5b" value="B"><label for="q5b">B. Object storage</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5c" value="C"><label for="q5c">C. Volume storage</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5d" value="D"><label for="q5d">D. Ephemeral storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q5">Submit answer</button>
+        <span class="inline-warn" data-warn="q5">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q5"></div>
+    </div>
+
+    <div class="qcard" data-qid="q6">
+      <div class="qmeta">Question 6 &middot; Domain 2.7</div>
+      <p class="qstem">Which objectives should a data retention policy balance?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q6" id="q6a" value="A"><label for="q6a">A. Regulatory and legal compliance against the costs, complexity, and risks of storing data longer than needed</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6b" value="B"><label for="q6b">B. Maximising the volume of data kept forever</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6c" value="C"><label for="q6c">C. Ensuring no data is ever deleted under any circumstances</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6d" value="D"><label for="q6d">D. Transferring all retention decisions to individual employees</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q6">Submit answer</button>
+        <span class="inline-warn" data-warn="q6">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q6"></div>
+    </div>
+
+    <div class="qcard" data-qid="q7">
+      <div class="qmeta">Question 7 &middot; Domain 2.1</div>
+      <p class="qstem">Which phase of the cloud secure data lifecycle is typically the longest, with the most extensive set of controls applied in proportion to its duration?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q7" id="q7a" value="A"><label for="q7a">A. Use</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7b" value="B"><label for="q7b">B. Create</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7c" value="C"><label for="q7c">C. Archive</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7d" value="D"><label for="q7d">D. Destroy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q7">Submit answer</button>
+        <span class="inline-warn" data-warn="q7">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q7"></div>
+    </div>
+
+    <div class="qcard" data-qid="q8">
+      <div class="qmeta">Question 8 &middot; Domain 2.2</div>
+      <p class="qstem">Which storage type gives the customer direct access to underlying physical or block-level media without a filesystem imposed by the provider, maximising control and placing structure and protection responsibilities on the customer?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q8" id="q8a" value="A"><label for="q8a">A. Raw storage</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8b" value="B"><label for="q8b">B. Object storage</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8c" value="C"><label for="q8c">C. SaaS storage</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8d" value="D"><label for="q8d">D. Long-term storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q8">Submit answer</button>
+        <span class="inline-warn" data-warn="q8">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q8"></div>
+    </div>
+
+    <div class="qcard" data-qid="q9">
+      <div class="qmeta">Question 9 &middot; Domain 2.9</div>
+      <p class="qstem">Which pairing correctly anchors an AI data protection control to its point in the AI lifecycle?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q9" id="q9a" value="A"><label for="q9a">A. Homomorphic encryption applies only after the model is deleted</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9b" value="B"><label for="q9b">B. Validation and verification protect training against poisoning; differential privacy protects inference against individual disclosure</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9c" value="C"><label for="q9c">C. Data remanence controls apply before any data is collected</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9d" value="D"><label for="q9d">D. Differential privacy protects training; validation protects the decommissioning of hardware</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q9">Submit answer</button>
+        <span class="inline-warn" data-warn="q9">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q9"></div>
+    </div>
+
+    <div class="qcard" data-qid="q10">
+      <div class="qmeta">Question 10 &middot; Domain 2.7</div>
+      <p class="qstem">Which aspects define how a legal hold operates?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q10" id="q10a" value="A"><label for="q10a">A. The notice defines the scope of preservation, the duration runs until proceedings conclude, the organisation may bear custody and protection duties, and some cases require escrow or independent custody</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10b" value="B"><label for="q10b">B. Holds expire automatically after thirty days regardless of the case</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10c" value="C"><label for="q10c">C. The organisation chooses which data it prefers to preserve</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10d" value="D"><label for="q10d">D. Holds apply only to data created after the notice arrives</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q10">Submit answer</button>
+        <span class="inline-warn" data-warn="q10">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q10"></div>
+    </div>
+
+    <div class="qcard" data-qid="q11">
+      <div class="qmeta">Question 11 &middot; Domain 2.5</div>
+      <p class="qstem">Digital data cannot carry a physical sticker. Which two methods does data labeling use to attach classification and identifying information to digital assets?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q11" id="q11a" value="A"><label for="q11a">A. Photocopying and laminating</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11b" value="B"><label for="q11b">B. Striping and mirroring</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11c" value="C"><label for="q11c">C. Compression and encryption</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11d" value="D"><label for="q11d">D. Metadata tagging and header labels</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q11">Submit answer</button>
+        <span class="inline-warn" data-warn="q11">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q11"></div>
+    </div>
+
+    <div class="qcard" data-qid="q12">
+      <div class="qmeta">Question 12 &middot; Domain 2.5</div>
+      <p class="qstem">A DLP engine blocks an outbound email carrying a restricted engineering drawing without needing to interpret the drawing itself. What made this automated enforcement possible?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q12" id="q12a" value="A"><label for="q12a">A. A manual review of every outbound message by the security team</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12b" value="B"><label for="q12b">B. The engine&#x27;s ability to understand engineering schematics</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12c" value="C"><label for="q12c">C. The file&#x27;s size exceeding a transfer limit</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12d" value="D"><label for="q12d">D. The classification label embedded in the file, which carried the sensitivity decision forward for tooling to act on</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q12">Submit answer</button>
+        <span class="inline-warn" data-warn="q12">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q12"></div>
+    </div>
+
+    <div class="qcard" data-qid="q13">
+      <div class="qmeta">Question 13 &middot; Domain 2.4</div>
+      <p class="qstem">Which characteristics define structured data?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q13" id="q13a" value="A"><label for="q13a">A. A predefined format with distinct fields, validation before storage, ease of search, and strong analytical suitability</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13b" value="B"><label for="q13b">B. Binary content that cannot be indexed</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13c" value="C"><label for="q13c">C. Free-form content with no imposed organisation</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13d" value="D"><label for="q13d">D. Tagged content with flexible hierarchies but no fixed schema</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q13">Submit answer</button>
+        <span class="inline-warn" data-warn="q13">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q13"></div>
+    </div>
+
+    <div class="qcard" data-qid="q14">
+      <div class="qmeta">Question 14 &middot; Domain 2.2</div>
+      <p class="qstem">A telecom operator must ensure its subscriber data is stored only in jurisdictions where local law permits it. Which mitigation most directly addresses this jurisdictional storage threat?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q14" id="q14a" value="A"><label for="q14a">A. Switching all storage to ephemeral types</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14b" value="B"><label for="q14b">B. Compressing data before upload</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14c" value="C"><label for="q14c">C. Understanding applicable data sovereignty laws and applying the provider&#x27;s geographic storage controls</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14d" value="D"><label for="q14d">D. Increasing the frequency of full backups</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q14">Submit answer</button>
+        <span class="inline-warn" data-warn="q14">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q14"></div>
+    </div>
+
+    <div class="qcard" data-qid="q15">
+      <div class="qmeta">Question 15 &middot; Domain 2.9</div>
+      <p class="qstem">An adversary repeatedly queries a deployed machine learning model&#x27;s outputs, attempting to determine whether a specific individual&#x27;s record was part of the training data. Which control most directly defends against this privacy risk?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q15" id="q15a" value="A"><label for="q15a">A. Renaming the model&#x27;s API endpoint</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15b" value="B"><label for="q15b">B. Increasing the size of the training dataset</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15c" value="C"><label for="q15c">C. Differential privacy applied to the model&#x27;s outputs</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15d" value="D"><label for="q15d">D. Compressing the training data before use</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q15">Submit answer</button>
+        <span class="inline-warn" data-warn="q15">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q15"></div>
+    </div>
+
+    <div class="qcard" data-qid="q16">
+      <div class="qmeta">Question 16 &middot; Domain 2.8</div>
+      <p class="qstem">What does chain of custody document, and what does a rigorous chain establish?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q16" id="q16a" value="A"><label for="q16a">A. Every person who handled evidence, with when and why, establishing integrity and credibility so the evidence is admissible</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16b" value="B"><label for="q16b">B. The organisation&#x27;s retention schedule, establishing storage costs</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16c" value="C"><label for="q16c">C. The purchase history of the storage hardware, establishing warranty coverage</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16d" value="D"><label for="q16d">D. The list of revoked certificates, establishing trust in PKI</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q16">Submit answer</button>
+        <span class="inline-warn" data-warn="q16">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q16"></div>
+    </div>
+
+    <div class="qcard" data-qid="q17">
+      <div class="qmeta">Question 17 &middot; Domain 2.3</div>
+      <p class="qstem">An online retailer stores payment card tokens instead of card numbers, with real numbers held in a separate token vault. How does an authorised process retrieve an original card number, and what makes this secure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q17" id="q17a" value="A"><label for="q17a">A. It decrypts the token locally using a shared key embedded in the application</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17b" value="B"><label for="q17b">B. It reverses the token through a public algorithm anyone can run</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17c" value="C"><label for="q17c">C. It cannot retrieve the number, because tokenization is irreversible in all cases</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17d" value="D"><label for="q17d">D. It presents the token to the tokenization server, which verifies identity and authorisation before returning the value</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q17">Submit answer</button>
+        <span class="inline-warn" data-warn="q17">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q17"></div>
+    </div>
+
+    <div class="qcard" data-qid="q18">
+      <div class="qmeta">Question 18 &middot; Domain 2.3</div>
+      <p class="qstem">Which statement captures the essential difference between tokenization and encryption?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q18" id="q18a" value="A"><label for="q18a">A. Tokenization removes the sensitive value from the environment and stores it in a separate vault, leaving a non-sensitive reference, while encryption obscures the data in place using a key</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18b" value="B"><label for="q18b">B. Encryption removes data to a vault while tokenization scrambles it with a key</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18c" value="C"><label for="q18c">C. Tokenization is a stronger form of encryption using longer keys</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18d" value="D"><label for="q18d">D. They are identical processes with different names</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q18">Submit answer</button>
+        <span class="inline-warn" data-warn="q18">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q18"></div>
+    </div>
+
+    <div class="qcard" data-qid="q19">
+      <div class="qmeta">Question 19 &middot; Domain 2.1</div>
+      <p class="qstem">A maritime company archives vessel records for ten years. Midway through the retention period, the encryption key protecting the archive must be retired under the company&#x27;s key rotation policy. What operational burden does this create that is characteristic of the archive phase?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q19" id="q19a" value="A"><label for="q19a">A. The retention period restarts from the date of key rotation</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19b" value="B"><label for="q19b">B. The archived data may need to be decrypted with the old key and re-encrypted with the new key</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19c" value="C"><label for="q19c">C. The data must be reclassified to a lower sensitivity level</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19d" value="D"><label for="q19d">D. The data must immediately be moved back to production storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q19">Submit answer</button>
+        <span class="inline-warn" data-warn="q19">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q19"></div>
+    </div>
+
+    <div class="qcard" data-qid="q20">
+      <div class="qmeta">Question 20 &middot; Domain 2.3</div>
+      <p class="qstem">During an architecture review, a security architect finds encryption keys stored in the same database as the data they encrypt. Why is this the critical finding, whatever else the design does well?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q20" id="q20a" value="A"><label for="q20a">A. Databases cannot physically hold key material</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20b" value="B"><label for="q20b">B. A single breach of the data store exposes both the ciphertext and the keys, defeating the purpose of encryption</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20c" value="C"><label for="q20c">C. It prevents the data from being backed up</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20d" value="D"><label for="q20d">D. Keys stored near data expire more quickly</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q20">Submit answer</button>
+        <span class="inline-warn" data-warn="q20">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q20"></div>
+    </div>
+
+    <div class="qcard" data-qid="q21">
+      <div class="qmeta">Question 21 &middot; Domain 2.8</div>
+      <p class="qstem">Which set of event attributes does the exam outline specifically name as requirements for meaningful data event records?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q21" id="q21a" value="A"><label for="q21a">A. Identity, IP address, and geolocation</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21b" value="B"><label for="q21b">B. Purchase price, warranty period, and vendor name</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21c" value="C"><label for="q21c">C. CPU temperature, fan speed, and disk model</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21d" value="D"><label for="q21d">D. Font, colour, and file size</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q21">Submit answer</button>
+        <span class="inline-warn" data-warn="q21">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q21"></div>
+    </div>
+
+    <div class="qcard" data-qid="q22">
+      <div class="qmeta">Question 22 &middot; Domain 2.3</div>
+      <p class="qstem">Which sequence correctly describes the cryptographic key lifecycle?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q22" id="q22a" value="A"><label for="q22a">A. Archiving, usage, storage, creation</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22b" value="B"><label for="q22b">B. Usage, creation, archiving, storage</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22c" value="C"><label for="q22c">C. Creation, storage, usage, sharing where unavoidable, archiving</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22d" value="D"><label for="q22d">D. Sharing, creation, deletion, storage, usage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q22">Submit answer</button>
+        <span class="inline-warn" data-warn="q22">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q22"></div>
+    </div>
+
+    <div class="qcard" data-qid="q23">
+      <div class="qmeta">Question 23 &middot; Domain 2.1</div>
+      <p class="qstem">A UK energy company subject to GDPR enables data dispersion for resilience, then discovers storage segments may be placed in regions outside the UK and EU. What is the most appropriate response?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q23" id="q23a" value="A"><label for="q23a">A. Use the provider&#x27;s geographic restriction features to keep dispersion within approved regions</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23b" value="B"><label for="q23b">B. Accept the placement, since dispersed segments are not subject to any jurisdiction</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23c" value="C"><label for="q23c">C. Move all data back on premises immediately</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23d" value="D"><label for="q23d">D. Disable all data redundancy to guarantee data stays in one place</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q23">Submit answer</button>
+        <span class="inline-warn" data-warn="q23">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q23"></div>
+    </div>
+
+    <div class="qcard" data-qid="q24">
+      <div class="qmeta">Question 24 &middot; Domain 2.7</div>
+      <p class="qstem">Which elements belong in a data archiving policy?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q24" id="q24a" value="A"><label for="q24a">A. Data encryption procedures, data monitoring, the ability to perform e-discovery, and backup and disaster recovery arrangements for the archive</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24b" value="B"><label for="q24b">B. Deletion of all metadata before archiving</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24c" value="C"><label for="q24c">C. A requirement that archives use only paper records</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24d" value="D"><label for="q24d">D. A prohibition on ever retrieving archived data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q24">Submit answer</button>
+        <span class="inline-warn" data-warn="q24">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q24"></div>
+    </div>
+
+    <div class="qcard" data-qid="q25">
+      <div class="qmeta">Question 25 &middot; Domain 2.5</div>
+      <p class="qstem">Data discovery software scans an organisation&#x27;s storage using information about each file&#x27;s creator, origin, format, and context. What is this descriptive information called?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q25" id="q25a" value="A"><label for="q25a">A. An event source</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25b" value="B"><label for="q25b">B. A token vault</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25c" value="C"><label for="q25c">C. Metadata</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25d" value="D"><label for="q25d">D. Ciphertext</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q25">Submit answer</button>
+        <span class="inline-warn" data-warn="q25">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q25"></div>
+    </div>
+
+    <div class="qcard" data-qid="q26">
+      <div class="qmeta">Question 26 &middot; Domain 2.1</div>
+      <p class="qstem">A bank generates a new customer record in its onboarding system. According to lifecycle best practice, which security control should be applied at this point, because everything downstream depends on it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q26" id="q26a" value="A"><label for="q26a">A. Data classification</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26b" value="B"><label for="q26b">B. Access review</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26c" value="C"><label for="q26c">C. Data archiving</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26d" value="D"><label for="q26d">D. Cryptographic erase</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q26">Submit answer</button>
+        <span class="inline-warn" data-warn="q26">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q26"></div>
+    </div>
+
+    <div class="qcard" data-qid="q27">
+      <div class="qmeta">Question 27 &middot; Domain 2.5</div>
+      <p class="qstem">Which ordering correctly describes the relationship between the data governance activities in this domain?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q27" id="q27a" value="A"><label for="q27a">A. Labeling finds the data, discovery attaches labels, classification stores the map</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27b" value="B"><label for="q27b">B. Mapping decides sensitivity, labeling locates data, discovery enforces policy</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27c" value="C"><label for="q27c">C. Classification happens only after data is destroyed</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27d" value="D"><label for="q27d">D. Discovery finds the data, classification decides its sensitivity, mapping records where it lives, labeling attaches the decision so controls can enforce it</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q27">Submit answer</button>
+        <span class="inline-warn" data-warn="q27">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q27"></div>
+    </div>
+
+    <div class="qcard" data-qid="q28">
+      <div class="qmeta">Question 28 &middot; Domain 2.8</div>
+      <p class="qstem">A bank investigates a suspicious bulk download. The event logs show which account acted, from which IP address, from which geographic location, and when. What do these attributes make possible that a bare record of the download would not?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q28" id="q28a" value="A"><label for="q28a">A. Recovery of the downloaded files from the attacker</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28b" value="B"><label for="q28b">B. Prevention of the download after it has already occurred</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28c" value="C"><label for="q28c">C. Reconstruction of the incident with enough precision to support security analysis, audit, and potential legal proceedings</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28d" value="D"><label for="q28d">D. Automatic prosecution of the account holder</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q28">Submit answer</button>
+        <span class="inline-warn" data-warn="q28">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q28"></div>
+    </div>
+
+    <div class="qcard" data-qid="q29">
+      <div class="qmeta">Question 29 &middot; Domain 2.6</div>
+      <p class="qstem">A maritime company shares a sensitive charter agreement with an external broker under IRM, permitting reading but blocking print, copy, and forward. When the deal closes, what can the company do about the copy already in the broker&#x27;s possession?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q29" id="q29a" value="A"><label for="q29a">A. Ask the broker politely and rely on goodwill</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29b" value="B"><label for="q29b">B. Send a DLP alert to the broker&#x27;s mail server</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29c" value="C"><label for="q29c">C. Nothing, because data outside the perimeter is beyond any control</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29d" value="D"><label for="q29d">D. Revoke access centrally, rendering the broker&#x27;s copy unreadable even though it sits outside the company&#x27;s systems</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q29">Submit answer</button>
+        <span class="inline-warn" data-warn="q29">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q29"></div>
+    </div>
+
+    <div class="qcard" data-qid="q30">
+      <div class="qmeta">Question 30 &middot; Domain 2.7</div>
+      <p class="qstem">What is the primary purpose of moving inactive data into a specialised archival tier?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q30" id="q30a" value="A"><label for="q30a">A. Converting structured data into unstructured data</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30b" value="B"><label for="q30b">B. Optimising the performance of primary systems while ensuring cost-efficient storage for data that must be retained</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30c" value="C"><label for="q30c">C. Escaping all retention obligations</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30d" value="D"><label for="q30d">D. Making the data easier for attackers to find</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q30">Submit answer</button>
+        <span class="inline-warn" data-warn="q30">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q30"></div>
+    </div>
+
+    <div class="qcard" data-qid="q31">
+      <div class="qmeta">Question 31 &middot; Domain 2.6</div>
+      <p class="qstem">A system needs an immediate, per-certificate status check without downloading and parsing a large revocation list. Which mechanism provides this, and what is the trade-off?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q31" id="q31a" value="A"><label for="q31a">A. A larger CRL, providing more certificates per download</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31b" value="B"><label for="q31b">B. Self-signed certificates, removing the need for any status check</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31c" value="C"><label for="q31c">C. Disabling revocation checking entirely for speed</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31d" value="D"><label for="q31d">D. OCSP, providing real-time queries to the CA or a responder, at the cost of a query per check</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q31">Submit answer</button>
+        <span class="inline-warn" data-warn="q31">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q31"></div>
+    </div>
+
+    <div class="qcard" data-qid="q32">
+      <div class="qmeta">Question 32 &middot; Domain 2.3</div>
+      <p class="qstem">A development team keeps database passwords and API keys in configuration files inside the code repository. Which control most directly remedies this, and what additional benefits does it bring?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q32" id="q32a" value="A"><label for="q32a">A. Encrypting the repository backups</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32b" value="B"><label for="q32b">B. A DLP policy blocking the repository from being emailed</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32c" value="C"><label for="q32c">C. A secrets manager, centralising credentials with access control, audit logging, and single-point rotation</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32d" value="D"><label for="q32d">D. Renaming the configuration files so they are harder to find</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q32">Submit answer</button>
+        <span class="inline-warn" data-warn="q32">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q32"></div>
+    </div>
+
+    <div class="qcard" data-qid="q33">
+      <div class="qmeta">Question 33 &middot; Domain 2.2</div>
+      <p class="qstem">A security review finds a cloud object storage bucket holding customer documents is configured for public access. Which general threat category to cloud storage does this best illustrate?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q33" id="q33a" value="A"><label for="q33a">A. Data remanence on decommissioned media</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33b" value="B"><label for="q33b">B. Unauthorised access due to misconfigured access controls</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33c" value="C"><label for="q33c">C. Jurisdictional conflict between regions</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33d" value="D"><label for="q33d">D. Hardware failure of the underlying disks</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q33">Submit answer</button>
+        <span class="inline-warn" data-warn="q33">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q33"></div>
+    </div>
+
+    <div class="qcard" data-qid="q34">
+      <div class="qmeta">Question 34 &middot; Domain 2.7</div>
+      <p class="qstem">A retention period for customer transaction data expires. Which property must the deletion procedure achieve, and which mechanism is standard for multi-tenant cloud storage the customer cannot physically access?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q34" id="q34a" value="A"><label for="q34a">A. Visibility, achieved by publishing the deleted data</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34b" value="B"><label for="q34b">B. Recoverability for at least one further year, achieved through soft deletion</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34c" value="C"><label for="q34c">C. Irrecoverability proportionate to sensitivity, achieved through cryptographic erase</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34d" value="D"><label for="q34d">D. Speed above all else, achieved by deleting filesystem pointers</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q34">Submit answer</button>
+        <span class="inline-warn" data-warn="q34">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q34"></div>
+    </div>
+
+    <div class="qcard" data-qid="q35">
+      <div class="qmeta">Question 35 &middot; Domain 2.4</div>
+      <p class="qstem">Why does data location matter more for some organisations than others in cloud computing?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q35" id="q35a" value="A"><label for="q35a">A. Data stored further away is always slower to the point of being unusable</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35b" value="B"><label for="q35b">B. Enterprises handling sensitive or regulated data have compliance requirements that depend on knowing and controlling the geographical location of that data</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35c" value="C"><label for="q35c">C. Providers charge by distance from the customer&#x27;s headquarters</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35d" value="D"><label for="q35d">D. Location determines the colour coding of storage dashboards</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q35">Submit answer</button>
+        <span class="inline-warn" data-warn="q35">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q35"></div>
+    </div>
+
+    <div class="qcard" data-qid="q36">
+      <div class="qmeta">Question 36 &middot; Domain 2.5</div>
+      <p class="qstem">Why must a data classification policy be tailored to each organisation rather than adopted verbatim from a template?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q36" id="q36a" value="A"><label for="q36a">A. Because sensitivity categories, handling needs, and applicable regulations differ between organisations and industries</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36b" value="B"><label for="q36b">B. Because regulators prohibit any two organisations from using similar category names</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36c" value="C"><label for="q36c">C. Because classification only applies to government bodies</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36d" value="D"><label for="q36d">D. Because templates are only available in unsupported file formats</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q36">Submit answer</button>
+        <span class="inline-warn" data-warn="q36">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q36"></div>
+    </div>
+
+    <div class="qcard" data-qid="q37">
+      <div class="qmeta">Question 37 &middot; Domain 2.6</div>
+      <p class="qstem">Which capability distinguishes Information Rights Management from standard access control on a file server?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q37" id="q37a" value="A"><label for="q37a">A. IRM applies only while the file remains on the original server</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37b" value="B"><label for="q37b">B. IRM removes the need for any user authentication</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37c" value="C"><label for="q37c">C. IRM controls what an authorised user may do with a document, such as printing, saving, copying, or forwarding, not merely whether they can open it</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37d" value="D"><label for="q37d">D. IRM works only on database records</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q37">Submit answer</button>
+        <span class="inline-warn" data-warn="q37">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q37"></div>
+    </div>
+
+    <div class="qcard" data-qid="q38">
+      <div class="qmeta">Question 38 &middot; Domain 2.3</div>
+      <p class="qstem">Which security property does hashing directly serve, and why is calling it one-way encryption technically imprecise?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q38" id="q38a" value="A"><label for="q38a">A. Redundancy, and because hashes store a backup copy of the data</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38b" value="B"><label for="q38b">B. Integrity, and because hashing is not reversible it is not encryption at all</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38c" value="C"><label for="q38c">C. Availability, and because hashes can be decrypted with the right key</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38d" value="D"><label for="q38d">D. Confidentiality, and because hashing hides data for later retrieval</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q38">Submit answer</button>
+        <span class="inline-warn" data-warn="q38">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q38"></div>
+    </div>
+
+    <div class="qcard" data-qid="q39">
+      <div class="qmeta">Question 39 &middot; Domain 2.6</div>
+      <p class="qstem">Why is IRM&#x27;s location agnosticism particularly valuable in cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q39" id="q39a" value="A"><label for="q39a">A. Because cloud data never leaves a single data centre</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39b" value="B"><label for="q39b">B. Because access controls embedded in the file itself protect data consistently as it moves across storage locations the organisation does not control</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39c" value="C"><label for="q39c">C. Because it makes files smaller for cheaper storage</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39d" value="D"><label for="q39d">D. Because it removes the need for encryption anywhere in the cloud</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q39">Submit answer</button>
+        <span class="inline-warn" data-warn="q39">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q39"></div>
+    </div>
+
+    <div class="qcard" data-qid="q40">
+      <div class="qmeta">Question 40 &middot; Domain 2.3</div>
+      <p class="qstem">Which three components make up a Data Loss Prevention capability?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q40" id="q40a" value="A"><label for="q40a">A. Hashing, signing, verification</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40b" value="B"><label for="q40b">B. Discovery, classification, archiving</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40c" value="C"><label for="q40c">C. Creation, storage, destruction</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40d" value="D"><label for="q40d">D. Policy management, monitoring and enforcement, incident response</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q40">Submit answer</button>
+        <span class="inline-warn" data-warn="q40">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q40"></div>
+    </div>
+
+    <div class="qcard" data-qid="q41">
+      <div class="qmeta">Question 41 &middot; Domain 2.6</div>
+      <p class="qstem">Which IRM objective covers how rights are granted to users and roles and how those rights are managed across the document&#x27;s life?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q41" id="q41a" value="A"><label for="q41a">A. Data dispersion</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41b" value="B"><label for="q41b">B. Provisioning and access models</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41c" value="C"><label for="q41c">C. Value variance</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41d" value="D"><label for="q41d">D. Erasure coding</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q41">Submit answer</button>
+        <span class="inline-warn" data-warn="q41">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q41"></div>
+    </div>
+
+    <div class="qcard" data-qid="q42">
+      <div class="qmeta">Question 42 &middot; Domain 2.2</div>
+      <p class="qstem">A security architect selecting a long-term archival storage tier should weigh which characteristic trade-off?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q42" id="q42a" value="A"><label for="q42a">A. Lower cost in exchange for slower retrieval, with key management and readability concerns over the multi-year life</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42b" value="B"><label for="q42b">B. Faster retrieval in exchange for shorter maximum retention</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42c" value="C"><label for="q42c">C. No encryption support in exchange for unlimited capacity</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42d" value="D"><label for="q42d">D. Higher cost in exchange for volatile storage that clears on restart</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q42">Submit answer</button>
+        <span class="inline-warn" data-warn="q42">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q42"></div>
+    </div>
+
+    <div class="qcard" data-qid="q43">
+      <div class="qmeta">Question 43 &middot; Domain 2.7</div>
+      <p class="qstem">Which elements should a well-formed data retention policy define?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q43" id="q43a" value="A"><label for="q43a">A. The marketing budget for the coming year</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43b" value="B"><label for="q43b">B. A single retention period applied identically to every data type</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43c" value="C"><label for="q43c">C. Only the name of the cloud provider used for storage</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43d" value="D"><label for="q43d">D. Purpose and scope, retention periods per data type, roles and responsibilities, storage and security, disposal procedures, and review mechanisms</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q43">Submit answer</button>
+        <span class="inline-warn" data-warn="q43">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q43"></div>
+    </div>
+
+    <div class="qcard" data-qid="q44">
+      <div class="qmeta">Question 44 &middot; Domain 2.3</div>
+      <p class="qstem">A bank needs realistic customer data for its test environment, but testers are not authorised to view live records. Names are replaced with synthetic ones, account numbers are rearranged within their column, and balances receive small mathematical alterations. Which three obfuscation methods are being used, in order?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q44" id="q44a" value="A"><label for="q44a">A. Anonymization, archiving, masking</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44b" value="B"><label for="q44b">B. Tokenization, hashing, encryption</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44c" value="C"><label for="q44c">C. Substitution, shuffling, value variance</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44d" value="D"><label for="q44d">D. Shuffling, substitution, deletion</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q44">Submit answer</button>
+        <span class="inline-warn" data-warn="q44">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q44"></div>
+    </div>
+
+    <div class="qcard" data-qid="q45">
+      <div class="qmeta">Question 45 &middot; Domain 2.1</div>
+      <p class="qstem">Which statement best describes how data dispersion in cloud storage achieves resilience?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q45" id="q45a" value="A"><label for="q45a">A. Data is compressed so it occupies less space on each device</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45b" value="B"><label for="q45b">B. All data is kept in volatile memory for faster recovery</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45c" value="C"><label for="q45c">C. A single complete copy of the data is stored on the most reliable device available</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45d" value="D"><label for="q45d">D. Data is broken into chunks distributed across multiple devices, with erasure coding allowing reconstruction if some segments are lost</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q45">Submit answer</button>
+        <span class="inline-warn" data-warn="q45">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q45"></div>
+    </div>
+
+    <div class="qcard" data-qid="q46">
+      <div class="qmeta">Question 46 &middot; Domain 2.4</div>
+      <p class="qstem">A bank must respond to a subject access request. Customer details sit in a relational database, complaint call recordings sit in object storage, and partner data feeds are JSON documents. Which category of data will be hardest for discovery tooling to search, and why?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q46" id="q46a" value="A"><label for="q46a">A. The JSON feeds, because tags make content invisible to scanners</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46b" value="B"><label for="q46b">B. The call recordings, because unstructured data carries no schema or tags describing its contents</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46c" value="C"><label for="q46c">C. All three are equally difficult by definition</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46d" value="D"><label for="q46d">D. The database records, because schemas make content opaque</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q46">Submit answer</button>
+        <span class="inline-warn" data-warn="q46">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q46"></div>
+    </div>
+
+    <div class="qcard" data-qid="q47">
+      <div class="qmeta">Question 47 &middot; Domain 2.3</div>
+      <p class="qstem">In a digital signature scheme, which sequence correctly describes how a recipient verifies a signed message?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Compute a hash of the received data and encrypt it with the recipient&#x27;s public key</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Decrypt the message with the recipient&#x27;s private key and check for a watermark</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47c" value="C"><label for="q47c">C. Request the sender&#x27;s private key and use it to re-sign the message</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Compute a hash of the received data, decrypt the signature with the sender&#x27;s public key, and compare the two values</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q47">Submit answer</button>
+        <span class="inline-warn" data-warn="q47">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q47"></div>
+    </div>
+
+    <div class="qcard" data-qid="q48">
+      <div class="qmeta">Question 48 &middot; Domain 2.3</div>
+      <p class="qstem">Which system handles the lifecycle of digital certificates, including issuance, renewal, revocation, and the secure handling of associated private keys?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q48" id="q48a" value="A"><label for="q48a">A. Certificate manager</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48b" value="B"><label for="q48b">B. Object storage gateway</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48c" value="C"><label for="q48c">C. Data discovery scanner</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48d" value="D"><label for="q48d">D. DLP engine</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q48">Submit answer</button>
+        <span class="inline-warn" data-warn="q48">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q48"></div>
+    </div>
+
+    <div class="qcard" data-qid="q49">
+      <div class="qmeta">Question 49 &middot; Domain 2.9</div>
+      <p class="qstem">Why does a large cloud data lake used for AI training concentrate risk, and what is the appropriate first line of defence?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q49" id="q49a" value="A"><label for="q49a">A. It can only store structured data, so the defence is converting everything to XML</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49b" value="B"><label for="q49b">B. It slows down queries, so the defence is buying faster storage</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49c" value="C"><label for="q49c">C. It mixes enormous volumes of sensitive and non-sensitive raw data with weak visibility, so discovery and classification must identify sensitive information before it enters an ML pipeline</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49d" value="D"><label for="q49d">D. It automatically anonymizes everything, so no defence is required</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q49">Submit answer</button>
+        <span class="inline-warn" data-warn="q49">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q49"></div>
+    </div>
+
+    <div class="qcard" data-qid="q50">
+      <div class="qmeta">Question 50 &middot; Domain 2.7</div>
+      <p class="qstem">Why does a mature retention policy treat on-schedule deletion as seriously as on-schedule retention?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q50" id="q50a" value="A"><label for="q50a">A. Because deletion is only a suggestion in most policies</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50b" value="B"><label for="q50b">B. Because regulators reward organisations that keep the most data</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50c" value="C"><label for="q50c">C. Because every year of unnecessary retention of sensitive data adds breach exposure, discovery scope, and storage cost without business value</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50d" value="D"><label for="q50d">D. Because deleted data can always be recovered if needed later</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q50">Submit answer</button>
+        <span class="inline-warn" data-warn="q50">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q50"></div>
+    </div>
+
+    <div class="qcard" data-qid="q51">
+      <div class="qmeta">Question 51 &middot; Domain 2.5</div>
+      <p class="qstem">What does an effective data mapping strategy give an organisation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q51" id="q51a" value="A"><label for="q51a">A. Precise knowledge of where data resides across applications and storage, as the foundation for governance and for enforcing security policy</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51b" value="B"><label for="q51b">B. A guarantee that no data will ever be breached</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51c" value="C"><label for="q51c">C. Elimination of the need for classification</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51d" value="D"><label for="q51d">D. Automatic compliance with all regulations</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q51">Submit answer</button>
+        <span class="inline-warn" data-warn="q51">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q51"></div>
+    </div>
+
+    <div class="qcard" data-qid="q52">
+      <div class="qmeta">Question 52 &middot; Domain 2.1</div>
+      <p class="qstem">A telecom company maps how customer usage records travel from network elements to a cloud analytics platform and on to billing and audit storage. Which data security activity is this, and what compliance benefit does it deliver?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q52" id="q52a" value="A"><label for="q52a">A. Data flow mapping, which surfaces where data crosses jurisdictional boundaries and triggers residency obligations</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52b" value="B"><label for="q52b">B. Hashing, which proves the records were not altered in transit</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52c" value="C"><label for="q52c">C. Data masking, which removes the need to track data movement</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52d" value="D"><label for="q52d">D. Tokenization, which makes the route of the data irrelevant</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q52">Submit answer</button>
+        <span class="inline-warn" data-warn="q52">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q52"></div>
+    </div>
+
+    <div class="qcard" data-qid="q53">
+      <div class="qmeta">Question 53 &middot; Domain 2.9</div>
+      <p class="qstem">A telecom company trains a model on customer data across multiple cloud regions, then tears down the training cluster. Which two Domain 2 concerns apply, respectively, to the multi-region processing and to the released compute?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q53" id="q53a" value="A"><label for="q53a">A. Certificate expiry for the processing, and CRL caching for the nodes</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53b" value="B"><label for="q53b">B. Vendor lock-in for the processing, and key stretching for the nodes</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53c" value="C"><label for="q53c">C. Value variance for the processing, and shuffling for the nodes</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53d" value="D"><label for="q53d">D. Data sovereignty for the cross-region processing, and data remanence for the ephemeral storage on the released nodes</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q53">Submit answer</button>
+        <span class="inline-warn" data-warn="q53">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q53"></div>
+    </div>
+
+    <div class="qcard" data-qid="q54">
+      <div class="qmeta">Question 54 &middot; Domain 2.7</div>
+      <p class="qstem">An energy company receives a judicial order to preserve all correspondence about a disputed contract. Some in-scope emails are three weeks from automated deletion under the retention policy. What must happen, and for how long?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q54" id="q54a" value="A"><label for="q54a">A. The scheduled deletion proceeds, since policy consistency takes precedence</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54b" value="B"><label for="q54b">B. The data is deleted early to reduce the volume subject to the order</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54c" value="C"><label for="q54c">C. Deletion is suspended for all data in scope, normally until the legal proceedings conclude</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54d" value="D"><label for="q54d">D. Only emails created after the order date are preserved</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q54">Submit answer</button>
+        <span class="inline-warn" data-warn="q54">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q54"></div>
+    </div>
+
+    <div class="qcard" data-qid="q55">
+      <div class="qmeta">Question 55 &middot; Domain 2.8</div>
+      <p class="qstem">What does the analysis of stored data events contribute to an organisation&#x27;s security posture?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q55" id="q55a" value="A"><label for="q55a">A. Replacing the need to collect logs in the first place</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55b" value="B"><label for="q55b">B. Physically securing the data centre</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55c" value="C"><label for="q55c">C. Encrypting data at rest</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55d" value="D"><label for="q55d">D. Identifying trends, diagnosing system issues, and detecting anomalies that may indicate security incidents</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q55">Submit answer</button>
+        <span class="inline-warn" data-warn="q55">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q55"></div>
+    </div>
+
+    <div class="qcard" data-qid="q56">
+      <div class="qmeta">Question 56 &middot; Domain 2.2</div>
+      <p class="qstem">A cloud instance uses temporary storage implemented in volatile memory that is wiped when the instance terminates, holding session state for quick access. Which storage type is this, and with which service model is it associated?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q56" id="q56a" value="A"><label for="q56a">A. Object storage, associated with SaaS</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56b" value="B"><label for="q56b">B. Ephemeral storage, associated with IaaS</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56c" value="C"><label for="q56c">C. Volume storage, associated with PaaS</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56d" value="D"><label for="q56d">D. BLOB storage, associated with IaaS</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q56">Submit answer</button>
+        <span class="inline-warn" data-warn="q56">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q56"></div>
+    </div>
+
+    <div class="qcard" data-qid="q57">
+      <div class="qmeta">Question 57 &middot; Domain 2.3</div>
+      <p class="qstem">Why is encryption generally a poor choice when the goal is producing data for testers and researchers?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q57" id="q57a" value="A"><label for="q57a">A. Encryption permanently destroys the original data</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57b" value="B"><label for="q57b">B. Encrypted data is unreadable, which makes it useless for exercising application logic realistically</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57c" value="C"><label for="q57c">C. Encrypted data occupies no storage space</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57d" value="D"><label for="q57d">D. Encryption is illegal to apply to test environments</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q57">Submit answer</button>
+        <span class="inline-warn" data-warn="q57">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q57"></div>
+    </div>
+
+    <div class="qcard" data-qid="q58">
+      <div class="qmeta">Question 58 &middot; Domain 2.8</div>
+      <p class="qstem">Why is the secure storage of event logs a critical link between logging and analysis?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q58" id="q58a" value="A"><label for="q58a">A. Because attackers never attempt to modify logs</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58b" value="B"><label for="q58b">B. Because stored logs automatically analyse themselves</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58c" value="C"><label for="q58c">C. Because analysis is only trustworthy if storage preserved the logs intact and protected from tampering for their required retention period</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58d" value="D"><label for="q58d">D. Because log storage removes the need for any retention policy</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q58">Submit answer</button>
+        <span class="inline-warn" data-warn="q58">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q58"></div>
+    </div>
+
+    <div class="qcard" data-qid="q59">
+      <div class="qmeta">Question 59 &middot; Domain 2.8</div>
+      <p class="qstem">In the context of data event auditability, what is an event source?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q59" id="q59a" value="A"><label for="q59a">A. A backup tape stored offsite</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59b" value="B"><label for="q59b">B. The physical building where servers are housed</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59c" value="C"><label for="q59c">C. The person who reviews logs at the end of each month</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59d" value="D"><label for="q59d">D. Any software, hardware, or system that generates data or activity logs</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q59">Submit answer</button>
+        <span class="inline-warn" data-warn="q59">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q59"></div>
+    </div>
+
+    <div class="qcard" data-qid="q60">
+      <div class="qmeta">Question 60 &middot; Domain 2.5</div>
+      <p class="qstem">Which statement best describes the purpose of a data classification policy?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q60" id="q60a" value="A"><label for="q60a">A. A network diagram showing where servers are located</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60b" value="B"><label for="q60b">B. A list of every file the organisation possesses</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60c" value="C"><label for="q60c">C. A schedule of software licence renewals</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60d" value="D"><label for="q60d">D. A framework of procedures and guidelines for categorising information by sensitivity, guiding handling across the whole data lifecycle and reducing risk</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q60">Submit answer</button>
+        <span class="inline-warn" data-warn="q60">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q60"></div>
+    </div>
+
+    <div class="qcard" data-qid="q61">
+      <div class="qmeta">Question 61 &middot; Domain 2.3</div>
+      <p class="qstem">Which encryption level protects data against physical theft of storage and against access by provider staff or other tenants, by encrypting an entire attached data store with keys the customer manages?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q61" id="q61a" value="A"><label for="q61a">A. Transport-level encryption</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61b" value="B"><label for="q61b">B. Volume-level encryption</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61c" value="C"><label for="q61c">C. Column-level encryption</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61d" value="D"><label for="q61d">D. Application-level encryption</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q61">Submit answer</button>
+        <span class="inline-warn" data-warn="q61">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q61"></div>
+    </div>
+
+    <div class="qcard" data-qid="q62">
+      <div class="qmeta">Question 62 &middot; Domain 2.6</div>
+      <p class="qstem">What does a Certificate Revocation List contain, and who maintains it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q62" id="q62a" value="A"><label for="q62a">A. A list of every valid certificate ever issued, maintained by the end user</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62b" value="B"><label for="q62b">B. The private keys of all issued certificates, maintained by each client</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62c" value="C"><label for="q62c">C. The serial numbers of revoked certificates and their revocation times, maintained by the Certificate Authority</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62d" value="D"><label for="q62d">D. Password hashes for certificate holders, maintained by the IRM vendor</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q62">Submit answer</button>
+        <span class="inline-warn" data-warn="q62">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q62"></div>
+    </div>
+
+    <div class="qcard" data-qid="q63">
+      <div class="qmeta">Question 63 &middot; Domain 2.4</div>
+      <p class="qstem">An organisation handling regulated data wants clarity on exactly where its cloud data physically resides, including replicas and backups. What is the most appropriate course of action?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Assume data stays in the region where the account was created</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63b" value="B"><label for="q63b">B. Move to ephemeral storage so location ceases to matter</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63c" value="C"><label for="q63c">C. Define a preferred data location, apply the provider&#x27;s geographic controls, and engage the provider for clarity on actual storage locations</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63d" value="D"><label for="q63d">D. Avoid asking, since providers never disclose storage locations</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q63">Submit answer</button>
+        <span class="inline-warn" data-warn="q63">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q63"></div>
+    </div>
+
+    <div class="qcard" data-qid="q64">
+      <div class="qmeta">Question 64 &middot; Domain 2.9</div>
+      <p class="qstem">A bank wants a third-party analytics service to compute risk scores over highly sensitive customer data without that data ever being exposed in readable form during processing. Which technology makes this possible?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q64" id="q64a" value="A"><label for="q64a">A. Certificate revocation via OCSP</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64b" value="B"><label for="q64b">B. Homomorphic encryption, allowing computation on data while it remains encrypted</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64c" value="C"><label for="q64c">C. Standard encryption at rest, decrypting the data for processing</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64d" value="D"><label for="q64d">D. Data labeling with restricted headers</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q64">Submit answer</button>
+        <span class="inline-warn" data-warn="q64">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q64"></div>
+    </div>
+
+    <div class="qcard" data-qid="q65">
+      <div class="qmeta">Question 65 &middot; Domain 2.2</div>
+      <p class="qstem">An organization using a SaaS CRM has no visibility into how the underlying storage is configured or secured. Which characteristic risk of SaaS storage does this represent?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q65" id="q65a" value="A"><label for="q65a">A. Mandatory use of ephemeral storage for all records</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65b" value="B"><label for="q65b">B. Excessive customer responsibility for patching the storage firmware</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65c" value="C"><label for="q65c">C. Inability to store any structured data</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65d" value="D"><label for="q65d">D. Loss of control over data management, with dependence on the provider&#x27;s security measures</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q65">Submit answer</button>
+        <span class="inline-warn" data-warn="q65">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q65"></div>
+    </div>
+
+    <div class="qcard" data-qid="q66">
+      <div class="qmeta">Question 66 &middot; Domain 2.3</div>
+      <p class="qstem">A bank wants to protect sensitive database columns in a PaaS environment while retaining control of the encryption keys itself. Which encryption approach fits this requirement most directly?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q66" id="q66a" value="A"><label for="q66a">A. Encoding the columns in Base64</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66b" value="B"><label for="q66b">B. Database-level encryption with customer-controlled keys</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66c" value="C"><label for="q66c">C. Hashing the sensitive columns</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66d" value="D"><label for="q66d">D. Relying on the provider&#x27;s disk encryption with provider-held keys</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q66">Submit answer</button>
+        <span class="inline-warn" data-warn="q66">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q66"></div>
+    </div>
+
+    <div class="qcard" data-qid="q67">
+      <div class="qmeta">Question 67 &middot; Domain 2.3</div>
+      <p class="qstem">What is the primary purpose of a Customer Managed Encryption Key (CMEK) arrangement in a cloud environment?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q67" id="q67a" value="A"><label for="q67a">A. To give the customer control over its own encryption keys while integrating with the provider&#x27;s key management service</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67b" value="B"><label for="q67b">B. To eliminate the need for encryption entirely</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67c" value="C"><label for="q67c">C. To let the provider hold all keys so the customer has no key management burden</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67d" value="D"><label for="q67d">D. To share one key across all tenants for efficiency</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q67">Submit answer</button>
+        <span class="inline-warn" data-warn="q67">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q67"></div>
+    </div>
+
+    <div class="qcard" data-qid="q68">
+      <div class="qmeta">Question 68 &middot; Domain 2.9</div>
+      <p class="qstem">In the context of AI training data protection, what is the distinction between validation and verification?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q68" id="q68a" value="A"><label for="q68a">A. Validation encrypts the data; verification compresses it</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68b" value="B"><label for="q68b">B. They are interchangeable terms with no distinction</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68c" value="C"><label for="q68c">C. Validation applies only to models; verification applies only to networks</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68d" value="D"><label for="q68d">D. Validation checks the data is accurate, representative, and free of corruption; verification confirms its provenance and integrity from trusted sources</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q68">Submit answer</button>
+        <span class="inline-warn" data-warn="q68">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q68"></div>
+    </div>
+
+    <div class="qcard" data-qid="q69">
+      <div class="qmeta">Question 69 &middot; Domain 2.2</div>
+      <p class="qstem">A bank&#x27;s PaaS-hosted application stores structured records in a SQL database and large scanned documents as Binary Large Objects. Which threat is characteristically associated with the structured side of this storage?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q69" id="q69a" value="A"><label for="q69a">A. Certificate expiry</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69b" value="B"><label for="q69b">B. VM escape</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69c" value="C"><label for="q69c">C. SQL injection</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69d" value="D"><label for="q69d">D. Fan speed manipulation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q69">Submit answer</button>
+        <span class="inline-warn" data-warn="q69">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q69"></div>
+    </div>
+
+    <div class="qcard" data-qid="q70">
+      <div class="qmeta">Question 70 &middot; Domain 2.1</div>
+      <p class="qstem">During which lifecycle phase do Information Rights Management and Data Loss Prevention operate as reactive controls, detecting and sometimes blocking data leaving authorised boundaries?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q70" id="q70a" value="A"><label for="q70a">A. Store</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70b" value="B"><label for="q70b">B. Share</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70c" value="C"><label for="q70c">C. Destroy</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70d" value="D"><label for="q70d">D. Create</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q70">Submit answer</button>
+        <span class="inline-warn" data-warn="q70">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q70"></div>
+    </div>
+
+  </div>
+  <!-- END QUIZ TAB -->
+
+</div>
+
+<script>
+const quizData = {
+    q1: {
+      correct: "B",
+      rationale: {
+        correct: "Non-repudiation is proof that an action genuinely originated from a specific party who cannot later deny it. Digital signatures deliver it: only the private key holder could have signed, so the signature proves both origin and integrity, which matters most in financial transactions and contract signing.",
+        incorrect: "The correct answer is B. Chain of custody governs the handling of evidence after collection. It could prove the signed instruction was preserved without tampering, but the property that defeats the denial itself, proving who performed the act at the time, is non-repudiation."
+      }
+    },
+    q2: {
+      correct: "A",
+      rationale: {
+        correct: "CRL checks can be cumbersome, especially when parsing large lists with numerous entries. Caching mechanisms minimise the frequency of CRL retrievals, enhancing efficiency at the cost of some staleness between refreshes.",
+        incorrect: "The correct answer is A. CRLs have expiry times precisely so clients cannot rely on stale revocation data indefinitely. A cache must still respect the list's validity period, which is the freshness trade inherent in the approach."
+      }
+    },
+    q3: {
+      correct: "D",
+      rationale: {
+        correct: "Semi-structured data introduces flexibility through markers or tags that delineate semantic components and establish hierarchies, without the strict tabular format of structured data. XML and JSON are the standard examples, widely used for interchange and in object-oriented databases.",
+        incorrect: "The correct answer is D, Semi-structured data. Unstructured data lacks any organising markers at all. The presence of tags establishing hierarchy is precisely what lifts data out of the unstructured category into the semi-structured middle ground."
+      }
+    },
+    q4: {
+      correct: "C",
+      rationale: {
+        correct: "The three data states each carry their own protection profile: encryption in transit for data moving across networks, encryption at rest with access controls for stored data, and emerging protections such as confidential computing for data in use.",
+        incorrect: "The correct answer is C. Classification is a governance decision about sensitivity rather than a transit protection, and deleting filesystem pointers is a weak destruction method rather than a protection for stored data. Neither pairing matches a state with its actual safeguard."
+      }
+    },
+    q5: {
+      correct: "B",
+      rationale: {
+        correct: "Object storage manages data as discrete objects, each a self-contained repository holding the data, metadata, and a unique identifier, within a distributed environment, and is well suited to large amounts of unstructured data.",
+        incorrect: "The correct answer is B, Object storage. Volume storage emulates a physical drive attached to an instance and is typically used for databases and application files needing persistence, rather than the object-per-unit model with embedded metadata the question describes."
+      }
+    },
+    q6: {
+      correct: "A",
+      rationale: {
+        correct: "Retention policies strike a balance between regulatory, legal, and business requirements for keeping data and the storage costs, complexity, and risk that accumulate when data is retained longer than necessary. Cost management and risk mitigation are explicit objectives alongside compliance.",
+        incorrect: "The correct answer is A. Keeping everything forever fails the cost and risk objectives: every extra year of retained sensitive data is another year it can be breached or fall within legal discovery. Disposal on schedule is as much a part of the policy as retention on schedule."
+      }
+    },
+    q7: {
+      correct: "A",
+      rationale: {
+        correct: "The use phase, covering access, viewing, and processing, is typically the most prolonged part of the data lifecycle, and its controls are correspondingly extensive.",
+        incorrect: "The correct answer is A, Use. Archive can also last a long time in calendar terms, but archived data is inactive, so it does not carry the extensive, active control set that the use phase requires while data is being handled continuously."
+      }
+    },
+    q8: {
+      correct: "A",
+      rationale: {
+        correct: "Raw storage provides direct access to the underlying physical or block-level storage without higher abstractions, offering maximum control for specialised workloads while making the customer responsible for structure, management, and protection.",
+        incorrect: "The correct answer is A, Raw storage. SaaS storage is the opposite end of the spectrum: wholly provider-managed, accessed only through the application interface, with the customer holding minimal control rather than maximum control."
+      }
+    },
+    q9: {
+      correct: "B",
+      rationale: {
+        correct: "Each control maps to a lifecycle point: validation and verification defend the training phase against poisoned or untrusted data, differential privacy defends the inference phase against disclosure of individual records, homomorphic encryption protects data during processing, and remanence controls apply after compute is released.",
+        incorrect: "The correct answer is B. Data remanence is by definition a concern about what is left behind after storage or compute is released. A control that applies before any data exists has nothing to purge, which inverts the concept entirely."
+      }
+    },
+    q10: {
+      correct: "A",
+      rationale: {
+        correct: "A legal hold notice details the scope and requirements for preservation, the hold usually lasts until the proceedings conclude, the organisation may be required to retain custody and protect the data from alteration or destruction, and some situations impose escrow or independent custody with a neutral party.",
+        incorrect: "The correct answer is A. Restricting preservation to data created after the notice would defeat the point: proceedings concern events that already happened, so the hold reaches existing data within scope, not merely future material."
+      }
+    },
+    q11: {
+      correct: "D",
+      rationale: {
+        correct: "Labeling methods for digital assets include metadata tagging, associating descriptive metadata with the asset, and header labels, incorporating the label within the file's header for quick identification. Labels typically carry details such as department, location, creator, and the classification itself.",
+        incorrect: "The correct answer is D, Metadata tagging and header labels. Striping and mirroring are storage redundancy techniques from RAID, concerned with how data blocks are distributed across disks, not with attaching identifying or classification information to data."
+      }
+    },
+    q12: {
+      correct: "D",
+      rationale: {
+        correct: "Labels are what allow automated controls to act on classification. The policy says restricted data may not leave, classification made the sensitivity decision at creation, and the label is how the DLP tooling recognises restricted data when it sees it, without needing to understand the content.",
+        incorrect: "The correct answer is D. Manual review of every message is exactly what labeling plus automated enforcement removes the need for. The scenario describes the automated path, where the label does the work a human reviewer otherwise would."
+      }
+    },
+    q13: {
+      correct: "A",
+      rationale: {
+        correct: "Structured data adheres to a well-defined structure with each element categorised into specific fields, undergoes validation before storage, is exceptionally easy to search, and is highly amenable to analysis. The relational database is the canonical example.",
+        incorrect: "The correct answer is A. Tagged content with flexible hierarchies but no rigid schema describes semi-structured data, the middle ground exemplified by XML and JSON, which is a distinct category from the strict tabular organisation of structured data."
+      }
+    },
+    q14: {
+      correct: "C",
+      rationale: {
+        correct: "Jurisdictional issues are mitigated by knowing where data may legally be stored under applicable sovereignty laws and using the provider's geographic controls to keep it within those boundaries.",
+        incorrect: "The correct answer is C. More frequent backups improve recoverability but do nothing about where data physically resides. If backups replicate into unapproved regions, they can make the jurisdictional problem worse rather than better."
+      }
+    },
+    q15: {
+      correct: "C",
+      rationale: {
+        correct: "Differential privacy adds calibrated statistical noise so the model's outputs do not reliably reveal any individual training record, directly protecting against membership and attribute inference during the inference phase.",
+        incorrect: "The correct answer is C, Differential privacy applied to the model's outputs. A larger training set can dilute any one record's influence somewhat, but it provides no guarantee against inference and is not a privacy control. The mechanism designed for this exact threat is the calibrated noise of differential privacy."
+      }
+    },
+    q16: {
+      correct: "A",
+      rationale: {
+        correct: "Chain of custody records how evidence was collected, handled, stored, and transferred, capturing who touched it, when, and why. A rigorous chain demonstrates the evidence was preserved without tampering or alteration, which establishes its integrity and credibility and makes it admissible in legal proceedings.",
+        incorrect: "The correct answer is A. The list of revoked certificates is the CRL, part of PKI operations under Information Rights Management tooling. Chain of custody concerns the documented handling of evidence, an entirely different mechanism serving an entirely different purpose."
+      }
+    },
+    q17: {
+      correct: "D",
+      rationale: {
+        correct: "Tokens can be traced back to the original data, but only through the tokenization server, which applies access controls verifying the requester's identity and authorisation. The security comes from concentrating the sensitive data behind that single controlled gateway.",
+        incorrect: "The correct answer is D. Complete irreversibility describes anonymization done properly, not tokenization. Tokenization is deliberately reversible for authorised parties, which is what makes it useful for payment processing where the real number is eventually needed."
+      }
+    },
+    q18: {
+      correct: "A",
+      rationale: {
+        correct: "Encryption obscures data with a key, and the ciphertext remains where it was. Tokenization takes a different approach entirely: it removes the sensitive data from the database, stores it in a controlled token vault, and leaves behind a token that is worthless outside the tokenization system.",
+        incorrect: "The correct answer is A. Tokenization is not a form of encryption at all. No key transforms the token back into the data. Recovery happens only by presenting the token to the tokenization server, which enforces identity and authorisation checks before returning the original value."
+      }
+    },
+    q19: {
+      correct: "B",
+      rationale: {
+        correct: "Long archive durations mean keys age during the retention period. Retiring a key that protects archived data requires either maintaining secure access to the old key or the labour intensive process of decrypting with the old key and re-encrypting with the new one.",
+        incorrect: "The correct answer is B. Retention periods are set by legal, regulatory, and business requirements and are unaffected by cryptographic housekeeping. Rotating a key changes how the data is protected, not how long it must be kept."
+      }
+    },
+    q20: {
+      correct: "B",
+      rationale: {
+        correct: "Separation of keys from the data they protect is fundamental. If both live in the same store, one breach yields both, and the encryption provides no meaningful protection against exactly the compromise it was meant to survive.",
+        incorrect: "The correct answer is B. Databases can store key material perfectly well in a technical sense, which is exactly the problem. Nothing stops the design from working mechanically; what fails is the security property, because compromise of one system yields everything."
+      }
+    },
+    q21: {
+      correct: "A",
+      rationale: {
+        correct: "The outline names identity, Internet Protocol address, and geolocation as required event attributes. In practice a useful event also carries a timestamp and the action performed. Detailed attributes enable granular monitoring, troubleshooting, security analysis, auditing, and compliance reporting.",
+        incorrect: "The correct answer is A, Identity, IP address, and geolocation. CPU temperature and fan speed are hardware monitoring metrics, which belong to infrastructure operations. Event attributes for data auditability describe who did what, from where, which is what identity, IP address, and geolocation capture."
+      }
+    },
+    q22: {
+      correct: "C",
+      rationale: {
+        correct: "Keys are created with cryptographically secure random generation, stored in vaults or HSMs with restricted access, used under logged and monitored protocols, shared only through secure channels when unavoidable, and archived securely when retired but still needed for historical decryption.",
+        incorrect: "The correct answer is C. A key cannot be shared or used before it exists, so any ordering that places sharing or usage before creation fails on basic logic, which is the quickest way to eliminate the wrong sequences."
+      }
+    },
+    q23: {
+      correct: "A",
+      rationale: {
+        correct: "Most providers offer geographic restriction features precisely so customers can keep the availability benefits of dispersion without the regulatory exposure of segments landing in unapproved jurisdictions.",
+        incorrect: "The correct answer is A. The claim that dispersed segments escape jurisdiction is wrong. Data stored in a country is subject to that country's laws regardless of whether it is a fragment or a complete copy, which is exactly why geographic control matters."
+      }
+    },
+    q24: {
+      correct: "A",
+      rationale: {
+        correct: "Archiving policy elements include encryption procedures for the archive, monitoring, the ability to perform e-discovery against archived content when legal proceedings demand it, and backup and disaster recovery for the archive itself.",
+        incorrect: "The correct answer is A. Stripping metadata before archiving would cripple both future discovery and e-discovery, which depend on metadata to locate relevant content. The policy protects metadata as part of the archive rather than discarding it."
+      }
+    },
+    q25: {
+      correct: "C",
+      rationale: {
+        correct: "Metadata is data about data: details describing the data itself, such as creator, origin, format, and context. It is among the most valuable attributes discovery software uses when processing large volumes of data.",
+        incorrect: "The correct answer is C, Metadata. An event source is a system that generates activity logs, a concept from the auditability subtopic. The descriptive information attached to data assets is metadata."
+      }
+    },
+    q26: {
+      correct: "A",
+      rationale: {
+        correct: "Classification is the crucial control in the create phase. Deciding how sensitive the data is at creation determines the storage, sharing, retention, and destruction treatment it receives for the rest of its life.",
+        incorrect: "The correct answer is A, Data classification. An access review is a reactive control that belongs later in the lifecycle, particularly in the share phase. At the moment of creation there is no access history to review, and the decision that matters is how the data should be categorised."
+      }
+    },
+    q27: {
+      correct: "D",
+      rationale: {
+        correct: "The activities build on each other: discovery locates data across the estate, classification determines sensitivity, mapping records residence, and labeling binds the classification decision to the data so automated controls such as DLP can enforce it.",
+        incorrect: "The correct answer is D. Labeling cannot find data, and discovery does not attach labels. Each activity has a distinct function, and orderings that swap those functions describe a process that could not actually operate."
+      }
+    },
+    q28: {
+      correct: "C",
+      rationale: {
+        correct: "Rich attributes turn a log line into evidence. Identity, source IP, geolocation, and timestamps let the team reconstruct the incident precisely, supporting analysis, audit, and compliance reporting. Without them, the log records only that something happened.",
+        incorrect: "The correct answer is C. Logs are records, not time machines. Nothing in an event record can prevent an action that has already completed; the value of attributes lies in what can be established and proven afterwards."
+      }
+    },
+    q29: {
+      correct: "D",
+      rationale: {
+        correct: "Because the rights are embedded in the file and enforced through the IRM service, access can be revoked centrally after distribution. The copy in the broker's inbox becomes unreadable when its rights are withdrawn, which is protection no perimeter control can match.",
+        incorrect: "The correct answer is D. Data outside the perimeter being beyond control is true for perimeter tools such as DLP, and it is precisely the gap IRM closes. The embedded rights model means control persists after the file has left."
+      }
+    },
+    q30: {
+      correct: "B",
+      rationale: {
+        correct: "Data archiving identifies inactive data and moves it into specialised long-term storage, which optimises the performance of primary resources and ensures cost-efficient storage while retention obligations continue to be met.",
+        incorrect: "The correct answer is B. Archiving changes where and how data is stored, not whether retention obligations apply. Data in the archive remains fully subject to its retention schedule, legal hold exposure, and e-discovery."
+      }
+    },
+    q31: {
+      correct: "D",
+      rationale: {
+        correct: "The Online Certificate Status Protocol offers an alternative to CRLs, allowing real-time queries about a specific certificate's status to the CA or an OCSP responder. The immediacy comes at the cost of a network query per verification, where CRLs amortise one download across many checks.",
+        incorrect: "The correct answer is D. A larger CRL makes the parsing burden worse, not better. CRL processing is already resource intensive for large lists, which is exactly the problem that motivates the real-time alternative and the caching mechanisms some systems use."
+      }
+    },
+    q32: {
+      correct: "C",
+      rationale: {
+        correct: "A secrets manager centralises storage of API keys, passwords, and similar credentials with access control and audit logging. Applications retrieve secrets at run time, every retrieval is logged, and rotating a compromised credential becomes one change in one place.",
+        incorrect: "The correct answer is C. Encrypting backups protects one copy at rest but leaves the live problem untouched: anyone with repository access still reads production credentials in plain form, and rotation still means hunting through every file that embeds them."
+      }
+    },
+    q33: {
+      correct: "B",
+      rationale: {
+        correct: "A publicly accessible bucket of customer documents is the textbook case of unauthorised access risk arising from misconfigured access controls, one of the most common real-world causes of cloud data exposure. The mitigations are comprehensive access controls, strong authentication, and encryption.",
+        incorrect: "The correct answer is B. Data remanence concerns residual data surviving on storage media after deletion or reallocation. The scenario describes live data exposed through configuration, not residue left behind after decommissioning."
+      }
+    },
+    q34: {
+      correct: "C",
+      rationale: {
+        correct: "Deletion must render data irrecoverable to prevent unauthorised access, with rigour proportionate to sensitivity. In multi-tenant cloud storage the customer cannot destroy physical media, so cryptographic erase, destroying the key that protected the data, is the standard mechanism.",
+        incorrect: "The correct answer is C. Deleting filesystem pointers is named among the weakest destruction methods: the underlying data remains on disk and recoverable. Speed gained that way is paid for in residual data risk, the opposite of what a deletion procedure must achieve."
+      }
+    },
+    q35: {
+      correct: "B",
+      rationale: {
+        correct: "For everyday operations many customers need not know precisely where data sits. For sensitive or regulated data, knowing the geographical location is essential for regulatory adherence, which is why such organisations define preferred locations and enforce them.",
+        incorrect: "The correct answer is B. Latency genuinely varies with distance, but modern cloud regions keep it within workable bounds for most purposes. The decisive factor for location sensitivity is regulation and compliance, not raw performance."
+      }
+    },
+    q36: {
+      correct: "A",
+      rationale: {
+        correct: "A classification policy must reflect the organisation's own data types, risk appetite, and regulatory obligations. A bank's categories and handling rules will not fit a logistics firm, which is why the policy is tailored while still aligning with the laws that apply to the data.",
+        incorrect: "The correct answer is A. Nothing prohibits organisations from using similar category names, and many do. The reason for tailoring is substantive fit with the organisation's data and obligations, not naming rules."
+      }
+    },
+    q37: {
+      correct: "C",
+      rationale: {
+        correct: "IRM introduces a layered access control over data objects that determines both who can access a document and the permissible actions: printing, saving, copying, and more. This granularity applies least privilege to individual actions on a document rather than just to opening it.",
+        incorrect: "The correct answer is C. Applying only on the original server is the opposite of how IRM works. Its defining property is location agnosticism: the controls are embedded in the file and travel with it wherever it goes."
+      }
+    },
+    q38: {
+      correct: "B",
+      rationale: {
+        correct: "Hashing serves the integrity principle: comparing hash values computed at different times proves whether data changed. It is often called one-way encryption, but since encryption is by definition reversible with a key and hashing is not reversible at all, the label is imprecise.",
+        incorrect: "The correct answer is B. Hashing cannot serve confidentiality for data that must be retrieved, because there is no way back from the hash value to the original data. Anything hidden by hashing is not hidden for later retrieval, it is gone."
+      }
+    },
+    q39: {
+      correct: "B",
+      rationale: {
+        correct: "By embedding access controls directly into the original file, IRM ensures consistent protection irrespective of where the data is stored, which is crucial in cloud environments where data mobility is constant and files routinely travel beyond the organisation's own systems.",
+        incorrect: "The correct answer is B. Cloud data moves constantly between locations, which is exactly the condition that makes embedded, travelling protection necessary. A claim that data never leaves one data centre describes neither the cloud nor the reason IRM matters there."
+      }
+    },
+    q40: {
+      correct: "D",
+      rationale: {
+        correct: "DLP consists of policy management, which defines what data is protected and how; monitoring and enforcement, which watches data at rest and in transit and acts on violations; and incident response, which handles detected breaches of policy.",
+        incorrect: "The correct answer is D. Discovery, classification, and archiving are genuine data security activities, but they belong to other parts of this domain. DLP specifically is built from the policy, enforcement, and response triad."
+      }
+    },
+    q41: {
+      correct: "B",
+      rationale: {
+        correct: "Provisioning and access models are named IRM objectives covering how data rights are granted to users and roles and how those rights are administered over time, alongside layered access control, location agnosticism, and protection across data types.",
+        incorrect: "The correct answer is B, Provisioning and access models. Erasure coding is the reconstruction technique used in data dispersion for storage resilience. It belongs to cloud data concepts, not to the rights management objectives of IRM."
+      }
+    },
+    q42: {
+      correct: "A",
+      rationale: {
+        correct: "Long-term storage tiers trade retrieval speed for low cost, and their multi-year horizon raises distinctive concerns: keys must remain manageable, and archived data must remain readable and compliant for its entire retention life.",
+        incorrect: "The correct answer is A. Archival tiers are persistent by definition. Volatile storage that clears on restart describes ephemeral storage, which sits at the opposite end of the persistence spectrum from a long-term archive."
+      }
+    },
+    q43: {
+      correct: "D",
+      rationale: {
+        correct: "A good retention policy defines its purpose and scope, specific retention periods for different data types grounded in legal and business requirements, roles and responsibilities, storage and security measures, disposal procedures, and mechanisms for regular review, training, and audit.",
+        incorrect: "The correct answer is D. A single identical period for all data types ignores that requirements differ by data type: transaction records, personnel files, and marketing content carry different legal obligations, which is why the policy defines periods per type."
+      }
+    },
+    q44: {
+      correct: "C",
+      rationale: {
+        correct: "Replacing values with other data is substitution, rearranging real values within a column is shuffling, and applying mathematical alterations to numerical data is value variance. These are the standard data obfuscation methods for producing usable test data.",
+        incorrect: "The correct answer is C, Substitution, shuffling, value variance. Tokenization, hashing, and encryption are security transformations rather than obfuscation methods for test data. Encrypted or hashed data is unreadable, which the delegate material specifically notes makes it unsuitable for testing and research purposes."
+      }
+    },
+    q45: {
+      correct: "D",
+      rationale: {
+        correct: "Data dispersion chunks data across multiple physical devices, similar to RAID striping, and adds erasure coding, similar to parity, so the remaining segments can reconstruct lost ones. A single device failure loses nothing, and a single compromised device holds no complete usable copy.",
+        incorrect: "The correct answer is D. Storing one complete copy on a single device, however reliable, is the opposite of dispersion. It creates exactly the single point of failure and single point of compromise that dispersion exists to eliminate."
+      }
+    },
+    q46: {
+      correct: "B",
+      rationale: {
+        correct: "Unstructured data such as audio recordings is the hardest to discover because nothing about the container reliably describes the contents. Structured data is easiest since the schema is self-describing, and semi-structured data offers tags that give scanners partial guidance.",
+        incorrect: "The correct answer is B. A database schema is exactly what makes structured data the easiest form to search: the schema declares what each field contains, so discovery tooling knows where customer identifiers live without inspecting every value."
+      }
+    },
+    q47: {
+      correct: "D",
+      rationale: {
+        correct: "The signer hashes the data and encrypts the hash with their private key. The recipient computes their own hash of what arrived, decrypts the signature with the sender's public key, and compares. Matching values prove the data is unaltered and came from the private key holder.",
+        incorrect: "The correct answer is D. A sender's private key is never shared, which is the entire foundation of the scheme. Any procedure that involves obtaining someone else's private key describes a broken system, since possession of the private key is what the signature proves."
+      }
+    },
+    q48: {
+      correct: "A",
+      rationale: {
+        correct: "A certificate manager is the system for managing digital certificates across their lifecycle, ensuring secure storage and handling of private keys and certificates, alongside issuance, renewal, and revocation.",
+        incorrect: "The correct answer is A, Certificate manager. A DLP engine monitors and controls the movement of sensitive data across channels. It has no role in certificate lifecycle operations, which belong to the certificate management function."
+      }
+    },
+    q49: {
+      correct: "C",
+      rationale: {
+        correct: "A poorly governed lake concentrates enormous volumes of raw data, mixing sensitive and non-sensitive content with weak visibility. Discovery and classification tooling, increasingly AI assisted itself, identifies sensitive information before it enters the ML pipeline, so protections can be applied first.",
+        incorrect: "The correct answer is C. Nothing about a data lake anonymizes content automatically. Raw data lands in the lake exactly as collected, which is precisely why unexamined lakes accumulate unprotected sensitive data and why discovery must come before training."
+      }
+    },
+    q50: {
+      correct: "C",
+      rationale: {
+        correct: "Retaining sensitive data beyond its required period is pure downside: it remains breachable, remains within the scope of legal discovery and subject access requests, and continues to cost storage, all without business benefit. Risk mitigation through timely disposal is an explicit retention policy objective.",
+        incorrect: "The correct answer is C. Properly executed secure deletion is irrecoverable by design, which is exactly what disposal procedures require. Treating deletion as reversible would undermine the entire purpose of destroying data whose retention period has ended."
+      }
+    },
+    q51: {
+      correct: "A",
+      rationale: {
+        correct: "A mapping strategy lets the organisation identify precisely where data resides within applications and broader storage infrastructure, which is the foundation for data management, governance, and enforcing robust security policy. You can only protect what the map shows you.",
+        incorrect: "The correct answer is A. Mapping supports rather than replaces classification. The map records where data lives; classification decides how sensitive it is and how it must be handled. Both are needed, in combination."
+      }
+    },
+    q52: {
+      correct: "A",
+      rationale: {
+        correct: "Understanding data flows means tracking data in transit, at rest, and in use across its journey. Mapping the flow reveals where data crosses borders, which is what surfaces residency and compliance obligations such as those under GDPR.",
+        incorrect: "The correct answer is A. Hashing genuinely proves integrity in transit, but it says nothing about where the data travelled or which jurisdictions it entered, which is the compliance question the scenario is asking about."
+      }
+    },
+    q53: {
+      correct: "D",
+      rationale: {
+        correct: "Processing training data across multiple regions raises data sovereignty concerns, since each jurisdiction's rules follow the data. Releasing the training cluster raises data remanence: training residuals on ephemeral storage must be purged, typically by cryptographic erase, before resources return to the shared pool.",
+        incorrect: "The correct answer is D. Value variance and shuffling are data obfuscation methods for producing test data. Neither has any bearing on where training data is processed or on what survives on de-provisioned compute nodes."
+      }
+    },
+    q54: {
+      correct: "C",
+      rationale: {
+        correct: "A legal hold overrides the retention schedule. Data within the hold's scope must be preserved, protected from alteration or destruction, and the hold typically runs until the conclusion of the legal proceedings, however long that takes.",
+        incorrect: "The correct answer is C. Deleting data early to shrink what the order covers is deliberate destruction of evidence once proceedings are anticipated, an act with legal consequences far more severe than any storage or review cost the data could impose."
+      }
+    },
+    q55: {
+      correct: "D",
+      rationale: {
+        correct: "Analysis of log data helps identify trends, diagnose system issues, and detect anomalies that may indicate security incidents, and it informs decisions about system improvements and security enhancements.",
+        incorrect: "The correct answer is D. Analysis depends entirely on collection having happened: it is the final stage of the logging, storage, and analysis chain, not a substitute for the earlier stages that feed it."
+      }
+    },
+    q56: {
+      correct: "B",
+      rationale: {
+        correct: "Ephemeral storage persists only during the active life of the instance, is commonly implemented in RAM or other volatile memory, is wiped on termination, and is an IaaS storage type typically used for temporary data such as session state.",
+        incorrect: "The correct answer is B, Ephemeral storage, associated with IaaS. Volume storage is persistent by design, emulating a physical drive that survives instance reboots, which is the opposite of the wiped-on-termination behaviour the scenario describes. It is also an IaaS type rather than PaaS."
+      }
+    },
+    q57: {
+      correct: "B",
+      rationale: {
+        correct: "Obfuscation for testing needs data that looks and behaves like the original. Encrypted data is unreadable ciphertext, so testers cannot use it to exercise application behaviour, which is why substitution, shuffling, and value variance are used instead.",
+        incorrect: "The correct answer is B. Encryption is fully reversible with the key, so nothing is destroyed. The problem is the opposite of destruction: the original remains perfectly recoverable but the working copy is unusable for its intended testing purpose."
+      }
+    },
+    q58: {
+      correct: "C",
+      rationale: {
+        correct: "The three activities are interconnected: logging captures events, storage keeps them secure, intact, and accessible for a retention period that is often itself a regulatory requirement, and analysis turns them into insight. Analysis is only as trustworthy as the preserved record it works from.",
+        incorrect: "The correct answer is C. Altering logs is frequently among an attacker's first moves, precisely to erase the evidence trail. That reality is why tamper protection of stored logs is a requirement rather than an optional refinement."
+      }
+    },
+    q59: {
+      correct: "D",
+      rationale: {
+        correct: "An event source is any software, hardware, or system that generates data or activity logs, such as operating systems, applications, network devices, and cloud platform services. Identifying event sources is the first step in effective monitoring, incident detection, and compliance management.",
+        incorrect: "The correct answer is D. A person reviewing logs is a consumer of events, part of the analysis activity. The source is the system that generated the log entries in the first place, which is what must be identified for monitoring to be complete."
+      }
+    },
+    q60: {
+      correct: "D",
+      rationale: {
+        correct: "A classification policy is the comprehensive framework of procedures, processes, and guidelines for categorising stored information by sensitivity level, guiding stakeholders on handling data at every lifecycle stage and reducing risks from privacy breaches, compliance violations, and security incidents.",
+        incorrect: "The correct answer is D. An inventory of every file is closer to the output of data discovery and mapping. Classification is the decision framework about sensitivity and handling, not the catalogue of what exists."
+      }
+    },
+    q61: {
+      correct: "B",
+      rationale: {
+        correct: "Volume-level encryption encrypts an entire data volume with customer-managed keys, safeguarding the data against physical theft and against unauthorised access by provider personnel or other tenants.",
+        incorrect: "The correct answer is B, Volume-level encryption. Application-level encryption protects data from the moment the user enters it, before it reaches storage, but the question describes encrypting the whole attached store, which is the defining characteristic of volume-level encryption."
+      }
+    },
+    q62: {
+      correct: "C",
+      rationale: {
+        correct: "The CRL, maintained by the Certificate Authority, lists information about revoked digital certificates, typically including each revoked certificate's serial number and the time of revocation. Clients download and parse it to confirm whether a certificate has been revoked.",
+        incorrect: "The correct answer is C. Private keys are never published anywhere, least of all in a distributed list. A CRL identifies which certificates should no longer be trusted; it contains no key material at all."
+      }
+    },
+    q63: {
+      correct: "C",
+      rationale: {
+        correct: "Organisations with compliance obligations should define a preferred data location, enforce it with the provider's geographic controls, and proactively engage the provider for clarity on where data is actually stored, including replicas and backups, which are easy to overlook.",
+        incorrect: "The correct answer is C. Assuming data stays where the account was created ignores how providers operate: distributed data centres, replication, and redundancy mean data can move unless explicitly restricted, which is why active engagement and configuration are needed."
+      }
+    },
+    q64: {
+      correct: "B",
+      rationale: {
+        correct: "Homomorphic encryption allows computation to be performed on data while it remains encrypted, so sensitive data can be processed, including by a model or external service, without ever being exposed in plain form.",
+        incorrect: "The correct answer is B. Encryption at rest protects stored data but requires decryption before conventional processing, which is exactly the exposure window the scenario rules out. The requirement to compute without decrypting is what defines the homomorphic approach."
+      }
+    },
+    q65: {
+      correct: "D",
+      rationale: {
+        correct: "In SaaS the provider manages all aspects of the storage infrastructure, so the characteristic risk is loss of control: the customer depends entirely on the provider's controls and has limited visibility into how storage is secured.",
+        incorrect: "The correct answer is D. Patching storage firmware in SaaS is the provider's responsibility, not the customer's. The customer's problem in SaaS is having too little control and visibility, not too much responsibility for infrastructure."
+      }
+    },
+    q66: {
+      correct: "B",
+      rationale: {
+        correct: "Database-level encryption protects whole database files or specific columns and tables, and it is particularly effective in PaaS environments where the customer controls the encryption keys.",
+        incorrect: "The correct answer is B, Database-level encryption with customer-controlled keys. Hashing is one way and irreversible, so hashed columns could never be read back by the application. Hashing serves integrity checking, not the confidentiality of data that must remain usable."
+      }
+    },
+    q67: {
+      correct: "A",
+      rationale: {
+        correct: "CMEK lets the customer manage its own encryption keys while integrating with the cloud KMS, giving enhanced control over data at rest and supporting compliance regimes that require customer key custody.",
+        incorrect: "The correct answer is A. Having the provider hold all keys is the default many services offer, and it is precisely what CMEK exists to move away from for customers whose policies or regulators require them to hold key custody themselves."
+      }
+    },
+    q68: {
+      correct: "D",
+      rationale: {
+        correct: "Validation checks that training data is accurate, representative, and free of corruption before use. Verification confirms provenance and integrity, that the data came from trusted sources and has not been tampered with. Together they defend the pipeline against data poisoning.",
+        incorrect: "The correct answer is D. The terms carry distinct meanings that the outline deliberately names as a pair. Treating them as interchangeable loses the difference between checking data quality and checking data origin, both of which the pipeline needs."
+      }
+    },
+    q69: {
+      correct: "C",
+      rationale: {
+        correct: "Database storage in PaaS is characteristically vulnerable to SQL injection attacks against the structured query interface, alongside unauthorised access to the unstructured BLOB side.",
+        incorrect: "The correct answer is C, SQL injection. VM escape is an isolation failure at the hypervisor layer, a Domain 1 virtualization threat rather than the application-level attack on structured query handling that database storage characteristically faces."
+      }
+    },
+    q70: {
+      correct: "B",
+      rationale: {
+        correct: "IRM, DLP, and access reviews are reactive controls of the share phase, where data is being made available to other users and entities and the risk of unauthorised distribution is highest.",
+        incorrect: "The correct answer is B, Share. The store phase concerns committing data to a repository, where the primary controls are encryption in transit and at rest and access management. The controls named in the question specifically address data being distributed to others, which is the share phase."
+      }
+    }
+};
+
+  // Tab switching
+  document.querySelectorAll('.tabbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'auto'});
+    });
+  });
+
+  // Study subnav smooth scroll (stay within study tab)
+  document.querySelectorAll('.study-subnav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  const state = {}; // { qid: { answered: bool, correct: bool } }
+
+  function updateProgress(){
+    const ids = Object.keys(quizData);
+    const answered = ids.filter(id => state[id] && state[id].answered).length;
+    const correct = ids.filter(id => state[id] && state[id].correct).length;
+    document.getElementById('progress-count').textContent = answered;
+    document.getElementById('progress-correct').textContent = correct;
+    document.getElementById('progress-total').textContent = ids.length;
+  }
+
+  function submitAnswer(qid){
+    const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+    const selected = card.querySelector('input[name="'+qid+'"]:checked');
+    const warn = card.querySelector('.inline-warn[data-warn="'+qid+'"]');
+
+    if(!selected){
+      warn.style.display = 'inline';
+      return;
+    }
+    warn.style.display = 'none';
+
+    const chosen = selected.value;
+    const correctVal = quizData[qid].correct;
+    const isCorrect = chosen === correctVal;
+
+    card.querySelectorAll('.qoption').forEach(opt => {
+      opt.classList.remove('correct-choice','incorrect-choice');
+    });
+
+    const chosenOpt = card.querySelector('input[value="'+chosen+'"]').closest('.qoption');
+    chosenOpt.classList.add(isCorrect ? 'correct-choice' : 'incorrect-choice');
+
+    if(!isCorrect){
+      const correctOpt = card.querySelector('input[value="'+correctVal+'"]').closest('.qoption');
+      correctOpt.classList.add('correct-choice');
+    }
+
+    const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.innerHTML = '<span class="verdict">' + (isCorrect ? '&#10003; Correct' : '&#10007; Incorrect') + '</span>' +
+                    '<span class="rationale">' + (isCorrect ? quizData[qid].rationale.correct : quizData[qid].rationale.incorrect) + '</span>';
+
+    state[qid] = { answered: true, correct: isCorrect };
+    updateProgress();
+  }
+
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    btn.addEventListener('click', () => submitAnswer(btn.dataset.qid));
+  });
+
+  document.querySelectorAll('.qoptions input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const qid = input.name;
+      const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+      card.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+      const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+      fb.classList.remove('show');
+    });
+  });
+
+  document.getElementById('reset-all').addEventListener('click', () => {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+    document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show'); fb.innerHTML=''; });
+    document.querySelectorAll('.inline-warn').forEach(w => w.style.display = 'none');
+    Object.keys(state).forEach(k => delete state[k]);
+    updateProgress();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>

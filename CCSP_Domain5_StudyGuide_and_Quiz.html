@@ -1,0 +1,2310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CCSP Domain 5: Cloud Security Operations</title>
+<style>
+  :root{
+    --navy:#1F3864;
+    --navy-light:#2E4E8C;
+    --gold:#B08D57;
+    --bg:#F7F7F5;
+    --card:#FFFFFF;
+    --border:#E2E1DC;
+    --text:#26251F;
+    --text-secondary:#5B594F;
+    --text-muted:#8A8879;
+    --success-bg:#E9F3E9;
+    --success-text:#1F6B2E;
+    --success-border:#8FCB9A;
+    --danger-bg:#FBEAE8;
+    --danger-text:#A32D2D;
+    --danger-border:#E8A6A0;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+  }
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:2.5rem 1.5rem 4rem;
+  }
+  .masthead{
+    margin-bottom:1rem;
+  }
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:600;
+    margin:0 0 .35rem;
+  }
+  h1{
+    font-size:28px;
+    font-weight:700;
+    margin:0 0 .25rem;
+    color:var(--navy);
+  }
+  .subhead{
+    font-size:15px;
+    color:var(--text-secondary);
+    margin:0 0 .6rem;
+  }
+  .signature{
+    font-size:13px;
+    color:var(--text-muted);
+    font-style:italic;
+    margin:0;
+    padding-top:.5rem;
+    border-top:1px solid var(--border);
+  }
+  .backlink{
+    display:inline-block;
+    font-size:13px;
+    font-weight:600;
+    color:var(--navy);
+    text-decoration:none;
+    margin-bottom:1rem;
+  }
+  .backlink:hover{ text-decoration:underline; }
+  .ai-note{
+    background:#FFF8E8;
+    border:1px solid #E8D9A8;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.8rem 1.05rem;
+    margin:1rem 0 0;
+  }
+  .ai-note p{
+    margin:0;
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--text-secondary);
+  }
+  .ai-note strong{ color:var(--text); }
+  .tabbar{
+    display:flex;
+    gap:4px;
+    border-bottom:2px solid var(--border);
+    margin:1.75rem 0 0;
+    position:sticky;
+    top:0;
+    background:var(--bg);
+    z-index:10;
+  }
+  .tabbtn{
+    appearance:none;
+    border:none;
+    background:transparent;
+    padding:.75rem 1.25rem;
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-muted);
+    cursor:pointer;
+    border-bottom:2px solid transparent;
+    margin-bottom:-2px;
+    transition:color .15s ease, border-color .15s ease;
+  }
+  .tabbtn:hover{ color:var(--navy); }
+  .tabbtn.active{
+    color:var(--navy);
+    border-bottom-color:var(--navy);
+  }
+  .tabpanel{ display:none; padding-top:1.75rem; }
+  .tabpanel.active{ display:block; }
+
+  /* ---------- STUDY TAB ---------- */
+  .topic-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.5rem;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--navy);
+    background:#EAF0FB;
+    border:1px solid #C9D9F2;
+    padding:2px 9px;
+    border-radius:20px;
+    margin-bottom:.5rem;
+  }
+  .book-ref{
+    display:block;
+    font-size:12.5px;
+    color:var(--text-secondary);
+    margin-bottom:.85rem;
+  }
+  .book-ref i{
+    color:var(--text-muted);
+    font-style:normal;
+    font-weight:600;
+  }
+  .topic-card h2{
+    font-size:20px;
+    margin:0 0 .75rem;
+    color:var(--navy);
+  }
+  .topic-card h3{
+    font-size:15px;
+    margin:1.25rem 0 .4rem;
+    color:var(--text);
+  }
+  .topic-card p{
+    font-size:15px;
+    color:var(--text);
+    margin:0 0 .75rem;
+  }
+  .note-box{
+    background:#F3F6FC;
+    border-left:3px solid var(--navy-light);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.85rem 0 0;
+  }
+  .note-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--navy);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .example-box{
+    background:#FBF8F2;
+    border-left:3px solid var(--gold);
+    border-radius:6px;
+    padding:.85rem 1.1rem;
+    margin:.75rem 0 0;
+  }
+  .example-box .label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.3rem;
+    display:block;
+  }
+  .example-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  ul.plain{ margin:.25rem 0 .75rem; padding-left:1.2rem; }
+  ul.plain li{ font-size:15px; margin-bottom:.3rem; }
+
+  .study-subnav{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:1.5rem;
+  }
+  .study-subnav a{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    padding:5px 12px;
+    border-radius:20px;
+    text-decoration:none;
+  }
+  .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+
+  /* ---------- QUIZ TAB ---------- */
+  .quiz-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:.75rem;
+    margin-bottom:1.25rem;
+    padding-bottom:1rem;
+    border-bottom:1px solid var(--border);
+  }
+  .quiz-progress{
+    font-size:14px;
+    color:var(--text-secondary);
+  }
+  .quiz-progress strong{ color:var(--navy); }
+  .reset-btn{
+    appearance:none;
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text-secondary);
+    font-size:13px;
+    font-weight:600;
+    padding:.5rem 1rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .reset-btn:hover{
+    border-color:#D8A0A0;
+    color:var(--danger-text);
+    background:#FDF4F3;
+  }
+  .qcard{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:1.5rem 1.75rem;
+    margin-bottom:1.25rem;
+  }
+  .qmeta{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.04em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:.5rem;
+  }
+  .qstem{
+    font-size:15.5px;
+    font-weight:600;
+    color:var(--text);
+    margin:0 0 1rem;
+  }
+  .qoptions{ display:flex; flex-direction:column; gap:.55rem; margin-bottom:1rem; }
+  .qoption{
+    display:flex;
+    align-items:flex-start;
+    gap:.65rem;
+    padding:.65rem .85rem;
+    border:1px solid var(--border);
+    border-radius:8px;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .qoption:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .qoption input{
+    margin-top:3px;
+    accent-color:var(--navy);
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .qoption label{
+    font-size:14.5px;
+    cursor:pointer;
+    color:var(--text);
+  }
+  .qoption.correct-choice{
+    border-color:var(--success-border);
+    background:var(--success-bg);
+  }
+  .qoption.incorrect-choice{
+    border-color:var(--danger-border);
+    background:var(--danger-bg);
+  }
+  .qactions{ display:flex; align-items:center; gap:.75rem; }
+  .submit-btn{
+    appearance:none;
+    border:none;
+    background:var(--navy);
+    color:#fff;
+    font-size:13.5px;
+    font-weight:600;
+    padding:.6rem 1.3rem;
+    border-radius:7px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .submit-btn:hover{ background:var(--navy-light); }
+  .submit-btn:disabled{ background:#B9C4D6; cursor:not-allowed; }
+  .inline-warn{
+    font-size:13px;
+    color:var(--danger-text);
+    display:none;
+  }
+  .feedback{
+    margin-top:1rem;
+    padding:.9rem 1.1rem;
+    border-radius:8px;
+    font-size:14px;
+    display:none;
+  }
+  .feedback.show{ display:block; }
+  .feedback.correct{
+    background:var(--success-bg);
+    border:1px solid var(--success-border);
+    color:var(--success-text);
+  }
+  .feedback.incorrect{
+    background:var(--danger-bg);
+    border:1px solid var(--danger-border);
+    color:var(--danger-text);
+  }
+  .feedback .verdict{
+    font-weight:700;
+    margin-bottom:.35rem;
+    display:block;
+  }
+  .feedback .rationale{
+    color:var(--text);
+    font-weight:400;
+    line-height:1.55;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <a class="backlink" href="index.html">&larr; All domains</a>
+    <p class="eyebrow">CCSP &middot; Domain 5</p>
+    <h1>Cloud Security Operations</h1>
+    <p class="subhead">Study material and a 70-question practice set, aligned to the ISC2 exam outline effective August 1, 2026. Each section notes where it lines up with the Official CCSP Study Guide, 3rd Edition, by Mike Chapple and David Seidl, so the two can be read together.</p>
+    <p class="signature">Prepared by Kalyan Pradeep Potnuru for CCSP Preparation.</p>
+    <div class="ai-note">
+      <p><strong>AI-generated study aid.</strong> This material was produced with AI assistance for rapid preparation and planning. It is not affiliated with, endorsed by, or connected to ISC2. The questions are original practice items written against the published exam outline. They are not real exam questions and are not claimed to resemble what ISC2 will ask. Use this to build familiarity and structure your revision, and verify everything against official sources.</p>
+    </div>
+
+  </div>
+
+  <div class="tabbar">
+    <button class="tabbtn active" data-tab="study">Study material</button>
+    <button class="tabbtn" data-tab="quiz">Questionnaire</button>
+  </div>
+
+  <!-- ===================== STUDY TAB ===================== -->
+  <div class="tabpanel active" id="tab-study">
+
+    <div class="study-subnav">
+      <a href="#s51">5.1 Build infrastructure</a>
+      <a href="#s52">5.2 Operate and maintain</a>
+      <a href="#s53">5.3 Operational controls</a>
+      <a href="#s54">5.4 Digital forensics</a>
+      <a href="#s55">5.5 Communication</a>
+      <a href="#s56">5.6 Security operations</a>
+    </div>
+
+    <a id="s51"></a>
+
+<!-- STUDY_5_1_5_2 -->
+<div class="topic-card">
+  <span class="topic-tag">5.1 Build and implement physical and logical infrastructure</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 7, Operations Elements (hardware configuration, management plane installation, and guest OS toolset sections).</span>
+  <h2>Getting the environment built securely in the first place</h2>
+
+  <h3>Hardware specific security configuration</h3>
+  <p>Different hardware types need tailored security settings, spanning servers, workstations, routers, and switches. Typical measures include BIOS passwords to prevent unauthorised changes to system settings, disabling unused ports and services to reduce the attack surface, and configuring firewalls and intrusion detection to monitor and block malicious activity. Two hardware components carry specific exam weight:</p>
+  <ul class="plain">
+    <li><strong>Trusted Platform Module (TPM)</strong>, a hardware component embedded in an individual device or server that securely stores cryptographic keys and supports platform integrity functions such as secure boot measurement.</li>
+    <li><strong>Hardware Security Module (HSM)</strong>, a dedicated cryptographic device used for enterprise scale key generation, storage, and cryptographic operations.</li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>TPM and HSM both protect keys in hardware and are routinely offered as alternatives to each other. The TPM is device or platform level, tied to integrity measurement of one machine. The HSM is an enterprise key management appliance serving many systems. If the scenario is about secure boot or attesting one machine's integrity, it wants TPM.</p>
+  </div>
+
+  <h3>Virtual hardware specific configuration</h3>
+  <p>Virtual network devices add complexity beyond the traditional data centre model, because although they perform the same operations as physical devices they have distinct characteristics and configuration surfaces. A specific point worth remembering: storage traffic must be treated as LAN rather than WAN traffic because of its heavy network utilisation and criticality. Latency is the primary concern for storage, unlike general network traffic which is more flexible and resilient to delay.</p>
+  <p>Configuration also covers memory and CPU allocation, and the distinction between <strong>Type 1 hypervisors</strong>, which run directly on the hardware, and <strong>Type 2 hypervisors</strong>, which run as an application on top of a host operating system. Type 1 is standard for production cloud infrastructure because it presents a smaller attack surface, having no underlying host operating system to compromise.</p>
+
+  <h3>Secure by default</h3>
+  <p>Systems should ship and deploy in their most secure configuration, with the customer deliberately relaxing settings where needed rather than having to discover and tighten insecure defaults. This inverts the failure mode: an overlooked setting leaves the system secure rather than exposed.</p>
+
+  <h3>Installation and configuration of management plane tools</h3>
+  <p>The virtualisation platform dictates which management tools are installed on each host. The most recent versions should be installed, and the procedure for updating them belongs in the configuration management plan. Adequate server resources must be allocated so virtual machines can be migrated during updates to the virtualisation platform, which is what allows maintenance without downtime.</p>
+
+  <h3>Guest operating system virtualisation toolsets</h3>
+  <p>These are software packages installed inside a virtual machine to optimise performance, management, and integration between the guest operating system and the host environment. They improve functionality and manageability, but each toolset is also code running with privilege inside the guest, so it must be kept patched and installed only from trusted sources.</p>
+</div>
+
+<a id="s52"></a>
+<div class="topic-card">
+  <span class="topic-tag">5.2 Operate and maintain physical and logical infrastructure</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 7, Operations Elements and Chapter 8, Operations Management (access controls, network configuration, hardening, patching, availability, and monitoring sections).</span>
+  <h2>Keeping the environment secure once it is running</h2>
+
+  <h3>Access controls for local and remote access</h3>
+  <p>Access controls ensure only authorised individuals reach sensitive resources, combining physical practices with logical controls. Local access control secures physical and console access to systems. Remote access mechanisms include <strong>RDP</strong> and <strong>SSH</strong> for administrative sessions, secure terminal access, console-based mechanisms, virtual clients, and <strong>jumpboxes</strong>, also called bastion hosts. The jumpbox pattern is the important one: rather than exposing RDP or SSH directly to the internet on every server, administrators connect to one hardened, tightly monitored intermediary and reach internal systems from there.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A bank places all production servers in private subnets with no inbound internet access. Administrators authenticate to a jumpbox with MFA, and every session through it is logged and recorded. The attack surface drops from every server to one hardened host, and that host is watched closely.</p>
+  </div>
+
+  <h3>Secure network configuration</h3>
+  <p>Network security management integrates preventive, detective, corrective, and recovery controls to protect confidentiality, integrity, and availability. The named technologies:</p>
+  <ul class="plain">
+    <li><strong>VLANs</strong>, segmenting a physical network into isolated logical networks.</li>
+    <li><strong>TLS</strong>, encrypting data in transit between clients and services.</li>
+    <li><strong>DHCP</strong>, automating IP address assignment, which must itself be protected against rogue servers.</li>
+    <li><strong>DNSSEC</strong>, adding cryptographic authentication to DNS responses so answers cannot be forged.</li>
+    <li><strong>VPN</strong>, providing an encrypted tunnel across untrusted networks.</li>
+  </ul>
+  <p>Network security controls include firewalls, IDS and IPS, honeypots, vulnerability assessments, network security groups, bastion hosts, and segmentation. The distinction between <strong>IDS</strong>, which detects and alerts, and <strong>IPS</strong>, which detects and actively blocks, is frequently tested. <strong>Honeypots</strong> are decoy systems deployed to attract and study attacker activity that has already breached the perimeter.</p>
+
+  <h3>Operating system hardening</h3>
+  <p>Hardening reduces an operating system's surface of vulnerability by configuring and strengthening its security settings. Measures include removing unnecessary services and software, closing unused ports, applying least privilege to accounts, and enforcing strong authentication. Hardening is applied through <strong>baselines</strong>, the defined secure configuration standard, followed by <strong>monitoring</strong> to detect drift from that baseline and <strong>remediation</strong> to correct it. The cycle matters more than any single hardening action, because configurations drift continuously.</p>
+
+  <h3>Patch management</h3>
+  <p>Patch management identifies, acquires, tests, and installs updates to enhance security, improve functionality, and fix defects. Testing before deployment is the step organisations are most tempted to skip and most regret skipping, since an untested patch can cause the outage the patch was meant to prevent. In cloud, patching increasingly means rebuilding from an updated image rather than modifying running instances.</p>
+
+  <h3>Infrastructure as Code</h3>
+  <p>IaC is a DevOps practice managing and provisioning infrastructure through machine-readable definition files rather than physical hardware configuration or interactive tools. It makes infrastructure versioned and reusable, promoting consistency and reducing human error. Its core components:</p>
+  <ul class="plain">
+    <li><strong>Configuration management tools</strong> such as Ansible, Puppet, and Chef, automating configuration files and software installation across servers and maintaining desired state.</li>
+    <li><strong>Orchestration tools</strong> such as Kubernetes and Docker Swarm, managing containerised workloads at scale.</li>
+    <li><strong>Provisioning tools</strong> such as Terraform and CloudFormation, defining and creating the infrastructure itself.</li>
+  </ul>
+  <p>Because the definition files are code, they can be reviewed, version controlled, and scanned for misconfiguration before anything is deployed, which is what makes IaC a security control rather than merely an efficiency one.</p>
+
+  <h3>Availability of clustered hosts and guest operating systems</h3>
+  <p>Clustered hosts are groups of interconnected servers working together to improve performance, load balancing, and failover. The named capabilities are <strong>distributed resource scheduling</strong> and <strong>dynamic optimisation</strong>, which move workloads between hosts automatically; <strong>storage clusters</strong>; <strong>maintenance mode</strong>, which evacuates a host so it can be serviced without interrupting workloads; and <strong>high availability</strong>, restarting affected virtual machines elsewhere when a host fails.</p>
+
+  <h3>Monitoring and backup</h3>
+  <p>Performance and capacity monitoring identifies bottlenecks, resource limitations, and performance issues before they reach end users, covering network, compute, storage, and response time. <strong>Hardware monitoring</strong> tracks disk health, CPU, fan speed, and temperature, which gives early warning of physical failure. Backup and restore functions for both host and guest operating systems are essential for recovering from failures, cyber attacks, and crashes. A backup that has never been restored is an assumption, so restore testing is what proves the capability exists.</p>
+
+  <h3>Management plane operations</h3>
+  <p>The management plane controls and administers cloud resources, providing web-based consoles and dashboards for visual management alongside APIs and command line interfaces for automation. Operationally it covers scheduling, orchestration, and maintenance. Because it holds administrative reach across the environment, it warrants the strongest authentication, tightest privilege restriction, and most thorough logging of any component.</p>
+</div>
+
+<a id="s53"></a>
+<!-- STUDY_5_3_5_4_5_5_5_6 -->
+<div class="topic-card">
+  <span class="topic-tag">5.3 Operational controls and standards</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (ITSM process sections). All twelve processes named in the current exam outline are covered here.</span>
+  <h2>The twelve ITSM processes and the frameworks behind them</h2>
+
+  <p>The outline names frameworks including NIST, ISO, HIPAA, COBIT, CIS Controls, COSO, ITIL, and ISO/IEC 20000-1. ITIL and ISO/IEC 20000-1 are specifically IT service management, COBIT is IT governance, COSO is enterprise risk and internal control, and CIS Controls are prioritised technical safeguards. Twelve processes follow, and the exam relies on you distinguishing the ones that sound similar.</p>
+
+  <ul class="plain">
+    <li><strong>Change management</strong>, controlling how changes are requested, assessed, approved, and implemented so that changes do not cause unintended disruption.</li>
+    <li><strong>Continuity management</strong>, ensuring services can continue or recover through disruption, linking operations to BC and DR planning.</li>
+    <li><strong>Information security management</strong>, the overarching process aligning security controls with business requirements.</li>
+    <li><strong>Continual service improvement management</strong>, systematically identifying and implementing improvements to services and processes over time.</li>
+    <li><strong>Incident management</strong>, restoring normal service operation as quickly as possible after an unplanned disruption, minimising business impact. It covers detection and recording through monitoring tools, classification, prioritisation, response, and closure.</li>
+    <li><strong>Problem management</strong>, identifying, analysing, and resolving the underlying causes of incidents to prevent recurrence, reduce impact, and improve stability.</li>
+    <li><strong>Release management</strong>, planning, designing, building, configuring, and testing hardware and software releases so that features, improvements, and fixes are bundled into manageable releases.</li>
+    <li><strong>Deployment management</strong>, moving those releases into the live environment.</li>
+    <li><strong>Configuration management</strong>, systematically managing and maintaining the configuration of hardware, software, and other assets to preserve integrity, security, and performance, keeping a consistent and accurate record of configurations.</li>
+    <li><strong>Service level management</strong>, negotiating, defining, and managing the performance and quality of services delivered to customers, centred on SLAs as formal agreements between provider and customer.</li>
+    <li><strong>Availability management</strong>, optimising the capability of the infrastructure, services, and support organisation to deliver a cost-effective and sustained level of availability meeting business requirements.</li>
+    <li><strong>Capacity management</strong>, ensuring infrastructure and services have the right amount of resource for current and future demand, balancing cost against performance.</li>
+  </ul>
+
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Incident management restores service fast. Problem management finds and eliminates the root cause so it stops happening. A scenario describing urgency and restoration wants incident management; one describing recurrence and underlying cause wants problem management. Equally, release management prepares and tests the release, deployment management puts it into production, and change management authorises it.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A cloud service fails three times in a month. Each time, the on-call team restarts the service and users are back within minutes, which is incident management working correctly. Nobody asks why it keeps failing. Problem management is the discipline that investigates the memory leak causing all three, and its absence is why there will be a fourth.</p>
+  </div>
+</div>
+
+<a id="s54"></a>
+<div class="topic-card">
+  <span class="topic-tag">5.4 Digital forensics</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (digital forensics section), with related legal material in Chapter 9.</span>
+  <h2>Collecting, acquiring, and preserving evidence that will hold up</h2>
+
+  <h3>Forensic data collection methodologies</h3>
+  <p>The central distinction is between <strong>live data acquisition</strong>, capturing data from a running system including volatile memory, network connections, and running processes, and <strong>static or dead acquisition</strong>, capturing data from a powered-down system. Live acquisition is necessary because volatile evidence such as memory contents, encryption keys held in RAM, and active network connections disappears the moment power is lost. This is why the standard incident response guidance is to contain while preserving rather than to shut systems down immediately.</p>
+  <p><strong>Order of volatility</strong> governs collection sequence: capture the most transient evidence first, working from CPU registers and cache, through RAM and network state, to disk and finally archived media.</p>
+
+  <h3>Evidence management</h3>
+  <p>Evidence management ensures digital evidence is collected, preserved, and presented so that its integrity and admissibility hold in legal contexts. <strong>Chain of custody</strong> is the core mechanism, documenting every person who handled the evidence, when, and why, demonstrating it was not tampered with.</p>
+
+  <h3>Collecting, acquiring, and preserving</h3>
+  <p>Collection is the initial gathering of evidence from its sources. Acquisition creates the working copy. Preservation protects the integrity of the evidence from collection through analysis to presentation in court, using three named techniques:</p>
+  <ul class="plain">
+    <li><strong>Imaging</strong>, creating a bit-for-bit copy so that analysis is performed on the copy and the original remains untouched.</li>
+    <li><strong>Hashing</strong>, computing a cryptographic hash at collection and re-verifying it later to prove the evidence has not changed.</li>
+    <li><strong>Write blockers</strong>, hardware or software preventing any write operation to the source media during acquisition.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>An investigator images a suspect volume through a write blocker, hashes both original and image, and confirms the values match. Every subsequent analysis runs against the image. If the defence later questions whether evidence was altered, the matching hashes and the custody log answer the question, which is precisely what makes the finding usable.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Cloud complicates forensics specifically: the customer often cannot seize hardware, may not know its physical location, and shares infrastructure with tenants whose data must not be captured. Forensic capability in cloud therefore depends heavily on the contract and on what the provider will support, which is a recurring theme across this certification.</p>
+  </div>
+</div>
+
+<a id="s55"></a>
+<div class="topic-card">
+  <span class="topic-tag">5.5 Communication with relevant parties</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (communication and stakeholder management sections).</span>
+  <h2>Who needs to know, and what they need</h2>
+
+  <p>Managing communication means establishing clear, consistent channels so that all relevant parties are informed, aligned, and engaged. Each audience has different needs:</p>
+  <ul class="plain">
+    <li><strong>Vendors</strong>, requiring clear channels covering service performance, contractual obligations, security incidents affecting shared services, and change notification. Communication is a vendor management function as much as an operational one.</li>
+    <li><strong>Customers</strong>, requiring timely, accurate information about service status, incidents affecting them, planned maintenance, and any breach touching their data. Contractual and regulatory notification obligations frequently apply.</li>
+    <li><strong>Partners</strong>, requiring coordination on shared processes and integrated services, including how incidents are jointly handled.</li>
+    <li><strong>Regulators</strong>, requiring communication that demonstrates compliance and maintains good standing. This includes establishing channels before they are needed, meeting mandatory reporting deadlines such as breach notification, and responding to enquiries with accuracy.</li>
+    <li><strong>Other stakeholders</strong>, including internal leadership, staff, insurers, and where relevant law enforcement and the public.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A telecom operator confirms a breach affecting customer data. Within the same window it must notify its regulator inside the statutory deadline, inform affected customers, brief its board, coordinate with the SaaS vendor whose platform was involved, and manage press enquiries. Each audience needs different detail at a different time, which is why the channels must exist before the incident rather than being improvised during it.</p>
+  </div>
+</div>
+
+<a id="s56"></a>
+<div class="topic-card">
+  <span class="topic-tag">5.6 Manage security operations</span>
+  <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (security operations centre, monitoring, and incident response sections). Penetration testing is named in the current exam outline and is included here.</span>
+  <h2>Running the SOC and the assurance activities around it</h2>
+
+  <h3>Security Operations Centre</h3>
+  <p>A SOC is a centralised unit handling security issues at organisational and technical level, built on three components: <strong>people</strong>, meaning skilled analysts, incident responders, and managers; <strong>process</strong>, the defined procedures they follow; and <strong>technology</strong>, the tooling that gives them visibility and response capability. All three are required, and a common failure is investing in technology while under-resourcing the people and processes needed to use it.</p>
+
+  <h3>Intelligent monitoring of security controls</h3>
+  <p>Intelligent monitoring uses advanced technology to continuously oversee and analyse security mechanisms, aiming to detect, prevent, and respond efficiently. By leveraging automation, machine learning, and artificial intelligence, organisations extend their capability beyond what manual review can achieve at cloud scale. The controls monitored include firewalls, IDS and IPS, honeypots, and network security groups. The consistent principle across this certification is that AI augments analysts rather than replacing them, handling volume so humans can concentrate on complex and novel cases.</p>
+
+  <h3>Log capture and analysis</h3>
+  <p>Log management runs through collection, storage, analysis, and response. <strong>SIEM</strong> platforms aggregate and correlate logs from across the environment, turning isolated events into detectable patterns. <strong>Threat intelligence</strong> supplies external context about active threats and indicators of compromise, sharpening what the SIEM is looking for. Log storage must be secure and tamper-resistant, since altering logs is among an attacker's first moves.</p>
+
+  <h3>Incident response</h3>
+  <p>Incident response follows preparation, detection and analysis, containment, eradication, recovery, and post-incident review. The order matters: containment comes before eradication, and evidence preservation runs alongside containment rather than after it, because volatile evidence is lost when systems are shut down or rebuilt. The post-incident review is what feeds improvement back into preparation.</p>
+
+  <h3>Vulnerability assessments</h3>
+  <p>Vulnerability assessment proceeds through identification of assets, scanning for vulnerabilities, risk assessment of what was found, and remediation. It is particularly important in cloud, where resources are dynamically scaled and updated, so the asset inventory changes continuously and a scan is only accurate for the moment it ran. Assessment is broad and automated, identifying known weaknesses across the estate.</p>
+
+  <h3>Penetration testing</h3>
+  <p>Penetration testing goes further than assessment by actively exploiting weaknesses to demonstrate real impact, showing what an attacker could actually achieve rather than what might theoretically be possible. It may be conducted black-box, grey-box, or white-box depending on how much information the tester is given. In cloud, penetration testing carries an additional constraint: the provider's rules of engagement govern what may be tested, since the infrastructure is shared and testing beyond the customer's own scope would affect other tenants.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Vulnerability assessment identifies and catalogues known weaknesses broadly, usually with automated tooling. Penetration testing actively exploits them to prove impact, and is narrower and more manual. A scenario asking what an attacker could actually accomplish wants penetration testing; one asking what weaknesses exist across the estate wants vulnerability assessment.</p>
+  </div>
+</div>
+
+
+  </div>
+  <!-- END STUDY TAB -->
+
+  <!-- ===================== QUIZ TAB ===================== -->
+  <div class="tabpanel" id="tab-quiz">
+
+    <div class="quiz-header">
+      <div class="quiz-progress">Answered: <strong id="progress-count">0</strong> / <span id="progress-total">70</span> &nbsp;&middot;&nbsp; Correct: <strong id="progress-correct">0</strong></div>
+      <button class="reset-btn" id="reset-all">Reset all answers</button>
+    </div>
+
+
+    <div class="qcard" data-qid="q1">
+      <div class="qmeta">Question 1 &middot; Domain 5.3</div>
+      <p class="qstem">Which ITSM process focuses on negotiating, defining, and managing the performance and quality of services delivered to customers, centred on formal agreements?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q1" id="q1a" value="A"><label for="q1a">A. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1b" value="B"><label for="q1b">B. Configuration management</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1c" value="C"><label for="q1c">C. Service level management</label></div>
+        <div class="qoption"><input type="radio" name="q1" id="q1d" value="D"><label for="q1d">D. Availability management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q1">Submit answer</button>
+        <span class="inline-warn" data-warn="q1">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q1"></div>
+    </div>
+
+    <div class="qcard" data-qid="q2">
+      <div class="qmeta">Question 2 &middot; Domain 5.5</div>
+      <p class="qstem">Which aspect of communication with vendors is most relevant to security operations?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q2" id="q2a" value="A"><label for="q2a">A. Communicating only through informal personal relationships</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2b" value="B"><label for="q2b">B. Clear channels covering service performance, contractual obligations, security incidents affecting shared services, and change notification</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2c" value="C"><label for="q2c">C. Restricting all contact to annual review meetings</label></div>
+        <div class="qoption"><input type="radio" name="q2" id="q2d" value="D"><label for="q2d">D. Negotiating the lowest possible unit price on every renewal</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q2">Submit answer</button>
+        <span class="inline-warn" data-warn="q2">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q2"></div>
+    </div>
+
+    <div class="qcard" data-qid="q3">
+      <div class="qmeta">Question 3 &middot; Domain 5.2</div>
+      <p class="qstem">Which capabilities automatically move workloads between hosts in a cluster to balance load and maintain performance?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q3" id="q3a" value="A"><label for="q3a">A. Imaging and hashing</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3b" value="B"><label for="q3b">B. Distributed resource scheduling and dynamic optimisation</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3c" value="C"><label for="q3c">C. Write blockers and honeypots</label></div>
+        <div class="qoption"><input type="radio" name="q3" id="q3d" value="D"><label for="q3d">D. DNSSEC and DHCP</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q3">Submit answer</button>
+        <span class="inline-warn" data-warn="q3">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q3"></div>
+    </div>
+
+    <div class="qcard" data-qid="q4">
+      <div class="qmeta">Question 4 &middot; Domain 5.1</div>
+      <p class="qstem">A security team notes that a guest virtualisation toolset runs with privilege inside the virtual machine. What operational consequence follows?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q4" id="q4a" value="A"><label for="q4a">A. It should be granted additional privileges to improve performance</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4b" value="B"><label for="q4b">B. It cannot be affected by vulnerabilities because it runs virtually</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4c" value="C"><label for="q4c">C. It must be kept patched and installed only from trusted sources, since it is privileged code inside the guest</label></div>
+        <div class="qoption"><input type="radio" name="q4" id="q4d" value="D"><label for="q4d">D. It requires no maintenance because it is provided by the platform vendor</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q4">Submit answer</button>
+        <span class="inline-warn" data-warn="q4">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q4"></div>
+    </div>
+
+    <div class="qcard" data-qid="q5">
+      <div class="qmeta">Question 5 &middot; Domain 5.3</div>
+      <p class="qstem">Which framework is specifically an IT service management standard rather than a governance or enterprise risk framework?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q5" id="q5a" value="A"><label for="q5a">A. CIS Controls</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5b" value="B"><label for="q5b">B. COBIT</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5c" value="C"><label for="q5c">C. ISO/IEC 20000-1</label></div>
+        <div class="qoption"><input type="radio" name="q5" id="q5d" value="D"><label for="q5d">D. COSO</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q5">Submit answer</button>
+        <span class="inline-warn" data-warn="q5">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q5"></div>
+    </div>
+
+    <div class="qcard" data-qid="q6">
+      <div class="qmeta">Question 6 &middot; Domain 5.1</div>
+      <p class="qstem">Which hardware component is embedded in an individual device or server to securely store cryptographic keys and support platform integrity functions such as secure boot measurement?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q6" id="q6a" value="A"><label for="q6a">A. Trusted Platform Module</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6b" value="B"><label for="q6b">B. Hardware Security Module</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6c" value="C"><label for="q6c">C. Web Application Firewall</label></div>
+        <div class="qoption"><input type="radio" name="q6" id="q6d" value="D"><label for="q6d">D. Network security group</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q6">Submit answer</button>
+        <span class="inline-warn" data-warn="q6">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q6"></div>
+    </div>
+
+    <div class="qcard" data-qid="q7">
+      <div class="qmeta">Question 7 &middot; Domain 5.3</div>
+      <p class="qstem">Which process ensures infrastructure and services have the right amount of resource for current and future demand, balancing cost against performance?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q7" id="q7a" value="A"><label for="q7a">A. Incident management</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7b" value="B"><label for="q7b">B. Availability management</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7c" value="C"><label for="q7c">C. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q7" id="q7d" value="D"><label for="q7d">D. Service level management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q7">Submit answer</button>
+        <span class="inline-warn" data-warn="q7">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q7"></div>
+    </div>
+
+    <div class="qcard" data-qid="q8">
+      <div class="qmeta">Question 8 &middot; Domain 5.2</div>
+      <p class="qstem">Which network security control uses decoy systems to attract and study attacker activity that has already breached the perimeter?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q8" id="q8a" value="A"><label for="q8a">A. Bastion hosts</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8b" value="B"><label for="q8b">B. Honeypots</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8c" value="C"><label for="q8c">C. VLANs</label></div>
+        <div class="qoption"><input type="radio" name="q8" id="q8d" value="D"><label for="q8d">D. DHCP reservations</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q8">Submit answer</button>
+        <span class="inline-warn" data-warn="q8">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q8"></div>
+    </div>
+
+    <div class="qcard" data-qid="q9">
+      <div class="qmeta">Question 9 &middot; Domain 5.3</div>
+      <p class="qstem">Which process optimises the capability of infrastructure, services, and the support organisation to deliver a cost-effective and sustained level of service uptime?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q9" id="q9a" value="A"><label for="q9a">A. Continuity management</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9b" value="B"><label for="q9b">B. Availability management</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9c" value="C"><label for="q9c">C. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q9" id="q9d" value="D"><label for="q9d">D. Release management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q9">Submit answer</button>
+        <span class="inline-warn" data-warn="q9">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q9"></div>
+    </div>
+
+    <div class="qcard" data-qid="q10">
+      <div class="qmeta">Question 10 &middot; Domain 5.4</div>
+      <p class="qstem">Which preservation technique creates a bit-for-bit copy so that analysis is performed without touching the original?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q10" id="q10a" value="A"><label for="q10a">A. Tokenization</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10b" value="B"><label for="q10b">B. Hashing</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10c" value="C"><label for="q10c">C. Write blocking</label></div>
+        <div class="qoption"><input type="radio" name="q10" id="q10d" value="D"><label for="q10d">D. Imaging</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q10">Submit answer</button>
+        <span class="inline-warn" data-warn="q10">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q10"></div>
+    </div>
+
+    <div class="qcard" data-qid="q11">
+      <div class="qmeta">Question 11 &middot; Domain 5.4</div>
+      <p class="qstem">Which device or software prevents any write operation to source media during acquisition?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q11" id="q11a" value="A"><label for="q11a">A. Honeypot</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11b" value="B"><label for="q11b">B. Hash calculator</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11c" value="C"><label for="q11c">C. Load balancer</label></div>
+        <div class="qoption"><input type="radio" name="q11" id="q11d" value="D"><label for="q11d">D. Write blocker</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q11">Submit answer</button>
+        <span class="inline-warn" data-warn="q11">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q11"></div>
+    </div>
+
+    <div class="qcard" data-qid="q12">
+      <div class="qmeta">Question 12 &middot; Domain 5.2</div>
+      <p class="qstem">What distinguishes an intrusion prevention system from an intrusion detection system?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q12" id="q12a" value="A"><label for="q12a">A. An IPS operates only on encrypted traffic</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12b" value="B"><label for="q12b">B. An IPS detects and actively blocks malicious traffic, whereas an IDS detects and alerts without blocking</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12c" value="C"><label for="q12c">C. An IDS blocks traffic while an IPS only logs it</label></div>
+        <div class="qoption"><input type="radio" name="q12" id="q12d" value="D"><label for="q12d">D. An IDS can only be deployed on physical hardware</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q12">Submit answer</button>
+        <span class="inline-warn" data-warn="q12">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q12"></div>
+    </div>
+
+    <div class="qcard" data-qid="q13">
+      <div class="qmeta">Question 13 &middot; Domain 5.6</div>
+      <p class="qstem">Why does evidence preservation run alongside containment rather than after it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q13" id="q13a" value="A"><label for="q13a">A. Because containment automatically preserves all evidence</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13b" value="B"><label for="q13b">B. Because containment cannot begin until all evidence is preserved</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13c" value="C"><label for="q13c">C. Because preservation is a legal requirement only after recovery completes</label></div>
+        <div class="qoption"><input type="radio" name="q13" id="q13d" value="D"><label for="q13d">D. Because volatile evidence is lost when systems are shut down or rebuilt, so waiting until after containment destroys it</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q13">Submit answer</button>
+        <span class="inline-warn" data-warn="q13">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q13"></div>
+    </div>
+
+    <div class="qcard" data-qid="q14">
+      <div class="qmeta">Question 14 &middot; Domain 5.2</div>
+      <p class="qstem">What makes Infrastructure as Code a security control rather than merely an efficiency measure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q14" id="q14a" value="A"><label for="q14a">A. It prevents administrators from ever making manual changes</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14b" value="B"><label for="q14b">B. The definition files are code, so they can be version controlled, peer reviewed, and scanned for misconfiguration before anything is deployed</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14c" value="C"><label for="q14c">C. It removes the need for any access control on cloud accounts</label></div>
+        <div class="qoption"><input type="radio" name="q14" id="q14d" value="D"><label for="q14d">D. It automatically encrypts all data stored on provisioned infrastructure</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q14">Submit answer</button>
+        <span class="inline-warn" data-warn="q14">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q14"></div>
+    </div>
+
+    <div class="qcard" data-qid="q15">
+      <div class="qmeta">Question 15 &middot; Domain 5.4</div>
+      <p class="qstem">Why is live data acquisition necessary in digital forensics rather than always powering down a system first?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q15" id="q15a" value="A"><label for="q15a">A. Because static acquisition is prohibited in cloud environments</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15b" value="B"><label for="q15b">B. Because live acquisition is always faster than static acquisition</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15c" value="C"><label for="q15c">C. Because powered-down systems cannot be imaged</label></div>
+        <div class="qoption"><input type="radio" name="q15" id="q15d" value="D"><label for="q15d">D. Because volatile evidence such as memory contents, keys held in RAM, and active network connections is lost the moment power is removed</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q15">Submit answer</button>
+        <span class="inline-warn" data-warn="q15">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q15"></div>
+    </div>
+
+    <div class="qcard" data-qid="q16">
+      <div class="qmeta">Question 16 &middot; Domain 5.1</div>
+      <p class="qstem">Why must storage systems traffic be classified as LAN rather than WAN traffic in virtual hardware configuration?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q16" id="q16a" value="A"><label for="q16a">A. Because WAN links cannot carry storage protocols at all</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16b" value="B"><label for="q16b">B. Because storage traffic uses less bandwidth than other traffic</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16c" value="C"><label for="q16c">C. Because latency is the primary concern for storage, unlike general network traffic which is more flexible and resilient to delay</label></div>
+        <div class="qoption"><input type="radio" name="q16" id="q16d" value="D"><label for="q16d">D. Because storage traffic is always encrypted and WAN traffic is not</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q16">Submit answer</button>
+        <span class="inline-warn" data-warn="q16">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q16"></div>
+    </div>
+
+    <div class="qcard" data-qid="q17">
+      <div class="qmeta">Question 17 &middot; Domain 5.6</div>
+      <p class="qstem">Which four elements make up log capture and analysis in cloud security operations?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q17" id="q17a" value="A"><label for="q17a">A. Collection, storage, analysis, and response</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17b" value="B"><label for="q17b">B. Imaging, hashing, write blocking, and reporting</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17c" value="C"><label for="q17c">C. Planning, design, build, and test</label></div>
+        <div class="qoption"><input type="radio" name="q17" id="q17d" value="D"><label for="q17d">D. Identification, scanning, assessment, and remediation</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q17">Submit answer</button>
+        <span class="inline-warn" data-warn="q17">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q17"></div>
+    </div>
+
+    <div class="qcard" data-qid="q18">
+      <div class="qmeta">Question 18 &middot; Domain 5.6</div>
+      <p class="qstem">What role does threat intelligence play alongside a SIEM platform?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q18" id="q18a" value="A"><label for="q18a">A. It supplies external context about active threats and indicators of compromise, sharpening what the SIEM looks for</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18b" value="B"><label for="q18b">B. It replaces the need for log collection entirely</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18c" value="C"><label for="q18c">C. It generates the organisation&#x27;s security policies automatically</label></div>
+        <div class="qoption"><input type="radio" name="q18" id="q18d" value="D"><label for="q18d">D. It stores the organisation&#x27;s logs on behalf of the SIEM</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q18">Submit answer</button>
+        <span class="inline-warn" data-warn="q18">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q18"></div>
+    </div>
+
+    <div class="qcard" data-qid="q19">
+      <div class="qmeta">Question 19 &middot; Domain 5.1</div>
+      <p class="qstem">What is the primary purpose of guest operating system virtualisation toolsets?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q19" id="q19a" value="A"><label for="q19a">A. To optimise the performance, management, and integration of the guest operating system with the host environment</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19b" value="B"><label for="q19b">B. To replace the guest operating system entirely with a container runtime</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19c" value="C"><label for="q19c">C. To encrypt the hypervisor&#x27;s configuration files</label></div>
+        <div class="qoption"><input type="radio" name="q19" id="q19d" value="D"><label for="q19d">D. To prevent the guest operating system from communicating over the network</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q19">Submit answer</button>
+        <span class="inline-warn" data-warn="q19">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q19"></div>
+    </div>
+
+    <div class="qcard" data-qid="q20">
+      <div class="qmeta">Question 20 &middot; Domain 5.2</div>
+      <p class="qstem">Which interfaces does the management plane provide for administering cloud resources?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q20" id="q20a" value="A"><label for="q20a">A. Web-based consoles and dashboards for visual management, alongside APIs and command line interfaces for automation</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20b" value="B"><label for="q20b">B. Only a printed configuration manual</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20c" value="C"><label for="q20c">C. Only physical console cables attached to each host</label></div>
+        <div class="qoption"><input type="radio" name="q20" id="q20d" value="D"><label for="q20d">D. Only direct database access to the provider&#x27;s records</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q20">Submit answer</button>
+        <span class="inline-warn" data-warn="q20">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q20"></div>
+    </div>
+
+    <div class="qcard" data-qid="q21">
+      <div class="qmeta">Question 21 &middot; Domain 5.3</div>
+      <p class="qstem">Which framework is best described as an IT governance framework rather than a service management or technical controls framework?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q21" id="q21a" value="A"><label for="q21a">A. ISO/IEC 20000-1</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21b" value="B"><label for="q21b">B. COBIT</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21c" value="C"><label for="q21c">C. CIS Controls</label></div>
+        <div class="qoption"><input type="radio" name="q21" id="q21d" value="D"><label for="q21d">D. ITIL</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q21">Submit answer</button>
+        <span class="inline-warn" data-warn="q21">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q21"></div>
+    </div>
+
+    <div class="qcard" data-qid="q22">
+      <div class="qmeta">Question 22 &middot; Domain 5.6</div>
+      <p class="qstem">What is the purpose of the post-incident review at the close of incident response?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q22" id="q22a" value="A"><label for="q22a">A. To feed lessons learned back into preparation so future response improves</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22b" value="B"><label for="q22b">B. To renegotiate the organisation&#x27;s cyber insurance premium</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22c" value="C"><label for="q22c">C. To delete all evidence gathered during the incident</label></div>
+        <div class="qoption"><input type="radio" name="q22" id="q22d" value="D"><label for="q22d">D. To assign disciplinary responsibility to individual staff</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q22">Submit answer</button>
+        <span class="inline-warn" data-warn="q22">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q22"></div>
+    </div>
+
+    <div class="qcard" data-qid="q23">
+      <div class="qmeta">Question 23 &middot; Domain 5.2</div>
+      <p class="qstem">Which monitoring activity gives early warning of impending physical component failure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q23" id="q23a" value="A"><label for="q23a">A. Certificate expiry tracking</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23b" value="B"><label for="q23b">B. Hardware monitoring of disk health, CPU, fan speed, and temperature</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23c" value="C"><label for="q23c">C. Application response time measurement</label></div>
+        <div class="qoption"><input type="radio" name="q23" id="q23d" value="D"><label for="q23d">D. Log correlation in the SIEM</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q23">Submit answer</button>
+        <span class="inline-warn" data-warn="q23">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q23"></div>
+    </div>
+
+    <div class="qcard" data-qid="q24">
+      <div class="qmeta">Question 24 &middot; Domain 5.4</div>
+      <p class="qstem">Which principle governs the sequence in which different types of evidence should be collected?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q24" id="q24a" value="A"><label for="q24a">A. Order of purchase date, capturing the oldest hardware first</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24b" value="B"><label for="q24b">B. Alphabetical order of device names</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24c" value="C"><label for="q24c">C. Order of file size, capturing the largest files first</label></div>
+        <div class="qoption"><input type="radio" name="q24" id="q24d" value="D"><label for="q24d">D. Order of volatility, capturing the most transient evidence first</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q24">Submit answer</button>
+        <span class="inline-warn" data-warn="q24">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q24"></div>
+    </div>
+
+    <div class="qcard" data-qid="q25">
+      <div class="qmeta">Question 25 &middot; Domain 5.2</div>
+      <p class="qstem">Which category of Infrastructure as Code tooling includes Ansible, Puppet, and Chef?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q25" id="q25a" value="A"><label for="q25a">A. Orchestration tools</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25b" value="B"><label for="q25b">B. Vulnerability scanners</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25c" value="C"><label for="q25c">C. Configuration management tools</label></div>
+        <div class="qoption"><input type="radio" name="q25" id="q25d" value="D"><label for="q25d">D. Provisioning tools</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q25">Submit answer</button>
+        <span class="inline-warn" data-warn="q25">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q25"></div>
+    </div>
+
+    <div class="qcard" data-qid="q26">
+      <div class="qmeta">Question 26 &middot; Domain 5.1</div>
+      <p class="qstem">What does the secure by default principle mean for how systems are deployed?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q26" id="q26a" value="A"><label for="q26a">A. Default configurations should never be changed under any circumstances</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26b" value="B"><label for="q26b">B. Systems deploy in their most secure configuration, with settings deliberately relaxed where needed rather than insecure defaults needing to be discovered and tightened</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26c" value="C"><label for="q26c">C. Security configuration is applied only after the first security incident</label></div>
+        <div class="qoption"><input type="radio" name="q26" id="q26d" value="D"><label for="q26d">D. Systems deploy with all security features disabled so administrators can enable what they need</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q26">Submit answer</button>
+        <span class="inline-warn" data-warn="q26">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q26"></div>
+    </div>
+
+    <div class="qcard" data-qid="q27">
+      <div class="qmeta">Question 27 &middot; Domain 5.1</div>
+      <p class="qstem">Why do virtual network devices add complexity beyond the traditional data centre model?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q27" id="q27a" value="A"><label for="q27a">A. Because they cannot be configured at all once deployed</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27b" value="B"><label for="q27b">B. Because although they perform the same operations as physical devices they have distinct characteristics and configuration surfaces</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27c" value="C"><label for="q27c">C. Because they operate only at the physical layer</label></div>
+        <div class="qoption"><input type="radio" name="q27" id="q27d" value="D"><label for="q27d">D. Because they eliminate the need for any network security controls</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q27">Submit answer</button>
+        <span class="inline-warn" data-warn="q27">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q27"></div>
+    </div>
+
+    <div class="qcard" data-qid="q28">
+      <div class="qmeta">Question 28 &middot; Domain 5.4</div>
+      <p class="qstem">In the digital evidence process, what does acquisition specifically refer to?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q28" id="q28a" value="A"><label for="q28a">A. Presenting findings to a court</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28b" value="B"><label for="q28b">B. Creating the working copy from the sources that have been collected</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28c" value="C"><label for="q28c">C. Deleting the original media after analysis</label></div>
+        <div class="qoption"><input type="radio" name="q28" id="q28d" value="D"><label for="q28d">D. Notifying the regulator of the incident</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q28">Submit answer</button>
+        <span class="inline-warn" data-warn="q28">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q28"></div>
+    </div>
+
+    <div class="qcard" data-qid="q29">
+      <div class="qmeta">Question 29 &middot; Domain 5.5</div>
+      <p class="qstem">A telecom operator confirms a breach affecting customer data. Which characterisation of its communication obligations is most accurate?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q29" id="q29a" value="A"><label for="q29a">A. Different audiences need different detail at different times, which is why channels must exist before the incident rather than being improvised during it</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29b" value="B"><label for="q29b">B. Communication should be deferred until all technical remediation is complete</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29c" value="C"><label for="q29c">C. A single identical statement should be issued simultaneously to every audience</label></div>
+        <div class="qoption"><input type="radio" name="q29" id="q29d" value="D"><label for="q29d">D. Only the regulator needs to be informed, and only after the investigation closes</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q29">Submit answer</button>
+        <span class="inline-warn" data-warn="q29">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q29"></div>
+    </div>
+
+    <div class="qcard" data-qid="q30">
+      <div class="qmeta">Question 30 &middot; Domain 5.2</div>
+      <p class="qstem">Why does the management plane warrant the strongest authentication and most thorough logging of any component?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q30" id="q30a" value="A"><label for="q30a">A. Because it consumes the most compute resources</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30b" value="B"><label for="q30b">B. Because it holds administrative reach across the entire environment, so its compromise is far more damaging than that of any single resource</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30c" value="C"><label for="q30c">C. Because it is physically located outside the provider&#x27;s data centre</label></div>
+        <div class="qoption"><input type="radio" name="q30" id="q30d" value="D"><label for="q30d">D. Because it is the only component that processes customer data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q30">Submit answer</button>
+        <span class="inline-warn" data-warn="q30">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q30"></div>
+    </div>
+
+    <div class="qcard" data-qid="q31">
+      <div class="qmeta">Question 31 &middot; Domain 5.1</div>
+      <p class="qstem">Which measure reduces attack vectors as part of hardware specific security configuration?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q31" id="q31a" value="A"><label for="q31a">A. Enabling remote administration on every interface</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31b" value="B"><label for="q31b">B. Disabling unused ports and services</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31c" value="C"><label for="q31c">C. Removing intrusion detection to reduce alert volume</label></div>
+        <div class="qoption"><input type="radio" name="q31" id="q31d" value="D"><label for="q31d">D. Sharing administrative credentials across all devices</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q31">Submit answer</button>
+        <span class="inline-warn" data-warn="q31">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q31"></div>
+    </div>
+
+    <div class="qcard" data-qid="q32">
+      <div class="qmeta">Question 32 &middot; Domain 5.4</div>
+      <p class="qstem">Which preservation technique proves that evidence has not changed between collection and presentation?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q32" id="q32a" value="A"><label for="q32a">A. Hashing, by computing a value at collection and re-verifying it later</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32b" value="B"><label for="q32b">B. Write blocking, by preventing writes during acquisition</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32c" value="C"><label for="q32c">C. Encryption, by making the evidence unreadable</label></div>
+        <div class="qoption"><input type="radio" name="q32" id="q32d" value="D"><label for="q32d">D. Imaging, by creating a second copy of the media</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q32">Submit answer</button>
+        <span class="inline-warn" data-warn="q32">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q32"></div>
+    </div>
+
+    <div class="qcard" data-qid="q33">
+      <div class="qmeta">Question 33 &middot; Domain 5.2</div>
+      <p class="qstem">Which four control categories does integrated network security management combine?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q33" id="q33a" value="A"><label for="q33a">A. Physical, virtual, hybrid, and community controls</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33b" value="B"><label for="q33b">B. Create, store, use, and share controls</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33c" value="C"><label for="q33c">C. Static, dynamic, interactive, and compositional controls</label></div>
+        <div class="qoption"><input type="radio" name="q33" id="q33d" value="D"><label for="q33d">D. Preventive, detective, corrective, and recovery controls</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q33">Submit answer</button>
+        <span class="inline-warn" data-warn="q33">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q33"></div>
+    </div>
+
+    <div class="qcard" data-qid="q34">
+      <div class="qmeta">Question 34 &middot; Domain 5.4</div>
+      <p class="qstem">What does chain of custody documentation establish about digital evidence?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q34" id="q34a" value="A"><label for="q34a">A. That the evidence has been encrypted with an approved algorithm</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34b" value="B"><label for="q34b">B. That the evidence was collected within a specified budget</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34c" value="C"><label for="q34c">C. That the evidence has been shared with all interested parties</label></div>
+        <div class="qoption"><input type="radio" name="q34" id="q34d" value="D"><label for="q34d">D. That every person who handled it is recorded with when and why, demonstrating it was not tampered with and supporting admissibility</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q34">Submit answer</button>
+        <span class="inline-warn" data-warn="q34">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q34"></div>
+    </div>
+
+    <div class="qcard" data-qid="q35">
+      <div class="qmeta">Question 35 &middot; Domain 5.6</div>
+      <p class="qstem">An organisation invests heavily in SOC tooling but does not fund analyst headcount or define response procedures. Which failure does this represent?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q35" id="q35a" value="A"><label for="q35a">A. Over-investment in process at the expense of technology</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35b" value="B"><label for="q35b">B. Investing in technology while under-resourcing the people and processes needed to use it</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35c" value="C"><label for="q35c">C. A failure of write blocking</label></div>
+        <div class="qoption"><input type="radio" name="q35" id="q35d" value="D"><label for="q35d">D. A failure of capacity management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q35">Submit answer</button>
+        <span class="inline-warn" data-warn="q35">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q35"></div>
+    </div>
+
+    <div class="qcard" data-qid="q36">
+      <div class="qmeta">Question 36 &middot; Domain 5.6</div>
+      <p class="qstem">Which security controls are named as subjects of intelligent monitoring?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q36" id="q36a" value="A"><label for="q36a">A. BIOS passwords, fan speeds, and cable routing</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36b" value="B"><label for="q36b">B. Data classification labels and retention schedules</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36c" value="C"><label for="q36c">C. Service level agreements and master service agreements</label></div>
+        <div class="qoption"><input type="radio" name="q36" id="q36d" value="D"><label for="q36d">D. Firewalls, intrusion detection and prevention systems, honeypots, and network security groups</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q36">Submit answer</button>
+        <span class="inline-warn" data-warn="q36">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q36"></div>
+    </div>
+
+    <div class="qcard" data-qid="q37">
+      <div class="qmeta">Question 37 &middot; Domain 5.1</div>
+      <p class="qstem">Which practice should be incorporated into the configuration management plan regarding management tools on virtualisation hosts?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q37" id="q37a" value="A"><label for="q37a">A. Removal of all management tools before production use</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37b" value="B"><label for="q37b">B. Installation of tools from any convenient third-party source</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37c" value="C"><label for="q37c">C. Guidelines for updating the tools, with the most recent versions installed on each host</label></div>
+        <div class="qoption"><input type="radio" name="q37" id="q37d" value="D"><label for="q37d">D. A prohibition on ever updating the tools once installed</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q37">Submit answer</button>
+        <span class="inline-warn" data-warn="q37">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q37"></div>
+    </div>
+
+    <div class="qcard" data-qid="q38">
+      <div class="qmeta">Question 38 &middot; Domain 5.2</div>
+      <p class="qstem">Which network technology adds cryptographic authentication to DNS responses so that answers cannot be forged?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q38" id="q38a" value="A"><label for="q38a">A. DHCP</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38b" value="B"><label for="q38b">B. VLAN</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38c" value="C"><label for="q38c">C. TLS</label></div>
+        <div class="qoption"><input type="radio" name="q38" id="q38d" value="D"><label for="q38d">D. DNSSEC</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q38">Submit answer</button>
+        <span class="inline-warn" data-warn="q38">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q38"></div>
+    </div>
+
+    <div class="qcard" data-qid="q39">
+      <div class="qmeta">Question 39 &middot; Domain 5.2</div>
+      <p class="qstem">Operating system hardening is applied through a cycle. Which sequence correctly describes it?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q39" id="q39a" value="A"><label for="q39a">A. Remediate first, then monitor, then establish baselines afterwards</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39b" value="B"><label for="q39b">B. Establish baselines, monitor for drift from those baselines, and remediate deviations</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39c" value="C"><label for="q39c">C. Establish baselines once and never monitor thereafter</label></div>
+        <div class="qoption"><input type="radio" name="q39" id="q39d" value="D"><label for="q39d">D. Monitor continuously without ever defining a baseline</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q39">Submit answer</button>
+        <span class="inline-warn" data-warn="q39">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q39"></div>
+    </div>
+
+    <div class="qcard" data-qid="q40">
+      <div class="qmeta">Question 40 &middot; Domain 5.3</div>
+      <p class="qstem">Which process encompasses the planning, design, build, configuration, and testing of hardware and software releases?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q40" id="q40a" value="A"><label for="q40a">A. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40b" value="B"><label for="q40b">B. Incident management</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40c" value="C"><label for="q40c">C. Release management</label></div>
+        <div class="qoption"><input type="radio" name="q40" id="q40d" value="D"><label for="q40d">D. Deployment management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q40">Submit answer</button>
+        <span class="inline-warn" data-warn="q40">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q40"></div>
+    </div>
+
+    <div class="qcard" data-qid="q41">
+      <div class="qmeta">Question 41 &middot; Domain 5.3</div>
+      <p class="qstem">Which process systematically manages and maintains the configuration of hardware, software, and other IT assets, keeping a consistent and accurate record?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q41" id="q41a" value="A"><label for="q41a">A. Problem management</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41b" value="B"><label for="q41b">B. Change management</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41c" value="C"><label for="q41c">C. Continual service improvement management</label></div>
+        <div class="qoption"><input type="radio" name="q41" id="q41d" value="D"><label for="q41d">D. Configuration management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q41">Submit answer</button>
+        <span class="inline-warn" data-warn="q41">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q41"></div>
+    </div>
+
+    <div class="qcard" data-qid="q42">
+      <div class="qmeta">Question 42 &middot; Domain 5.1</div>
+      <p class="qstem">A bank needs a dedicated cryptographic device for enterprise scale key generation, storage, and cryptographic operations serving multiple systems. Which component fits?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q42" id="q42a" value="A"><label for="q42a">A. Hardware Security Module</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42b" value="B"><label for="q42b">B. Jumpbox</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42c" value="C"><label for="q42c">C. Honeypot</label></div>
+        <div class="qoption"><input type="radio" name="q42" id="q42d" value="D"><label for="q42d">D. Trusted Platform Module</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q42">Submit answer</button>
+        <span class="inline-warn" data-warn="q42">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q42"></div>
+    </div>
+
+    <div class="qcard" data-qid="q43">
+      <div class="qmeta">Question 43 &middot; Domain 5.6</div>
+      <p class="qstem">What is the consistent principle regarding artificial intelligence in intelligent monitoring of security controls?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q43" id="q43a" value="A"><label for="q43a">A. AI removes the need to retain any security logs</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43b" value="B"><label for="q43b">B. AI fully replaces the need for human analysts in a mature SOC</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43c" value="C"><label for="q43c">C. AI should only be used for generating management reports</label></div>
+        <div class="qoption"><input type="radio" name="q43" id="q43d" value="D"><label for="q43d">D. AI augments analysts by handling volume so humans can concentrate on complex and novel cases, rather than replacing them</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q43">Submit answer</button>
+        <span class="inline-warn" data-warn="q43">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q43"></div>
+    </div>
+
+    <div class="qcard" data-qid="q44">
+      <div class="qmeta">Question 44 &middot; Domain 5.6</div>
+      <p class="qstem">Which three components make up a Security Operations Centre?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q44" id="q44a" value="A"><label for="q44a">A. Collection, storage, and analysis</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44b" value="B"><label for="q44b">B. Firewalls, routers, and switches</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44c" value="C"><label for="q44c">C. People, process, and technology</label></div>
+        <div class="qoption"><input type="radio" name="q44" id="q44d" value="D"><label for="q44d">D. Confidentiality, integrity, and availability</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q44">Submit answer</button>
+        <span class="inline-warn" data-warn="q44">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q44"></div>
+    </div>
+
+    <div class="qcard" data-qid="q45">
+      <div class="qmeta">Question 45 &middot; Domain 5.3</div>
+      <p class="qstem">Which process is the overarching one aligning security controls with business requirements across the service management framework?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q45" id="q45a" value="A"><label for="q45a">A. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45b" value="B"><label for="q45b">B. Deployment management</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45c" value="C"><label for="q45c">C. Information security management</label></div>
+        <div class="qoption"><input type="radio" name="q45" id="q45d" value="D"><label for="q45d">D. Problem management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q45">Submit answer</button>
+        <span class="inline-warn" data-warn="q45">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q45"></div>
+    </div>
+
+    <div class="qcard" data-qid="q46">
+      <div class="qmeta">Question 46 &middot; Domain 5.6</div>
+      <p class="qstem">Which sequence correctly reflects the incident response lifecycle?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q46" id="q46a" value="A"><label for="q46a">A. Detection, recovery, preparation, eradication, containment</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46b" value="B"><label for="q46b">B. Recovery, preparation, containment, detection, eradication</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46c" value="C"><label for="q46c">C. Preparation, detection and analysis, containment, eradication, recovery, and post-incident review</label></div>
+        <div class="qoption"><input type="radio" name="q46" id="q46d" value="D"><label for="q46d">D. Eradication, containment, detection, preparation, recovery</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q46">Submit answer</button>
+        <span class="inline-warn" data-warn="q46">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q46"></div>
+    </div>
+
+    <div class="qcard" data-qid="q47">
+      <div class="qmeta">Question 47 &middot; Domain 5.5</div>
+      <p class="qstem">Which stakeholder group requires communication demonstrating compliance and maintaining good standing with authorities?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q47" id="q47a" value="A"><label for="q47a">A. Vendors</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47b" value="B"><label for="q47b">B. Internal development teams</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47c" value="C"><label for="q47c">C. Regulators</label></div>
+        <div class="qoption"><input type="radio" name="q47" id="q47d" value="D"><label for="q47d">D. Partners</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q47">Submit answer</button>
+        <span class="inline-warn" data-warn="q47">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q47"></div>
+    </div>
+
+    <div class="qcard" data-qid="q48">
+      <div class="qmeta">Question 48 &middot; Domain 5.3</div>
+      <p class="qstem">A cloud service fails three times in a month. Each time the on-call team restarts it and users return within minutes, but nobody investigates why it keeps failing. Which process is absent?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q48" id="q48a" value="A"><label for="q48a">A. Problem management</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48b" value="B"><label for="q48b">B. Release management</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48c" value="C"><label for="q48c">C. Service level management</label></div>
+        <div class="qoption"><input type="radio" name="q48" id="q48d" value="D"><label for="q48d">D. Incident management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q48">Submit answer</button>
+        <span class="inline-warn" data-warn="q48">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q48"></div>
+    </div>
+
+    <div class="qcard" data-qid="q49">
+      <div class="qmeta">Question 49 &middot; Domain 5.1</div>
+      <p class="qstem">Which hypervisor type runs directly on the hardware without an underlying host operating system, and why is it standard for production cloud infrastructure?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q49" id="q49a" value="A"><label for="q49a">A. Type 2, because it is easier to install on a laptop</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49b" value="B"><label for="q49b">B. Type 1, because it requires no patching of any kind</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49c" value="C"><label for="q49c">C. Type 2, because it isolates tenants more completely</label></div>
+        <div class="qoption"><input type="radio" name="q49" id="q49d" value="D"><label for="q49d">D. Type 1, because it presents a smaller attack surface with no host operating system to compromise</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q49">Submit answer</button>
+        <span class="inline-warn" data-warn="q49">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q49"></div>
+    </div>
+
+    <div class="qcard" data-qid="q50">
+      <div class="qmeta">Question 50 &middot; Domain 5.4</div>
+      <p class="qstem">Which type of acquisition captures data from a powered-down system?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q50" id="q50a" value="A"><label for="q50a">A. Static or dead acquisition</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50b" value="B"><label for="q50b">B. Live data acquisition</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50c" value="C"><label for="q50c">C. Interactive acquisition</label></div>
+        <div class="qoption"><input type="radio" name="q50" id="q50d" value="D"><label for="q50d">D. Volatile acquisition</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q50">Submit answer</button>
+        <span class="inline-warn" data-warn="q50">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q50"></div>
+    </div>
+
+    <div class="qcard" data-qid="q51">
+      <div class="qmeta">Question 51 &middot; Domain 5.5</div>
+      <p class="qstem">Why should communication channels with regulators be established before they are needed?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q51" id="q51a" value="A"><label for="q51a">A. Because regulators cannot be contacted during an incident</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51b" value="B"><label for="q51b">B. Because established channels remove the obligation to report</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51c" value="C"><label for="q51c">C. Because mandatory reporting deadlines such as breach notification leave no time to build a relationship during an incident</label></div>
+        <div class="qoption"><input type="radio" name="q51" id="q51d" value="D"><label for="q51d">D. Because regulators charge less for pre-arranged communication</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q51">Submit answer</button>
+        <span class="inline-warn" data-warn="q51">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q51"></div>
+    </div>
+
+    <div class="qcard" data-qid="q52">
+      <div class="qmeta">Question 52 &middot; Domain 5.2</div>
+      <p class="qstem">Which step in patch management is most often skipped and most consequential when omitted?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q52" id="q52a" value="A"><label for="q52a">A. Recording the patch version in an inventory</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52b" value="B"><label for="q52b">B. Identifying that a patch exists</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52c" value="C"><label for="q52c">C. Notifying users that patching will occur</label></div>
+        <div class="qoption"><input type="radio" name="q52" id="q52d" value="D"><label for="q52d">D. Testing the patch before deployment, since an untested patch can cause the outage it was meant to prevent</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q52">Submit answer</button>
+        <span class="inline-warn" data-warn="q52">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q52"></div>
+    </div>
+
+    <div class="qcard" data-qid="q53">
+      <div class="qmeta">Question 53 &middot; Domain 5.2</div>
+      <p class="qstem">Why is restore testing treated as essential rather than optional for backup functions?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q53" id="q53a" value="A"><label for="q53a">A. Because restoring is the only way to create a backup</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53b" value="B"><label for="q53b">B. Because a backup that has never been restored is an assumption rather than a proven capability</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53c" value="C"><label for="q53c">C. Because restore testing reduces the storage consumed by backups</label></div>
+        <div class="qoption"><input type="radio" name="q53" id="q53d" value="D"><label for="q53d">D. Because regulators require backups to be deleted after testing</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q53">Submit answer</button>
+        <span class="inline-warn" data-warn="q53">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q53"></div>
+    </div>
+
+    <div class="qcard" data-qid="q54">
+      <div class="qmeta">Question 54 &middot; Domain 5.1</div>
+      <p class="qstem">Why must adequate server resources be allocated when planning updates to the virtualisation platform?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q54" id="q54a" value="A"><label for="q54a">A. To facilitate the migration of virtual machines during updates, allowing maintenance without interrupting workloads</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54b" value="B"><label for="q54b">B. To allow the hypervisor to be reinstalled from scratch each month</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54c" value="C"><label for="q54c">C. To permit all virtual machines to run simultaneously at maximum capacity permanently</label></div>
+        <div class="qoption"><input type="radio" name="q54" id="q54d" value="D"><label for="q54d">D. To provide space for storing archived log data</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q54">Submit answer</button>
+        <span class="inline-warn" data-warn="q54">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q54"></div>
+    </div>
+
+    <div class="qcard" data-qid="q55">
+      <div class="qmeta">Question 55 &middot; Domain 5.3</div>
+      <p class="qstem">Which ITSM process is primarily concerned with restoring normal service operation as quickly as possible after an unplanned disruption?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q55" id="q55a" value="A"><label for="q55a">A. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55b" value="B"><label for="q55b">B. Incident management</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55c" value="C"><label for="q55c">C. Problem management</label></div>
+        <div class="qoption"><input type="radio" name="q55" id="q55d" value="D"><label for="q55d">D. Change management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q55">Submit answer</button>
+        <span class="inline-warn" data-warn="q55">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q55"></div>
+    </div>
+
+    <div class="qcard" data-qid="q56">
+      <div class="qmeta">Question 56 &middot; Domain 5.3</div>
+      <p class="qstem">Which process links day-to-day operations to business continuity and disaster recovery planning?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q56" id="q56a" value="A"><label for="q56a">A. Continuity management</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56b" value="B"><label for="q56b">B. Capacity management</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56c" value="C"><label for="q56c">C. Service level management</label></div>
+        <div class="qoption"><input type="radio" name="q56" id="q56d" value="D"><label for="q56d">D. Release management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q56">Submit answer</button>
+        <span class="inline-warn" data-warn="q56">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q56"></div>
+    </div>
+
+    <div class="qcard" data-qid="q57">
+      <div class="qmeta">Question 57 &middot; Domain 5.2</div>
+      <p class="qstem">Which clustered host capability evacuates workloads from a host so it can be serviced without interrupting them?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q57" id="q57a" value="A"><label for="q57a">A. Maintenance mode</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57b" value="B"><label for="q57b">B. Storage clustering</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57c" value="C"><label for="q57c">C. Capacity monitoring</label></div>
+        <div class="qoption"><input type="radio" name="q57" id="q57d" value="D"><label for="q57d">D. High availability restart</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q57">Submit answer</button>
+        <span class="inline-warn" data-warn="q57">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q57"></div>
+    </div>
+
+    <div class="qcard" data-qid="q58">
+      <div class="qmeta">Question 58 &middot; Domain 5.3</div>
+      <p class="qstem">Which incident management activity comes first in handling an unexpected event?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q58" id="q58a" value="A"><label for="q58a">A. Renegotiation of the service level agreement</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58b" value="B"><label for="q58b">B. Permanent elimination of the root cause</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58c" value="C"><label for="q58c">C. Detection and recording, typically through monitoring tools</label></div>
+        <div class="qoption"><input type="radio" name="q58" id="q58d" value="D"><label for="q58d">D. Post-incident review and lessons learned</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q58">Submit answer</button>
+        <span class="inline-warn" data-warn="q58">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q58"></div>
+    </div>
+
+    <div class="qcard" data-qid="q59">
+      <div class="qmeta">Question 59 &middot; Domain 5.2</div>
+      <p class="qstem">A bank places production servers in private subnets and requires administrators to connect through one hardened, monitored intermediary host. What is this pattern, and what does it achieve?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q59" id="q59a" value="A"><label for="q59a">A. A load balancer, distributing administrative sessions evenly</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59b" value="B"><label for="q59b">B. A network security group, filtering traffic by port</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59c" value="C"><label for="q59c">C. A honeypot, attracting attackers away from production</label></div>
+        <div class="qoption"><input type="radio" name="q59" id="q59d" value="D"><label for="q59d">D. A jumpbox or bastion host, reducing the attack surface from every server to one closely watched host</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q59">Submit answer</button>
+        <span class="inline-warn" data-warn="q59">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q59"></div>
+    </div>
+
+    <div class="qcard" data-qid="q60">
+      <div class="qmeta">Question 60 &middot; Domain 5.6</div>
+      <p class="qstem">Which sequence describes how vulnerability assessments are structured?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q60" id="q60a" value="A"><label for="q60a">A. Identification of assets, scanning for vulnerabilities, risk assessment of findings, and remediation</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60b" value="B"><label for="q60b">B. Imaging, hashing, write blocking, and analysis</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60c" value="C"><label for="q60c">C. Collection, storage, analysis, and response</label></div>
+        <div class="qoption"><input type="radio" name="q60" id="q60d" value="D"><label for="q60d">D. Exploitation, reporting, negotiation, and closure</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q60">Submit answer</button>
+        <span class="inline-warn" data-warn="q60">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q60"></div>
+    </div>
+
+    <div class="qcard" data-qid="q61">
+      <div class="qmeta">Question 61 &middot; Domain 5.3</div>
+      <p class="qstem">Which process systematically identifies and implements improvements to services and processes over time?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q61" id="q61a" value="A"><label for="q61a">A. Problem management</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61b" value="B"><label for="q61b">B. Deployment management</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61c" value="C"><label for="q61c">C. Configuration management</label></div>
+        <div class="qoption"><input type="radio" name="q61" id="q61d" value="D"><label for="q61d">D. Continual service improvement management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q61">Submit answer</button>
+        <span class="inline-warn" data-warn="q61">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q61"></div>
+    </div>
+
+    <div class="qcard" data-qid="q62">
+      <div class="qmeta">Question 62 &middot; Domain 5.4</div>
+      <p class="qstem">Which factor makes digital forensics distinctively difficult in cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q62" id="q62a" value="A"><label for="q62a">A. Legal proceedings never involve cloud-hosted evidence</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62b" value="B"><label for="q62b">B. Cloud systems produce no logs of any kind</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62c" value="C"><label for="q62c">C. Hashing algorithms do not function on virtualised storage</label></div>
+        <div class="qoption"><input type="radio" name="q62" id="q62d" value="D"><label for="q62d">D. The customer often cannot seize hardware, may not know its physical location, and shares infrastructure with tenants whose data must not be captured</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q62">Submit answer</button>
+        <span class="inline-warn" data-warn="q62">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q62"></div>
+    </div>
+
+    <div class="qcard" data-qid="q63">
+      <div class="qmeta">Question 63 &middot; Domain 5.6</div>
+      <p class="qstem">What distinguishes penetration testing from vulnerability assessment?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q63" id="q63a" value="A"><label for="q63a">A. Penetration testing actively exploits weaknesses to demonstrate real impact, whereas assessment identifies and catalogues weaknesses broadly</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63b" value="B"><label for="q63b">B. Penetration testing is fully automated while assessment is entirely manual</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63c" value="C"><label for="q63c">C. They are identical activities with different names</label></div>
+        <div class="qoption"><input type="radio" name="q63" id="q63d" value="D"><label for="q63d">D. Vulnerability assessment exploits weaknesses while penetration testing only lists them</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q63">Submit answer</button>
+        <span class="inline-warn" data-warn="q63">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q63"></div>
+    </div>
+
+    <div class="qcard" data-qid="q64">
+      <div class="qmeta">Question 64 &middot; Domain 5.3</div>
+      <p class="qstem">Which process controls how changes are requested, assessed, approved, and implemented so they do not cause unintended disruption?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q64" id="q64a" value="A"><label for="q64a">A. Deployment management</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64b" value="B"><label for="q64b">B. Configuration management</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64c" value="C"><label for="q64c">C. Change management</label></div>
+        <div class="qoption"><input type="radio" name="q64" id="q64d" value="D"><label for="q64d">D. Availability management</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q64">Submit answer</button>
+        <span class="inline-warn" data-warn="q64">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q64"></div>
+    </div>
+
+    <div class="qcard" data-qid="q65">
+      <div class="qmeta">Question 65 &middot; Domain 5.2</div>
+      <p class="qstem">An organisation patches running instances by hand while also using auto-scaling. Which cloud-appropriate practice should replace this?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q65" id="q65a" value="A"><label for="q65a">A. Disabling auto-scaling permanently to make manual patching viable</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65b" value="B"><label for="q65b">B. Applying patches only to the largest instances in the group</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65c" value="C"><label for="q65c">C. Rebuilding from an updated image and replacing instances, so every running machine matches a known version</label></div>
+        <div class="qoption"><input type="radio" name="q65" id="q65d" value="D"><label for="q65d">D. Increasing the frequency of manual patching sessions</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q65">Submit answer</button>
+        <span class="inline-warn" data-warn="q65">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q65"></div>
+    </div>
+
+    <div class="qcard" data-qid="q66">
+      <div class="qmeta">Question 66 &middot; Domain 5.6</div>
+      <p class="qstem">Which additional constraint applies to penetration testing in cloud environments?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q66" id="q66a" value="A"><label for="q66a">A. The provider&#x27;s rules of engagement govern what may be tested, since shared infrastructure means testing beyond the customer&#x27;s scope would affect other tenants</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66b" value="B"><label for="q66b">B. Testing may proceed without restriction because the provider owns the infrastructure</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66c" value="C"><label for="q66c">C. Penetration testing is legally prohibited in all cloud environments</label></div>
+        <div class="qoption"><input type="radio" name="q66" id="q66d" value="D"><label for="q66d">D. Only the provider may conduct any testing, never the customer</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q66">Submit answer</button>
+        <span class="inline-warn" data-warn="q66">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q66"></div>
+    </div>
+
+    <div class="qcard" data-qid="q67">
+      <div class="qmeta">Question 67 &middot; Domain 5.5</div>
+      <p class="qstem">Which stakeholder group requires coordination on shared processes and integrated services, including how incidents affecting both organisations are jointly handled?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q67" id="q67a" value="A"><label for="q67a">A. Regulators</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67b" value="B"><label for="q67b">B. Partners</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67c" value="C"><label for="q67c">C. Customers</label></div>
+        <div class="qoption"><input type="radio" name="q67" id="q67d" value="D"><label for="q67d">D. Auditors</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q67">Submit answer</button>
+        <span class="inline-warn" data-warn="q67">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q67"></div>
+    </div>
+
+    <div class="qcard" data-qid="q68">
+      <div class="qmeta">Question 68 &middot; Domain 5.1</div>
+      <p class="qstem">Which typical hardware security measure prevents unauthorised changes to a system&#x27;s low-level settings?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q68" id="q68a" value="A"><label for="q68a">A. Increasing RAM allocation</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68b" value="B"><label for="q68b">B. Enabling all available ports</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68c" value="C"><label for="q68c">C. BIOS passwords</label></div>
+        <div class="qoption"><input type="radio" name="q68" id="q68d" value="D"><label for="q68d">D. Removing the firewall</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q68">Submit answer</button>
+        <span class="inline-warn" data-warn="q68">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q68"></div>
+    </div>
+
+    <div class="qcard" data-qid="q69">
+      <div class="qmeta">Question 69 &middot; Domain 5.6</div>
+      <p class="qstem">Why must log storage be tamper-resistant?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q69" id="q69a" value="A"><label for="q69a">A. Because altering logs is among an attacker&#x27;s first moves to conceal their activity</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69b" value="B"><label for="q69b">B. Because logs cannot be analysed unless they are immutable</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69c" value="C"><label for="q69c">C. Because regulators require all logs to be printed</label></div>
+        <div class="qoption"><input type="radio" name="q69" id="q69d" value="D"><label for="q69d">D. Because tamper-resistant storage is cheaper than standard storage</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q69">Submit answer</button>
+        <span class="inline-warn" data-warn="q69">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q69"></div>
+    </div>
+
+    <div class="qcard" data-qid="q70">
+      <div class="qmeta">Question 70 &middot; Domain 5.6</div>
+      <p class="qstem">Why are vulnerability assessments particularly important in cloud environments specifically?</p>
+      <div class="qoptions">
+        <div class="qoption"><input type="radio" name="q70" id="q70a" value="A"><label for="q70a">A. Because cloud systems cannot be patched</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70b" value="B"><label for="q70b">B. Because cloud providers prohibit any form of scanning</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70c" value="C"><label for="q70c">C. Because vulnerabilities do not exist in on-premises environments</label></div>
+        <div class="qoption"><input type="radio" name="q70" id="q70d" value="D"><label for="q70d">D. Because resources are dynamically scaled and updated, so the asset inventory changes continuously and a scan is only accurate for the moment it ran</label></div>
+      </div>
+      <div class="qactions">
+        <button class="submit-btn" data-qid="q70">Submit answer</button>
+        <span class="inline-warn" data-warn="q70">Select an option first.</span>
+      </div>
+      <div class="feedback" data-feedback="q70"></div>
+    </div>
+
+  </div>
+  <!-- END QUIZ TAB -->
+
+</div>
+
+<script>
+const quizData = {
+    q1: {
+      correct: "C",
+      rationale: {
+        correct: "Service level management negotiates, defines, and manages the performance and quality of IT services delivered to customers, with service level agreements as the formal agreements between provider and customer at its centre.",
+        incorrect: "The correct answer is C, Service level management. Availability management optimises the infrastructure's capability to deliver sustained availability. It contributes to meeting the targets an SLA contains but does not negotiate or manage the agreements themselves."
+      }
+    },
+    q2: {
+      correct: "B",
+      rationale: {
+        correct: "Managing vendor communication involves establishing clear and consistent channels so that internal stakeholders and external vendors remain informed, aligned, and engaged, covering performance, obligations, incidents affecting shared services, and notification of change.",
+        incorrect: "The correct answer is B. Restricting contact to annual reviews would leave no mechanism for handling a security incident affecting a shared service, which cannot wait months for the next scheduled meeting."
+      }
+    },
+    q3: {
+      correct: "B",
+      rationale: {
+        correct: "Distributed resource scheduling and dynamic optimisation automatically migrate workloads between hosts in a cluster, balancing load and preserving performance as demand shifts across the environment.",
+        incorrect: "The correct answer is B. Imaging and hashing are digital forensics preservation techniques used to create and verify unaltered copies of evidence. They have no role in workload placement within a compute cluster."
+      }
+    },
+    q4: {
+      correct: "C",
+      rationale: {
+        correct: "Guest virtualisation toolsets improve functionality and manageability, but each toolset is code running with privilege inside the guest operating system, so it must be kept patched and obtained only from trusted sources like any other privileged software.",
+        incorrect: "The correct answer is C. Vendor provenance does not exempt software from vulnerabilities or from needing updates. Platform vendors issue patches for these toolsets precisely because defects are found in them."
+      }
+    },
+    q5: {
+      correct: "C",
+      rationale: {
+        correct: "ISO/IEC 20000-1 is the international standard for IT service management, alongside ITIL as the corresponding body of best practice guidance for service management processes.",
+        incorrect: "The correct answer is C, ISO/IEC 20000-1. COSO is a framework for enterprise risk management and internal control at organisational level. It addresses governance and control environment rather than the operational service management processes ISO/IEC 20000-1 covers."
+      }
+    },
+    q6: {
+      correct: "A",
+      rationale: {
+        correct: "A TPM is a hardware component embedded in a device or server that securely stores cryptographic keys and supports platform integrity functions including secure boot measurement for that specific machine.",
+        incorrect: "The correct answer is A, Trusted Platform Module. An HSM performs a related cryptographic role but operates as a dedicated appliance serving enterprise scale key generation and storage across many systems, rather than attesting the integrity of one individual platform."
+      }
+    },
+    q7: {
+      correct: "C",
+      rationale: {
+        correct: "Capacity management ensures the IT infrastructure and services have the right amount of resources to meet current and future business demands, optimising resource use by balancing cost and performance.",
+        incorrect: "The correct answer is C, Capacity management. Service level management defines and manages the performance targets agreed with customers. It sets what must be achieved, whereas capacity management provisions the resources that make achieving it possible."
+      }
+    },
+    q8: {
+      correct: "B",
+      rationale: {
+        correct: "Honeypots are decoy systems deliberately deployed to attract, detect, and study malicious activity, which is particularly valuable for identifying attackers who are already inside the perimeter and would otherwise go unnoticed.",
+        incorrect: "The correct answer is B, Honeypots. Bastion hosts serve as controlled access points for legitimate administrative traffic. They are a hardened entry path for authorised staff rather than a decoy intended to be attacked."
+      }
+    },
+    q9: {
+      correct: "B",
+      rationale: {
+        correct: "Availability management ensures services and infrastructure components are available to meet business requirements consistently, with the objective of optimising the capability of the infrastructure, services, and support organisation to deliver a cost-effective and sustained level of availability.",
+        incorrect: "The correct answer is B, Availability management. Capacity management ensures the right amount of resource exists for current and future demand. Insufficient capacity can certainly harm availability, but capacity management is concerned with resource sizing rather than uptime optimisation directly."
+      }
+    },
+    q10: {
+      correct: "D",
+      rationale: {
+        correct: "Imaging creates a bit-for-bit copy of the source media so all analysis is conducted against the copy while the original remains unaltered, preserving its evidential value.",
+        incorrect: "The correct answer is D, Imaging. Hashing computes a cryptographic value proving that data has not changed. It verifies integrity but does not itself produce the working copy that analysis is performed against."
+      }
+    },
+    q11: {
+      correct: "D",
+      rationale: {
+        correct: "A write blocker is hardware or software that prevents any write operation reaching the source media during acquisition, ensuring the original evidence cannot be modified even inadvertently by the acquisition process itself.",
+        incorrect: "The correct answer is D, Write blocker. A honeypot is a decoy system deployed to attract and study attacker behaviour. It is a detection control in security operations with no role in forensic acquisition."
+      }
+    },
+    q12: {
+      correct: "B",
+      rationale: {
+        correct: "An IDS detects suspicious activity and raises alerts, leaving action to responders. An IPS sits inline and can actively block the traffic it identifies as malicious, which is the defining difference between them.",
+        incorrect: "The correct answer is B. The roles described are reversed. Detection with alerting is the IDS function, while active blocking is what the additional capability of an IPS provides."
+      }
+    },
+    q13: {
+      correct: "D",
+      rationale: {
+        correct: "Containment comes before eradication, and evidence preservation runs alongside containment because volatile evidence such as memory contents and active connections disappears when systems are shut down or rebuilt during response.",
+        incorrect: "The correct answer is D. Requiring all evidence to be preserved before containment begins would let the incident continue spreading while collection proceeds, causing far more damage than the additional evidence would be worth."
+      }
+    },
+    q14: {
+      correct: "B",
+      rationale: {
+        correct: "Because IaC manages infrastructure through machine-readable definition files, those files can be version controlled, peer reviewed, and scanned for misconfiguration before provisioning, catching problems before they reach production rather than after.",
+        incorrect: "The correct answer is B. IaC does not automatically encrypt data on the infrastructure it provisions. Encryption must be specified in the definitions like any other configuration, which is exactly why scanning those definitions matters."
+      }
+    },
+    q15: {
+      correct: "D",
+      rationale: {
+        correct: "Live data acquisition captures data from a running system including volatile memory, network connections, and running processes. This evidence disappears when power is lost, which is why incident response guidance emphasises containing while preserving rather than shutting systems down immediately.",
+        incorrect: "The correct answer is D. Powered-down systems can be imaged perfectly well, and static acquisition of disk media is standard practice. The limitation of static acquisition is that it captures only non-volatile data, not that imaging becomes impossible."
+      }
+    },
+    q16: {
+      correct: "C",
+      rationale: {
+        correct: "Storage systems carry heavy network utilisation and are critically important, and latency is their primary concern in contrast to typical network traffic which tends to be more flexible and resilient. That sensitivity is why they must be treated as LAN traffic.",
+        incorrect: "The correct answer is C. Storage traffic is typically bandwidth intensive rather than light, given the volumes involved. The reason for LAN classification is sensitivity to delay, not modest bandwidth consumption."
+      }
+    },
+    q17: {
+      correct: "A",
+      rationale: {
+        correct: "Log capture and analysis runs through collection of events, secure storage for the required retention period, analysis to identify patterns and anomalies, and response to what the analysis reveals.",
+        incorrect: "The correct answer is A, Collection, storage, analysis, and response. Identification, scanning, assessment, and remediation describes the vulnerability assessment process. It is a related security operations activity but addresses finding weaknesses rather than processing event data."
+      }
+    },
+    q18: {
+      correct: "A",
+      rationale: {
+        correct: "SIEM platforms aggregate and correlate logs from across the environment, turning isolated events into detectable patterns. Threat intelligence supplies external context about active threats and indicators of compromise, which sharpens what the SIEM is configured to detect.",
+        incorrect: "The correct answer is A. Threat intelligence supplements log data with external context but cannot substitute for it. Without the organisation's own logs there is nothing to match indicators of compromise against."
+      }
+    },
+    q19: {
+      correct: "A",
+      rationale: {
+        correct: "Guest operating system virtualisation toolsets are software installed within a virtual machine to optimise performance, management, and integration between the guest operating system and the host environment, enhancing functionality and manageability.",
+        incorrect: "The correct answer is A. Preventing network communication would disable the very services the virtual machine exists to provide. The toolsets improve integration and manageability rather than restricting the guest's connectivity."
+      }
+    },
+    q20: {
+      correct: "A",
+      rationale: {
+        correct: "The management plane provides web-based consoles and dashboards for visual management along with programmatic interfaces such as APIs and command line tools for automation, covering scheduling, orchestration, and maintenance operationally.",
+        incorrect: "The correct answer is A. Physical console cables attached to each host would defeat the purpose of a management plane, which exists to enable remote administration of many hosts from a central point rather than requiring physical presence."
+      }
+    },
+    q21: {
+      correct: "B",
+      rationale: {
+        correct: "COBIT is a framework for the governance and management of enterprise IT, focused on aligning IT with business objectives and establishing control objectives, which distinguishes it from service management and technical control frameworks.",
+        incorrect: "The correct answer is B, COBIT. CIS Controls are a prioritised set of technical safeguards organisations implement to defend against common attacks. They are practical control recommendations rather than a governance framework."
+      }
+    },
+    q22: {
+      correct: "A",
+      rationale: {
+        correct: "The post-incident review closes the incident response lifecycle by capturing what was learned and feeding it back into the preparation stage, so that detection, containment, and recovery are more effective the next time.",
+        incorrect: "The correct answer is A. Deleting evidence at the close of an incident would destroy material that may be needed for legal proceedings, regulatory enquiry, or later analysis, and would conflict directly with evidence preservation obligations."
+      }
+    },
+    q23: {
+      correct: "B",
+      rationale: {
+        correct: "Hardware monitoring tracks disk health, CPU, fan speed, and temperature, and deteriorating values in these metrics give early warning that a physical component is failing before it does so outright.",
+        incorrect: "The correct answer is B. Application response time measurement is performance monitoring, revealing that something is slow. It may register the symptom of failing hardware but does not identify the component or provide the same lead time."
+      }
+    },
+    q24: {
+      correct: "D",
+      rationale: {
+        correct: "Order of volatility governs collection sequence, working from the most transient evidence such as CPU registers and cache, through RAM and network state, to disk and finally archived media, so that fragile evidence is captured before it disappears.",
+        incorrect: "The correct answer is D. File size has no bearing on how quickly evidence degrades. A small memory artefact vanishes on power loss while a large disk image persists, which is precisely why volatility rather than size determines priority."
+      }
+    },
+    q25: {
+      correct: "C",
+      rationale: {
+        correct: "Ansible, Puppet, and Chef are configuration management tools, automating the management of configuration files and software installations across servers and maintaining desired state for server configurations.",
+        incorrect: "The correct answer is C, Configuration management tools. Orchestration tools such as Kubernetes and Docker Swarm manage containerised workloads at scale. They coordinate running containers rather than automating the configuration of server operating systems."
+      }
+    },
+    q26: {
+      correct: "B",
+      rationale: {
+        correct: "Secure by default means a system ships and deploys in its most secure configuration, so any overlooked setting leaves the system secure rather than exposed. Relaxation becomes a deliberate documented decision rather than a discovery exercise.",
+        incorrect: "The correct answer is B. Deploying with security features disabled inverts the failure mode entirely. Anything an administrator forgets to enable then remains a live weakness, which is exactly the outcome secure by default exists to prevent."
+      }
+    },
+    q27: {
+      correct: "B",
+      rationale: {
+        correct: "Both virtual and physical network devices play significant roles in cloud environments, and virtual devices add a layer of complexity above the traditional model because they perform identical operations while having distinct characteristics that must be configured and secured differently.",
+        incorrect: "The correct answer is B. Virtual network devices require network security controls just as physical ones do. Their virtual nature changes how controls are applied rather than removing the need for them."
+      }
+    },
+    q28: {
+      correct: "B",
+      rationale: {
+        correct: "Collection is the initial gathering of evidence from its sources, acquisition creates the working copy used for analysis, and preservation protects the integrity of that evidence from collection through to presentation.",
+        incorrect: "The correct answer is B. Deleting original media after analysis would destroy the evidence the whole process exists to protect, and would fatally undermine any subsequent challenge to the findings."
+      }
+    },
+    q29: {
+      correct: "A",
+      rationale: {
+        correct: "Regulators, customers, vendors, partners, leadership, and the public each require different information at different times, with varying statutory and contractual deadlines. Establishing those channels in advance is what makes coordinated communication possible during an incident.",
+        incorrect: "The correct answer is A. Deferring all communication until remediation completes would breach statutory notification deadlines, which typically run from awareness of the breach rather than from its resolution."
+      }
+    },
+    q30: {
+      correct: "B",
+      rationale: {
+        correct: "The management plane controls and administers cloud resources across the environment. Because compromising it grants reach far beyond any individual system, it justifies the tightest privilege restriction, strongest authentication, and most complete logging.",
+        incorrect: "The correct answer is B. Customer data resides in the storage, database, and application services the management plane provisions rather than within the management plane itself. Its sensitivity comes from control reach, not from holding the data."
+      }
+    },
+    q31: {
+      correct: "B",
+      rationale: {
+        correct: "Disabling unused ports and services minimises attack vectors and is a named measure in hardware specific security configuration, alongside BIOS passwords and the configuration of firewalls and intrusion detection systems.",
+        incorrect: "The correct answer is B, Disabling unused ports and services. Removing intrusion detection would reduce alert volume by eliminating visibility rather than by eliminating threats. The recommended configuration includes intrusion detection specifically so malicious activity is noticed."
+      }
+    },
+    q32: {
+      correct: "A",
+      rationale: {
+        correct: "Hashing computes a cryptographic hash of the evidence at collection which can be recomputed and compared at any later point. Matching values demonstrate the evidence is unchanged, which is what answers a challenge to its integrity in court.",
+        incorrect: "The correct answer is A. Write blocking prevents any alteration to the source media during acquisition, which protects the original but does not by itself produce the verifiable proof that nothing changed afterwards."
+      }
+    },
+    q33: {
+      correct: "D",
+      rationale: {
+        correct: "Effective network security management in cloud environments requires a comprehensive approach integrating preventive, detective, corrective, and recovery controls, ensuring the confidentiality, integrity, and availability of network resources and data.",
+        incorrect: "The correct answer is D. Static, dynamic, interactive, and compositional describe application security testing methodologies. They categorise how software is tested rather than how network controls function."
+      }
+    },
+    q34: {
+      correct: "D",
+      rationale: {
+        correct: "Chain of custody documents every person who handled the evidence, along with when and why, demonstrating that it was collected, stored, and preserved without tampering or alteration, which is what establishes its integrity and admissibility.",
+        incorrect: "The correct answer is D. Encrypting evidence may protect its confidentiality in transit or storage, but encryption says nothing about who handled it or whether the handling was properly controlled and documented."
+      }
+    },
+    q35: {
+      correct: "B",
+      rationale: {
+        correct: "A SOC requires people, process, and technology together. A common failure mode is investing in technology while under-resourcing the analysts and procedures needed to operate it, leaving expensive tooling generating alerts nobody has the capacity or defined process to action.",
+        incorrect: "The correct answer is B. The scenario describes the opposite of over-investment in process, since procedures were never defined at all. The imbalance runs toward technology rather than away from it."
+      }
+    },
+    q36: {
+      correct: "D",
+      rationale: {
+        correct: "Intelligent monitoring of security controls covers firewalls, intrusion detection and prevention systems, honeypots, and network security groups, using automation and AI to oversee and analyse these mechanisms continuously.",
+        incorrect: "The correct answer is D. Service level agreements and master service agreements are contractual instruments managed through service level management and vendor management. They are governance artefacts rather than technical security controls to be monitored."
+      }
+    },
+    q37: {
+      correct: "C",
+      rationale: {
+        correct: "The most recent management tools should be installed on each host, and guidelines for updating them should be incorporated into the configuration management plan so that updating is a governed activity rather than an ad hoc one.",
+        incorrect: "The correct answer is C. Removing management tools before production would leave administrators unable to manage the hosts. The tools are necessary for operation; the requirement is that their versions and updates are controlled."
+      }
+    },
+    q38: {
+      correct: "D",
+      rationale: {
+        correct: "DNSSEC adds cryptographic authentication to DNS responses, allowing a resolver to verify that an answer genuinely came from the authoritative source and was not forged in transit.",
+        incorrect: "The correct answer is D, DNSSEC. TLS encrypts and authenticates the connection between a client and a service after the address has been resolved. It protects the session rather than validating the name resolution that preceded it."
+      }
+    },
+    q39: {
+      correct: "B",
+      rationale: {
+        correct: "Hardening is applied through baselines defining the secure configuration standard, monitoring to detect drift from that standard, and remediation to correct deviations. The cycle matters more than any individual hardening action because configurations drift continuously.",
+        incorrect: "The correct answer is B. Monitoring without a defined baseline gives nothing to compare observations against. Drift can only be identified relative to a known intended state, which is what the baseline provides."
+      }
+    },
+    q40: {
+      correct: "C",
+      rationale: {
+        correct: "Release management encompasses the planning, design, build, configuration, and testing of hardware and software releases, ensuring new features, improvements, and fixes are bundled into manageable releases that can be effectively deployed.",
+        incorrect: "The correct answer is C, Release management. Deployment management is the closely related process that puts a completed release into production. Release management prepares and tests the package; deployment management delivers it."
+      }
+    },
+    q41: {
+      correct: "D",
+      rationale: {
+        correct: "Configuration management systematically manages and maintains the configuration of hardware, software, and other IT assets to ensure their integrity, security, and performance, helping the organisation maintain a consistent and accurate record of configurations.",
+        incorrect: "The correct answer is D, Configuration management. Change management authorises and controls modifications as they are proposed. Configuration management maintains the authoritative record of what is actually deployed, which change management then updates as changes complete."
+      }
+    },
+    q42: {
+      correct: "A",
+      rationale: {
+        correct: "An HSM is a dedicated cryptographic device providing key generation, secure storage, and cryptographic operations at enterprise scale, serving many systems rather than being bound to one machine.",
+        incorrect: "The correct answer is A, Hardware Security Module. A TPM is tied to a single device or server and supports that platform's integrity measurement and local key storage. It is not designed to serve cryptographic operations across an enterprise."
+      }
+    },
+    q43: {
+      correct: "D",
+      rationale: {
+        correct: "Intelligent monitoring leverages automation, machine learning, and artificial intelligence to extend capability beyond what manual review achieves at cloud scale, with AI handling volume so human analysts can focus their judgement on complex and novel cases.",
+        incorrect: "The correct answer is D. Claiming AI fully replaces human analysts overstates its role throughout this certification. AI scales detection and triage but does not supply the judgement required for ambiguous or previously unseen incidents."
+      }
+    },
+    q44: {
+      correct: "C",
+      rationale: {
+        correct: "A SOC is built on people, meaning skilled analysts, incident responders, and managers; process, the defined procedures they follow; and technology, the tooling providing visibility and response capability. All three are required for the SOC to function.",
+        incorrect: "The correct answer is C, People, process, and technology. Confidentiality, integrity, and availability are the three security objectives that controls exist to protect. They describe what security aims to achieve rather than the components of the unit that delivers it."
+      }
+    },
+    q45: {
+      correct: "C",
+      rationale: {
+        correct: "Information security management is the overarching process aligning security controls with business requirements, providing the framework within which the other operational processes apply security consistently.",
+        incorrect: "The correct answer is C, Information security management. Deployment management moves releases into the live environment. It is a narrow operational process concerned with delivery rather than with aligning the organisation's security controls to business need."
+      }
+    },
+    q46: {
+      correct: "C",
+      rationale: {
+        correct: "Incident response proceeds through preparation, detection and analysis, containment, eradication, recovery, and post-incident review, with the review feeding lessons learned back into preparation for the next incident.",
+        incorrect: "The correct answer is C. Eradicating a threat before containing it would allow the attacker to continue operating and potentially spread while removal is attempted, and eradicating before detection is impossible since nothing has yet been identified."
+      }
+    },
+    q47: {
+      correct: "C",
+      rationale: {
+        correct: "Communication with regulators is critical for ensuring compliance and maintaining good standing, helping organisations navigate complex regulatory landscapes, mitigate risks, and demonstrate commitment to legal and ethical standards.",
+        incorrect: "The correct answer is C, Regulators. Vendor communication concerns service performance, contractual obligations, and incident coordination on shared services. It is a commercial and operational relationship rather than one demonstrating regulatory compliance."
+      }
+    },
+    q48: {
+      correct: "A",
+      rationale: {
+        correct: "Restarting the service and restoring users quickly is incident management working correctly. Problem management is the discipline that identifies, analyses, and resolves the underlying cause so the incidents stop recurring, and its absence is why the failures continue.",
+        incorrect: "The correct answer is A, Problem management. Incident management is plainly present and functioning, since each disruption is detected and service is restored within minutes. What is missing is the follow-up investigation into the recurring cause."
+      }
+    },
+    q49: {
+      correct: "D",
+      rationale: {
+        correct: "A Type 1 hypervisor runs directly on the hardware, whereas a Type 2 runs as an application on a host operating system. Type 1 is standard for production cloud infrastructure because the absence of an underlying host operating system leaves a smaller attack surface.",
+        incorrect: "The correct answer is D. Type 2 hypervisors are indeed convenient for desktop and testing use, but running on top of a host operating system means that operating system's vulnerabilities become the hypervisor's exposure too, which is unsuitable for multi-tenant production."
+      }
+    },
+    q50: {
+      correct: "A",
+      rationale: {
+        correct: "Static or dead acquisition captures data from a system that has been powered down, in contrast to live acquisition which captures data from a running system including volatile memory, network connections, and running processes.",
+        incorrect: "The correct answer is A, Static or dead acquisition. Live data acquisition requires the system to remain running so that volatile evidence can be captured. It is the alternative to static acquisition rather than a description of it."
+      }
+    },
+    q51: {
+      correct: "C",
+      rationale: {
+        correct: "Effective communication with regulators helps organisations navigate complex regulatory landscapes and demonstrate commitment to legal and ethical standards. Because breach notification deadlines are short and mandatory, the channel must exist beforehand rather than being improvised under time pressure.",
+        incorrect: "The correct answer is C. Having an established channel makes reporting faster and smoother but never removes the underlying obligation. The duty to notify arises from law and contract regardless of how good the relationship is."
+      }
+    },
+    q52: {
+      correct: "D",
+      rationale: {
+        correct: "Patch management involves identifying, acquiring, testing, and installing updates. Testing is the step organisations are most tempted to skip under time pressure, and skipping it risks an untested patch causing precisely the disruption the patching programme exists to avoid.",
+        incorrect: "The correct answer is D. Recording the version in an inventory supports configuration management and audit, and its omission creates a record-keeping gap. That is a governance weakness rather than a direct cause of service disruption."
+      }
+    },
+    q53: {
+      correct: "B",
+      rationale: {
+        correct: "Backup and restore functions for host and guest operating systems are critical for recovering from failures, cyber attacks, and crashes, but until a restore has actually been performed the organisation only assumes the backup is usable rather than knowing it.",
+        incorrect: "The correct answer is B. Restore testing does not reduce storage consumption; if anything it temporarily requires additional capacity to hold the restored copy while it is verified."
+      }
+    },
+    q54: {
+      correct: "A",
+      rationale: {
+        correct: "Adequate server resources should be allocated to facilitate the migration of virtual machines during updates to the virtualisation platform, which is what allows a host to be updated while its workloads continue running elsewhere.",
+        incorrect: "The correct answer is A. Storing archived log data is a separate capacity requirement addressed through log management and retention planning. It has no bearing on whether workloads can be relocated during platform maintenance."
+      }
+    },
+    q55: {
+      correct: "B",
+      rationale: {
+        correct: "Incident management ensures effective handling of unexpected events or disruptions, with the objective of restoring normal service operation as quickly as possible and minimising adverse business impact.",
+        incorrect: "The correct answer is B, Incident management. Problem management identifies, analyses, and resolves the underlying causes of incidents to prevent recurrence. It shares subject matter with incident management but pursues elimination of the cause rather than speed of restoration."
+      }
+    },
+    q56: {
+      correct: "A",
+      rationale: {
+        correct: "Continuity management ensures services can continue or be recovered through disruption, forming the operational link between routine service management and the organisation's wider business continuity and disaster recovery planning.",
+        incorrect: "The correct answer is A, Continuity management. Release management concerns the preparation and testing of software and hardware releases. It governs how change reaches production rather than how services survive disruption."
+      }
+    },
+    q57: {
+      correct: "A",
+      rationale: {
+        correct: "Maintenance mode evacuates a host's workloads to other members of the cluster so the host can be serviced, which is what allows planned maintenance to proceed without interrupting the services running on it.",
+        incorrect: "The correct answer is A, Maintenance mode. High availability restarts affected virtual machines elsewhere after a host has already failed unexpectedly. It responds to unplanned failure rather than enabling planned maintenance without disruption."
+      }
+    },
+    q58: {
+      correct: "C",
+      rationale: {
+        correct: "Incident management begins with incident detection and recording, commonly through monitoring tools, followed by classification, prioritisation, response, and closure. Nothing can be handled until it has been detected and logged.",
+        incorrect: "The correct answer is C. Permanent elimination of the root cause is the objective of problem management and occurs after the immediate incident has been handled. Incident management prioritises rapid restoration over permanent fix."
+      }
+    },
+    q59: {
+      correct: "D",
+      rationale: {
+        correct: "A jumpbox, also called a bastion host, is a hardened intermediary through which administrators reach internal systems, avoiding direct exposure of RDP or SSH on every server and concentrating monitoring on a single controlled entry point.",
+        incorrect: "The correct answer is D. A honeypot is a decoy system deployed to attract and study attacker activity. It is a detection mechanism rather than a legitimate administrative access path for the organisation's own staff."
+      }
+    },
+    q60: {
+      correct: "A",
+      rationale: {
+        correct: "Vulnerability assessment proceeds through identification of assets, scanning for vulnerabilities, risk assessment of what was found, and remediation of the weaknesses identified.",
+        incorrect: "The correct answer is A. Collection, storage, analysis, and response describes the log capture and analysis process in security operations. It handles event data rather than the discovery and treatment of weaknesses."
+      }
+    },
+    q61: {
+      correct: "D",
+      rationale: {
+        correct: "Continual service improvement management is the process dedicated to systematically identifying and implementing improvements to services and processes over time, feeding lessons learned back into operations.",
+        incorrect: "The correct answer is D, Continual service improvement management. Problem management eliminates the root causes of specific incidents. It improves stability by removing defects rather than pursuing the broader ongoing service improvement agenda."
+      }
+    },
+    q62: {
+      correct: "D",
+      rationale: {
+        correct: "Cloud complicates forensics because the customer typically cannot seize hardware, may not know where it physically resides, and shares infrastructure with other tenants whose data must not be captured. Forensic capability therefore depends heavily on the contract and provider support.",
+        incorrect: "The correct answer is D. Cloud systems generate extensive logging, and log availability varies by service model rather than being absent. The forensic difficulty concerns physical access and tenant isolation rather than a lack of recorded data."
+      }
+    },
+    q63: {
+      correct: "A",
+      rationale: {
+        correct: "Vulnerability assessment identifies and catalogues known weaknesses broadly, usually with automated tooling. Penetration testing goes further by actively exploiting weaknesses to demonstrate what an attacker could actually achieve, and is narrower and more manual.",
+        incorrect: "The correct answer is A. The roles described are reversed. Cataloguing weaknesses without exploiting them is assessment, while active exploitation to prove impact is what characterises penetration testing."
+      }
+    },
+    q64: {
+      correct: "C",
+      rationale: {
+        correct: "Change management governs the request, assessment, approval, and implementation of changes, providing the authorisation and risk evaluation that prevents changes from causing unintended disruption.",
+        incorrect: "The correct answer is C, Change management. Deployment management moves an approved release into the live environment. It executes the change once authorised rather than providing the assessment and approval that authorises it."
+      }
+    },
+    q65: {
+      correct: "C",
+      rationale: {
+        correct: "In cloud, patching increasingly means rebuilding from an updated image rather than modifying running instances, because manual changes are lost whenever scaling launches fresh instances from the original image, leaving a fleet that silently diverges.",
+        incorrect: "The correct answer is C. Disabling auto-scaling to accommodate manual patching sacrifices elasticity, one of the essential characteristics that makes cloud valuable, in order to preserve a practice that is itself the problem."
+      }
+    },
+    q66: {
+      correct: "A",
+      rationale: {
+        correct: "In cloud, penetration testing is constrained by the provider's rules of engagement, because the infrastructure is shared and testing beyond the customer's own scope would affect other tenants who never consented to it.",
+        incorrect: "The correct answer is A. Proceeding without restriction because the provider owns the infrastructure inverts the reasoning entirely. Shared ownership is precisely why limits exist, since actions against shared components reach customers other than the tester."
+      }
+    },
+    q67: {
+      correct: "B",
+      rationale: {
+        correct: "Partners require coordination on shared processes and integrated services, including agreed arrangements for how incidents affecting the joint service are handled by both parties.",
+        incorrect: "The correct answer is B, Partners. Customers require timely and accurate information about service status, incidents affecting them, and planned maintenance. They receive notification about the service rather than jointly operating parts of it."
+      }
+    },
+    q68: {
+      correct: "C",
+      rationale: {
+        correct: "BIOS passwords prevent unauthorised changes to system settings and are named among typical hardware specific security configuration measures, alongside disabling unused ports and services and configuring firewalls and intrusion detection.",
+        incorrect: "The correct answer is C, BIOS passwords. Enabling all available ports expands the attack surface rather than reducing it. Disabling unused ports and services is the measure actually recommended, precisely because each open port is a potential entry point."
+      }
+    },
+    q69: {
+      correct: "A",
+      rationale: {
+        correct: "Log storage must be secure and tamper-resistant because modifying or deleting logs is frequently among an attacker's first actions, intended to erase the trail of their activity before it can be detected or investigated.",
+        incorrect: "The correct answer is A. Logs held in ordinary mutable storage can still be analysed perfectly well. The concern is not analytical capability but whether the record can be trusted to reflect what actually happened."
+      }
+    },
+    q70: {
+      correct: "D",
+      rationale: {
+        correct: "Vulnerability assessment matters especially in cloud because resources and services are dynamically scaled and updated, meaning the asset inventory changes continuously and any scan reflects only the state at the moment it was run.",
+        incorrect: "The correct answer is D. Cloud providers do permit vulnerability scanning of a customer's own resources, typically subject to rules of engagement. Blanket prohibition would leave customers unable to assess systems they are responsible for securing."
+      }
+    }
+};
+
+  // Tab switching
+  document.querySelectorAll('.tabbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tabbtn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tabpanel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'auto'});
+    });
+  });
+
+  // Study subnav smooth scroll (stay within study tab)
+  document.querySelectorAll('.study-subnav a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+
+  const state = {}; // { qid: { answered: bool, correct: bool } }
+
+  function updateProgress(){
+    const ids = Object.keys(quizData);
+    const answered = ids.filter(id => state[id] && state[id].answered).length;
+    const correct = ids.filter(id => state[id] && state[id].correct).length;
+    document.getElementById('progress-count').textContent = answered;
+    document.getElementById('progress-correct').textContent = correct;
+    document.getElementById('progress-total').textContent = ids.length;
+  }
+
+  function submitAnswer(qid){
+    const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+    const selected = card.querySelector('input[name="'+qid+'"]:checked');
+    const warn = card.querySelector('.inline-warn[data-warn="'+qid+'"]');
+
+    if(!selected){
+      warn.style.display = 'inline';
+      return;
+    }
+    warn.style.display = 'none';
+
+    const chosen = selected.value;
+    const correctVal = quizData[qid].correct;
+    const isCorrect = chosen === correctVal;
+
+    card.querySelectorAll('.qoption').forEach(opt => {
+      opt.classList.remove('correct-choice','incorrect-choice');
+    });
+
+    const chosenOpt = card.querySelector('input[value="'+chosen+'"]').closest('.qoption');
+    chosenOpt.classList.add(isCorrect ? 'correct-choice' : 'incorrect-choice');
+
+    if(!isCorrect){
+      const correctOpt = card.querySelector('input[value="'+correctVal+'"]').closest('.qoption');
+      correctOpt.classList.add('correct-choice');
+    }
+
+    const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+    fb.className = 'feedback show ' + (isCorrect ? 'correct' : 'incorrect');
+    fb.innerHTML = '<span class="verdict">' + (isCorrect ? '&#10003; Correct' : '&#10007; Incorrect') + '</span>' +
+                    '<span class="rationale">' + (isCorrect ? quizData[qid].rationale.correct : quizData[qid].rationale.incorrect) + '</span>';
+
+    state[qid] = { answered: true, correct: isCorrect };
+    updateProgress();
+  }
+
+  document.querySelectorAll('.submit-btn').forEach(btn => {
+    btn.addEventListener('click', () => submitAnswer(btn.dataset.qid));
+  });
+
+  document.querySelectorAll('.qoptions input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const qid = input.name;
+      const card = document.querySelector('.qcard[data-qid="'+qid+'"]');
+      card.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+      const fb = card.querySelector('.feedback[data-feedback="'+qid+'"]');
+      fb.classList.remove('show');
+    });
+  });
+
+  document.getElementById('reset-all').addEventListener('click', () => {
+    document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+    document.querySelectorAll('.qoption').forEach(opt => opt.classList.remove('correct-choice','incorrect-choice'));
+    document.querySelectorAll('.feedback').forEach(fb => { fb.classList.remove('show'); fb.innerHTML=''; });
+    document.querySelectorAll('.inline-warn').forEach(w => w.style.display = 'none');
+    Object.keys(state).forEach(k => delete state[k]);
+    updateProgress();
+  });
+
+  updateProgress();
+</script>
+</body>
+</html>

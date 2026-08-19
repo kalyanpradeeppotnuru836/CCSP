@@ -88,15 +88,97 @@
     color:var(--text-secondary);
   }
   .ai-note strong{ color:var(--text); }
+  .stickynav{
+    position:sticky;
+    top:0;
+    z-index:30;
+    background:var(--bg);
+    margin:1.75rem 0 0;
+    padding-top:.4rem;
+  }
+  .domainbar{
+    display:flex;
+    gap:5px;
+    align-items:center;
+    overflow-x:auto;
+    padding-bottom:.5rem;
+    scrollbar-width:thin;
+  }
+  .domainbar::-webkit-scrollbar{ height:4px; }
+  .domainbar::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .dpill{
+    display:inline-flex;
+    align-items:baseline;
+    gap:.32rem;
+    flex-shrink:0;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text-secondary);
+    background:var(--card);
+    border:1px solid var(--border);
+    padding:.34rem .7rem;
+    border-radius:20px;
+    text-decoration:none;
+    white-space:nowrap;
+    transition:border-color .15s ease, color .15s ease, background .15s ease;
+  }
+  .dpill b{ color:var(--navy); font-weight:700; }
+  .dpill:hover{ border-color:var(--navy-light); color:var(--navy); background:#F4F7FC; }
+  .dpill.current{
+    background:var(--navy);
+    border-color:var(--navy);
+    color:#fff;
+    cursor:default;
+  }
+  .dpill.current b{ color:#fff; }
+  .dpill.home{ color:var(--gold); border-color:#E2D4B8; }
+  .dpill.home:hover{ background:#FBF8F2; border-color:var(--gold); color:var(--gold); }
+  @media (max-width:860px){
+    .dpill span{ display:none; }
+    .dpill.home span{ display:inline; }
+  }
+  @media (max-width:460px){
+    .dpill.home span{ display:none; }
+    .dpill{ padding:.34rem .58rem; }
+    .domainbar{ gap:4px; }
+  }
+  .pagernav{
+    display:flex;
+    justify-content:space-between;
+    gap:.75rem;
+    margin-top:2.5rem;
+    padding-top:1.5rem;
+    border-top:1px solid var(--border);
+  }
+  .pager{
+    display:block;
+    max-width:48%;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.8rem 1.05rem;
+    text-decoration:none;
+    color:inherit;
+    transition:border-color .15s ease, transform .15s ease;
+  }
+  .pager:hover{ border-color:var(--navy-light); transform:translateY(-1px); }
+  .pager.next{ margin-left:auto; text-align:right; }
+  .pager .dir{
+    display:block;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--gold);
+    margin-bottom:.15rem;
+  }
+  .pager .ttl{ display:block; font-size:14px; font-weight:600; color:var(--navy); line-height:1.35; }
   .tabbar{
     display:flex;
     gap:4px;
     border-bottom:2px solid var(--border);
-    margin:1.75rem 0 0;
-    position:sticky;
-    top:0;
+    margin:0;
     background:var(--bg);
-    z-index:10;
   }
   .tabbtn{
     appearance:none;
@@ -379,7 +461,6 @@
 <div class="page">
 
   <div class="masthead">
-    <a class="backlink" href="index.html">&larr; All domains</a>
     <p class="eyebrow">CCSP &middot; Domain 4</p>
     <h1>Cloud Application Security</h1>
     <p class="subhead">Study material and a 70-question practice set, aligned to the ISC2 exam outline effective August 1, 2026. Each section notes where it lines up with the Official CCSP Study Guide, 3rd Edition, by Mike Chapple and David Seidl, so the two can be read together.</p>
@@ -390,9 +471,20 @@
 
   </div>
 
+  <div class="stickynav">
+    <nav class="domainbar" aria-label="Domain navigation">
+      <a class="dpill home" href="index.html">&larr; <span>All domains</span></a>
+      <a class="dpill" href="CCSP_Domain1_StudyGuide_and_Quiz.html"><b>D1</b> <span>Concepts</span></a>
+      <a class="dpill" href="CCSP_Domain2_StudyGuide_and_Quiz.html"><b>D2</b> <span>Data</span></a>
+      <a class="dpill" href="CCSP_Domain3_StudyGuide_and_Quiz.html"><b>D3</b> <span>Infrastructure</span></a>
+      <span class="dpill current"><b>D4</b> <span>Application</span></span>
+      <a class="dpill" href="CCSP_Domain5_StudyGuide_and_Quiz.html"><b>D5</b> <span>Operations</span></a>
+      <a class="dpill" href="CCSP_Domain6_StudyGuide_and_Quiz.html"><b>D6</b> <span>Legal</span></a>
+    </nav>
   <div class="tabbar">
     <button class="tabbtn active" data-tab="study">Study material</button>
     <button class="tabbtn" data-tab="quiz">Questionnaire</button>
+  </div>
   </div>
 
   <!-- ===================== STUDY TAB ===================== -->
@@ -1815,6 +1907,10 @@
   </div>
   <!-- END QUIZ TAB -->
 
+  <div class="pagernav">
+    <a class="pager prev" href="CCSP_Domain3_StudyGuide_and_Quiz.html"><span class="dir">&larr; Previous</span><span class="ttl">Domain 3: Cloud Platform and Infrastructure Security</span></a>
+    <a class="pager next" href="CCSP_Domain5_StudyGuide_and_Quiz.html"><span class="dir">Next &rarr;</span><span class="ttl">Domain 5: Cloud Security Operations</span></a>
+  </div>
 </div>
 
 <script>

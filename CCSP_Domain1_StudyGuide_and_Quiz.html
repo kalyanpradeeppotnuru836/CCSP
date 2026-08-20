@@ -602,6 +602,8 @@
     <p>A maritime company might use a cloud service broker that combines vessel tracking data from one provider with weather data from another, then presents a single integrated dashboard to the shipping company. The broker adds value through that integration rather than owning the underlying infrastructure.</p>
   </div>
 
+  <p>Two of these roles reward closer attention: the partner role, which is broader than it first
+  sounds, and the boundary between standards bodies and regulators, which the exam probes directly.</p>
   <div class="example-box">
     <span class="label">Example from the field</span>
     <p>Rackspace's managed security arm, for example, ran a 24/7/365 security
@@ -697,6 +699,13 @@
   the infrastructure, and providing audit data. The cloud service partner performs supporting activities such
   as auditing, brokering, or developing on top of the service. Knowing who performs which activity is what
   makes the shared responsibility model workable in practice.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>When a maritime company's cloud platform needs a security patch applied to the underlying operating
+    system in a PaaS arrangement, that is a provider activity. When the same company decides which of its staff
+    should have administrative rights in the application, that is a customer activity. Neither party can
+    perform the other's activity, which is why the boundary must be understood before an incident, not during one.</p>
+  </div>
 
   <p>Within the partner grouping, three specific actors are named often enough to be worth learning
   individually. They come from the NIST cloud reference architecture and appear in most CCSP courseware.</p>
@@ -717,13 +726,6 @@
     the customer, the audit firm engaged to review the vendor's controls is the cloud auditor, and the network
     operator carrying the traffic between them is the cloud carrier. All four are distinct actors with distinct
     responsibilities, even though only two of them are party to the subscription contract.</p>
-  </div>
-  <div class="example-box">
-    <span class="label">Example</span>
-    <p>When a maritime company's cloud platform needs a security patch applied to the underlying operating
-    system in a PaaS arrangement, that is a provider activity. When the same company decides which of its staff
-    should have administrative rights in the application, that is a customer activity. Neither party can
-    perform the other's activity, which is why the boundary must be understood before an incident, not during one.</p>
   </div>
 
   <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">How consumption is billed in each category</h4>
@@ -773,6 +775,8 @@
     <p>A group of port authorities in the same region might jointly fund and use a shared logistics platform built specifically to serve their common regulatory and operational needs. That arrangement is a community cloud, since it serves a defined group with shared concerns rather than the public at large or a single organization alone.</p>
   </div>
 
+  <p>Community cloud is usually the least familiar of the five models in day-to-day work, so real
+  deployments are worth naming, along with a model that shows why the arrangement holds together.</p>
   <div class="example-box">
     <span class="label">Examples from the field</span>
     <p>Real community clouds cluster around shared regulation. Government and public sector: AWS GovCloud for
@@ -793,6 +797,7 @@
     security patches and updates. The residual challenges are operational rather than architectural: agreeing
     the pricing model and coordinating when patches are applied.</p>
   </div>
+  <p>Multi-cloud earns a note of its own, because its rationale differs from the other four models.</p>
   <div class="example-box">
     <span class="label">Why multi-cloud helps availability</span>
     <p>The core argument for multi-cloud is availability, the A of the CIA triad: it is very unlikely
@@ -832,7 +837,7 @@
     contract, not a security incident.</p>
   </div>
   <div class="example-box">
-    <span class="label">Example</span>
+    <span class="label">Reversibility in practice</span>
     <p>A UK bank negotiating a cloud contract insists on a clause guaranteeing that if it ends the relationship, it can retrieve its data in a usable format and have the provider certify that all copies have been deleted within a set number of days. That requirement is reversibility. It is a different concern from interoperability, which is about systems working together while the relationship continues, not about exiting it.</p>
   </div>
 
@@ -935,7 +940,7 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage (Encryption; Certificate Management)</span>
   <p>Encryption protects data by transforming it into a form that cannot be read without the correct key. In the cloud, key management is just as important as the encryption itself. A well encrypted dataset offers little protection if the key sits alongside it, unmanaged and unrotated.</p>
   <div class="example-box">
-    <span class="label">Label: good practice</span>
+    <span class="label">Good practice</span>
     <p>A bank stores encryption keys in a dedicated key management service or hardware security module, separate from the encrypted data itself, and rotates those keys on a defined schedule. If the data store is ever compromised, the attacker still cannot read the data without separately compromising the key management system.</p>
   </div>
 
@@ -952,6 +957,11 @@
   data they encrypt; a key stored beside its ciphertext protects nothing.
   <strong>Destruction</strong>: retire keys at end of life using cryptographic erasure, and where a third
   party performs destruction, obtain a certificate of destruction as compliance evidence.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>RSA hardware tokens, the key fobs showing a six-digit code that changed every sixty seconds, each fob associated with a named employee, were for years the industry's standard way of binding an authentication secret to a person. The technology has moved on, but the discipline has not: an authentication secret is only
+    as strong as the process that binds it to a person and manages it through its life.</p>
+  </div>
   <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Where the key management system lives</h4>
   <ul class="plain">
     <li><strong>On-premises KMS</strong>, complete control over the full key lifecycle, hosted in your own
@@ -979,11 +989,6 @@
     <span class="label">Watch this in the exam</span>
     <p>End-to-end encryption may appear abbreviated as E2EE. Recognise the abbreviation, and remember what
     makes it distinct: no intermediate decryption points, not merely encryption on each hop.</p>
-  </div>
-  <div class="example-box">
-    <span class="label">Example from the field</span>
-    <p>RSA hardware tokens, the key fobs showing a six-digit code that changed every sixty seconds, each fob associated with a named employee, were for years the industry's standard way of binding an authentication secret to a person. The technology has moved on, but the discipline has not: an authentication secret is only
-    as strong as the process that binds it to a person and manages it through its life.</p>
   </div>
 
   <h3>Identity and access control</h3>
@@ -1076,6 +1081,15 @@
   reach as well. Third, hypervisors cap the resources any one guest can consume, which is the built-in defence
   against one tenant mounting a denial of service against the others; remember that a DoS can originate inside
   the cloud from a co-tenant, not only from the internet.</p>
+  <p>Virtualization security is wider than hypervisors alone. Containers offer a lightweight
+  alternative to full virtual machines, isolating applications without a guest operating system; securing
+  them means controlling access rights, hardening the orchestration platform such as Kubernetes, and building
+  only from trusted images. Ephemeral computing takes a different route to safety: resources exist only while
+  they are needed, so the window of opportunity for an attacker shrinks with the lifespan of the resource.
+  Serverless computing abstracts the server layer away entirely, shifting more of the security responsibility
+  onto the provider and leaving the customer to concentrate on securing the code and its data inputs and
+  outputs. Isolation between tenants sharing serverless or container execution environments remains a live concern, and a tested one in this domain.</p>
+
   <div class="example-box">
     <span class="label">Common question</span>
     <p>Why does virtualization security feature in the exam at all, given that under the shared responsibility model it belongs to the provider and the consumer never touches it? The responsibility split is real, but it still matters to you for two reasons. The CCSP expects you to understand
@@ -1084,16 +1098,6 @@
     review should confirm the provider is doing what it claims, especially where regulated data is
     involved.</p>
   </div>
-
-  <p>Virtualization security is wider than hypervisors alone. Containers offer a lightweight
-  alternative to full virtual machines, isolating applications without a guest operating system; securing
-  them means controlling access rights, hardening the orchestration platform such as Kubernetes, and building
-  only from trusted images. Ephemeral computing takes a different route to safety: resources exist only while
-  they are needed, so the window of opportunity for an attacker shrinks with the lifespan of the resource.
-  Serverless computing abstracts the server layer away entirely, shifting more of the security responsibility
-  onto the provider and leaving the customer to concentrate on securing the code and its data inputs and
-  outputs. Isolation between tenants sharing serverless or container execution environments remains a live
-  concern, which is why it appears in the questionnaire for this domain.</p>
 
   <h3>Common cloud threats</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Shared Cloud Platform Risks and Responsibilities; Ch 6 &rsaquo; Common Threats to Applications</span>
@@ -1203,7 +1207,7 @@
     different dependencies.</p>
   </div>
 
-  <p>The cost-benefit analysis behind a cloud decision draws on nine recurring factors: resource
+  <p>Impact is one half of the analysis; cost is the other. The cost-benefit case behind a cloud decision draws on nine recurring factors: resource
   pooling, the shift from capital to operational expenditure, time and efficiency gains, depreciation
   (technology loses value the moment it is bought, like a car driven off the forecourt, which favours leasing
   capacity over owning it), reduced maintenance and configuration effort, a shift in staff focus away from
@@ -1297,7 +1301,7 @@
     <p>A maritime company applies the Well-Architected Framework when designing its new hybrid cloud platform, explicitly weighing decisions such as choosing a more expensive but more reliable storage tier against the framework's cost optimization and reliability pillars, rather than defaulting to the cheapest option without considering the trade-off.</p>
   </div>
 
-  <p>Several of the security principles deserve practical detail. Supply
+  <p>Returning to the SANS security principles listed earlier, several deserve practical detail. Supply
   chain security has moved to the centre: attackers increasingly leapfrog into a target through its suppliers,
   so a provider must hold its own supply chain to the standards it sets for itself, including knowing which
   third parties have touched customer data and which the service depends on for hardware and software. Secure
@@ -1358,6 +1362,8 @@
     <p>A bank's procurement team builds a scorecard covering encryption practices, certifications held, audit report availability, incident history, and financial stability, then applies that same scorecard to every provider under consideration. This gives a repeatable, defensible basis for the final decision, rather than relying on a sales presentation alone.</p>
   </div>
 
+  <p>Two further perspectives round out provider evaluation: how a mature assurance programme verifies
+  in practice, and what holding certifications signals to attackers.</p>
   <div class="example-box">
     <span class="label">Example from the field</span>
     <p>Rackspace's third-party assurance programme around 2018 offers a practical model: roughly 180 suppliers audited over a twelve-month period. The method matters more than the number. A supplier's

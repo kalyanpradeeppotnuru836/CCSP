@@ -538,12 +538,32 @@
     <p>A maritime tracking platform sees a spike in traffic when a major port congestion event is reported in the news. Automatic scaling rules add extra web servers within minutes to handle the load, then remove them again once traffic returns to normal. No one had to manually provision or decommission any of that capacity.</p>
   </div>
 
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>The instructor's clearest illustrations of elasticity came from industries with heavily concentrated
+    demand. Gambling operators earn a large share of their annual revenue in short windows around major
+    sporting events, so their platforms must scale up sharply for a tournament weekend and back down
+    immediately afterwards. Retail shows the same pattern: when Black Friday was a single day rather than a
+    month of promotions, e-commerce platforms had to absorb an enormous one-day spike without paying for that
+    capacity all year round. Paying only for what is used during the spike is the commercial case for
+    elasticity.</p>
+  </div>
+
   <h3>Measured service</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics</span>
   <p>Cloud systems automatically monitor and optimise resource use through a metering capability appropriate to the type of service, such as storage, processing, bandwidth, or active user accounts. Usage can be reported and controlled, giving both provider and customer visibility into consumption.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank's monthly cloud invoice itemises exactly how much storage, compute time, and data transfer each business unit consumed, in the same way an electricity bill charges for actual usage rather than a flat fee regardless of consumption.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">Delegate question</span>
+    <p>A delegate asked whether measured service is simply the same thing as scalability. It is not. Measured
+    service is the metering and billing of what you consume; scalability and elasticity are about how capacity
+    grows and shrinks. The instructor added a practical wrinkle for managed services: when a monitored
+    environment scales up, the monitoring, detection, and remediation capability wrapped around it must scale
+    with it, otherwise the newly added resources become the least watched part of the estate.</p>
   </div>
 
   <h3>Multi-tenancy</h3>
@@ -583,6 +603,24 @@
     <p>A maritime company might use a cloud service broker that combines vessel tracking data from one provider with weather data from another, then presents a single integrated dashboard to the shipping company. The broker adds value through that integration rather than owning the underlying infrastructure.</p>
   </div>
 
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>The instructor described his time at Rackspace, whose managed security arm ran a 24/7/365 security
+    operations centre out of San Antonio, Texas, offering services such as threat hunting on top of the
+    underlying cloud platforms. That is a cloud service partner in action, and specifically a managed security
+    services provider (MSSP): a third party supporting the customer's use of cloud services without being the
+    cloud provider itself.</p>
+  </div>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Keep regulators separate from standards bodies. A regulator enforces law: the ICO enforces the GDPR in
+    the UK, and the instructor described it as the police of the GDPR. ISO/IEC 27001, by contrast, is a
+    certifiable standard rather than a regulation, a distinction the instructor corrected himself on during
+    the session. Certification runs on a three-year cycle, with surveillance audits in the intervening years
+    and a full recertification audit at the end. Failing an ISO audit costs you a certificate; failing a
+    regulator costs you a fine.</p>
+  </div>
+
   <h3>Building block technologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization</span>
   <p>Cloud computing rests on a set of foundational technologies. Virtualization abstracts physical hardware so that multiple isolated operating system instances can run on a single physical server, and it underpins most infrastructure as a service offerings. Storage, networking, databases, and orchestration are the other building blocks that, together with virtualization, allow a provider to deliver flexible, scalable services.</p>
@@ -590,6 +628,45 @@
     <span class="label">Example</span>
     <p>A single physical server in a data centre might run a hypervisor that hosts a dozen separate virtual machines, each belonging to a different customer, each believing it has its own dedicated server. That is virtualization at work.</p>
   </div>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">What the instructor added on each building block</h4>
+  <p>The session went further than the slide bullet points on several of these, and the additional detail is
+  worth keeping.</p>
+  <ul class="plain">
+    <li><strong>Virtualization and tenancy</strong>, customers sharing a provider's pooled hardware are called
+    tenants, like individuals renting space in an office building, and each tenant uses the environment without
+    any knowledge of the others.
+      <span class="li-eg"><span class="label">Security caution</span>The hypervisor controls every virtual
+      machine on a host, so a compromised hypervisor exposes everything above it. Securing the hypervisor is
+      the provider's responsibility, and it is one of the strongest arguments for scrutinising a provider
+      before you commit.</span></li>
+    <li><strong>Storage</strong>, storage area networks (SANs) and network attached storage (NAS) underpin the
+    flexible storage that providers offer. When a disk is deallocated from one customer and reallocated to
+    another, file fragments can remain, and the customer has no way to securely wipe drives they do not
+    physically control.
+      <span class="li-eg"><span class="label">In practice</span>Crypto-shredding, destroying the encryption
+      keys so any remaining fragments are unreadable, is the practical answer, which is one reason to encrypt
+      cloud data from the start.</span></li>
+    <li><strong>Networking</strong>, cloud resources are reached over untrusted networks, so traffic
+    transmitted in the clear can be intercepted and read in a man-in-the-middle (MITM) attack. Encryption and
+    secure transport protect data in motion.
+      <span class="li-eg"><span class="label">In practice</span>The instructor's rule for personal data heading
+      to the cloud: encrypt in all three states, at rest, in transit, and in use, and remember that encryption
+      is named explicitly in the text of the GDPR as an appropriate technical safeguard.</span></li>
+    <li><strong>Databases</strong>, when a database is consumed as a cloud service, administration of the
+    underlying database, including patching and tuning, becomes the provider's responsibility. Data
+    warehouses, data lakes, and non-relational stores are available alongside traditional relational
+    databases.
+      <span class="li-eg"><span class="label">In practice</span>A delegate pointed out that some providers
+      deliver databases as a PaaS offering, which is exactly why the administration sits with the provider in
+      that model.</span></li>
+    <li><strong>Orchestration</strong>, like a conductor keeping an orchestra together, orchestration tooling
+    keeps data, processes, and application services synchronised across multiple clouds and SaaS
+    subscriptions, presenting one seemingly seamless environment to the user. It is more than automating a
+    task here and there; automation is the mechanism, orchestration is the outcome.
+      <span class="li-eg"><span class="label">Trade-off</span>Vendor orchestration tools such as AWS
+      CloudFormation vary considerably in capability and, crucially, in how well they integrate with other
+      vendors' clouds, so evaluate the integration story before committing.</span></li>
+  </ul>
 </div>
 
 <a id="s12"></a>
@@ -656,6 +733,20 @@
     perform the other's activity, which is why the boundary must be understood before an incident, not during one.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">How consumption is billed in each category</h4>
+  <p>The instructor spent time on the billing dimensions each category typically uses, because they follow
+  directly from what the consumer controls. SaaS consumers are commonly billed by the number of end users,
+  time of use, network bandwidth consumed, or the amount and duration of data stored. PaaS consumers are
+  billed according to the processing, database, storage, and network resources their application consumes,
+  plus the duration of platform usage. IaaS consumers are billed on measures such as CPU hours used by virtual
+  machines, the volume and duration of data stored, bandwidth consumed, and even the number of IP addresses
+  held for a given period. If a scenario question describes billing by named user, think SaaS; billing by CPU
+  hour points to IaaS.</p>
+  <p>One IaaS-adjacent service worth naming here is the content delivery network (CDN): a system of
+  distributed servers that delivers web content to users based on their geographical location, the origin of
+  the page, and the point of presence closest to the user. CDNs exist to improve the speed and performance of
+  content delivery, and they reappear later in the course in the context of availability.</p>
+
   <h3>Cloud service categories</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Service Categories</span>
   <p>The three familiar service categories describe how much of the technology stack the provider manages, and how much remains the customer's responsibility.</p>
@@ -681,6 +772,37 @@
   <div class="example-box">
     <span class="label">Example</span>
     <p>A group of port authorities in the same region might jointly fund and use a shared logistics platform built specifically to serve their common regulatory and operational needs. That arrangement is a community cloud, since it serves a defined group with shared concerns rather than the public at large or a single organization alone.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">Examples from the field</span>
+    <p>Real community clouds cluster around shared regulation. Government and public sector: AWS GovCloud for
+    US government workloads, and the UK's G-Cloud framework through which public sector bodies procure cloud
+    services. Health: shared platforms serving groups of hospital trusts, built around patient data handling
+    standards and interoperability needs. Finance: groups of banks sharing infrastructure built to meet
+    PCI DSS. Energy: grid operators and utilities sharing environments built around critical infrastructure
+    protection standards. Education: Janet, the shared network through which UK education and research
+    institutions pool resources, research data collaboration, and compliance around student data
+    protection.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Delegate example</span>
+    <p>A delegate offered a memorable model: imagine police forces covering London, Berkshire, and
+    Buckinghamshire. All three follow the same structure, hold the same kinds of sensitive data, face the same
+    security requirements, and work to constrained budgets. A community cloud lets them share physical
+    infrastructure while keeping each force's data logically segregated, and all three receive the same
+    security patches and updates. The residual challenges are operational rather than architectural: agreeing
+    the pricing model and coordinating when patches are applied.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Why multi-cloud helps availability</span>
+    <p>The instructor's argument for multi-cloud was availability, the A of the CIA triad: it is very unlikely
+    that two distinct providers in different locations suffer an incident simultaneously, so spreading
+    workloads across providers protects against a single provider's outage. He recalled a major provider
+    disruption the previous year that rippled into critical national infrastructure, including hours of
+    disruption to a major UK airport's departure operations, as an illustration of how far a single provider's
+    failure can reach. Multi-cloud also lets you place workloads in regions close to your users, patients, or
+    constituents to reduce latency.</p>
   </div>
 
   <h3>Cloud shared considerations</h3>
@@ -718,6 +840,48 @@
     <p>A UK bank negotiating a cloud contract insists on a clause guaranteeing that if it ends the relationship, it can retrieve its data in a usable format and have the provider certify that all copies have been deleted within a set number of days. That requirement is reversibility. It is a different concern from interoperability, which is about systems working together while the relationship continues, not about exiting it.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Service levels in practice</h4>
+  <p>An SLA is not only about security. Minimum uptime commitments are common, with some customers paying a
+  premium for the five nines, 99.999 percent availability, and support responsiveness is contractual too. If a
+  provider fails to meet the commitments delineated in the contract, the customer is typically entitled to
+  financial remedies such as service credits, and persistent failure to rectify performance can become grounds
+  for termination. SLAs should also address versioning: whenever a platform is upgraded, version numbers
+  should be recorded and an overlap period agreed during which the previous version remains available, so a
+  customer is not stranded by an overnight change.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>At Rackspace, the managed security business worked to a three-hour SLA to notify a customer if a threat
+    actor was spotted in their environment. The team went further than the contract required: around the time
+    the GDPR came into force they downloaded the ICO's personal data breach notification form, freely
+    available at ico.org.uk, and used the three hours to collate who and what had been accessed into that
+    form, so the customer received a report already shaped for the supervisory authority. Under the GDPR a
+    controller has 72 hours from becoming aware of a breach to notify the ICO, and that clock includes
+    weekends: a breach discovered late on Friday must be reported by Monday evening.</p>
+  </div>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Data sovereignty and your contracts</h4>
+  <p>The instructor's standing recommendation: take your cloud contracts to your GRC team and check what
+  assurance you actually have about data location. Personal data of European citizens should stay within the
+  European Economic Area or, failing that, within countries holding an adequacy decision; the UK is itself an
+  adequacy country, and the ICO website maintains the current list. The stakes are statutory: the GDPR's upper
+  tier of fines reaches 20 million euros or 4 percent of global annual turnover from the previous year,
+  whichever is higher. The contract's responsibility matrix will also show, without ambiguity, which
+  obligations sit with the provider and which with you.</p>
+  <div class="example-box">
+    <span class="label">Example from practice</span>
+    <p>A delegate on a previous cohort took this advice, reviewed the contracts, and discovered that personal
+    data of European citizens was being stored in a data centre region in China. Nothing in the day-to-day
+    operation of the service had made that visible; only the contract review surfaced it. That is the kind of
+    finding that turns a routine review into a compliance programme.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Delegate insight</span>
+    <p>Discussing these considerations, a delegate observed that most organisations run a mix of everything in
+    this section at once, which makes governance very dynamic, and that SLAs are long documents needing legal
+    expertise to dissect. The instructor built on it with one of the recurring themes of the course: in cloud,
+    the enemy is not primarily the nation state or the hacking group. The enemy is complexity. Every broker,
+    layer, and integration you add is another place for a control to silently fail.</p>
+  </div>
+
   <h3>Impact of related technologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies</span>
   <p>The cloud reference architecture also considers how emerging technologies influence design decisions, including artificial intelligence, machine learning, blockchain, the Internet of Things, containers, quantum computing, edge computing, and confidential computing. A cloud architect needs to understand not just the traditional building blocks, but also how these newer technologies change the risk picture and the design choices available.</p>
@@ -725,6 +889,51 @@
     <span class="label">Example</span>
     <p>An energy company considering edge computing for its remote monitoring sensors has to weigh the benefit of processing data closer to the source, which reduces latency, against the added complexity of securing many small, distributed compute nodes rather than a single centralized data centre.</p>
   </div>
+  <p>The instructor walked through the full set on the slide, adding practical colour to each. The
+  additions worth keeping are below.</p>
+  <ul class="plain">
+    <li><strong>Containers</strong>, a wrapper packaging code, configuration, and libraries into a single
+    deployable unit, so there is no need to confirm that a large number of separate files deployed and
+    synchronised correctly across every system serving the application. The instructor tied this to the I of
+    the CIA triad: containers raise integrity while cutting deployment time and cost.</li>
+    <li><strong>Quantum computing</strong>, most public key cryptography rests on prime number factorisation
+    being computationally impractical; a sufficiently capable quantum computer breaks that assumption, so the
+    field matters to anyone whose architecture leans on cryptography, and quantum key distribution is already
+    appearing in security curricula.
+      <span class="li-eg"><span class="label">In practice</span>The instructor described a recent address given
+      from Bletchley Park in which senior UK national security leaders admitted openly that they cannot
+      predict what the technology landscape will look like in five to ten years, given AI, machine learning,
+      IoT, and quantum computing together. Humility about the horizon is now the official position.</span></li>
+    <li><strong>Edge computing</strong>, brings compute physically closer to users, cutting latency,
+    increasing downstream bandwidth and reducing upstream bandwidth. Applications include augmented and
+    virtual reality, 360-degree video, cloud gaming, and ad insertion. Edge and cloud are complementary rather
+    than competing: capture the right data at the edge, then use the storage and processing power of the cloud
+    behind it, and start with small pilot projects.</li>
+    <li><strong>Confidential computing</strong>, uses secure enclave technology to create a trusted execution
+    environment (TEE), built on security features provided by CPU vendors, allowing encryption, decryption,
+    and isolation inside the processor's memory. It closes a long-standing gap: encryption at rest and in
+    transit are solved problems, but data has always had to be decrypted in memory to be processed, which is
+    exactly where confidential computing now protects it.
+      <span class="li-eg"><span class="label">Delegate question</span>Asked whether cloud providers deliver
+      confidential computing by default, the instructor's answer was: many do, but they are not all created
+      equal, and it remains an emerging capability. Check whether your contract references protection of data
+      in use before assuming it.</span></li>
+    <li><strong>Blockchain</strong>, a cryptographically linked list of records in which each new block carries
+    the timestamp, metadata, and cryptographic hash of the previous one. Its security contribution is
+    non-repudiation, the property that the origin of a piece of data cannot be disputed, which the instructor
+    presented as a companion to the CIA triad rather than part of it.</li>
+    <li><strong>Internet of Things (IoT)</strong>, devices with enormous automation value and, very often, no
+    security designed in at all.
+      <span class="li-eg"><span class="label">Example from the field</span>Security researchers have bought
+      second-hand smart scales from online marketplaces and reverse engineered them, recovering previous
+      owners' names, home addresses, phone numbers, email addresses, and even health information. Corporate
+      policy on bringing IoT devices into the workplace, and on disposing of them, deserves real
+      attention.</span></li>
+    <li><strong>Machine learning and AI</strong>, beyond security tooling, machine learning drives cloud
+    scaling itself: rather than relying on pre-programmed utilisation thresholds, adaptive systems take a
+    broader view of demand and adjust resources in real time, keeping consumption tightly matched to
+    demand.</li>
+  </ul>
 </div>
 
 <a id="s13"></a>
@@ -742,12 +951,72 @@
     <p>A bank stores encryption keys in a dedicated key management service or hardware security module, separate from the encrypted data itself, and rotates those keys on a defined schedule. If the data store is ever compromised, the attacker still cannot read the data without separately compromising the key management system.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The key management lifecycle</h4>
+  <p>The instructor treated key management as a lifecycle with five stages, each with its own failure modes.
+  <strong>Generation</strong>: keys must be created with high entropy using algorithms that meet established
+  standards, NIST recommendations being the default reference, and ideally generated inside a hardware
+  security module (HSM) so the process itself is shielded. <strong>Distribution</strong>: the most exposed
+  stage, since mishandling invites interception; use encrypted channels, wrap keys in a further layer of
+  encryption while in transit, and verify the recipient's identity before release.
+  <strong>Usage</strong>: enforce least privilege on who and what can use a key, and in regulated environments
+  keep audit trails recording when, where, and by whom keys were used, so anomalous use is detectable.
+  <strong>Storage</strong>: keys at rest must themselves be encrypted and always managed separately from the
+  data they encrypt; a key stored beside its ciphertext protects nothing.
+  <strong>Destruction</strong>: retire keys at end of life using cryptographic erasure, and where a third
+  party performs destruction, obtain a certificate of destruction as compliance evidence.</p>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Where the key management system lives</h4>
+  <ul class="plain">
+    <li><strong>On-premises KMS</strong>, complete control over the full key lifecycle, hosted in your own
+    data centre; the right fit for the most stringent regulatory requirements.
+      <span class="li-eg"><span class="label">Trade-off</span>High cost for hardware and infrastructure, and it
+      demands scarce in-house expertise to run properly.</span></li>
+    <li><strong>Cloud-based KMS</strong>, provided by the CSP and already integrated with its platform; highly
+    available, scalable, pay as you use, with little upfront investment.
+      <span class="li-eg"><span class="label">Trade-off</span>You are trusting the provider with your keys, and
+      key security becomes a joint effort under the shared responsibility model.</span></li>
+    <li><strong>Hybrid KMS</strong>, the most sensitive keys stay on premises while the cloud handles less
+    sensitive operations.
+      <span class="li-eg"><span class="label">Trade-off</span>More complex to implement and operate, so it
+      needs careful planning to make the two halves work as one.</span></li>
+  </ul>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Encryption across the three states of data</h4>
+  <p>For data at rest, AES is the standard symmetric choice, with RSA commonly involved in key management. For
+  data in transit, TLS encrypts application traffic, and where TLS is not suitable, IPsec can encrypt the
+  entire packet, which is why it is the usual choice for VPN connections. End-to-end encryption goes further
+  still: data is encrypted at the source and decrypted only by the intended recipient, with no intermediate
+  decryption points, implemented with public key infrastructure, where the sender encrypts with the
+  recipient's public key and only the matching private key can decrypt. Its main operational challenge is
+  exactly the key distribution problem described above, multiplied by the number of endpoints.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>End-to-end encryption may appear abbreviated as E2EE. Recognise the abbreviation, and remember what
+    makes it distinct: no intermediate decryption points, not merely encryption on each hop.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>The instructor's first industry role, nearly two decades ago, was first-line support for RSA hardware
+    tokens: the key fobs showing a six-digit code that changed every sixty seconds, each fob associated with a
+    named employee. The technology has moved on, but the discipline has not: an authentication secret is only
+    as strong as the process that binds it to a person and manages it through its life.</p>
+  </div>
+
   <h3>Identity and access control</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management; Ch 5 &rsaquo; Identity Assurance in Cloud and Virtual Environments</span>
   <p>Cloud environments distinguish between different types of access. User access covers individual human accounts. Privilege access covers elevated permissions typically reserved for administrators. Service access covers the permissions granted to automated services and applications, such as one system calling another through an API, which should generally be scoped as narrowly as possible.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A telecom company gives its billing application a service account with permission to read customer records from a database, but no permission to delete them. If that application is ever compromised, the damage an attacker can do through it is limited by the narrow scope of that service account.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>The 2025 attacks on major UK retailers, including Marks and Spencer and the Co-op, began with social
+    engineering that yielded legitimate administrative credentials, which is what made them so damaging: the
+    attackers did not break the perimeter, they walked through it as trusted users. Privileged accounts,
+    service accounts, root, and administrator access are notoriously difficult to monitor for misuse precisely
+    because their activity looks authorised. Detection depends on the accumulation of weak signals along the
+    kill chain, an unusual privilege escalation here, compression tools appearing in a sensitive area there,
+    each individually explainable, together malicious.</p>
   </div>
 
   <h3>Data and media sanitization</h3>
@@ -757,6 +1026,15 @@
     <span class="label">Example</span>
     <p>An energy company decommissions a virtual disk that once held sensitive engineering data. Because the disk was encrypted from the start, the company can simply destroy the encryption key. The underlying storage blocks can then be safely reassigned to another tenant, since the data on them is now permanently unreadable.</p>
   </div>
+
+  <p>The instructor was direct about why this is harder in cloud than the slide suggests. Cloud data is
+  regularly relocated and backed up as the provider optimises its estate, so there is no practical way to
+  confirm that every copy of a data set has been removed, and no fixed time frame after which lingering
+  fragments can be assumed gone. The physical medium is out of your reach entirely. Two practices follow.
+  First, encrypt sensitive data from the moment it enters the cloud, so cryptographic erase remains available
+  at end of life. Second, where physical media does come back under your control, a specialist third party can
+  degauss, shred, or incinerate it and issue a certificate of destruction, which is the evidence a regulator
+  or auditor will ask for.</p>
 
   <h3>Network security</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
@@ -780,12 +1058,49 @@
     machine, micro-segmentation then limits how far that foothold can take them.</p>
   </div>
 
+  <p>Several details from the session sharpen this picture. Network security groups apply at more than one
+  scope: rules can attach at the virtual machine, the network interface, or the subnet level, acting as a
+  virtual firewall at each. Traffic direction has its own vocabulary: north-south for traffic entering and
+  leaving the environment, east-west for lateral movement inside it. It is the east-west traffic where most
+  damage is done once an attacker has a foothold, which is what segmentation and micro-segmentation exist to
+  restrict. Geofencing feeds into detections such as impossible travel: the instructor's own example was an
+  account logging in from Madeira and then from London fifteen minutes later, which no legitimate user can do.
+  And zero trust compresses to a strapline worth memorising: never trust, always verify, for every request,
+  regardless of origin, even from a segment that has already authenticated once.</p>
+  <div class="example-box">
+    <span class="label">In practice</span>
+    <p>On monitoring posture, the instructor quoted a former head of the CIA: it is not if but when an
+    organisation is successfully targeted, and the most effective posture is to assume compromise. He also
+    flagged a personal bugbear: next generation firewall is more marketing term than category, and every extra
+    function loaded onto a device sitting at a bottleneck in the network adds latency at that choke point.
+    Weigh the functionality against the position it occupies.</p>
+  </div>
+
   <h3>Virtualization security</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization Security; Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>Multiple customers often share the same underlying physical hardware, separated only by logical boundaries enforced by a hypervisor or container runtime. A vulnerability that allows one virtual machine to break out of its isolation boundary and access another tenant's resources is known as a VM escape, or hypervisor breakout. This is one of the more serious threats specific to virtualized, multi-tenant cloud environments. Ephemeral computing and serverless technology introduce their own isolation considerations, since compute resources may be extremely short lived and shared rapidly across many different workloads.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A security researcher discovers a flaw in a hypervisor that allows carefully crafted instructions from within one virtual machine to execute code on the host itself, potentially reaching other virtual machines on the same physical server. This is exactly the kind of isolation failure that keeps cloud infrastructure teams focused on hypervisor patching and hardening.</p>
+  </div>
+
+  <p>Three further points from the session. First, powered-off virtual machines are not safe the way
+  powered-off physical servers are: a physical server that is off is isolated from attack, but a VM exists as
+  an image file in storage, so if the hypervisor or storage layer is compromised, images can be attacked,
+  corrupted, or tampered with even while the machine is disabled. Second, virtual switches share the hosting
+  environment with the workloads they connect, so a compromised host puts the virtual switching layer within
+  reach as well. Third, hypervisors cap the resources any one guest can consume, which is the built-in defence
+  against one tenant mounting a denial of service against the others; remember that a DoS can originate inside
+  the cloud from a co-tenant, not only from the internet.</p>
+  <div class="example-box">
+    <span class="label">Delegate question</span>
+    <p>A delegate asked why virtualization security features in the exam at all, given that under the shared
+    responsibility model it belongs to the provider and the consumer never touches it. The instructor agreed
+    on the responsibility, then gave two reasons it still matters to you. The CCSP expects you to understand
+    the mechanisms on the provider's side of the fence, because you are the one accepting the residual risk.
+    And you are not powerless: your security operations centre can monitor for the symptoms, and your contract
+    review should confirm the provider is doing what it claims, especially where regulated data is
+    involved.</p>
   </div>
 
   <h3>Common cloud threats</h3>
@@ -802,6 +1117,28 @@
   <div class="example-box">
     <span class="label">Example</span>
     <p>Rather than logging into a running web server to apply a security patch, a bank's cloud team builds a new server image with the patch already applied, tests it, and then replaces the running instances with the new image. The old instances are simply terminated. This immutable approach avoids the configuration drift that can build up over years of incremental, in-place changes.</p>
+  </div>
+
+  <p>The instructor added texture on both patching and response. On patching, industry figures he cited put
+  the typical time to apply fixes at roughly 120 days, a window in which known vulnerabilities sit exposed,
+  and many organisations settle for a monthly cycle as the achievable compromise. Keeping a feed of emerging
+  vulnerabilities helps prioritisation; his own habit is a weekly aggregated digest from VirusTotal. On
+  resilience, segment your backups so a ransomware campaign that reaches production cannot also reach the
+  copies you would restore from. Periodic SWOT analysis of the defensive architecture, plus penetration
+  testing, round out the hygiene picture: black box tests simulate an outside attacker who must do their own
+  reconnaissance, while white box tests give the testers material such as access control lists, topology
+  diagrams, and data flow diagrams, trading realism for lower cost and shorter duration. He also noted a
+  counter-trend worth knowing: as digital defences improve, attackers are reverting to traditional methods
+  such as dumpster diving for discarded personal data.</p>
+  <div class="example-box">
+    <span class="label">Why incident response plans fail</span>
+    <p>Many incident response plans the instructor has reviewed run to a hundred steps and fall at step one:
+    contact a named individual in IT security, by email. One person is a single point of failure, and one
+    channel that depends on the very infrastructure under attack is not a channel at all; if the incident has
+    taken out your ISP or mail platform, the plan is unreachable. Effective plans name backups for every role,
+    use out-of-band communications that can ride cellular networks as well as corporate Wi-Fi, and delineate
+    accountability so precisely that no step can be met with a shrug. In a live incident, everyone should
+    already know where they stand and what they own.</p>
   </div>
 
   <h3>Why this matters for the exam</h3>
@@ -827,8 +1164,14 @@
     <li><strong>Store</strong>, committing the data to a storage repository.</li>
     <li><strong>Use</strong>, data being viewed, processed, or otherwise used by an application or person.</li>
     <li><strong>Share</strong>, data being made accessible to other users, systems, or organizations.</li>
-    <li><strong>Archive</strong>, data leaving active use and being retained for a defined period, often for legal or business reasons.</li>
-    <li><strong>Destroy</strong>, the permanent removal of data using secure sanitization methods.</li>
+    <li><strong>Archive</strong>, data leaving active use and being retained for a defined period, often for legal or business reasons.
+      <span class="li-eg"><span class="label">In practice</span>Personal data must never be retained
+      indefinitely; retention periods are typically tied to the underlying contract, commonly 12 or 24
+      months.</span></li>
+    <li><strong>Destroy</strong>, the permanent removal of data using secure sanitization methods.
+      <span class="li-eg"><span class="label">In practice</span>Physical destruction options include
+      degaussing, shredding, crushing, and incineration, with a certificate of destruction issued by the third
+      party performing it.</span></li>
   </ul>
   <div class="example-box">
     <span class="label">Example</span>
@@ -843,12 +1186,32 @@
     <p>An energy company sets an RTO of one hour and an RPO of fifteen minutes for a critical monitoring system. This means the business has decided it can tolerate being offline for up to an hour after a failure, but it can only afford to lose the most recent fifteen minutes of data. The recovery strategy, including how frequently backups are taken, must be designed to meet both figures.</p>
   </div>
 
+  <div class="example-box">
+    <span class="label">Examples from the field</span>
+    <p>Interruptions are not only cyber attacks, and the instructor ran through recent reminders. Wildfires
+    have threatened data centre operations in more than one region. Flooding has reached the Middle East,
+    where cloud seeding operations have produced floods around facilities built partly underground for
+    cooling, which is exactly where water does the most damage. And the large-scale power blackout across
+    parts of southern Europe in 2025 showed how a grid event becomes an IT event: uninterruptible power
+    supplies bridge the first minutes on battery while longer-term generators start up, which is why the UPS
+    estate is one of the components a business impact analysis should rank as most critical. Insurers group
+    these under acts of God, but the continuity plan has to treat them as ordinary inputs.</p>
+  </div>
+
   <h3>Business Impact Analysis</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Business Requirements &rsaquo; Cost/Benefit Analysis; Ch 4 &rsaquo; Cloud-Specific BIA Concerns</span>
   <p>A Business Impact Analysis identifies which business functions are critical, assesses the impact if those functions are disrupted, and from that analysis derives recovery priorities such as RTO and RPO. A cost-benefit analysis is often used alongside this work, comparing the cost of implementing a given level of resilience against the financial and operational benefit of doing so. Return on investment is a related financial metric, often calculated as part of that broader cost-benefit comparison.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>Before migrating its billing platform to the cloud, a telecom operator first identifies that billing is a critical function, since an outage would directly stop revenue collection. It then assesses the financial impact of an hour of downtime versus a day of downtime, and uses that analysis to justify the additional cost of a more resilient, multi-region deployment.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">In practice</span>
+    <p>Run the threat identification part of a BIA as a cross-functional exercise, not a security-team
+    brainstorm. The instructor's phrasing: we do not see the world as it is, we see it as we are. People from
+    different business units surface failure modes that security professionals miss, because they live with
+    different dependencies.</p>
   </div>
 
   <h3>Functional security requirements</h3>
@@ -864,12 +1227,40 @@
     <p>A bank builds heavy customization on top of a SaaS provider's proprietary workflow engine. Two years later, the bank wants to switch providers, but the cost of rebuilding those customizations elsewhere is so high that switching is effectively not a realistic option. That is vendor lock-in, and it is a direct consequence of insufficient attention to portability during the original design.</p>
   </div>
 
+  <p>The session added operational depth to all three terms. Portability splits into a one-time movement,
+  where a customer moves to a platform with no intention of moving again, and the now more common repeated
+  movement between providers. Neither is a forklift operation: each CSP uses different tools and templates, so
+  a move needs careful mapping, and data can be lost or modified in the process; if that data is personal
+  data, the loss itself is a regulatory liability under the GDPR. There is also a commercial squeeze: you keep
+  paying for the old service while porting to the new one, which puts real time pressure on the migration. On
+  lock-in, the instructor's concrete example was AWS CloudTrail: it gives strong audit capability for
+  governance, risk, and compliance, but a decision to leave AWS means rebuilding that GRC functionality from
+  scratch on whatever replaces it. Well-designed APIs mitigate interoperability gaps, for instance letting a
+  SaaS data inventory feed classification information into GRC tooling, so there is a single source of truth
+  rather than divergent classifications in different systems.</p>
+  <div class="example-box">
+    <span class="label">Delegate insight</span>
+    <p>A delegate pointed out that infrastructure as code helps here: if the way workloads are spun up is
+    captured in Terraform, the definitions are reusable across environments, which softens both the
+    portability problem and the lock-in risk. The instructor endorsed the point and noted that the course
+    returns to infrastructure as code in a later domain.</p>
+  </div>
+
   <h3>Security responsibilities across service categories</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Foundations of Managed Services &rsaquo; Shared Responsibilities by Service Type</span>
   <p>As an organization moves from IaaS toward SaaS, the provider takes on an increasing share of security responsibility. In IaaS, the customer typically manages the operating system, middleware, and application layers. In PaaS, the provider manages the operating system and runtime, and the customer focuses on the application. In SaaS, the provider manages nearly the entire stack, and the customer's responsibility narrows mainly to managing its own data and user access.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank running its own virtual machines on IaaS is responsible for patching the operating system itself. If that same bank instead uses a SaaS platform for the same function, the provider is responsible for patching the operating system, since the bank has no access to or control over that layer.</p>
+  </div>
+
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Whatever the service category, one asset is always the customer's responsibility: the data, along with
+    the APIs and applications the customer exposes. A useful IaaS heuristic from the session: everything above
+    the hypervisor is the customer's. But the boundary is a continuum that varies between providers and
+    contracts, so in any real engagement it must be established case by case, from the responsibility matrix
+    in the contract, not assumed from the category name.</p>
   </div>
 
   <h3>Cloud design patterns</h3>
@@ -910,12 +1301,45 @@
     <p>A maritime company applies the Well-Architected Framework when designing its new hybrid cloud platform, explicitly weighing decisions such as choosing a more expensive but more reliable storage tier against the framework's cost optimization and reliability pillars, rather than defaulting to the cheapest option without considering the trade-off.</p>
   </div>
 
+  <p>Walking through the security principles, the instructor gave several of them lived-in detail. Supply
+  chain security has moved to the centre: attackers increasingly leapfrog into a target through its suppliers,
+  so a provider must hold its own supply chain to the standards it sets for itself, including knowing which
+  third parties have touched customer data and which the service depends on for hardware and software. Secure
+  service administration matters because administration systems are high-value targets, prized by attackers
+  including cryptocurrency miners. Audit information and alerting for customers is what allows you to
+  establish how and when an incident occurred, rather than merely that one did. And secure use of the service
+  is the customer-side principle: providers should be secure by design and by default, and security should
+  never be an afterthought bolted on at the end.</p>
+  <div class="example-box">
+    <span class="label">Why external interfaces matter</span>
+    <p>The instructor's illustration for external interface protection was an outage at a major UK airport,
+    where a failure involving a third-party interface feeding the departures displays caused roughly four
+    hours of disruption. Nothing exotic was attacked; an external dependency failed, and operations felt it
+    immediately. External APIs, web consoles, and command line interfaces are part of the attack and failure
+    surface even when they belong to someone else.</p>
+  </div>
+
   <h3>DevOps security</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies &rsaquo; DevOps and DevSecOps</span>
   <p>DevOps security, often called DevSecOps, integrates automated security testing directly into the development and deployment pipeline, treating security as a shared responsibility across development and operations teams rather than a separate, later stage handled only by a dedicated security team.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank's development pipeline automatically scans every code change for known vulnerabilities before it can be merged, rather than waiting for a manual security review after the application is already built. This catches problems earlier, when they are cheaper and easier to fix.</p>
+  </div>
+
+  <p>Two limits from the session are worth keeping. DevSecOps shortens the window between introducing and
+  fixing a defect, driving down mean time to detection, but going faster also risks skipping fundamental
+  security thinking in new features. And DevSecOps does not tell you how to architect security: which identity
+  and access management approach to standardise on, which cryptographic libraries to permit, how key
+  management works, or how sensitive data is encrypted at rest and in motion. Those remain architecture
+  decisions that the pipeline merely enforces.</p>
+  <div class="example-box">
+    <span class="label">Delegate question</span>
+    <p>Asked to distinguish DevOps from DevSecOps, the instructor answered that DevOps does not always
+    incorporate security into the framework, while DevSecOps explicitly does: the developer's code is
+    security-checked as it is written, with the whole process automated. Then the practical warning: the two
+    terms are often used interchangeably, including in exam material, so read questions about DevOps with the
+    possibility in mind that DevSecOps practices are what is being described.</p>
   </div>
 
   <h3>Why this matters for the exam</h3>
@@ -941,14 +1365,40 @@
     <p>A bank's procurement team builds a scorecard covering encryption practices, certifications held, audit report availability, incident history, and financial stability, then applies that same scorecard to every provider under consideration. This gives a repeatable, defensible basis for the final decision, rather than relying on a sales presentation alone.</p>
   </div>
 
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>At Rackspace around 2018, a large part of the instructor's remit was third-party assurance: auditing
+    roughly 180 suppliers over a twelve-month period. The method matters more than the number. A supplier's
+    ISO 27001 certificate was never taken at face value; the team scratched beneath the surface and asked for
+    visibility of the key documents behind it, the Statement of Applicability, the risk register, and the risk
+    treatment plan, before any personal data was shared. The goal was parity: confirming the supplier handled,
+    stored, and processed personal data to the same standard, with matching SLAs for breach notification. A
+    certificate tells you a management system exists; the documents tell you what it actually covers.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Why certifications deter attackers</span>
+    <p>Certifications are also signalling. The instructor argued that threat actors run their own return on
+    investment calculations, and cybercrime now operates at the scale of a major economy, by one widely cited
+    estimate the world's third largest, behind only the United States and China. For most attackers the scarce
+    resource is time, so visible assurance such as Cyber Essentials, Cyber Essentials Plus, or ISO 27001
+    pushes opportunistic attackers down the list toward softer targets. It is not a defence in itself, but it
+    changes the economics of being chosen.</p>
+  </div>
+
   <h3>Common certifications and reports</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Reports; Ch 10 &rsaquo; Government Cloud Standards (Common Criteria, FIPS 140-2)</span>
   <p>Several certifications and report types come up repeatedly, and the exam expects you to know what each one actually covers, since they are often confused with one another.</p>
   <ul class="plain">
-    <li><strong>ISO/IEC 27001</strong>, an internationally recognized standard for an information security management system, covering areas such as risk assessment, asset management, and access control at the organizational level.</li>
+    <li><strong>ISO/IEC 27001</strong>, an internationally recognized standard for an information security management system, covering areas such as risk assessment, asset management, and access control at the organizational level.
+      <span class="li-eg"><span class="label">In practice</span>Certification runs on a three-year cycle with
+      annual surveillance audits, and the current Annex A lists 93 controls spanning people, process, and
+      technology.</span></li>
     <li><strong>SOC 2 Type I</strong>, an assessment of whether a provider's controls are suitably designed at a single point in time.</li>
     <li><strong>SOC 2 Type II</strong>, an assessment of whether those controls operated effectively over a defined period, typically six to twelve months. This gives stronger assurance than Type I, since it demonstrates sustained effectiveness rather than design alone.</li>
-    <li><strong>FIPS 140-2</strong>, and its successor FIPS 140-3, a standard for validating the security of cryptographic modules, including hardware security modules.</li>
+    <li><strong>FIPS 140-2</strong>, and its successor FIPS 140-3, a standard for validating the security of cryptographic modules, including hardware security modules.
+      <span class="li-eg"><span class="label">In practice</span>FIPS 140-2 defines four security levels for
+      cryptographic modules, covering areas such as ports and interfaces, roles and services, physical
+      security, and design assurance.</span></li>
     <li><strong>ISO/IEC 27002</strong>, the companion to 27001, giving implementation guidance for the controls rather than the management system requirements themselves.</li>
     <li><strong>ISO/IEC 27017</strong>, cloud specific security controls guidance, extending 27002 with additional controls for both providers and customers.</li>
     <li><strong>SOC 1</strong>, which reports on controls relevant to financial reporting, as distinct from SOC 2, which reports on security, availability, processing integrity, confidentiality, and privacy. <strong>SOC 3</strong> is a public summary of a SOC 2, suitable for general distribution but too high level for real assurance work.</li>
@@ -960,6 +1410,15 @@
   <div class="example-box">
     <span class="label">Example</span>
     <p>A telecom company's security team specifically requests a SOC 2 Type II report from a prospective provider, rather than accepting a Type I report, because the team wants evidence that the provider's controls have actually worked as intended over the past year, not just that they were well designed on paper.</p>
+  </div>
+
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Common Criteria has two components: protection profiles, which describe the security requirements for a
+    class of product in a given context, and Evaluation Assurance Levels. In the session the instructor
+    recalled the EAL scale as running one to five and promised to verify; the correct range is EAL1 to EAL7,
+    with EAL7 the most rigorously evaluated. Products are examined against their protection profile, including
+    for embedded malicious functionality, before governments will rely on them.</p>
   </div>
 
   <h3>Vendor viability</h3>
@@ -995,6 +1454,17 @@
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank's security operations centre uses a machine learning model to automatically flag unusual login patterns across its cloud accounts, such as a login from an unfamiliar country followed immediately by an attempt to download a large volume of customer data. The model surfaces this pattern for a human analyst to investigate, rather than the analyst having to manually review every login across the entire environment.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>Machine learning driven anti-malware illustrates the scale advantage: the instructor described engines
+    examining three hundred to five hundred features and characteristics of a file before it even executes,
+    seeded with known patterns and then adapting continuously, which no signature list maintained by humans
+    could match. He also pointed delegates to Anthropic's Project Glasswing, a programme applying AI agents to
+    vulnerability discovery in critical national infrastructure systems, including finding new vulnerabilities
+    in systems that have been under human assessment for decades, as background reading on where AI-assisted
+    security analysis is heading.</p>
   </div>
 
   <h3>Data source validation and verification</h3>

@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -493,6 +505,7 @@
   <p>Data is intangible, constantly created, moved, and eventually discarded, which makes it harder to secure than a physical asset. The practical answer is to model the stages data passes through and attach the right controls to each stage, rather than trying to track every individual data element in the organisation.</p>
 
   <h3>The six lifecycle phases</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Data Lifecycle</span>
   <p>The cloud secure data lifecycle has six phases: create, store, use, share, archive, destroy. The exam expects you to know the sequence, and more importantly, which controls belong to which phase.</p>
   <ul class="plain">
     <li><strong>Create</strong>, when data first enters a system or existing data is modified. The critical control here is data classification, because everything downstream depends on knowing how sensitive the data is.</li>
@@ -512,6 +525,7 @@
   </div>
 
   <h3>Data dispersion</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures</span>
   <p>Data dispersion breaks data into smaller chunks and distributes them across multiple physical storage devices, much like striping in RAID. Cloud implementations add erasure coding, which works like parity in RAID: if some segments are lost, the remaining segments plus the parity information can reconstruct the missing data.</p>
   <p>The security effect cuts both ways. Availability improves, because the failure of one physical device does not lose the data, and a single compromised device does not hold a complete usable copy. The risk is jurisdictional: segments dispersed across regions can land in countries with unexpected legal requirements. Most providers now offer geographic restriction features so customers get the resilience benefit without the regulatory exposure.</p>
   <div class="example-box">
@@ -520,6 +534,7 @@
   </div>
 
   <h3>Data flows</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Flows</span>
   <p>Understanding where data travels is a design responsibility. The three states to track are data in transit, moving across networks between users, services, and clouds; data at rest, held in storage; and data in use, being actively processed. Each state has its own protection profile: encryption in transit, encryption at rest with access controls, and emerging protections such as confidential computing for data in use. Mapping data flows also surfaces compliance obligations, since a flow that crosses a border can trigger residency requirements under regimes such as GDPR.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -536,24 +551,31 @@
   <p>Each cloud service category offers its own storage types, and each type has a distinct threat profile. The exam tests whether you can match the storage type to its service model, its typical use, and its characteristic risk.</p>
 
   <h3>Ephemeral storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Temporary storage that persists only while the instance is running, commonly implemented in RAM or other volatile memory, and wiped when the instance terminates. Associated with IaaS. Typical use is short lived working data such as session state. The characteristic risk is data loss on unexpected termination, and residual data if the underlying resources are reassigned without proper sanitisation.</p>
 
   <h3>Raw storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Direct access to the underlying physical or block level storage media, without a filesystem or higher abstraction imposed by the provider. It offers maximum control and performance for specialised workloads, and correspondingly places responsibility for structure, management, and protection on the customer.</p>
 
   <h3>Volume storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Volume Storage: File-Based Storage and Block Storage</span>
   <p>Persistent storage that emulates a physical drive attached to a cloud instance. Associated with IaaS. Typical use is databases, application files, and anything that must survive instance reboots. The characteristic risks are unauthorised access and breach where encryption and access controls are weak.</p>
 
   <h3>Object storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Object-Based Storage</span>
   <p>Data managed as discrete self contained objects, each holding the data itself, its metadata, and a unique identifier, in a distributed storage environment. Associated with IaaS and PaaS. Typical use is large volumes of unstructured data such as images, video, and backups. Characteristic risks are unauthorised access, data manipulation, and compliance violations where management practices drift from regulatory requirements. Misconfigured public access on object storage is one of the most common real world causes of cloud data exposure.</p>
 
   <h3>Database and BLOB storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Structured storage such as SQL databases, and Binary Large Objects for big unstructured files, associated with PaaS. Typical use is applications needing structured query access, and storage of large media or document files. The characteristic risks are SQL injection against the structured side and unauthorised access to the unstructured side.</p>
 
   <h3>SaaS storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Storage wholly managed by the provider behind a SaaS application, often specialised for that application. The customer interacts with data only through the application interface. The characteristic risk is loss of control: the customer depends entirely on the provider's controls and has limited visibility into how storage is secured.</p>
 
   <h3>Long-term storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Archival storage tiers designed for infrequently accessed data retained over years, trading retrieval speed for low cost. The characteristic considerations are retrieval delay, key management over long periods, and ensuring archived data remains readable and compliant for its whole retention life.</p>
 
   <div class="example-box">
@@ -562,6 +584,7 @@
   </div>
 
   <h3>General threats across storage types</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Threats to Cloud Storage</span>
   <ul class="plain">
     <li><strong>Unauthorised access</strong>, mitigated with strong authentication, comprehensive access controls, and encryption at rest and in transit.</li>
     <li><strong>Regulatory noncompliance</strong>, mitigated by aligning storage configuration with the regulations that apply to the data, and auditing regularly.</li>
@@ -581,6 +604,7 @@
   <h2>Encryption, hashing, obfuscation, tokenization, DLP, and secrets management</h2>
 
   <h3>Encryption levels in cloud environments</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage &rsaquo; Encryption</span>
   <p>Encryption can be applied at several levels, and the level chosen determines who is protected against whom.</p>
   <ul class="plain">
     <li><strong>Application-level encryption</strong>, implemented inside the application itself, encrypting data as the user enters it, before it ever reaches storage.</li>
@@ -594,6 +618,7 @@
   </div>
 
   <h3>Key management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Secrets Management</span>
   <p>Encryption is only as strong as the management of its keys. A cloud Key Management System (KMS) handles cryptographic operations and the key lifecycle inside a secure boundary. Customer Managed Encryption Keys (CMEK) let the customer control its own keys while integrating with the provider's KMS, which matters for compliance regimes that require customer key custody.</p>
   <p>The key lifecycle runs: <strong>creation</strong>, using cryptographically secure random generation; <strong>storage</strong>, in encrypted vaults or hardware security modules with tightly restricted access; <strong>usage</strong>, under defined protocols with all use logged and monitored; <strong>sharing</strong>, discouraged, and done only through secure channels when unavoidable; and <strong>archiving</strong>, retaining retired keys securely where they are still needed to decrypt historical data. Keys must be stored separately from the data they protect, and rotated on a schedule so a compromised key has a limited exposure window.</p>
   <div class="note-box">
@@ -602,6 +627,7 @@
   </div>
 
   <h3>Hashing</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage &rsaquo; Hashing</span>
   <p>Hashing is often described as one way encryption, though strictly it is not encryption at all, because it is not reversible. A hash function takes input of any length and produces a fixed unique hash value. Comparing hash values computed at two points in time proves whether data changed, which is why hashing serves the integrity principle: verifying the accuracy of backups, confirming messages arrived unaltered, and detecting file changes that indicate system compromise.</p>
   <p>Hashing also underpins <strong>digital signatures</strong>, which deliver non-repudiation. The signer computes a hash of the data and encrypts that hash with their private key. The recipient computes their own hash of what arrived and decrypts the signature with the signer's public key. Matching values prove both that the data is unaltered and that it came from the holder of the private key, who cannot later deny having signed it.</p>
   <div class="example-box">
@@ -610,6 +636,7 @@
   </div>
 
   <h3>Data obfuscation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Obfuscation, also called de-identification or masking, produces data that looks and behaves like the original without exposing the sensitive values, typically so testers, developers, or researchers can work without being authorised to see live data. Regulations often mandate it when data is used beyond its original operational purpose. Common methods include <strong>substitution</strong>, replacing values with other data, either randomly or following integrity rules; <strong>shuffling</strong>, rearranging real values within a column so each value is genuine but attached to the wrong record; and <strong>value variance</strong>, applying mathematical changes to numerical data such as dates or amounts. Encryption is a poor fit for this purpose, because encrypted data is unreadable and therefore useless for testing.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -617,9 +644,11 @@
   </div>
 
   <h3>Anonymization</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Anonymization goes further than masking: it aims to remove the link between the data and the individual permanently, including the indirect identifiers that could re-identify someone when combined. Done properly, anonymized data falls outside many privacy regimes entirely. The difficulty is that true anonymization is hard, because seemingly harmless attributes in combination can re-identify individuals.</p>
 
   <h3>Tokenization</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Tokenization substitutes a sensitive data element with a non-sensitive token. It is not encryption: rather than obscuring data with a key, it removes the sensitive value from the environment entirely and stores it in a separate, tightly controlled token vault. The application keeps only the token. When an authorised process needs the real value, it presents the token to the tokenization server, which checks identity and authorisation before returning the original. The classic application is payment cards, where merchants hold tokens rather than card numbers, drastically shrinking their compliance scope under PCI DSS.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -631,6 +660,7 @@
   </div>
 
   <h3>Data Loss Prevention</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Data Loss Prevention</span>
   <p>DLP, also called data leakage prevention, is a set of controls that keep defined types of data, structured and unstructured, inside the organisation's control in line with policy. Its primary function is detecting and preventing unauthorised exfiltration of sensitive data such as account numbers and national identifiers. A DLP capability has three components: <strong>policy management</strong>, defining what data is protected and how; <strong>monitoring and enforcement</strong>, watching data at rest and in transit and acting on violations; and <strong>incident response</strong>, handling what happens when a violation is detected.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -638,6 +668,7 @@
   </div>
 
   <h3>Keys, secrets, and certificates management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Certificate Management; Ch 6 &rsaquo; Secrets Management</span>
   <p>Beyond encryption keys, cloud environments run on secrets, meaning API keys, passwords, tokens, and connection strings, and on digital certificates. A <strong>secrets manager</strong> centralises storage of these values with access control and audit logging, replacing the dangerous habit of embedding credentials in code or configuration files. A <strong>certificate manager</strong> handles the lifecycle of digital certificates and the secure handling of their private keys, including issuance, renewal, and revocation. Centralising both means credentials can be rotated, audited, and revoked in one place.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -655,12 +686,15 @@
   <p>You cannot classify, protect, or delete data you do not know you have. Data discovery is the process of locating data across an organisation's estate, and it depends on understanding the three structural forms data takes.</p>
 
   <h3>Structured data</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with a predefined format and content type, organised into distinct fields, the classic example being a relational database. Its defining attributes are a defined structure, validation before storage, ease of search, and strong suitability for analysis. Discovery in structured data is comparatively straightforward, because the schema itself describes what each field contains.</p>
 
   <h3>Unstructured data</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with no imposed structure or format: documents and text files, emails, images, videos, office documents, and scientific datasets. Unstructured data is the hardest to discover and govern, because nothing about its container reliably describes its contents. A spreadsheet named notes.xlsx can hold anything from a lunch rota to a full customer export.</p>
 
   <h3>Semi-structured data</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>The middle ground: data that uses markers or tags to delineate semantic elements and hierarchies, without conforming to a rigid tabular schema. XML and JSON are the canonical examples, widely used for data interchange and in object oriented databases. It may carry metadata tags for attributes such as location, date, or source, while the content inside the tags remains unstructured.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -668,6 +702,7 @@
   </div>
 
   <h3>Data location</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Cloud mobility means customers often do not know precisely where their data physically sits, and for routine operations that may not matter. It matters greatly for regulated and sensitive data, where compliance depends on knowing and controlling location. Organisations with legal, compliance, or operational reasons should define a preferred data location, use the provider's geographic controls to enforce it, and engage the provider proactively for clarity on where data is actually stored, including replicas and backups.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -682,6 +717,7 @@
   <h2>Classification policies, mapping, and labeling</h2>
 
   <h3>Data classification policies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Classification</span>
   <p>A data classification policy is the framework of procedures, processes, and guidelines by which an organisation categorises stored information by sensitivity. Its purposes are consistent handling, guidance across the entire data lifecycle from creation to disposal, and risk reduction against privacy breaches, compliance violations, and security incidents. Two properties matter: the policy must be tailored to the organisation, since a bank's categories will not fit a logistics firm, and it must align with the laws and regulations that apply to the data.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -689,9 +725,11 @@
   </div>
 
   <h3>Data mapping</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Data mapping builds the picture of where data resides across applications and storage infrastructure. Discovery software scans data sources using a range of attributes, the most important being <strong>metadata</strong>, meaning data about data: details of a file's creator, origin, format, and context. A sound mapping strategy lets the organisation identify precisely where data lives, which is the foundation for governance, and for enforcing security policy, since you can only protect what the map shows you.</p>
 
   <h3>Data labeling and tagging</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Classification</span>
   <p>Labeling attaches identifying information to data, typically covering attributes such as department, location, and creator, and often carrying the classification itself, with labels such as confidential or restricted. Digital data cannot carry a physical sticker, so labeling uses methods such as <strong>metadata tagging</strong>, associating descriptive metadata with the asset, and <strong>header labels</strong>, embedding the label in the file's header for quick identification. Labels are what allow automated controls, such as DLP, to act on classification: the policy says restricted data may not leave, and the label is how the tooling recognises restricted data when it sees it.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -710,6 +748,7 @@
   <h2>IRM objectives and the certificate machinery behind it</h2>
 
   <h3>Objectives</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Information Rights Management &rsaquo; IRM Tool Traits; IRM in the Cloud</span>
   <p>Information Rights Management extends protection beyond standard encryption by attaching access control to the data object itself. Its key objectives:</p>
   <ul class="plain">
     <li><strong>Layered access control</strong>, an additional control layer over documents and data objects that determines not just who can open a file but what they may do with it: printing, saving, copying, forwarding. This granularity is an application of least privilege to individual actions on a document.</li>
@@ -727,6 +766,7 @@
   </div>
 
   <h3>Appropriate tools: certificates, issuance, and revocation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Information Rights Management &rsaquo; Certificates and IRM</span>
   <p>IRM implementations depend on identity, and identity at scale depends on Public Key Infrastructure. The exam focus is on revocation, the mechanism that ends trust in a certificate before its natural expiry.</p>
   <ul class="plain">
     <li><strong>Certificate Revocation List (CRL)</strong>, a list maintained by the Certificate Authority holding the serial numbers of revoked certificates and their revocation times. Clients download and parse the CRL to check a certificate's status. CRLs are distributed through defined channels and have expiry times, and parsing large CRLs is resource intensive, which is why some systems cache them.</li>
@@ -746,6 +786,7 @@
   <h2>Keeping data as long as required, and no longer</h2>
 
   <h3>Data retention policies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>A retention policy sets out how long information is kept to satisfy regulatory, legal, and business requirements, balanced against the cost and complexity of storing it. Its objectives include compliance, cost management by disposing of data that is no longer needed, risk reduction by not holding sensitive data longer than necessary, and ensuring retained data stays accessible and retrievable. A complete retention policy defines:</p>
   <ul class="plain">
     <li><strong>Purpose and scope</strong>, what the policy is for, which data types it covers, and which parts of the organisation it applies to.</li>
@@ -761,12 +802,15 @@
   </div>
 
   <h3>Data deletion procedures and mechanisms</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal</span>
   <p>Deletion procedures define how data is actually destroyed when retention ends, and they must produce irrecoverable results proportionate to the data's sensitivity. In the cloud, where the customer cannot physically destroy media, the practical mechanisms are overwriting and cryptographic erase, with cryptographic erase, destroying the key that protected the data, being the standard answer for multi-tenant storage the customer cannot touch.</p>
 
   <h3>Data archiving procedures and mechanisms</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>Archiving identifies inactive data and moves it into specialised long term storage, which keeps primary systems fast and storage costs down. The elements of an archiving policy include data encryption procedures for the archive, data monitoring, the ability to perform e-discovery against archived content when legal proceedings demand it, and backup and disaster recovery arrangements for the archive itself. The long time horizon is what makes archiving distinctive: keys age, formats age, and the archive must remain both secure and readable for its whole life.</p>
 
   <h3>Legal hold</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>A legal hold preserves data in response to actual or anticipated legal proceedings, triggered by a judicial or law enforcement order. Its key aspects: the hold notice defines the <strong>scope</strong> of data that must be preserved; the <strong>duration</strong> normally runs until proceedings conclude; the organisation may be required to keep <strong>custody and protection</strong> of the data, safeguarding it from alteration or destruction; and some situations impose <strong>escrow or independent custody</strong> requirements, placing the data with a neutral party.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -785,6 +829,7 @@
   <h2>Event sources, logging, and proving who did what</h2>
 
   <h3>Event sources and event attributes</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Audit and Audit Mechanisms; Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>An event source is any software, hardware, or system that generates activity logs: operating systems, applications, network devices, cloud platform services. Identifying event sources is the first step in monitoring, incident detection, and compliance, because you can only analyse what something actually recorded. Event attributes are the details each event must carry to be meaningful. The attributes the outline names are <strong>identity</strong>, who or what performed the action; <strong>IP address</strong>, where the request came from; and <strong>geolocation</strong>, the physical origin. In practice a useful event also carries a timestamp and the action performed. Rich attributes are what turn a log line into evidence: they support troubleshooting, security analysis, auditing, and compliance reporting.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -792,9 +837,11 @@
   </div>
 
   <h3>Logging, storage, and analysis of data events</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>Three interconnected activities. <strong>Logging</strong> records events as they occur. <strong>Storage</strong> keeps logs secure and intact for a defined retention period, which is often itself a regulatory requirement, and protects them from tampering, since an attacker's first move is frequently to alter the logs. <strong>Analysis</strong> turns stored logs into insight: identifying trends, diagnosing issues, and detecting anomalies that indicate security incidents. Each depends on the previous: analysis is only as good as what was logged, and logs are only trustworthy if storage preserved them unaltered.</p>
 
   <h3>Chain of custody and non-repudiation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Evidence Preservation and Management</span>
   <p><strong>Chain of custody</strong> is the documented record of how evidence has been collected, handled, stored, and transferred, capturing who touched it, when, and why. A rigorous chain establishes the integrity and credibility of evidence, demonstrating it could not have been tampered with, which is what makes it admissible in court. <strong>Non-repudiation</strong> is proof that a specific action or communication genuinely originated from a specific party, who cannot later deny it. Digital signatures are the standard mechanism: only the holder of the private key could have signed, so the signature is proof of origin and integrity together. Non-repudiation matters wherever denial would be damaging: financial transactions, contract signing, and system administration actions.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -815,6 +862,7 @@
   <p>This subtopic was added to the outline in the August 2026 update. It treats AI training data and the models themselves as data assets requiring the same discipline as any other sensitive data, plus some protections unique to machine learning. The outline names two areas: data set and model privacy, and data set and model security through validation and verification.</p>
 
   <h3>Data set and model privacy</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Training data often contains personal information, and a trained model can leak what it learned. An attacker querying a deployed model repeatedly can sometimes infer whether a specific individual's record was in the training set, or reconstruct attributes of that record. Two technical controls address privacy at this level. <strong>Differential privacy</strong> adds calibrated statistical noise so that a model's outputs do not reliably reveal any individual training record, protecting privacy during the inference phase. <strong>Homomorphic encryption</strong> allows computation to be performed on data while it remains encrypted, so sensitive data can be processed, including by a model, without ever being exposed in plain form.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -822,6 +870,7 @@
   </div>
 
   <h3>Data set and model security: validation and verification</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>The security of an AI system rests on the integrity of its data pipeline. <strong>Validation</strong> checks that training data is accurate, representative, and free of corruption before it is used. <strong>Verification</strong> confirms the data's provenance and integrity, that it came from trusted sources and has not been tampered with. Together they defend against data poisoning, where an adversary corrupts the training set to change the model's behaviour. The same discipline applies at inference time, since a model in production continues to consume data that can be manipulated.</p>
   <p>Large training sets commonly live in <strong>data lakes</strong>, which concentrate enormous volumes of raw data and therefore concentrate risk: a poorly governed lake mixes sensitive and non-sensitive data with weak visibility. Discovery and classification tooling, increasingly AI assisted itself, identifies sensitive information before it enters an ML pipeline. Two further concerns round out the picture. <strong>Data sovereignty</strong> applies when training data is processed across multiple cloud regions, since each jurisdiction's rules follow the data. And <strong>data remanence</strong> applies to the ephemeral storage used by AI compute nodes: training residuals left on de-provisioned nodes must be purged, typically by cryptographic erase, before the resources return to the shared pool.</p>
   <div class="example-box">
@@ -829,6 +878,7 @@
     <p>A telecom company trains a churn model on customer data in a cloud data lake. Before training, discovery tooling scans the lake and flags fields containing personal data, which are masked. The pipeline verifies each source feed's integrity by checksum before ingestion. Training runs in a region-restricted environment to satisfy UK data residency, and when the training cluster is torn down, the ephemeral volumes are cryptographically erased so no fragment of customer data survives on the recycled hardware.</p>
   </div>
   <h3>Privacy-preserving techniques compared</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Conventional techniques are Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization.</span>
   <p>Several techniques protect personal data in AI pipelines, and they solve different problems. Selecting the wrong one is a common design error.</p>
   <ul class="plain">
     <li><strong>Differential privacy</strong>, adding calibrated statistical noise so no individual record can be reliably inferred from outputs. Protects at the point of release or inference, and carries an accuracy cost that must be tuned deliberately.
@@ -848,6 +898,7 @@
   </div>
 
   <h3>Securing the RAG and vector pipeline</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Retrieval-augmented generation introduces a data store that is queried at inference time, which makes it a live data security concern rather than a training-phase one. Three issues recur.</p>
   <p><strong>Tenant isolation in vector databases</strong> must be enforced explicitly, because embeddings from different customers stored in a shared index can be returned by a semantic search that has no inherent concept of ownership. <strong>Embedding inversion</strong> is the risk that the original text can be partially reconstructed from its vector representation, which means embeddings of sensitive text must be protected as though they were the text itself. <strong>Retrieval poisoning</strong> occurs where an attacker places content into the corpus specifically so it will be retrieved and influence answers.</p>
   <div class="example-box">
@@ -856,6 +907,7 @@
   </div>
 
   <h3>Applying the data lifecycle to AI assets</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. The general lifecycle is Ch 3 &rsaquo; Cloud Data Lifecycle.</span>
   <p>The six lifecycle phases apply to training data and to models themselves, and each raises a question that conventional data governance does not.</p>
   <ul class="plain">
     <li><strong>Create and store</strong>, where consent and lawful basis must cover the use of personal data for model training specifically, not merely for the purpose it was originally collected.</li>
@@ -870,6 +922,7 @@
   </div>
 
   <h3>Data provenance and lineage</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p><strong>Provenance</strong> records where data originated and under what terms; <strong>lineage</strong> records how it was transformed on its way into a model. Together they answer the questions an investigation or regulator will ask: what data trained this model, was the organisation entitled to use it, and can that be evidenced. Provenance also underpins licensing compliance, since public datasets frequently carry terms restricting commercial use that are easy to overlook.</p>
   <div class="example-box">
     <span class="label">Example</span>

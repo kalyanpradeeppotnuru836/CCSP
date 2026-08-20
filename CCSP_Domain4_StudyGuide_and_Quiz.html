@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -509,6 +521,7 @@
   <h2>Building a security-aware development culture</h2>
 
   <h3>Cloud development basics</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Developing Software for the Cloud</span>
   <p>The Cloud Security Alliance and SAFECode identify collaborative accountability as the foundation of a security-conscious development programme, built on three components:</p>
   <ul class="plain">
     <li><strong>Security by design</strong>, treating security as a fundamental consideration at every stage, from initial feasibility through to retirement, rather than an afterthought or a reaction to a discovered flaw.</li>
@@ -517,6 +530,7 @@
   </ul>
 
   <h3>Common pitfalls</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Cloud Application Deployment Pitfalls</span>
   <p>The primary pitfall is failure to secure immediate and ongoing support from upper management. If senior leadership does not approve and adhere to security policies, and does not adequately fund and staff security work aligned to organisational goals, efforts to build a security culture will fail. Other recurring pitfalls include not understanding the organisation's culture, since even businesses in the same sector differ; inconsistency across teams when no established secure development framework exists; and cutting training programmes when there is no immediate consequence. A committed organisation finds ways to sustain awareness training under financial pressure, for example through online course subscriptions rather than abandoning it.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -524,9 +538,11 @@
   </div>
 
   <h3>Common cloud vulnerabilities and the reference lists</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Assurance and Validation &rsaquo; Common Threats to Applications</span>
   <p>Cloud's reliance on network systems exposes it to data breaches, compromised integrity, insecure APIs, and denial of service, with applications and transmissions operating in potentially hostile environments. Five reference lists are named in the outline. Each is set out in full below, since the exam expects recognition of individual entries rather than the list's general purpose.</p>
 
   <h3>OWASP Top 10 (web applications)</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications</span>
   <p>The most widely used catalogue of critical web application security risks. The current edition is organised as ten categories rather than ten individual bugs.</p>
   <ul class="plain">
     <li><strong>A01 Broken Access Control</strong>, users acting outside their intended permissions. <span class="li-eg"><span class="label">Example</span>changing an account number in a URL and viewing another customer's statement.</span></li>
@@ -546,9 +562,11 @@
   </div>
 
   <h3>OWASP Application Security Verification Standard (ASVS)</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p>Not a risk list but a verification framework, giving developers and testers a common standard of security requirements to assess an application against. It is organised into levels of increasing rigour, so an organisation can state which level a given application must meet. Where the Top 10 raises awareness of what commonly goes wrong, ASVS defines what must be demonstrably right.</p>
 
   <h3>OWASP Top 10 API Security Risks</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Programming Interfaces; Common Threats to Applications</span>
   <p>APIs fail differently from web front ends, chiefly because authorisation must be enforced per object and per function on every endpoint rather than once at a page boundary.</p>
   <ul class="plain">
     <li><strong>API1 Broken Object Level Authorization</strong>, an endpoint returning any object whose identifier is supplied, without checking ownership. <span class="li-eg"><span class="label">Example</span>requesting /orders/1002 and receiving another customer's order.</span></li>
@@ -564,6 +582,7 @@
   </ul>
 
   <h3>OWASP Top 10 for Large Language Model Applications</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>New to this exam outline. The current edition is the 2025 release, and several categories were renamed from the original 2023 list, so material written before then uses different names for the same risks.</p>
   <ul class="plain">
     <li><strong>LLM01 Prompt Injection</strong>, crafted input altering the model's behaviour or causing it to disregard its instructions, whether supplied directly by a user or indirectly through content the model reads. <span class="li-eg"><span class="label">Example</span>a web page containing hidden text instructing a summarising agent to exfiltrate the user's data.</span></li>
@@ -583,6 +602,7 @@
   </div>
 
   <h3>SANS Top 25 (CWE Most Dangerous Software Errors)</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications</span>
   <p>Maintained as the CWE Top 25, this list catalogues the specific coding weaknesses behind most exploited vulnerabilities. Where the OWASP lists describe risks in deployed applications, this one names the underlying implementation defects, which is why it is aimed at developers rather than architects. Recurring entries include out-of-bounds write and out-of-bounds read, cross-site scripting, SQL injection, use after free, OS command injection, improper input validation, cross-site request forgery, path traversal, unrestricted upload of dangerous file types, missing authorisation, integer overflow, deserialisation of untrusted data, and use of hard-coded credentials. For the exam, recognise its purpose and its developer orientation rather than memorising the ranking, which is re-ordered annually.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -597,12 +617,15 @@
   <h2>Requirements, phases, and methodologies</h2>
 
   <h3>Business requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud-Secure Software Development Lifecycle (SDLC)</span>
   <p>Gathering, reviewing, and understanding business requirements is essential to meeting organisational goals and customer expectations, whether for a new system or an improvement to an existing one. At conception, the requirements must rest on a comprehensive understanding of the project's necessity, its objectives, and its target audience, and should incorporate feedback from as many stakeholders as possible. Security requirements belong in this gathering alongside functional ones, because a requirement discovered late costs far more to satisfy than one captured at the start.</p>
 
   <h3>Phases</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Phases</span>
   <p>Any SDLC, including a secure SDLC, runs through a common set of phases: requirements gathering, design, development or coding, testing, deployment, and maintenance through to eventual retirement. What makes an SSDLC distinct is that security activity attaches to every phase rather than appearing only at testing.</p>
 
   <h3>Methodologies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Models</span>
   <ul class="plain">
     <li><strong>Waterfall</strong>, a sequential and linear approach where each phase completes before the next begins. Predictable and well documented, but slow to accommodate change once underway.</li>
     <li><strong>Agile</strong>, iterative and incremental, delivering working software in short cycles and adapting to changing requirements. Security must be embedded in each iteration rather than deferred.</li>
@@ -622,9 +645,11 @@
   <h2>Cloud-specific risks, threat modeling, secure coding, and configuration management</h2>
 
   <h3>Cloud-specific risks</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications; Ch 4 &rsaquo; Cloud Computing Risks by Service Model</span>
   <p>Risks that arise specifically from using cloud services include data breaches; insufficient identity, credential, and access management; insecure interfaces and APIs; system vulnerabilities; compliance risks; data sovereignty; vendor lock-in; service reliability; scalability issues; cost management; and integration challenges. The outline also names shared technology issues, provider insider threats, lack of visibility and control, and legal and jurisdictional issues.</p>
 
   <h3>Threat modeling techniques</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Assurance and Validation &rsaquo; Threat Modeling</span>
   <p>Four techniques are named, and the exam relies on you distinguishing what each actually does:</p>
   <ul class="plain">
     <li><strong>STRIDE</strong>, a categorisation scheme identifying threats as Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, or Elevation of Privilege. It tells you what kinds of threat exist.</li>
@@ -638,9 +663,11 @@
   </div>
 
   <h3>Secure coding standards</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>OWASP ASVS</strong> provides a comprehensive framework for evaluating the technical security measures in web applications, giving development and testing teams a common, standardised basis for verification. <strong>SAFECode</strong> is a forum where company executives and technical experts share knowledge and collaborate on developing, improving, and promoting scalable and effective software security programmes, helping businesses establish or improve their own.</p>
 
   <h3>Software configuration management and versioning</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management</span>
   <p>Versioning and configuration management matter for any system, and take on added significance in cloud because rapid provisioning and self-elasticity make it easy for environments to drift apart. System stability and cohesiveness become paramount. In traditional data centres, upgrades and patches are applied directly to existing servers and hosts. In cloud, the immutable pattern is preferred: deploy a new, correctly configured instance and retire the old one, so that every running instance matches a known version rather than accumulating undocumented change.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -656,10 +683,12 @@
   <h2>Testing what was built, and testing how it can be abused</h2>
 
   <h3>Functional and non-functional testing</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>Functional testing</strong> is a focused assessment of a particular function or component, checking that the system does what its functional requirements say it should. In cloud projects this carries extra considerations, notably understanding the legal and regulatory requirements that apply. <strong>Non-functional testing</strong> covers the aspects functional testing does not: performance, usability, and dependability. Where functional testing examines precise behaviours against requirements, non-functional testing establishes how the system performs and whether it is ready for use.</p>
   <p><strong>CI/CD</strong> processes automate build, test, and deployment so that changes are validated continuously rather than in a large batch before release, which is what makes frequent secure delivery practical.</p>
 
   <h3>Knowledge-based testing perspectives</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <ul class="plain">
     <li><strong>White-box testing</strong>, conducted with full knowledge of the internal structure, source code, and design.</li>
     <li><strong>Grey-box testing</strong>, conducted with partial knowledge, typically some design or architecture information but not full source access.</li>
@@ -667,6 +696,7 @@
   </ul>
 
   <h3>Security testing methodologies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p>These are the tool-based methodologies named in the outline, and they are distinguished by what they examine and when:</p>
   <ul class="plain">
     <li><strong>SAST</strong>, Static Application Security Testing, analyses source code or binaries without executing them. It finds coding flaws early but cannot see runtime or configuration issues, and produces false positives for code paths that are never reachable.</li>
@@ -680,6 +710,7 @@
   </div>
 
   <h3>Quality assurance and abuse case testing</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>QA</strong> encompasses planning, evaluation, and inspection to guarantee the constructed system meets its quality requirements, applying across all cloud deployment models. <strong>Abuse case testing</strong> inverts the perspective: rather than confirming the software does what it should, testers compile a list of known misuse cases and actively attempt to exploit them using manual or automated attack techniques. It asks what an attacker would try, not what a user is meant to do.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -694,9 +725,11 @@
   <h2>APIs, supply chain, third-party software, and open source</h2>
 
   <h3>Securing APIs</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Architecture &rsaquo; Application Programming Interfaces</span>
   <p>API security is central to overall application security. Introducing inadequately secured APIs, particularly when integrating APIs outside the application's own control or security boundary, poses significant risk and can jeopardise the entire dataset within the application, leading to exposure or loss. Practical controls include strong authentication and authorisation on every endpoint, input validation, rate limiting and throttling, TLS for all traffic, and careful review of what each endpoint returns, since excessive data exposure is a leading API weakness.</p>
 
   <h3>Supply chain management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Supply Chain Management and Licensing</span>
   <p>Supply chain management has two aspects. First, a provider, and potentially the customer, will engage third-party providers to deliver services, so a provider often relies on other vendors to supply what its customers ultimately consume. This encompasses vendor risk management when establishing those relationships. Second, cloud itself extends the reach of supply chain management, since globally interconnected supply chains need access to primary and secondary sources and cloud infrastructure improves the efficiency of coordinating them. The security concern is that your risk extends through providers you have no contract with.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -704,6 +737,7 @@
   </div>
 
   <h3>Third-party software management and open source</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Software &rsaquo; Third-Party Software Management; Validating Open-Source Software</span>
   <p>Cloud shifts software from local installation toward remote hosted services, which changes how licensing works: cloud-based licensing is efficient enough that end users often need not navigate separate licence processes, making licensing effectively invisible from their perspective. That convenience does not remove the obligation to track what is in use.</p>
   <p>Open-source software is pervasive in cloud, with developers relying on open-source applications, toolsets, and frameworks. What distinguishes the most widely used packages is the rigour of their development process, including peer review and active maintenance. <strong>Validated</strong> open source means components that have been assessed for provenance, maintenance status, and known vulnerabilities before adoption, rather than pulled in simply because they solve the immediate problem. Software Composition Analysis and a maintained Software Bill of Materials are the practical mechanisms for keeping that inventory current.</p>
 </div>
@@ -715,6 +749,7 @@
   <h2>Supplemental components, cryptography, sandboxing, and orchestration</h2>
 
   <h3>Supplemental security components</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Architecture &rsaquo; Supplemental Security Components</span>
   <p>These devices augment a defence-in-depth architecture, where multiple overlapping layers of security mutually reinforce one another.</p>
   <ul class="plain">
     <li><strong>Web Application Firewall (WAF)</strong>, a layer 7 firewall that understands HTTP traffic and can block application-layer attacks such as injection and cross-site scripting.</li>
@@ -729,6 +764,7 @@
   </div>
 
   <h3>Cryptography</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Cloud Application Architecture</span>
   <p>Cloud systems operate across trusted and untrusted networks, which can be described as hostile or semi-hostile environments, so encryption is essential for data stored within and transmitted between cloud services. Three encryption scopes are distinguished:</p>
   <ul class="plain">
     <li><strong>Whole instance encryption</strong>, encrypting all data associated with the operation and use of a virtual machine.</li>
@@ -737,9 +773,11 @@
   </ul>
 
   <h3>Sandboxing</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
   <p>Sandboxing is the segregation and isolation of information or processes within the same system or application for security purposes. It isolates different communities and user populations from one another's data, and the requirement can be driven internally by organisational policy or externally by regulation. It is also the standard technique for safely executing untrusted code or analysing suspected malware.</p>
 
   <h3>Application virtualisation and orchestration</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
   <p>Infrastructure virtualisation underpins cloud computing, while containerisation underpins many cloud application architectures including microservices. Containers separate corporate data and software from the user's device, which lets an organisation remotely wipe corporate data, applications, and access without touching the employee's personal content, a meaningful protection for both parties. Orchestration software manages containers and applications at scale and plays a critical role in enforcing security and compliance with the organisation's secure computing policies, letting customers oversee all their cloud resources from a central platform. Kubernetes is the dominant orchestration platform, and securing it, along with the container registry and the images themselves, is part of securing the application.</p>
 </div>
 
@@ -750,15 +788,19 @@
   <h2>Federation, identity providers, SSO, MFA, CASB, and secrets</h2>
 
   <h3>Federated identity</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Federated Identity Management</span>
   <p>Federated identity works much like single sign-on, with one digital identity granting access to multiple systems, but it extends across boundaries: a federated identity can reach applications across different cloud providers, multi-cloud resources, and on-premises systems, and it enables single sign-on across systems belonging to different organisations. Both the on-premises IAM system and the IAM systems of each cloud vendor must be closely safeguarded against unauthorised use. Federation carries the same drawback as SSO in amplified form: when one federated system is compromised, that compromise exposes vulnerabilities across all the federated systems.</p>
 
   <h3>Identity providers</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Identity Providers</span>
   <p>An identity provider may be a provider's own service or a third-party service. In multi-cloud scenarios a third-party identity provider is often the most efficient choice, since it gives one unified solution across providers rather than several separate ones. Identity providers complement rather than replace existing cloud security technologies such as CASBs.</p>
 
   <h3>Single sign-on</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Single Sign-On</span>
   <p>SSO streamlines access to all approved systems within a single IAM system after one authentication, letting users move between systems without re-authenticating. Because one credential now opens many doors, monitoring all access within an SSO system is critical: a compromised digital identity puts every connected system at risk, which is precisely why SSO is normally paired with strong authentication.</p>
 
   <h3>Multi-factor authentication</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Multifactor Authentication</span>
   <p>MFA, also called strong authentication, adds verification layers by requiring at least two factors from different categories: something you know such as a password, something you have such as a token or phone, and something you are such as a fingerprint or other biometric. Two instances of the same category, such as a password and a security question, do not constitute genuine multi-factor authentication.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -766,9 +808,11 @@
   </div>
 
   <h3>Cloud Access Security Broker</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Roles and Responsibilities; Ch 6 &rsaquo; Cloud Identity and Access Control</span>
   <p>A CASB is a software product or service positioned between an organisation's on-premises infrastructure and a cloud provider's infrastructure. Acting as a gatekeeper, it lets the organisation extend its reach beyond its own network boundaries and enforce security policy within cloud environments. Typical CASB capabilities include visibility into cloud usage including unsanctioned shadow IT, data security enforcement such as DLP across sanctioned services, threat protection, and compliance monitoring.</p>
 
   <h3>Secrets, key, and certificate management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Secrets Management</span>
   <p>Cloud secrets management covers the methods and technologies used to safeguard digital credentials in cloud environments, with accessibility and authorisation as the key priorities, noting that each cloud platform implements secrets management differently. Cloud-based secrets include API keys, SSH keys, encryption keys, passwords, private certificates, and tokens. Centralised management enables rotation, auditing, and revocation in one place, replacing credentials embedded in code or configuration files.</p>
 </div>
 

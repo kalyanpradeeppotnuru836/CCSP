@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -507,18 +519,23 @@
   <h2>Conflicting law, cloud legal risk, eDiscovery, and forensics</h2>
 
   <h3>Conflicting international legislation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Laws, Regulations, and Standards &rsaquo; Conflicting International Legislation</span>
   <p>Laws on data protection, privacy, and cybersecurity vary significantly between countries and regions, and organisations operating globally can find themselves subject to requirements that genuinely conflict. One jurisdiction may compel disclosure of data that another jurisdiction forbids transferring. Cloud sharpens this because data moves and replicates across regions by default unless deliberately restricted.</p>
 
   <h3>Legal risks specific to cloud computing</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Legal Requirements and Unique Risks in the Cloud Environment</span>
   <p>These arise from the nature of cloud itself, where data is stored, processed, and managed remotely on third-party servers. Key risks include data privacy and protection obligations following the data wherever it goes; uncertainty over which jurisdiction's law applies; loss of direct control over data handling; contractual gaps where the provider's standard terms do not meet the customer's regulatory duties; and difficulty exercising rights such as audit or evidence collection on infrastructure the customer does not own.</p>
 
   <h3>Legal frameworks and guidelines</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Legal Requirements and Unique Risks (Constitutional, Administrative, Case, Common, Contract Law)</span>
   <p>The framework is the set of laws, regulations, standards, and ethical guidelines governing how data is handled, processed, and stored, designed to protect individual privacy and secure sensitive data. A CCSP is not expected to give legal advice but must recognise which regimes apply and when to involve counsel.</p>
 
   <h3>eDiscovery</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics; Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>eDiscovery is the process of identifying, collecting, preserving, and reviewing electronic information for use as evidence in legal proceedings. In cloud it is complicated by not controlling the infrastructure, by data being dispersed across regions, and by the need to extract only the requesting party's data without capturing other tenants' information. <strong>ISO/IEC 27050</strong> provides the standard for electronic discovery, and <strong>CSA guidance</strong> addresses the cloud-specific dimension. A legal hold suspends normal retention and deletion for data within its scope until proceedings conclude.</p>
 
   <h3>Forensics requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Forensic Requirements; Cloud Forensic Challenges</span>
   <p>Forensic requirements are the standards, practices, and tools for investigating and analysing digital evidence after an incident, essential for establishing cause and extent, identifying perpetrators, and taking remedial action. The named standards form a family: <strong>ISO/IEC 27037</strong> covers identification, collection, acquisition, and preservation of digital evidence; <strong>27041</strong> addresses assurance of investigation methods; <strong>27042</strong> covers analysis and interpretation; and <strong>27043</strong> covers incident investigation principles and processes. CSA guidance again supplies the cloud-specific layer.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -533,6 +550,7 @@
   <h2>Contractual versus regulated data, national law, and privacy assessments</h2>
 
   <h3>Contractual versus regulated private data</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud</span>
   <p>This distinction is heavily tested. <strong>Contractual private data</strong> is protected because an agreement between parties says so; the obligation arises from the contract, and breach is a contractual matter with commercial consequences. <strong>Regulated private data</strong> is protected by law regardless of what any contract says; the obligation arises from statute, and breach carries regulatory penalties that no contract can waive. PHI under HIPAA and personal data under GDPR are regulated. A confidentiality clause covering a client's commercial information is contractual.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -540,6 +558,7 @@
   </div>
 
   <h3>Country-specific legislation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; U.S. Privacy and Security Laws; International Laws (EU GDPR)</span>
   <p>Each regime differs in scope, in what triggers it, and in the rights it grants. The exam tests whether you can match a scenario to the correct instrument.</p>
   <ul class="plain">
     <li><strong>GDPR</strong>, the European regulation covering personal data of EU residents. Built on lawful basis and consent, and granting rights of access, rectification, erasure (the right to be forgotten), portability, and objection to automated decision making. It applies extraterritorially, so a company anywhere in the world processing EU residents' data falls within it, and it requires breach notification to the supervisory authority generally within 72 hours. <span class="li-eg"><span class="label">Example</span>a UK retailer selling into Germany is bound by it regardless of where its servers sit.</span></li>
@@ -553,12 +572,15 @@
   </ul>
 
   <h3>Jurisdictional differences</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Determining Jurisdiction; Ch 10 &rsaquo; The Impact of Diverse Geographical Locations and Legal Jurisdictions</span>
   <p>Some regions such as the EU maintain robust comprehensive frameworks emphasising individual rights, strict consent, and strong enforcement. Others take a sectoral approach, regulating particular industries rather than personal data generally, and some have limited protection. An organisation operating across borders must satisfy the strictest applicable regime for each dataset rather than assuming one standard suffices.</p>
 
   <h3>Standard privacy requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud &rsaquo; GAPP; ISO 27018</span>
   <p><strong>ISO/IEC 27018</strong> is the code of practice for protecting PII in public clouds acting as PII processors. <strong>GAPP</strong>, the Generally Accepted Privacy Principles, provides a recognised set of privacy principles. GDPR itself functions as a standard many organisations align to globally.</p>
 
   <h3>Privacy Impact Assessments</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud &rsaquo; Privacy Impact Assessments</span>
   <p>A PIA is a proactive assessment conducted before processing begins, identifying privacy risks in a proposed activity and the measures to address them. It is forward-looking, which distinguishes it from breach notification, an obligation that arises after something has gone wrong.</p>
 </div>
 
@@ -569,12 +591,15 @@
   <h2>Audit controls, assurance challenges, report types, and policy</h2>
 
   <h3>Internal and external audit controls</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes, Methodologies, and Cloud Adaptations</span>
   <p>Organisations moving to cloud need ongoing assurance that controls remain in place. Internal audit serves as a third line of defence, independent of the operational teams it examines. External audit brings independent third-party attestation that carries weight with customers and regulators. Both are needed: internal audit provides continuous visibility, external audit provides credible independent assurance.</p>
 
   <h3>Assurance challenges of virtualisation and cloud</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider &rsaquo; Adapting Processes for the Cloud</span>
   <p>Virtualisation introduces a complex management architecture that adds an abstraction layer auditors must understand. Further challenges include limited physical access to infrastructure, multi-tenancy making it impossible to examine shared components without touching other tenants, dynamic and elastic resources meaning the environment audited today differs from tomorrow's, and dependence on provider-supplied evidence rather than direct observation.</p>
 
   <h3>Audit report types</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes &rsaquo; Audit Reports</span>
   <ul class="plain">
     <li><strong>SOC 1</strong>, reporting on controls relevant to financial reporting.</li>
     <li><strong>SOC 2</strong>, reporting against the Trust Service Criteria covering security, availability, processing integrity, confidentiality, and privacy. It is the report security teams actually need.</li>
@@ -588,21 +613,27 @@
   </div>
 
   <h3>Restrictions of audit scope statements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes &rsaquo; Restrictions of Audit Scope Statements</span>
   <p>Audit scope is deliberately bounded, and understanding the boundaries matters as much as reading the findings. Restrictions include <strong>asset restrictions</strong>, where critical or sensitive assets are explicitly excluded to protect them; <strong>accepted times and time periods</strong>, scheduling audits when disruption is least; and geographic or service limitations covering only certain regions or offerings. A clean report over a narrow scope proves far less than its cover page suggests.</p>
 
   <h3>Gap analysis</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes &rsaquo; Gap Analysis</span>
   <p>Gap analysis compares the current control state against a required or desired state, identifying the difference to be closed. It draws on control analysis, baselines, and risk and control self-assessment, and it typically precedes a formal audit so that known gaps are remediated first.</p>
 
   <h3>Audit planning</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider &rsaquo; Planning for Cloud Audits</span>
   <p>Planning sets the foundation for the engagement: understanding the audit objectives, defining scope, assessing risk to focus effort where it matters, allocating resources, and agreeing the schedule and evidence requirements with the parties involved.</p>
 
   <h3>Internal ISMS, controls system, and policies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Information Security Management Systems; Ch 10 &rsaquo; Security Policy Framework</span>
   <p>An internal Information Security Management System provides the governing structure for security, most commonly following ISO/IEC 27001. The internal information security controls system is the set of controls implemented within it. Policies operate at two levels: <strong>organisational policies</strong> such as the overarching information security policy expressing management commitment, and <strong>functional policies</strong> addressing specific areas such as access control, acceptable use, and data classification. Cloud computing policy governs how cloud services may be selected, configured, and used.</p>
 
   <h3>Stakeholders and specialised compliance</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Laws, Regulations, and Standards (PCI DSS, Critical Infrastructure Protection Program)</span>
   <p>Identifying and involving relevant stakeholders is crucial to cloud adoption, since engaging them surfaces perspectives, concerns, and requirements early. Highly regulated industries carry additional layers: <strong>NERC CIP</strong> for electric utilities, <strong>HIPAA and HITECH</strong> for healthcare, and <strong>PCI DSS</strong> for payment card handling, layered on top of jurisdictional requirements.</p>
 
   <h3>Impact of distributed IT models</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; The Impact of Diverse Geographical Locations and Legal Jurisdictions</span>
   <p>Distributed IT brings advantages but must not undermine communication, coordination, management, and governance. Diverse geographic locations mean crossing legal jurisdictions, and dispersed teams and systems make consistent policy enforcement and clear accountability harder to maintain.</p>
 </div>
 
@@ -614,9 +645,11 @@
   <h2>Provider risk programmes, data roles, transparency, treatment, and frameworks</h2>
 
   <h3>Assessing a provider's risk management programme</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Assessing Provider Risk Management Practices</span>
   <p>Because the customer hosts its services and data in the provider's environment, the provider's risk management processes and its risk acceptance decisions directly affect the customer's own security posture. Assessment should cover the provider's controls, methodologies, policies, risk profile, and risk appetite. A provider that accepts risks the customer would not accept has effectively made that decision on the customer's behalf.</p>
 
   <h3>Data roles</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Ownership</span>
   <p>This is among the most frequently tested distinctions in the certification:</p>
   <ul class="plain">
     <li><strong>Data owner or controller</strong>, the party that determines the purposes and means of processing. Accountability for the data rests here and cannot be outsourced.</li>
@@ -635,9 +668,11 @@
   </div>
 
   <h3>Regulatory transparency requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; U.S. Privacy and Security Laws (HIPAA, HITECH, SOX, State Data Breach Notification Laws)</span>
   <p>Transparency obligations require organisations to disclose certain matters to regulators, individuals, or markets. <strong>Breach notification</strong> is the principal example: the HIPAA Breach Notification Rule requires covered entities and their business associates to notify following a breach of unsecured protected health information, and GDPR requires notification to the supervisory authority, generally within 72 hours of becoming aware of a qualifying breach. <strong>Sarbanes-Oxley</strong> imposes disclosure and internal control requirements on financial reporting for listed companies.</p>
 
   <h3>Risk treatment</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Treatment and Response</span>
   <p>Risk measures the threats an organisation, its systems, and its data are exposed to. Risk assessment evaluates vulnerability, identifies threats, judges the likelihood of a threat succeeding, and considers mitigations. The five treatments are:</p>
   <ul class="plain">
     <li><strong>Avoid</strong>, not undertaking the activity that creates the risk.</li>
@@ -648,9 +683,11 @@
   </ul>
 
   <h3>Risk frameworks</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Management Frameworks</span>
   <p>The named frameworks are <strong>ISO 31000</strong>, providing generic risk management principles and guidelines applicable to any organisation; <strong>ENISA</strong>, the European Union Agency for Cybersecurity, whose cloud risk assessment work addresses cloud specifically; and <strong>NIST</strong>, particularly its cloud computing synopsis and recommendations alongside the Risk Management Framework.</p>
 
   <h3>Metrics and assessment of the risk environment</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Calculation; Risk Analysis; Risk Reporting</span>
   <p>Risks must be described clearly enough to communicate both internally and externally, which requires an agreed set of risk management metrics with probability and impact assessed separately for each risk. Assessment of the risk environment extends beyond a single system to cover the service, the vendor, the infrastructure, and the business, because risk in any of these reaches the others.</p>
 </div>
 
@@ -661,6 +698,7 @@
   <h2>Agreements, vendor management, contract terms, and supply chain</h2>
 
   <h3>Business requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Business Requirements</span>
   <p>Before contracting with a provider, an organisation should evaluate its own needs, which form the foundation of its cloud strategy. Key organisational assets must be identified and assessed for suitability in cloud environments. Three instruments define the relationship:</p>
   <ul class="plain">
     <li><strong>Service Level Agreement (SLA)</strong>, defining measurable service commitments such as availability and support response, with remedies where they are not met.</li>
@@ -673,9 +711,11 @@
   </div>
 
   <h3>Vendor management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
   <p>Rapid growth in the provider market means many new entrants competing for share, and not all will prove durable. Vendor management covers <strong>vendor assessments</strong> of security, financial, and operational fitness; <strong>vendor lock-in risks</strong>, where proprietary dependency makes switching impractical; <strong>vendor viability</strong>, the provider's financial stability and prospects as a going concern; and <strong>escrow</strong>, placing source code or critical materials with a neutral third party so the customer can continue operating if the vendor fails.</p>
 
   <h3>Contract management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Negotiating Contracts; Common Contract Provisions; Contracting Documents</span>
   <p>Effective contract management requires appropriate governance and covers monitoring contract performance, addressing ongoing needs, adhering to terms, and managing incidents, outages, discrepancies, and violations of contractual obligations. The terms the outline names:</p>
   <ul class="plain">
     <li><strong>Right to audit</strong>, permitting the customer to verify the provider's controls independently.</li>
@@ -689,6 +729,7 @@
   </ul>
 
   <h3>Supply chain management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Supply Chain Management and Licensing; Ch 10 &rsaquo; Vendor Management</span>
   <p>Organisations invest heavily in protecting key assets and intellectual property, and changes in supply chain practice can put that at risk. The governing principle is that security is only as strong as the weakest link: a provider's own dependencies become the customer's exposure, even where no direct contract exists. <strong>ISO/IEC 27036</strong> is the standard for information security in supplier relationships, covering how security requirements are defined, agreed, and monitored across the chain.</p>
   <div class="example-box">
     <span class="label">Example</span>

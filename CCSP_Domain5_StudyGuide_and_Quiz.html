@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -508,6 +520,7 @@
   <h2>Getting the environment built securely in the first place</h2>
 
   <h3>Hardware specific security configuration</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Hardware and Compute</span>
   <p>Different hardware types need tailored security settings, spanning servers, workstations, routers, and switches. Typical measures include BIOS passwords to prevent unauthorised changes to system settings, disabling unused ports and services to reduce the attack surface, and configuring firewalls and intrusion detection to monitor and block malicious activity. Two hardware components carry specific exam weight:</p>
   <ul class="plain">
     <li><strong>Trusted Platform Module (TPM)</strong>, a hardware component embedded in an individual device or server that securely stores cryptographic keys and supports platform integrity functions such as secure boot measurement.</li>
@@ -518,17 +531,45 @@
     <p>TPM and HSM both protect keys in hardware and are routinely offered as alternatives to each other. The TPM is device or platform level, tied to integrity measurement of one machine. The HSM is an enterprise key management appliance serving many systems. If the scenario is about secure boot or attesting one machine's integrity, it wants TPM.</p>
   </div>
 
+  <h3>Network device security</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure (Firewalls, IDS/IPS, Bastion Hosts)</span>
+  <p>Routers, switches, firewalls, load balancers, and wireless access points form the backbone that server and endpoint security depend on, yet they are routinely hardened less thoroughly than the systems they carry. The measures that matter most:</p>
+  <ul class="plain">
+    <li><strong>Remove default credentials.</strong> Devices shipping with a known administrative account is among the most common real world findings, and those credentials must be changed before deployment rather than afterwards.</li>
+    <li><strong>MFA and RBAC for administrative access.</strong> Management consoles should require more than a password, and network administrators should reach only the devices they are responsible for rather than holding global configuration rights across the estate.</li>
+    <li><strong>Use secure management protocols only.</strong> SSH rather than Telnet, HTTPS rather than HTTP, and SNMPv3 rather than the earlier versions, which carry credentials in the clear.</li>
+    <li><strong>Firmware and patch management.</strong> Network device firmware is frequently overlooked compared with servers and endpoints, yet a vulnerability there is severe precisely because of the device's privileged position on the traffic path.</li>
+    <li><strong>Configuration backups under version control</strong>, supporting recovery and, just as importantly, detection of unauthorised configuration drift.</li>
+    <li><strong>Segmentation</strong> using VLANs and subnetting to separate traffic by function and sensitivity, with micro-segmentation going further to restrict movement between individual workloads even inside a trusted segment.</li>
+    <li><strong>Egress filtering, not only ingress.</strong> Unrestricted outbound traffic permits data exfiltration and command and control communication after a compromise, which is how remote access trojans maintain their foothold.</li>
+    <li><strong>Physical port security</strong>, disabling unused switch ports and applying MAC address filtering, since physical access to a switch or router bypasses most logical controls entirely.</li>
+  </ul>
+
+  <h3>Device decommissioning and residual data</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal; Ch 1 &rsaquo; Emerging Technologies &rsaquo; Internet of Things</span>
+  <p>Hardening a device covers its working life. Its disposal is a separate problem, because hardware leaving the organisation carries whatever was left on it. This applies to servers and storage, and increasingly to the wide range of connected devices that were never designed with sanitisation in mind.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>A well-known UK penetration testing firm has demonstrated this repeatedly by buying second-hand consumer IoT devices from online marketplaces and reverse engineering them. Smart scales acquired this way yielded the previous owners' data in plain text: financial information, health records, home addresses, names, phone numbers, and email addresses. Nothing was encrypted and nothing had been wiped. The lesson generalises well beyond consumer devices, since IoT hardware typically arrives with minimal security out of the box, is rarely updated, and is almost never sanitised before disposal.</p>
+  </div>
+
+  
+
   <h3>Virtual hardware specific configuration</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Virtualization Operations; Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>Virtual network devices add complexity beyond the traditional data centre model, because although they perform the same operations as physical devices they have distinct characteristics and configuration surfaces. A specific point worth remembering: storage traffic must be treated as LAN rather than WAN traffic because of its heavy network utilisation and criticality. Latency is the primary concern for storage, unlike general network traffic which is more flexible and resilient to delay.</p>
   <p>Configuration also covers memory and CPU allocation, and the distinction between <strong>Type 1 hypervisors</strong>, which run directly on the hardware, and <strong>Type 2 hypervisors</strong>, which run as an application on top of a host operating system. Type 1 is standard for production cloud infrastructure because it presents a smaller attack surface, having no underlying host operating system to compromise.</p>
 
   <h3>Secure by default</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Systems should ship and deploy in their most secure configuration, with the customer deliberately relaxing settings where needed rather than having to discover and tighten insecure defaults. This inverts the failure mode: an overlooked setting leaves the system secure rather than exposed.</p>
 
   <h3>Installation and configuration of management plane tools</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The virtualisation platform dictates which management tools are installed on each host. The most recent versions should be installed, and the procedure for updating them belongs in the configuration management plan. Adequate server resources must be allocated so virtual machines can be migrated during updates to the virtualisation platform, which is what allows maintenance without downtime.</p>
 
   <h3>Guest operating system virtualisation toolsets</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>These are software packages installed inside a virtual machine to optimise performance, management, and integration between the guest operating system and the host environment. They improve functionality and manageability, but each toolset is also code running with privilege inside the guest, so it must be kept patched and installed only from trusted sources.</p>
 </div>
 
@@ -539,13 +580,24 @@
   <h2>Keeping the environment secure once it is running</h2>
 
   <h3>Access controls for local and remote access</h3>
-  <p>Access controls ensure only authorised individuals reach sensitive resources, combining physical practices with logical controls. Local access control secures physical and console access to systems. Remote access mechanisms include <strong>RDP</strong> and <strong>SSH</strong> for administrative sessions, secure terminal access, console-based mechanisms, virtual clients, and <strong>jumpboxes</strong>, also called bastion hosts. The jumpbox pattern is the important one: rather than exposing RDP or SSH directly to the internet on every server, administrators connect to one hardened, tightly monitored intermediary and reach internal systems from there.</p>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure &rsaquo; Bastion Hosts</span>
+  <p>Access controls ensure only authorised individuals reach sensitive resources, combining physical practices with logical controls. Local access control secures physical and console access to systems.</p>
+  <p>Local access control begins with the physical premises: CCTV, trained security personnel monitoring access points, physical or biometric locks, and smart cards using NFC to restrict entry to authorised staff. On-site authentication should combine factors in the same way remote authentication does, pairing something the person has, such as a card, with something they are, such as a biometric.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>A trainer arriving at a managed security service provider's site at 6am was met by a staff member, badged through, and escorted deep into an older part of the building, then left unattended in a room for half an hour. The staff member had mistaken him for a new employee starting that day. He was never asked for identification. Worse, the area he had been left in sat outside the scope of that organisation's ISO 27001 implementation, so none of the strict access controls documented elsewhere applied there. The point is that physical controls achieve nothing without the processes and procedures behind them, and that a certification scope boundary is exactly where those procedures tend to stop.</p>
+  </div>
+  <p>Remote access mechanisms include <strong>RDP</strong> and <strong>SSH</strong> for administrative sessions, secure terminal access, console-based mechanisms, virtual clients, and <strong>jumpboxes</strong>, also called bastion hosts. The jumpbox pattern is the important one: rather than exposing RDP or SSH directly to the internet on every server, administrators connect to one hardened, tightly monitored intermediary and reach internal systems from there.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank places all production servers in private subnets with no inbound internet access. Administrators authenticate to a jumpbox with MFA, and every session through it is logged and recorded. The attack surface drops from every server to one hardened host, and that host is watched closely.</p>
   </div>
-
-  <h3>Secure network configuration</h3>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Access control policies define who may reach what, and under what conditions. RBAC assigns permissions by organisational role. ABAC, attribute-based access control, grants access on attributes such as location, device type, or time of access, which makes it the better answer whenever a scenario turns on conditions rather than job title.</p>
+  </div>
+<h3>Secure network configuration</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure (Firewalls, IDS/IPS, Honeypots)</span>
   <p>Network security management integrates preventive, detective, corrective, and recovery controls to protect confidentiality, integrity, and availability. The named technologies:</p>
   <ul class="plain">
     <li><strong>VLANs</strong>, segmenting a physical network into isolated logical networks.</li>
@@ -557,28 +609,128 @@
   <p>Network security controls include firewalls, IDS and IPS, honeypots, vulnerability assessments, network security groups, bastion hosts, and segmentation. The distinction between <strong>IDS</strong>, which detects and alerts, and <strong>IPS</strong>, which detects and actively blocks, is frequently tested. <strong>Honeypots</strong> are decoy systems deployed to attract and study attacker activity that has already breached the perimeter.</p>
 
   <h3>Operating system hardening</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Hardening reduces an operating system's surface of vulnerability by configuring and strengthening its security settings. Measures include removing unnecessary services and software, closing unused ports, applying least privilege to accounts, and enforcing strong authentication. Hardening is applied through <strong>baselines</strong>, the defined secure configuration standard, followed by <strong>monitoring</strong> to detect drift from that baseline and <strong>remediation</strong> to correct it. The cycle matters more than any single hardening action, because configurations drift continuously.</p>
 
   <h3>Patch management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management; Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Patch management identifies, acquires, tests, and installs updates to enhance security, improve functionality, and fix defects. Testing before deployment is the step organisations are most tempted to skip and most regret skipping, since an untested patch can cause the outage the patch was meant to prevent. In cloud, patching increasingly means rebuilding from an updated image rather than modifying running instances.</p>
+  <p>The process runs through <strong>identification and assessment</strong>, scanning to find missing patches and judging criticality by potential impact, informed by threat intelligence feeds; <strong>acquisition and testing</strong>, obtaining patches only from trusted sources and proving them in a staging or non-production environment first; and <strong>deployment</strong>, prioritised by vulnerability severity and system criticality. Tooling such as AWS Systems Manager or Azure Update Management makes this manageable across large, dispersed estates.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Deploy to the <strong>most critical systems first</strong>, then work outward to less critical ones. Some material states the reverse on the grounds of minimising operational disruption, which inverts the risk logic: the systems that matter most are the ones you least want left exposed while a rollout completes.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Why staging matters</span>
+    <p>A widely reported 2024 incident saw a security vendor push a faulty content update straight to production endpoints worldwide, causing mass outages across airlines, hospitals, and banks. No attacker was involved. The update itself was the outage, which is precisely the failure mode that testing in a non-production environment exists to catch.</p>
+  </div>
+
+  <h3>Patching responsibility under IaaS</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Foundations of Managed Services &rsaquo; Shared Responsibilities by Service Type</span>
+  <p>All of which raises a question that comes up constantly in practice: who patches what, when the customer runs its own virtual machines on someone else's hardware. The boundary follows control:</p>
+  <ul class="plain">
+    <li><strong>Provider</strong>: physical hardware and firmware, the hypervisor and virtualisation layer, the physical network fabric, and the underlying storage systems. Hypervisor patching is of particular concern because a flaw there affects every tenant on that hardware.</li>
+    <li><strong>Customer</strong>: the guest operating system inside each virtual machine, the middleware, application servers and runtime environments, and the applications themselves.</li>
+  </ul>
+  <p>The provider has deliberately abstracted the layers beneath the boundary and has no visibility into, or responsibility for, what runs inside a customer's instances. That abstraction is the defining characteristic of IaaS, and it is also why the customer cannot defer a hypervisor-level change: the provider controls when infrastructure layer maintenance happens, and the customer has visibility rather than a veto.</p>
+
 
   <h3>Infrastructure as Code</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies &rsaquo; DevOps and DevSecOps</span>
   <p>IaC is a DevOps practice managing and provisioning infrastructure through machine-readable definition files rather than physical hardware configuration or interactive tools. It makes infrastructure versioned and reusable, promoting consistency and reducing human error. Its core components:</p>
   <ul class="plain">
     <li><strong>Configuration management tools</strong> such as Ansible, Puppet, and Chef, automating configuration files and software installation across servers and maintaining desired state.</li>
     <li><strong>Orchestration tools</strong> such as Kubernetes and Docker Swarm, managing containerised workloads at scale.</li>
     <li><strong>Provisioning tools</strong> such as Terraform and CloudFormation, defining and creating the infrastructure itself.</li>
   </ul>
+  <p>Beyond consistency, IaC delivers <strong>version control</strong>, since configurations can be tracked in systems such as Git, rolled back to a previous known-good state, and used as an audit trail of who changed what; <strong>automation</strong>, giving faster provisioning and updates in environments that scale up and down constantly; and <strong>portability</strong> across multiple cloud providers and hybrid models.</p>
   <p>Because the definition files are code, they can be reviewed, version controlled, and scanned for misconfiguration before anything is deployed, which is what makes IaC a security control rather than merely an efficiency one.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Configuration management tools compared</h4>
+  <p>The three named tools differ in a way the exam can test: how the configuration reaches the managed node.</p>
+  <ul class="plain">
+    <li><strong>Ansible</strong> is <strong>agentless and push-based</strong>. A control node connects over SSH, applies the state described in a YAML playbook, and disconnects. Nothing is installed on the target.
+      <span class="li-eg"><span class="label">Trade-off</span>Very low barrier to entry, since YAML is readable without a programming background, and no agents to install, patch, or defend. The push model scales less elegantly than pull for very large fleets running into thousands of nodes.</span></li>
+    <li><strong>Puppet</strong> is <strong>agent-based and pull-based</strong>. An agent on each node checks in periodically with a central Puppet master, compares current state to desired state, and self-corrects drift automatically without anyone triggering it.
+      <span class="li-eg"><span class="label">Trade-off</span>Strong for continuous compliance enforcement and mature reporting, which is genuinely useful for demonstrating evidence to a PCI DSS or HIPAA auditor. Steeper learning curve, and the agent carries its own attack surface and operational overhead.</span></li>
+    <li><strong>Chef</strong> is also <strong>agent-based and pull-based</strong>, periodically pulling its assigned run list from a central server. Configuration is written in Ruby, making it genuinely procedural code rather than declarative state.
+      <span class="li-eg"><span class="label">Trade-off</span>Powerful and flexible for teams with strong development backgrounds who want full procedural control, and well suited to complex customised logic. It carries the same agent overhead as Puppet.</span></li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Push versus pull is the distinguishing axis. Ansible pushes on demand and installs nothing. Puppet and Chef pull on a schedule and self-correct drift continuously. If a scenario requires configurations to stay enforced without human intervention, that points at a pull-based agent model rather than Ansible.</p>
+  </div>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Orchestration tools compared</h4>
+  <ul class="plain">
+    <li><strong>Kubernetes</strong>, originally developed at Google and now maintained by the Cloud Native Computing Foundation, is the de facto standard for container orchestration with by far the largest ecosystem. It groups co-located containers into <strong>pods</strong>, provides stable networking abstractions so a set of pods stays reachable as individual pods are created and destroyed, and separates configuration and sensitive values from container images, which ties directly to secrets management. It is self-healing, restarting failed containers and rescheduling pods away from failed nodes, and it autoscales on load. It also offers granular RBAC for security segmentation.
+      <span class="li-eg"><span class="label">Security caution</span>A steep learning curve and high operational overhead mean a large share of real-world cloud misconfigurations originate in poorly hardened clusters: exposed dashboards, overly permissive RBAC, and unencrypted cluster data stores.</span></li>
+    <li><strong>Docker Swarm</strong> is Docker's own built-in orchestration, simpler to learn and quicker to set up, and a natural extension for teams already using Docker and Docker Compose. Its ecosystem is much smaller, its access control markedly less granular, and it is generally considered unsuited to very large multi-team production environments. Industry adoption has shifted decisively toward Kubernetes.</li>
+  </ul>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Monitoring the IaC estate</h4>
+  <p><strong>Prometheus</strong> is the de facto monitoring standard for cloud-native and Kubernetes environments. It is <strong>pull-based</strong>, periodically scraping metrics from configured targets over HTTP endpoints rather than having targets push data to it. <strong>Grafana</strong> is the presentation layer: it stores nothing itself, connecting instead to multiple data sources at once, including Prometheus, CloudWatch, Azure Monitor, and SQL databases, and rendering them as dashboards with its own alerting on top. The pairing is common enough to be spoken of as a single stack.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>Prometheus answers "what are the numbers", scraping metrics continuously from every container and node. Grafana answers "show me this in a way a human can interpret at a glance", unifying those metrics with log data and cloud provider telemetry into one pane for the analyst on watch.</p>
+  </div>
+
+  
+
   <h3>Availability of clustered hosts and guest operating systems</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Virtualization Operations</span>
   <p>Clustered hosts are groups of interconnected servers working together to improve performance, load balancing, and failover. The named capabilities are <strong>distributed resource scheduling</strong> and <strong>dynamic optimisation</strong>, which move workloads between hosts automatically; <strong>storage clusters</strong>; <strong>maintenance mode</strong>, which evacuates a host so it can be serviced without interrupting workloads; and <strong>high availability</strong>, restarting affected virtual machines elsewhere when a host fails.</p>
+  <p>Several further considerations shape whether a cluster genuinely delivers availability:</p>
+  <ul class="plain">
+    <li><strong>Load balancing</strong> distributes incoming traffic evenly so no single host becomes a bottleneck. Balancers may be hardware based, software based, or integrated into the provider's own infrastructure.</li>
+    <li><strong>Failover mechanisms</strong> switch automatically to standby capacity when a primary fails, and can be configured at the <strong>server, application, or network level</strong> depending on what must survive.</li>
+    <li><strong>Health monitoring</strong> identifies problems before they escalate, commonly using SNMP for device health and application performance monitoring for service responsiveness and user-facing metrics.</li>
+    <li><strong>Redundancy and replication</strong>, where the choice between <strong>synchronous</strong> replication, which is effectively real time, and <strong>asynchronous</strong> replication, which is delayed, depends on the criticality of the data and the latency the organisation can accept.</li>
+    <li><strong>Patching the cluster</strong>, ideally through automated systems that schedule and deploy updates sequentially across cluster members so that capacity is never lost all at once.</li>
+  </ul>
+  <p>The same thinking extends to guest operating systems. <strong>VM redundancy</strong> runs multiple instances of the same guest across different physical hosts. <strong>Host redundancy</strong> places those hosts in different geographical regions and separate data centres, protecting against localised failure. <strong>Automatic failover</strong> detects failure and shifts workloads to standby machines without administrator intervention, and <strong>regular snapshots</strong> capture guest state at a point in time for rapid restoration.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A cluster with load balancing but no health monitoring will happily keep sending traffic to a host that has begun failing, because the balancer sees it as available. Adding health checks lets the balancer withdraw that host before users notice, which is why the two controls are specified together rather than treated as alternatives.</p>
+  </div>
+
 
   <h3>Monitoring and backup</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Monitoring, Capacity, and Maintenance</span>
   <p>Performance and capacity monitoring identifies bottlenecks, resource limitations, and performance issues before they reach end users, covering network, compute, storage, and response time. <strong>Hardware monitoring</strong> tracks disk health, CPU, fan speed, and temperature, which gives early warning of physical failure. Backup and restore functions for both host and guest operating systems are essential for recovering from failures, cyber attacks, and crashes. A backup that has never been restored is an assumption, so restore testing is what proves the capability exists.</p>
+  <p>The metrics that matter, and what each indicates:</p>
+  <ul class="plain">
+    <li><strong>CPU usage</strong>, the proportion consumed by virtual machines and applications. Sustained high usage may signal a need for more resource or better optimisation, but it may equally indicate a cyber attack such as cryptomining or a denial of service, so it should never be read as a capacity signal alone.</li>
+    <li><strong>Memory utilisation</strong>, where exhaustion produces swapping and sharp performance degradation.</li>
+    <li><strong>Network latency and throughput</strong>, the time data takes to traverse the network and the volume carried. High latency or unusual traffic volume can indicate network problems or exfiltration.</li>
+    <li><strong>Application response times</strong>, which reflect the actual user experience rather than infrastructure health.</li>
+  </ul>
+  <p>Provider-native tooling covers most of this: <strong>AWS CloudWatch</strong>, <strong>Azure Monitor</strong>, and <strong>Google Cloud Operations Suite</strong>. Third-party platforms add cross-cloud visibility, and custom scripts fill gaps neither covers. Whatever the source, the output belongs on centralised dashboards with agreed alert thresholds, so that a breach of a threshold prompts investigation rather than sitting in a log nobody reads.</p>
+  <p><strong>Capacity management</strong> extends monitoring forward in time: analysing historical data for trends, applying auto-scaling policies so resources grow and shrink with demand, using predictive analytics to forecast requirements from usage patterns and business growth projections, reserving capacity for crucial applications ahead of peak periods, establishing performance <strong>baselines</strong> to measure future readings against, and conducting <strong>load testing</strong> to see how the infrastructure behaves under varying load before real demand arrives.</p>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Backup types and restore procedures</h4>
+  <ul class="plain">
+    <li><strong>Full backup</strong>, a complete copy of all data. The baseline everything else is measured from, and the slowest and largest to take.</li>
+    <li><strong>Incremental backup</strong>, only the changes since the last backup of any kind. Smallest storage footprint, but restoration requires the full backup plus every increment since, so recovery is slower.</li>
+    <li><strong>Differential backup</strong>, all changes since the last full backup. Larger than incremental but faster to restore, needing only the full backup plus the latest differential.</li>
+  </ul>
+  <p>A common schedule pairs a weekly full backup with daily incrementals. Storage may be network attached or cloud based, and in either case backups should be encrypted, compressed to control cost, and above all verified by testing restoration.</p>
+  <p>For guest operating systems, <strong>snapshot-based</strong> backups capture the virtual machine at a point in time, while <strong>agent-based</strong> backups install software inside the guest to enable file level protection, using tools such as Veeam Agent or Azure Backup. Restore procedure follows the failure type: boot and recovery media plus a system state restore for complete host failure, a snapshot rollback for recent or minor guest issues, and an agent-driven file level restore for partial data loss where rolling the whole machine back would be disproportionate.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Incremental minimises storage and maximises restore time. Differential does the opposite. If a scenario emphasises recovery speed, differential is the better fit; if it emphasises storage or backup window constraints, incremental is. Also remember that backups intended to survive ransomware must be segmented from the production network, since encrypting reachable backups is exactly what modern ransomware campaigns attempt first.</p>
+  </div>
+
 
   <h3>Management plane operations</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The management plane controls and administers cloud resources, providing web-based consoles and dashboards for visual management alongside APIs and command line interfaces for automation. Operationally it covers scheduling, orchestration, and maintenance. Because it holds administrative reach across the environment, it warrants the strongest authentication, tightest privilege restriction, and most thorough logging of any component.</p>
+  <p>Functionally the management plane is used to add, modify, and delete cloud resources including virtual machines, storage, and networks; to collect and analyse data on resource usage, performance, and security events; and to manage user identities, roles, and permissions so that only authorised users can take elevated actions. That logging and monitoring capability is also what supplies evidence for certification against standards such as ISO/IEC 27001, and what makes policy enforcement demonstrable rather than asserted.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A practical control that is easy to overlook: restrict the number of employees who hold hypervisor or management plane access at all. Comprehensive logging then confirms that those few accounts are using resources appropriately. Reducing the population with that reach does more for the risk than any amount of monitoring applied to a large group of privileged administrators.</p>
+  </div>
+
 </div>
 
 <a id="s53"></a>
@@ -606,6 +758,7 @@
     <li><strong>Continuity management</strong>, ensuring services can continue or recover through disruption, linking operations to BC and DR planning.</li>
     <li><strong>Information security management</strong>, the overarching process aligning security controls with business requirements.</li>
     <li><strong>Continual service improvement management</strong>, systematically identifying and implementing improvements to services and processes over time.</li>
+
     <li><strong>Incident management</strong>, restoring normal service operation as quickly as possible after an unplanned disruption, minimising business impact. It covers detection and recording through monitoring tools, classification, prioritisation, response, and closure.</li>
     <li><strong>Problem management</strong>, identifying, analysing, and resolving the underlying causes of incidents to prevent recurrence, reduce impact, and improve stability.</li>
     <li><strong>Release management</strong>, planning, designing, building, configuring, and testing hardware and software releases so that features, improvements, and fixes are bundled into manageable releases.</li>
@@ -616,30 +769,107 @@
     <li><strong>Capacity management</strong>, ensuring infrastructure and services have the right amount of resource for current and future demand, balancing cost against performance.</li>
   </ul>
 
+  <h3>Incident management in practice</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Problem and Incident Management; Ch 7 &rsaquo; Managing Security Operations &rsaquo; Incident Management</span>
+  <p>Several of those processes carry enough operational detail to be worth taking individually, starting with the two most often confused. Detection and recording draw on monitoring tooling already in place, SIEM platforms, network monitoring, and intrusion detection and prevention systems, all working to reduce mean time to detection. The human channel matters just as much: end users need frictionless ways to report something suspicious, whether by help desk, email, or hotline. The principle is the one used on public transport, that if you see something, you say something, and it works only if reporting is easy enough that people actually bother.</p>
+  <p>Events are then categorised and classified by severity, which differs between organisations according to business impact, ranging from minor issues to critical outages. Triage addresses the most critical first. A dedicated incident response team, sometimes called a CSIRT, needs both the skills and the delegated authority to act, and must document every step for the post-incident analysis that follows.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Communication obligations begin during the incident, not after it. Internally that means IT, security, HR, and corporate communications. Externally it may include partners and vendors, because they may themselves be data controllers whose customers are affected. If your organisation is acting as a <strong>processor</strong>, you must notify the <strong>controller</strong> without undue delay so that they can decide how to notify data subjects. The processor does not make that call.</p>
+  </div>
+
+  <h3>Problem management in practice</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Problem and Incident Management</span>
+  <p>Identification runs in two directions. <strong>Proactive</strong> identification looks for problems before they cause incidents, analysing trends and patterns across previous incident data, system logs, and performance metrics. <strong>Reactive</strong> identification responds to recurring incidents, systemic issues, or significant outages already reported. Problems are then categorised by nature, whether hardware failure, software defect, network issue, or misconfiguration, which determines what resource is needed to resolve them, and prioritised by impact and urgency.</p>
+  <p>Resolution addresses the root cause rather than the symptom, which in practice often means patching, reconfiguration, or updating training and awareness programmes. Temporary <strong>workarounds</strong> may mitigate impact while a permanent fix is developed. <strong>Knowledge management</strong> then captures what was learned into a knowledge base, which speeds resolution of similar problems and supplies the documented evidence that standards such as ISO/IEC 27001 require. The principle is blunt: if it is not documented, it did not happen.</p>
+
+</div>
+
+<a id="s54"></a>
+<div class="example-box">
+    <span class="label">Example</span>
+    <p>A cloud service fails three times in a month. Each time, the on-call team restarts the service and users are back within minutes, which is incident management working correctly. Nobody asks why it keeps failing. Problem management is the discipline that investigates the memory leak causing all three, and its absence is why there will be a fourth.</p>
+  </div>
+
+  <h3>Root cause analysis techniques</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Problem and Incident Management; Ch 8 &rsaquo; IT Service Management and Continual Service Improvement</span>
+  <p>Two techniques come up repeatedly, and they complement rather than compete with each other.</p>
+  <p>The <strong>five whys</strong> follows a single causal chain by asking why repeatedly until the answer stops being a symptom. The <strong>fishbone diagram</strong>, also called Ishikawa, suits incidents with several contributing causes rather than one linear chain: plausible contributing categories are mapped broadly across headings such as people, process, technology, and policy or governance, and the one or two branches with the strongest evidence are then pursued with the five whys to reach something actionable.</p>
+  <div class="example-box">
+    <span class="label">Worked example: five whys</span>
+    <p><strong>Incident:</strong> a publicly accessible cloud storage bucket containing sensitive personal data, reported by a security researcher before any confirmed malicious access. Investigation shows it had been set to public read for over six months.</p>
+    <p><strong>1. Why was the bucket publicly accessible?</strong> A developer changed the access control setting to public read to make debugging easier during a troubleshooting session.</p>
+    <p><strong>2. Why could a developer change bucket permissions directly in production?</strong> Their identity and access management role carried permission to modify bucket policies, even though the role had no ongoing access management responsibility.</p>
+    <p><strong>3. Why did the developer hold such a broad permission?</strong> Roles were assigned from a shared developer policy template that granted full storage access across the environment rather than the specific permissions the task required.</p>
+    <p><strong>4. Why was a broad shared template used instead of least privilege roles?</strong> No cloud infrastructure entitlement management process existed, and no periodic access review was in place to right-size permissions.</p>
+    <p><strong>5. Why was there no entitlement management or review process?</strong> Ownership of identity and access management governance was never formally assigned after the migration to cloud. Access provisioning was handled ad hoc by whoever set up each project, with no defined policy and no scheduled review cycle.</p>
+    <p><strong>Root cause:</strong> a governance gap, specifically unassigned ownership of the IAM lifecycle and the absence of periodic entitlement review, which allowed over-permissioned roles to persist unnoticed. The developer's action was the symptom. Disciplining the developer would leave every other over-permissioned role in place and the same incident free to recur.</p>
+  </div>
+
+  <h3>Release, deployment, and configuration in detail</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Release and Deployment Management; Roles and Process</span>
+  <p><strong>Release management</strong> begins with planning and scheduling: defining the scope and content of the release, identifying which features, updates, and fixes it carries, and setting timelines and resource requirements. A release calendar coordinates stakeholders and avoids clashing with other business activity. The design and build stage produces the release package, and testing then covers unit, integration, system, and user acceptance testing before anything moves. Training materials and documentation are part of the release, not an afterthought.</p>
+  <p><strong>Deployment management</strong> moves the release into production, and the exam expects familiarity with the common strategies:</p>
+  <ul class="plain">
+    <li><strong>Phased rollout</strong>, releasing to a subset of users or systems first and expanding as confidence grows.</li>
+    <li><strong>Big bang</strong>, switching everything at once, which is fastest but concentrates risk into a single moment.</li>
+    <li><strong>Blue-green deployment</strong>, running two identical environments and switching traffic to the new one, which makes rollback nearly immediate.</li>
+  </ul>
+  <p>The strategy chosen should follow from the complexity and criticality of the release, supported by a risk assessment that identifies critical dependencies and single points of failure beforehand. Post-deployment validation confirms the release functions as expected, drawing on qualitative user feedback as well as quantitative system metrics.</p>
+  <div class="example-box">
+    <span class="label">Configuration management and the Statement of Applicability</span>
+    <p>Configuration management maintains the integrity, security, and performance of hardware, software, and other assets, and supplies the reliable baseline that system restoration depends on. It also connects directly to ISO/IEC 27001 through the <strong>Statement of Applicability</strong>, the document recording all 93 Annex A controls alongside justification both for including a control in the information security management system and for excluding one. Being required to justify exclusions is what stops the SoA becoming a list of the controls an organisation already happened to have.</p>
+  </div>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Incident management restores service fast. Problem management finds and eliminates the root cause so it stops happening. A scenario describing urgency and restoration wants incident management; one describing recurrence and underlying cause wants problem management. Equally, release management prepares and tests the release, deployment management puts it into production, and change management authorises it.</p>
   </div>
-  <div class="example-box">
-    <span class="label">Example</span>
-    <p>A cloud service fails three times in a month. Each time, the on-call team restarts the service and users are back within minutes, which is incident management working correctly. Nobody asks why it keeps failing. Problem management is the discipline that investigates the memory leak causing all three, and its absence is why there will be a fourth.</p>
-  </div>
-</div>
 
-<a id="s54"></a>
-<div class="topic-card">
+  <h3>Availability and capacity management in detail</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Monitoring, Capacity, and Maintenance; IT Service Management and Continual Service Improvement</span>
+  <p><strong>Availability management</strong> optimises the capability of services, infrastructure, and the support organisation to deliver a cost-effective and sustained level of availability that lets the business meet its objectives. Its benefits run beyond uptime: fewer and shorter outages, better customer satisfaction, less time and resource consumed handling incidents, and a return on investment from preventive maintenance that avoids the far higher cost of emergency repair and lost productivity.</p>
+  <div class="example-box">
+    <span class="label">Why availability carries a financial number</span>
+    <p>A major UK vehicle manufacturer disrupted by a cyber attack in 2025 was reported to be losing in the order of tens of millions per week, and several weeks in sought UK government loan support running to over a billion pounds, with commentary suggesting a measurable effect on national output. Whatever the precise figures, the lesson holds: availability is not an IT metric, it is a financial one, and preventive investment is measured against losses of that scale rather than against the cost of the control.</p>
+  </div>
+  <p><strong>Capacity management</strong> divides into three sub-processes, and the distinction is examinable:</p>
+  <ul class="plain">
+    <li><strong>Business capacity management</strong>, translating future business plans and growth projections into future capacity requirements.</li>
+    <li><strong>Service capacity management</strong>, managing the performance of the live services themselves against agreed targets.</li>
+    <li><strong>Component capacity management</strong>, managing the individual underlying components such as CPU, memory, storage, and bandwidth.</li>
+  </ul>
+  <p>All three depend on information that does not come from monitoring tooling alone. Growth projections and planned initiatives surface through regular <strong>management reviews</strong> with senior leadership, which is how a security function learns where the organisation is heading and what technologies it intends to adopt before capacity becomes a constraint.</p>
+
+
+  <div class="topic-card">
   <span class="topic-tag">5.4 Digital forensics</span>
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (digital forensics section), with related legal material in Chapter 9.</span>
   <h2>Collecting, acquiring, and preserving evidence that will hold up</h2>
 
   <h3>Forensic data collection methodologies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition</span>
   <p>The central distinction is between <strong>live data acquisition</strong>, capturing data from a running system including volatile memory, network connections, and running processes, and <strong>static or dead acquisition</strong>, capturing data from a powered-down system. Live acquisition is necessary because volatile evidence such as memory contents, encryption keys held in RAM, and active network connections disappears the moment power is lost. This is why the standard incident response guidance is to contain while preserving rather than to shut systems down immediately.</p>
   <p><strong>Order of volatility</strong> governs collection sequence: capture the most transient evidence first, working from CPU registers and cache, through RAM and network state, to disk and finally archived media.</p>
+  <p>Beyond live and static acquisition, several specialised branches appear in the outline:</p>
+  <ul class="plain">
+    <li><strong>Network forensics</strong>, capturing and analysing traffic and logs to establish what was transmitted, which connections existed, and where a breach reached. Tools include Wireshark, tcpdump, and NetworkMiner.</li>
+    <li><strong>Cloud forensics</strong>, acquiring logs, storage data, and user activity records through the provider's own APIs and tooling, since the customer cannot reach the underlying media.</li>
+    <li><strong>Memory forensics</strong>, analysing RAM to recover artefacts, open network connections, loaded drivers, and other live system state that exists nowhere else.</li>
+    <li><strong>Mobile device forensics</strong>, extracting messages, call logs, application data, and the associated metadata including location information, using specialist tooling such as Cellebrite or Oxygen Forensic Suite.</li>
+  </ul>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Cloud acquisition depends on provider APIs and on what the contract permits, which is why forensic readiness in cloud is a procurement question as much as a technical one. If a scenario has an investigator wanting the underlying disk from a managed service, the realistic answer involves the provider and the agreement rather than a tool the customer can run.</p>
+  </div>
+
 
   <h3>Evidence management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Evidence Preservation and Management</span>
   <p>Evidence management ensures digital evidence is collected, preserved, and presented so that its integrity and admissibility hold in legal contexts. <strong>Chain of custody</strong> is the core mechanism, documenting every person who handled the evidence, when, and why, demonstrating it was not tampered with.</p>
 
   <h3>Collecting, acquiring, and preserving</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition; Evidence Preservation and Management</span>
   <p>Collection is the initial gathering of evidence from its sources. Acquisition creates the working copy. Preservation protects the integrity of the evidence from collection through analysis to presentation in court, using three named techniques:</p>
   <ul class="plain">
     <li><strong>Imaging</strong>, creating a bit-for-bit copy so that analysis is performed on the copy and the original remains untouched.</li>
@@ -650,6 +880,17 @@
     <span class="label">Example</span>
     <p>An investigator images a suspect volume through a write blocker, hashes both original and image, and confirms the values match. Every subsequent analysis runs against the image. If the defence later questions whether evidence was altered, the matching hashes and the custody log answer the question, which is precisely what makes the finding usable.</p>
   </div>
+
+  <h3>Handling evidence end to end</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition; Evidence Preservation and Management</span>
+  <p>Those three techniques sit inside a wider sequence that the exam expects you to know in order: collection, transport, analysis, storage, and presentation. <strong>Collection</strong> begins with identification, determining what data is in scope for the investigation, then documentation of each item's location, condition, and the context it was found in, using photographs, video, or written notes as appropriate. The scene must be secured against unauthorised access or tampering, which may mean isolating devices, controlling entry points, and maintaining a log of everyone who enters. Handling uses write blockers, static-free bags, and secure containers so nothing changes state in transit.</p>
+  <p><strong>Secure storage</strong> deserves more attention than it usually gets: access control restricting who can reach the evidence, physical measures such as locked cabinets and controlled-access rooms, environmental control of temperature and humidity to preserve the physical integrity of the media, and redundancy across locations to protect against hardware failure or disaster. <strong>Documentation</strong> throughout covers case notes, chain of custody records for each transfer, and the forensic analysis report itself, which must be detailed enough that another examiner could reproduce the findings.</p>
+  <div class="example-box">
+    <span class="label">Example from practice</span>
+    <p>An organisation building forensic capability created a dedicated isolated environment for evidence collection, deliberately separated from both the corporate network and the production cloud estate, with a defined and logged procedure for moving data between that environment and the organisation proper. Corporate laptops turn out to matter as much as cloud workloads here: cloud services generate audit logs by default, whereas a compromised physical endpoint may hold the only copy of what happened. Every step of handling was logged, tracked, signed, and formally declared. It is a materially heavier process than routine incident handling, which is exactly why it needs to be designed before it is needed.</p>
+  </div>
+  <p>Legal compliance frames all of it. Evidence handling must satisfy applicable privacy law such as GDPR, follow recognised standards from bodies such as NIST and ISO, and respect jurisdictional differences in where evidence was collected and analysed. Regular internal audits confirm the procedures are followed in practice rather than merely written, and periodic external review confirms they match current best practice.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Cloud complicates forensics specifically: the customer often cannot seize hardware, may not know its physical location, and shares infrastructure with tenants whose data must not be captured. Forensic capability in cloud therefore depends heavily on the contract and on what the provider will support, which is a recurring theme across this certification.</p>
@@ -668,12 +909,41 @@
     <li><strong>Customers</strong>, requiring timely, accurate information about service status, incidents affecting them, planned maintenance, and any breach touching their data. Contractual and regulatory notification obligations frequently apply.</li>
     <li><strong>Partners</strong>, requiring coordination on shared processes and integrated services, including how incidents are jointly handled.</li>
     <li><strong>Regulators</strong>, requiring communication that demonstrates compliance and maintains good standing. This includes establishing channels before they are needed, meeting mandatory reporting deadlines such as breach notification, and responding to enquiries with accuracy.</li>
+
     <li><strong>Other stakeholders</strong>, including internal leadership, staff, insurers, and where relevant law enforcement and the public.</li>
   </ul>
+
+  <h3>Communicating during an incident</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Manage Communication with Relevant Parties; Ch 8 &rsaquo; Problem and Incident Management</span>
+  <p>An incident produces obligations in several directions at once, on different clocks, and the audiences need different detail at different moments. That is why the channels have to exist beforehand rather than being improvised while the investigation is still running.</p>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>The GDPR 72-hour notification clock does not pause for weekends. An organisation breached late on a Friday must be in a position by Monday to supply its supervisory authority, the Information Commissioner's Office in the UK, with the information required on the breach notification form. That is an operational staffing question as much as a legal one, and it is the reason on-call arrangements and pre-drafted notification templates exist.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>A collaborative incident response team should draw on IT, security, GRC or legal, and public relations, because the incident produces obligations in all four directions at once. Failing to communicate to affected data subjects in a timely fashion can itself attract a penalty, separate from and on top of whatever the breach cost.</p>
+  </div>
+
   <div class="example-box">
     <span class="label">Example</span>
     <p>A telecom operator confirms a breach affecting customer data. Within the same window it must notify its regulator inside the statutory deadline, inform affected customers, brief its board, coordinate with the SaaS vendor whose platform was involved, and manage press enquiries. Each audience needs different detail at a different time, which is why the channels must exist before the incident rather than being improvised during it.</p>
   </div>
+
+  <h3>Subject access requests and the front line</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud; Ch 10 &rsaquo; Manage Communication with Relevant Parties</span>
+  <p>A data subject access request starts a clock the moment it is made, and the organisation generally has one calendar month to respond. The practical difficulty is recognition rather than response, because a data subject is under no obligation to use the correct terminology. Someone asking what information you hold about them, or what address you have on file, has made a valid request whether or not they call it one. That makes front-line training a compliance control in itself, since the clock runs from the moment the question is asked rather than from the moment somebody senior recognises what it was.</p>
+
+  <h3>Communicating with regulators</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; U.S. Privacy and Security Laws; International Laws; Ch 10 &rsaquo; Manage Communication with Relevant Parties</span>
+  <p>The <strong>Data Protection Officer</strong>, a role established under GDPR, is the conduit between the organisation and the supervisory authority, and the role exists in both controller and processor organisations. Reporting mechanisms have modernised, with the UK regulator now expecting breach reports through its online service rather than a form. Failing to report properly, or lacking an effective channel through a DPO, can attract a penalty in its own right, separate from any penalty for the breach itself and separate again from class action exposure brought by the data subjects.</p>
+  <p>Communication with regulators is not solely reactive. Periodic compliance reports, readiness assessments, certification against ISO/IEC 27001 or schemes such as Cyber Essentials, and evidence of corrective action taken in response to earlier findings all maintain standing. Where an ISO/IEC 27001 audit raises <strong>non-conformities</strong>, whether major or minor, those findings and the response to them belong in the documentation.</p>
+  <div class="example-box">
+    <span class="label">Why transparency matters</span>
+    <p>Attackers increasingly apply pressure through the people whose data they hold rather than only through the breached organisation. A 2025 breach of a nursery management application saw criminals contact parents directly to increase pressure for a ransom payment. Whatever an organisation's instinct to say little while it investigates, the affected individuals may already be hearing from the attacker. That is a substantial part of why notification obligations exist, and why the communication plan has to be ready before it is needed rather than drafted during the incident.</p>
+  </div>
+
+  
 </div>
 
 <a id="s56"></a>
@@ -683,21 +953,90 @@
   <h2>Running the SOC and the assurance activities around it</h2>
 
   <h3>Security Operations Centre</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Security Operations Center (SOC)</span>
   <p>A SOC is a centralised unit handling security issues at organisational and technical level, built on three components: <strong>people</strong>, meaning skilled analysts, incident responders, and managers; <strong>process</strong>, the defined procedures they follow; and <strong>technology</strong>, the tooling that gives them visibility and response capability. All three are required, and a common failure is investing in technology while under-resourcing the people and processes needed to use it.</p>
+  <div class="example-box">
+    <span class="label">Alert fatigue</span>
+    <p>A poorly tuned SIEM produces so many alerts that analysts stop distinguishing signal from noise. The problem is not looking for a needle in a haystack; it is looking for a needle in a stack of needles. Tuning to reduce false positives is therefore a security control in its own right, because an alert nobody investigates provides no protection however accurate it was.</p>
+  </div>
+
+  <p>The <strong>process</strong> element means documented playbooks for monitoring, incident response, and threat hunting. <strong>Threat hunting</strong> is the proactive half: analysts going looking for indicators rather than waiting for an alert, checking for signs such as lateral movement, privilege escalation, or the use of compression tools that typically precede exfiltration. A managed provider may trigger hunting activity in each customer environment on a defined cycle rather than only on suspicion. The <strong>technology</strong> element covers IDS and IPS, endpoint detection and response, SIEM, and threat intelligence feeds, both commercial and open source such as those published by national cyber security bodies.</p>
+
+  <h3>Building or buying a SOC</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Security Operations Center (SOC); Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
+  <p>Assembling all three elements is expensive, which is why the model itself is a decision rather than an assumption. Standing up an in-house SOC is a significant capital commitment, with industry estimates for a mature organisation of a thousand people or more running to several million in initial investment before ongoing staffing is counted. That cost, combined with a persistent global shortfall in qualified security staff, is why many organisations use a <strong>managed SOC</strong> from an MSSP, or a <strong>hybrid</strong> model pairing an internal team with external coverage outside working hours.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Whichever model is chosen, a shared responsibility model applies between the organisation and the provider, and it must be documented explicitly in the contract and the SLAs. That includes who is responsible for meeting breach notification deadlines, because a monitoring provider detecting an incident does not discharge the customer's own regulatory obligation to report it.</p>
+  </div>
+
+
 
   <h3>Intelligent monitoring of security controls</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Continuous Monitoring</span>
   <p>Intelligent monitoring uses advanced technology to continuously oversee and analyse security mechanisms, aiming to detect, prevent, and respond efficiently. By leveraging automation, machine learning, and artificial intelligence, organisations extend their capability beyond what manual review can achieve at cloud scale. The controls monitored include firewalls, IDS and IPS, honeypots, and network security groups. The consistent principle across this certification is that AI augments analysts rather than replacing them, handling volume so humans can concentrate on complex and novel cases.</p>
+  <p>Those controls fall into four categories, a grouping that maps onto the 93 controls in <strong>Annex A of ISO/IEC 27001</strong> and is worth carrying into the exam:</p>
+  <ul class="plain">
+    <li><strong>Preventative</strong>, acting before the fact: firewalls, access control lists, and antivirus or anti-malware preventing execution of malicious software.</li>
+    <li><strong>Detective</strong>, identifying and alerting: intrusion detection systems, which are passive and alert only, and SIEM platforms correlating activity across sources.</li>
+    <li><strong>Corrective</strong>, acting to contain and remedy: intrusion prevention systems, which sit inline and block, together with patch management and change management addressing the underlying weakness.</li>
+    <li><strong>Recovery</strong>, restoring after the fact: backup solutions segmented from the network, and disaster recovery plans that have been stress tested rather than merely written.</li>
+  </ul>
+  <div class="example-box">
+    <span class="label">Example</span>
+    <p>Modern endpoint protection illustrates the shift in preventative controls. Rather than matching against a signature list that must be constantly updated, current tooling applies machine learning to assess several hundred characteristics of a file before it executes. That is what allows it to catch a threat with no signature yet written, which signature-based scanning by definition cannot.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">How the technique transferred</span>
+    <p>The approach came from image classification. Train an algorithm on large numbers of labelled images until it reliably separates one category from another, then point the same technique at a different pair of categories: benign files against files carrying a payload. The vendor that commercialised this became one of the fastest companies in the sector to reach a billion dollar valuation before being acquired, which is a fair indicator of how significant the shift away from signature matching proved to be.</p>
+  </div>
+
+
 
   <h3>Log capture and analysis</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>Log management runs through collection, storage, analysis, and response. <strong>SIEM</strong> platforms aggregate and correlate logs from across the environment, turning isolated events into detectable patterns. <strong>Threat intelligence</strong> supplies external context about active threats and indicators of compromise, sharpening what the SIEM is looking for. Log storage must be secure and tamper-resistant, since altering logs is among an attacker's first moves.</p>
+  <p>The full process runs through <strong>collection</strong> from applications, network devices, and servers; <strong>secure and scalable storage</strong> preserving integrity and access control at the volumes cloud generates; <strong>analysis</strong> to identify patterns and anomalies, increasingly assisted by machine learning; <strong>real-time monitoring</strong> so indicators of compromise are acted on before they escalate; <strong>compliance and auditing</strong>, where the log trail is the evidence; and <strong>integration with incident response</strong>, so that a detection reaches the response team through a defined escalation path rather than sitting in a queue.</p>
+  <div class="note-box">
+    <span class="label">Selecting a SIEM</span>
+    <p>Evaluation criteria worth carrying into practice: quality of automation, breadth of intelligence feeds, and how easily rules can be written and tuned. Platforms range from higher cost enterprise products with mature communities and support through to lighter, more recent offerings with strong real-time detection and AI integration at a lower price point. Analyst comparisons such as Gartner's Magic Quadrant are a reasonable starting point for narrowing the field, and integrated SOAR capability for automated response is increasingly assumed rather than optional.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Evidence and log sources</span>
+    <p>A question that arises in practice: can logs held in a central platform serve as evidence in court, or must the original be retained from the source? The safer position is to preserve the original wherever possible, captured using appropriate forensic tooling. Aggregated copies may be admissible depending on the matter, but the original source record is what withstands challenge.</p>
+  </div>
+
 
   <h3>Incident response</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Incident Management; Ch 8 &rsaquo; Problem and Incident Management</span>
   <p>Incident response follows preparation, detection and analysis, containment, eradication, recovery, and post-incident review. The order matters: containment comes before eradication, and evidence preservation runs alongside containment rather than after it, because volatile evidence is lost when systems are shut down or rebuilt. The post-incident review is what feeds improvement back into preparation.</p>
+  <div class="example-box">
+    <span class="label">Root cause versus symptoms</span>
+    <p>Responding to the same incident repeatedly without asking why it keeps happening is a never-ending game of whack-a-mole. The organisation spends steadily on treating symptoms while the underlying cause remains untouched. Root cause analysis in the post-incident review is what converts response spending into a permanent reduction in incidents, which is precisely the boundary between incident management and problem management.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Lessons learned</span>
+    <p>A useful framing for post-incident review: in security operations there are no failures, only feedback. Teams that treat the review as an exercise in accountability produce guarded, uninformative accounts. Teams that treat it as feedback surface the detail that actually improves the response plan, which is the entire point of running the review.</p>
+  </div>
+
 
   <h3>Vulnerability assessments</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Vulnerability Assessment Tools; Assessing Vulnerabilities</span>
   <p>Vulnerability assessment proceeds through identification of assets, scanning for vulnerabilities, risk assessment of what was found, and remediation. It is particularly important in cloud, where resources are dynamically scaled and updated, so the asset inventory changes continuously and a scan is only accurate for the moment it ran. Assessment is broad and automated, identifying known weaknesses across the estate.</p>
+  <div class="example-box">
+    <span class="label">Why dwell time matters</span>
+    <p>Advanced persistent threats are defined by stealth and duration rather than by any single technique: gaining access and remaining undetected for a prolonged period. Consider how much an invisible person in your house would learn about you in a week, then a month. That is the reasoning behind behavioural analytics, which flags anomalous patterns such as impossible travel between login locations, unusual access times, or atypical resource access, precisely because such an intruder generates no alert on any single event.</p>
+  </div>
+  <p>In more detail, the process runs: <strong>asset identification</strong>, cataloguing virtual machines, applications, data stores, and network assets, since nothing unknown can be protected; <strong>scanning</strong>, using automated tooling that compares installed software and configurations against databases of known vulnerabilities such as the CVE list; <strong>risk assessment</strong>, scoring findings on impact and likelihood, commonly on a one to five scale, so that remediation is prioritised by genuine exposure rather than by raw count; <strong>remediation</strong>, whether patching, reconfiguring, or decommissioning a system that can no longer be secured, as with an operating system past end of support; and <strong>verification and reporting</strong>, re-scanning to confirm the finding is genuinely closed and documenting the resulting security posture.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Vulnerability assessment is continuous rather than periodic, for the same reason the cloud asset inventory is never static. New vulnerabilities are disclosed constantly, and a zero day carries that name because defenders have had zero days to prepare for it. A scenario describing an annual scan as sufficient is describing a gap.</p>
+  </div>
+
+
 
   <h3>Penetration testing</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Ch 5 &rsaquo; Vulnerability Assessment Tools is the closest coverage.</span>
   <p>Penetration testing goes further than assessment by actively exploiting weaknesses to demonstrate real impact, showing what an attacker could actually achieve rather than what might theoretically be possible. It may be conducted black-box, grey-box, or white-box depending on how much information the tester is given. In cloud, penetration testing carries an additional constraint: the provider's rules of engagement govern what may be tested, since the infrastructure is shared and testing beyond the customer's own scope would affect other tenants.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>

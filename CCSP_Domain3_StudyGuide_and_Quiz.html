@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -489,6 +501,7 @@
   <p>Cloud infrastructure is the physical and virtual resources inside data centres: compute nodes, storage systems, and networking hardware, together with the virtualisation software and management layer that turn them into a service. The outline names six components, and the exam expects you to know what each covers and who is responsible for it.</p>
 
   <h3>Physical environment</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Facilities and Redundancy</span>
   <p>The server rooms, data centres, and physical locations where the infrastructure sits. Who owns this depends on the deployment model, which is a point worth remembering: in a private cloud built on premises, the organisation is effectively its own provider and owns the physical environment. In a community cloud, a community member often supplies the space and hardware. With a commercial public provider, the provider owns it entirely and the customer typically never sees it.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -496,9 +509,11 @@
   </div>
 
   <h3>Network and communications</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <p>The provider secures the networking components it houses. The customer manages any components in its own facilities. The public internet connecting the two is the primary area of concern, because neither party controls it. The provider must support secure methods such as HTTPS, encryption before transmission, and VPN access, and the customer is expected to actually use them. Both parties implement firewalls and related technologies on their own side of the boundary.</p>
 
   <h3>Compute</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Hardware and Compute</span>
   <p>Compute capability is defined mainly by CPU, which determines processing power, and RAM, which holds data actively being processed and keeps latency low. What makes cloud compute distinctive is how it is allocated in a multi-tenant environment, through three mechanisms you should be able to distinguish:</p>
   <ul class="plain">
     <li><strong>Reservations</strong>, a guaranteed minimum of resource for a system, ensuring it always has what it needs to perform.</li>
@@ -511,12 +526,15 @@
   </div>
 
   <h3>Storage</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures; Ch 7 &rsaquo; Storage Operations</span>
   <p>Cloud storage spreads data across distributed and often replicated resources. The two primary types at infrastructure level are <strong>volume storage</strong>, which behaves like a traditional hard drive attached to a virtual machine and suits file systems and databases needing low latency, and <strong>object storage</strong>, which suits unstructured data such as media, backups, and analytics datasets. Two underlying technologies support them: <strong>RAID</strong>, improving data integrity and performance through redundancy across disks, and <strong>SAN</strong>, connecting storage devices over a separate high speed network for reliable, flexible capacity.</p>
 
   <h3>Virtualisation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization; Ch 7 &rsaquo; Virtualization Operations</span>
   <p>Virtualisation is the backbone of every cloud hosting model. It is what makes resource pooling, on-demand self-service, and scalability possible in the first place: without the ability to carve physical hardware into isolated logical instances, none of the essential characteristics could be delivered. It also introduces the hypervisor as a high value target and tenant isolation as a security requirement.</p>
 
   <h3>Management plane</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The management plane enables remote administration of one or many hosts, providing the functions that define cloud operation: creating, starting, and stopping virtual machines, provisioning storage, and configuring networking. It is the single most security-sensitive component in the infrastructure, because compromising it grants control over everything beneath it. A stolen credential for a virtual machine costs you one machine; a stolen management plane credential can cost you the entire environment.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -531,6 +549,7 @@
   <h2>Logical, physical, environmental, and resilient design</h2>
 
   <h3>Logical design</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Logical Design</span>
   <p>The logical layout is the abstract representation of the data centre, and in a public cloud it is what the customer actually builds using the provider's tools and services. Getting it right is central to security. It covers tenant partitioning and access control, and in practice includes access management, regulatory compliance monitoring, patch management, log analysis, and service configuration, with Identity and Access Management establishing the secure perimeter.</p>
   <p>Consistency of configuration is the recurring theme. The business specifies how each authorised cloud service should be configured and used, and uniform configuration makes administration simpler and usually more secure. Deviations from the established pattern should not be approved without first assessing the risk the variance introduces.</p>
   <div class="example-box">
@@ -539,6 +558,7 @@
   </div>
 
   <h3>Physical design</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Build vs. Buy; Data Center Tiers</span>
   <p>Physical design is normally the owner's responsibility, which in a public cloud means the provider. Multi-tenancy adds complexity, but otherwise a provider's data centre resembles an on-premises one. Two considerations dominate:</p>
   <ul class="plain">
     <li><strong>Location</strong>, which materially reduces disaster risk. Regions prone to natural disasters, civil unrest, or similar instability should be avoided.</li>
@@ -546,6 +566,7 @@
   </ul>
 
   <h3>Environmental design</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy; Ch 8 &rsaquo; Physical and Environmental Protection</span>
   <p>Except in private clouds, the provider owns environmental design, and it directly affects the availability of cloud resources. For customers, evaluating a vendor's environmental design is part of vendor risk analysis.</p>
   <ul class="plain">
     <li><strong>HVAC</strong>, heating, ventilation, and air conditioning. Every computing facility must prioritise electrical service and climate control. Local climate shapes the emphasis: a facility near the equator worries far more about cooling than heating. The key exam point is that an HVAC failure can take out computing resources just as completely as an electrical or communications outage, which is why HVAC capacity and redundancy belong in any provider evaluation.</li>
@@ -557,6 +578,7 @@
   </div>
 
   <h3>Design for resilience</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy</span>
   <p>Resilience is the ability to adapt to changing conditions and recover from disruption, achieved by proactive design rather than reaction. The outline anchors it to power, HVAC, and connectivity, the three utilities whose loss stops a data centre regardless of anything else. Practical design actions include siting the facility away from known hazard regions, designing with flexibility, building reliable and simple systems, adding redundancy wherever possible, and applying passive design principles that keep working without active intervention.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
@@ -572,10 +594,12 @@
   <h2>Assessing, understanding, and treating cloud risk</h2>
 
   <h3>Risk assessment</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Shared Cloud Platform Risks and Responsibilities; Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Assessment</span>
   <p>Industry bodies publish useful risk lists, but every organisation, whether providing or consuming cloud services, must conduct its own assessment, because risk depends on the organisation's own data, obligations, and tolerance. Risk assessment has two parts: <strong>identification</strong>, finding what could go wrong, and <strong>analysis</strong>, judging how likely it is and how much it would hurt.</p>
   <p>The organisational and regulatory risks that recur in cloud adoption include <strong>lock-in</strong>, where dependence on a single provider reduces flexibility; <strong>governance</strong>, ensuring policies actually manage cloud resources effectively and compliantly; <strong>data security and privacy</strong>, protecting stored data from unauthorised access; and compliance and jurisdictional exposure arising from where data and processing sit.</p>
 
   <h3>Cloud vulnerabilities, threats, and attacks</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Cloud Computing Risks by Deployment Model; by Service Model; Virtualization Threats</span>
   <p>The fundamental risk of cloud is its internet-based model: the service is reachable by anyone with a connection, which means attacks can originate anywhere in the world. Threats may target the customer, the provider, or another of the provider's customers, and may also stem from the geographic location of the data centre itself. Denial of service is the classic example of an attack whose effect can reach a customer who was never the intended target, because shared infrastructure means shared consequences.</p>
   <p>A second category is the insider risk on the provider's side: the possibility of data theft by provider employees. Contractual agreements help, but prevention is stronger. The practical defence is encryption with the customer managing its own keys externally, so that data exposed at the provider is unreadable without keys the provider never holds.</p>
   <div class="example-box">
@@ -584,6 +608,7 @@
   </div>
 
   <h3>Risk treatment strategies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Treatment and Response</span>
   <p>Once risk is identified and analysed, it must be treated. The five formal treatments are the ones to know precisely, because distractors trade on confusing them:</p>
   <ul class="plain">
     <li><strong>Avoid</strong>, eliminating the risk by not undertaking the activity at all.</li>
@@ -606,9 +631,11 @@
   <h2>Protecting systems, controlling access, and proving it happened</h2>
 
   <h3>Physical and environmental protection</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Physical and Environmental Protection</span>
   <p>Site selection drives physical protection. Placing a data centre near water in a region subject to storms, flooding, tornadoes, or seismic activity is poor practice. The selection criteria include the ability to restrict physical access, an adequate available workforce, and reliable access to power and other essential resources. Network capacity is a baseline requirement for any data centre, and for a provider serving many clients across a wide geography these standards are often more demanding than for an on-premises facility.</p>
 
   <h3>System, storage, and communication protection</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <ul class="plain">
     <li><strong>Policy and procedures</strong>, the documented foundation that makes every other control consistent and enforceable.</li>
     <li><strong>Security function isolation</strong>, separating security functions from other system operations so that compromising an application does not hand over the controls protecting it.</li>
@@ -618,6 +645,7 @@
   <p>For <strong>data in transit</strong>, the recommended protections are TLS, IPSec, and VPNs, ensuring transmitted data cannot be read or altered in flight.</p>
 
   <h3>Identification, authentication, and authorisation</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Identity Assurance in Cloud and Virtual Environments; Ch 6 &rsaquo; Identity and Access Management</span>
   <p>Organisations either extend existing on-premises IAM into the cloud or adopt cloud-based IAM services, weighing ease of management, security requirements, and the prospect of single sign-on across systems. Provider-supplied IAM systems are an option but tie the organisation more closely to that provider. User education underpins all of it: teaching people not to reuse passwords and to recognise phishing protects the identity layer in a way no technical control fully can.</p>
   <p>The <strong>shared responsibility model</strong> governs the split. Providers are generally responsible for securing the infrastructure supporting the services. Customers are responsible for the security of their own data within those services, including encryption at rest and in transit and the implementation of robust access controls.</p>
   <div class="example-box">
@@ -626,6 +654,7 @@
   </div>
 
   <h3>Audit mechanisms</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider; Ch 2 &rsaquo; Data Audit and Audit Mechanisms</span>
   <p>The purpose of an audit is to confirm that enough risk controls exist and that they work. Audits are commonly driven by regulatory or compliance requirements, and they work best integrated into corporate governance and enterprise risk management, where legal, technical, jurisdictional, contractual, and compliance requirements can be consolidated in one place.</p>
   <p>Two mechanisms carry a cloud-specific complication that the exam tests directly, and both follow the same pattern: <strong>how much you can collect depends on the service model and your contract.</strong></p>
   <ul class="plain">
@@ -648,6 +677,7 @@
   <p>BC and DR protect against data being unavailable and the business processes depending on it being non-functional, both of which carry adverse consequences for the organisation. Business continuity is about keeping operating; disaster recovery is about restoring after a disruptive event.</p>
 
   <h3>Main components of a BCDR strategy</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Business Continuity and Disaster Recovery &rsaquo; BC/DR Planning; The BC/DR Toolkit</span>
   <ul class="plain">
     <li><strong>Location</strong>, where the recovery capability sits, and crucially far enough from the primary site that one event cannot take both.</li>
     <li><strong>Data replication</strong>, keeping a current copy of the data at the recovery location.</li>
@@ -662,6 +692,7 @@
   </div>
 
   <h3>Business requirements: RPO, RTO, and RSL</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Business Continuity and Disaster Recovery; Ch 4 &rsaquo; Cloud-Specific BIA Concerns</span>
   <p>Three terms define recovery expectations, and the third is the one candidates most often miss:</p>
   <ul class="plain">
     <li><strong>Recovery Point Objective (RPO)</strong>, how much data loss is tolerable, expressed as a period of time. It determines how much information must be restored and therefore how frequently data must be replicated or backed up.</li>
@@ -674,6 +705,7 @@
   </div>
 
   <h3>Creating, implementing, and testing the plan</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; BC/DR Planning</span>
   <p>Implementing a BCDR plan runs through defining the <strong>scope</strong> of what the plan covers, <strong>gathering requirements</strong> from the business, <strong>analysing</strong> the resulting plan, and <strong>risk assessment</strong> of the arrangements themselves, followed by implementation and, critically, testing. An untested plan is an assumption. Testing is what converts a document into a capability, and it routinely reveals gaps such as missing dependencies, stale credentials, or capacity that exists on paper but not in practice.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>

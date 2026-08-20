@@ -264,6 +264,18 @@
     display:block;
   }
   .note-box p{ margin:0; font-size:14px; color:var(--text-secondary); }
+  .sec-ref{
+    display:block;
+    font-size:11.5px;
+    color:var(--text-muted);
+    margin:-.15rem 0 .5rem;
+    padding-left:.55rem;
+    border-left:2px solid var(--border);
+    line-height:1.4;
+  }
+  .sec-ref b{ color:var(--text-secondary); font-weight:600; }
+  .sec-ref.none{ border-left-color:#E8D9A8; }
+  .sec-ref.none b{ color:var(--gold); }
   .example-box{
     background:#FBF8F2;
     border-left:3px solid var(--gold);
@@ -495,6 +507,7 @@
   </div>
 
   <h3>On-demand self-service</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics</span>
   <p>A customer can provision computing resources, such as server time or network storage, automatically and without needing a person at the provider to approve or configure it manually.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -502,6 +515,7 @@
   </div>
 
   <h3>Broad network access</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics</span>
   <p>Capabilities are available over the network and accessed through standard mechanisms that work across different client platforms, including laptops, phones, and tablets.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -509,6 +523,7 @@
   </div>
 
   <h3>Resource pooling</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics</span>
   <p>The provider's computing resources are pooled to serve multiple customers using a multi-tenant model, with physical and virtual resources dynamically assigned according to demand. The customer generally has no visibility into the exact physical location of those resources, although some providers allow the customer to specify a general location, such as a country or region.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -516,6 +531,7 @@
   </div>
 
   <h3>Rapid elasticity and scalability</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics (see the Elasticity vs. Scalability sidebar)</span>
   <p>Capabilities can be provisioned and released elastically, in some cases automatically, to scale outward and inward with demand. To the customer, the resources available for provisioning often appear effectively unlimited.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -523,6 +539,7 @@
   </div>
 
   <h3>Measured service</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Characteristics</span>
   <p>Cloud systems automatically monitor and optimise resource use through a metering capability appropriate to the type of service, such as storage, processing, bandwidth, or active user accounts. Usage can be reported and controlled, giving both provider and customer visibility into consumption.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -530,6 +547,7 @@
   </div>
 
   <h3>Multi-tenancy</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Multitenancy</span>
   <p>A single instance of the service, and the infrastructure beneath it, serves many independent customers at
   once. Each tenant's data and configuration are kept logically separate, so no tenant can see or affect
   another, even though they share the same underlying platform. Multi-tenancy is what makes the economics of
@@ -551,6 +569,7 @@
   </ul>
 
   <h3>Cloud computing roles</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Roles and Responsibilities</span>
   <p>ISC2 also expects familiarity with the roles involved in a cloud relationship, since exam questions sometimes test whether you can correctly identify who is doing what.</p>
   <ul class="plain">
     <li><strong>Cloud service customer</strong>, the organization or individual using the cloud service.</li>
@@ -565,6 +584,7 @@
   </div>
 
   <h3>Building block technologies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization</span>
   <p>Cloud computing rests on a set of foundational technologies. Virtualization abstracts physical hardware so that multiple isolated operating system instances can run on a single physical server, and it underpins most infrastructure as a service offerings. Storage, networking, databases, and orchestration are the other building blocks that, together with virtualization, allow a provider to deliver flexible, scalable services.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -579,6 +599,7 @@
   <h2>Service categories, deployment models, and shared considerations</h2>
 
   <h3>Cloud service capability types</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Service Categories</span>
   <p>Before the familiar service categories, the reference architecture describes three capability types.
   These describe what the customer is actually able to control, and they map directly onto the service
   categories, so it is worth learning them as a pair rather than separately.</p>
@@ -599,6 +620,7 @@
   </div>
 
   <h3>Cloud computing activities</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Reference Architecture</span>
   <p>The reference architecture also sets out the activities each party performs. In broad terms the cloud
   service customer performs activities such as using the service, administering its own users, and monitoring
   its own consumption. The cloud service provider performs activities such as operating the service, managing
@@ -635,6 +657,7 @@
   </div>
 
   <h3>Cloud service categories</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Service Categories</span>
   <p>The three familiar service categories describe how much of the technology stack the provider manages, and how much remains the customer's responsibility.</p>
   <ul class="plain">
     <li><strong>Infrastructure as a Service (IaaS)</strong>, where the provider manages the physical infrastructure and virtualization layer, and the customer manages the operating system, middleware, and applications.</li>
@@ -647,6 +670,7 @@
   </div>
 
   <h3>Cloud deployment models</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Deployment Models</span>
   <ul class="plain">
     <li><strong>Public cloud</strong>, infrastructure provisioned for open use by the general public, typically owned and operated by the provider.</li>
     <li><strong>Private cloud</strong>, infrastructure provisioned for exclusive use by a single organization, offering greater control at typically higher cost.</li>
@@ -660,6 +684,7 @@
   </div>
 
   <h3>Cloud shared considerations</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Shared Considerations</span>
   <p>These are cross cutting concerns that apply across every service category and deployment model, and the exam frequently tests whether you can correctly identify which consideration a scenario is describing.</p>
   <ul class="plain">
     <li><strong>Interoperability</strong>, the ability of different systems to work together and exchange information without extensive custom integration.</li>
@@ -694,6 +719,7 @@
   </div>
 
   <h3>Impact of related technologies</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies</span>
   <p>The cloud reference architecture also considers how emerging technologies influence design decisions, including artificial intelligence, machine learning, blockchain, the Internet of Things, containers, quantum computing, edge computing, and confidential computing. A cloud architect needs to understand not just the traditional building blocks, but also how these newer technologies change the risk picture and the design choices available.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -709,6 +735,7 @@
   <h2>Foundational security concepts every CCSP candidate needs</h2>
 
   <h3>Cryptography and key management</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage (Encryption; Certificate Management)</span>
   <p>Encryption protects data by transforming it into a form that cannot be read without the correct key. In the cloud, key management is just as important as the encryption itself. A well encrypted dataset offers little protection if the key sits alongside it, unmanaged and unrotated.</p>
   <div class="example-box">
     <span class="label">Label: good practice</span>
@@ -716,6 +743,7 @@
   </div>
 
   <h3>Identity and access control</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management; Ch 5 &rsaquo; Identity Assurance in Cloud and Virtual Environments</span>
   <p>Cloud environments distinguish between different types of access. User access covers individual human accounts. Privilege access covers elevated permissions typically reserved for administrators. Service access covers the permissions granted to automated services and applications, such as one system calling another through an API, which should generally be scoped as narrowly as possible.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -723,6 +751,7 @@
   </div>
 
   <h3>Data and media sanitization</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal</span>
   <p>When storage is decommissioned or reassigned, any data it held must be rendered unrecoverable. Overwriting replaces the original data with new patterns of bits. Cryptographic erase instead destroys the encryption key that protected the data, which makes the data permanently unreadable even though the underlying bits remain on the disk. Cryptographic erase is particularly useful in cloud environments, where physical destruction of shared media is often impossible.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -730,6 +759,7 @@
   </div>
 
   <h3>Network security</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <p>Network security groups filter traffic based on attributes such as source, destination, port, and protocol. Traffic inspection examines the content or behaviour of network traffic, including internal traffic between microservices, to detect malicious activity. Geofencing restricts or permits access based on the geographic origin of a request, which is often used to support data residency requirements.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -751,6 +781,7 @@
   </div>
 
   <h3>Virtualization security</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization Security; Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>Multiple customers often share the same underlying physical hardware, separated only by logical boundaries enforced by a hypervisor or container runtime. A vulnerability that allows one virtual machine to break out of its isolation boundary and access another tenant's resources is known as a VM escape, or hypervisor breakout. This is one of the more serious threats specific to virtualized, multi-tenant cloud environments. Ephemeral computing and serverless technology introduce their own isolation considerations, since compute resources may be extremely short lived and shared rapidly across many different workloads.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -758,6 +789,7 @@
   </div>
 
   <h3>Common cloud threats</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Shared Cloud Platform Risks and Responsibilities; Ch 6 &rsaquo; Common Threats to Applications</span>
   <p>Certain threats appear repeatedly in cloud environments and are worth knowing by name. Account or credential compromise involves an attacker gaining access using stolen or misused credentials, often exploiting weak identity and access management practices. Insecure APIs can expose functionality or data beyond what was intended. Data remanence is the risk that data persists on storage media after it was supposed to be deleted, which is why proper sanitization matters. Shared technology vulnerabilities arise from the multi-tenant nature of cloud infrastructure itself.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -765,6 +797,7 @@
   </div>
 
   <h3>Security hygiene</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Good cloud security depends on consistent, ongoing practices rather than one time fixes. Patching addresses known vulnerabilities as they are discovered. Baselining establishes a known, secure reference configuration against which future changes can be measured. Immutable architecture avoids modifying running infrastructure in place, instead deploying a new, pre-configured instance for any change and retiring the old one. Hardening reduces a system's attack surface by disabling unnecessary services and features.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -787,6 +820,7 @@
   <h2>Building security into cloud architecture from the start</h2>
 
   <h3>The cloud secure data lifecycle</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Data Lifecycle</span>
   <p>Data moves through a defined set of stages from the moment it is created until it is finally destroyed. Understanding this lifecycle helps a security professional apply the right controls at the right time, rather than treating data protection as a single, one time activity.</p>
   <ul class="plain">
     <li><strong>Create</strong>, the point at which data is generated or acquired.</li>
@@ -802,6 +836,7 @@
   </div>
 
   <h3>Business continuity and disaster recovery planning</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Disaster Recovery (DR) and Business Continuity (BC); Ch 8 &rsaquo; Business Continuity and Disaster Recovery</span>
   <p>Cloud based business continuity and disaster recovery planning ensures an organization can keep operating, or recover quickly, when something goes wrong. Two metrics anchor this planning. Recovery Time Objective, or RTO, is the maximum acceptable time to restore a service after an outage. Recovery Point Objective, or RPO, is the maximum acceptable amount of data loss, measured as a period of time. These two figures are easy to confuse, but they answer different questions: RTO asks how long you can be down, and RPO asks how much data you can afford to lose.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -809,6 +844,7 @@
   </div>
 
   <h3>Business Impact Analysis</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Business Requirements &rsaquo; Cost/Benefit Analysis; Ch 4 &rsaquo; Cloud-Specific BIA Concerns</span>
   <p>A Business Impact Analysis identifies which business functions are critical, assesses the impact if those functions are disrupted, and from that analysis derives recovery priorities such as RTO and RPO. A cost-benefit analysis is often used alongside this work, comparing the cost of implementing a given level of resilience against the financial and operational benefit of doing so. Return on investment is a related financial metric, often calculated as part of that broader cost-benefit comparison.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -816,6 +852,7 @@
   </div>
 
   <h3>Functional security requirements</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Shared Considerations &rsaquo; Outsourcing Issues</span>
   <p>Several requirements recur throughout cloud architecture discussions, and the exam expects you to distinguish between them precisely.</p>
   <ul class="plain">
     <li><strong>Portability</strong>, the ability to move applications and data between providers without being unreasonably constrained by proprietary formats.</li>
@@ -828,6 +865,7 @@
   </div>
 
   <h3>Security responsibilities across service categories</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Foundations of Managed Services &rsaquo; Shared Responsibilities by Service Type</span>
   <p>As an organization moves from IaaS toward SaaS, the provider takes on an increasing share of security responsibility. In IaaS, the customer typically manages the operating system, middleware, and application layers. In PaaS, the provider manages the operating system and runtime, and the customer focuses on the application. In SaaS, the provider manages nearly the entire stack, and the customer's responsibility narrows mainly to managing its own data and user access.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -835,6 +873,7 @@
   </div>
 
   <h3>Cloud design patterns</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Cloud Design Patterns</span>
   <p>Several established frameworks help architects design secure, resilient cloud systems rather than starting from scratch each time. The Well-Architected Framework organizes design decisions around pillars such as operational excellence, security, reliability, performance efficiency, and cost optimization. The Cloud Security Alliance Enterprise Architecture provides a broader, methodology driven approach to cloud security architecture. Secure by design means building security into a system from the earliest stages, rather than adding it afterward. The SANS security principles are also referenced as a design pattern in the exam outline.</p>
 
   <p>The <strong>SANS security principles</strong> are a set of cloud security expectations spanning the whole
@@ -872,6 +911,7 @@
   </div>
 
   <h3>DevOps security</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies &rsaquo; DevOps and DevSecOps</span>
   <p>DevOps security, often called DevSecOps, integrates automated security testing directly into the development and deployment pipeline, treating security as a shared responsibility across development and operations teams rather than a separate, later stage handled only by a dedicated security team.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -894,6 +934,7 @@
   <h2>Verifying a provider's security posture before you commit</h2>
 
   <h3>Verification against criteria</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
   <p>Before trusting a provider with sensitive data or critical workloads, an organization needs a structured way to evaluate that provider's security posture against its own requirements. This is not a one time check. It typically draws on a mix of certifications, audit reports, and direct evidence, compared consistently across candidate providers.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -901,6 +942,7 @@
   </div>
 
   <h3>Common certifications and reports</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Reports; Ch 10 &rsaquo; Government Cloud Standards (Common Criteria, FIPS 140-2)</span>
   <p>Several certifications and report types come up repeatedly, and the exam expects you to know what each one actually covers, since they are often confused with one another.</p>
   <ul class="plain">
     <li><strong>ISO/IEC 27001</strong>, an internationally recognized standard for an information security management system, covering areas such as risk assessment, asset management, and access control at the organizational level.</li>
@@ -921,6 +963,7 @@
   </div>
 
   <h3>Vendor viability</h3>
+  <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
   <p>Technical certifications matter, but they are not the whole picture. A provider's financial stability and long term prospects as a going concern are also part of a thorough evaluation. A technically excellent provider that goes out of business in two years creates its own serious risk.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -947,6 +990,7 @@
   <p>This subdomain was added to the CCSP outline effective August 2026, reflecting how much AI and machine learning now feature in cloud environments. It covers five areas: cloud threat detection and analysis, data source validation and verification, Security Orchestration, Automation and Response, ethical concerns, and regulatory requirements. AI also appears woven through the other five domains, but this section establishes the foundational concepts.</p>
 
   <h3>AI in cloud threat detection and analysis</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Ch 1 &rsaquo; Emerging Technologies &rsaquo; Machine Learning and Artificial Intelligence gives background only.</span>
   <p>Machine learning models can process far more security telemetry than a human team could review manually, which makes them useful for spotting patterns and anomalies across large, multi-cloud environments. The intent is to let AI handle the volume, so human analysts can focus their attention on the complex, ambiguous cases that genuinely need judgement.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -954,6 +998,7 @@
   </div>
 
   <h3>Data source validation and verification</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>An AI model is only as trustworthy as the data it learns from and operates on. Data poisoning prevention means validating, sanitizing, and verifying the integrity of training data, so a model does not learn from corrupted or maliciously altered inputs. This concern extends to the data a deployed model consumes in production, not just the data used during initial training.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -961,6 +1006,7 @@
   </div>
 
   <h3>Security Orchestration, Automation and Response</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>SOAR platforms use automation, often enhanced by AI, to correlate security events and trigger predefined response actions with minimal manual effort. This does not replace incident response procedures. It accelerates the routine parts of them, so analysts spend their time on the incidents that genuinely require human judgement.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -968,6 +1014,7 @@
   </div>
 
   <h3>Ethical concerns</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>When an AI system makes or influences decisions that affect people, questions of fairness become a security and governance concern, not just a technical one. Bias tracking involves monitoring a model's outputs across different groups to identify discriminatory patterns. Algorithmic transparency, often called explainability, is the ability to explain how a model reached a particular decision, which matters both for regulatory compliance and for maintaining trust with the people affected by that decision.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -975,6 +1022,7 @@
   </div>
 
   <h3>Regulatory requirements</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Different jurisdictions increasingly impose their own rules on automated decision making, including explainability obligations under frameworks such as GDPR and emerging AI specific legislation. An organization operating across several countries needs to understand and satisfy each applicable regime, rather than assuming one set of rules covers every market.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -982,6 +1030,7 @@
   </div>
 
   <h3>Shared responsibility for AI as a Service</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. The general shared responsibility model is Ch 5 &rsaquo; Shared Responsibilities by Service Type.</span>
   <p>When an organization uses a cloud provider's AI as a Service offering, the shared responsibility model still applies, but the split can differ from a provider's standard IaaS or PaaS terms. Generally, the provider is responsible for the underlying model infrastructure and platform security, while the customer remains responsible for the data it feeds into the model, the model's configuration, and the appropriate governance of the outputs it produces. This boundary should always be reviewed specifically for the AI offering in question, rather than assumed to match the provider's other services.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -989,6 +1038,7 @@
   </div>
 
   <h3>Securing the AI training environment</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Training a large model can require significant compute resources running for extended periods, which makes the training environment itself an attractive target. Logical isolation, often through micro-segmentation, limits the damage if another workload sharing the same cloud account is compromised. Infrastructure as Code allows the environment's configuration to be version controlled and consistently applied before resources are provisioned, reducing the risk of manual misconfiguration.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -996,6 +1046,7 @@
   </div>
 
   <h3>Model inversion and extraction</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>A deployed model can itself become a target. Model inversion and extraction attacks involve an adversary carefully analyzing a model's outputs over many queries, attempting to reconstruct details of the training data or to replicate the model's functionality without authorization. Rate limiting and monitoring the inference API for unusual query patterns are practical defences against this kind of attack.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -1003,6 +1054,7 @@
   </div>
 
   <h3>Model drift</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>A model's performance can gradually change over time as real world data patterns shift away from the conditions it was originally trained on. This is called model drift, and it is a security concern as well as a data science one, since a sudden or unexplained change in a model's outputs could indicate anything from a benign shift in customer behaviour to a deliberate manipulation of the data the model relies on. Continuous monitoring of model performance is the standard way to catch drift early.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -1010,6 +1062,7 @@
   </div>
 
   <h3>Core AI and ML vocabulary</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Ch 1 &rsaquo; Emerging Technologies &rsaquo; Machine Learning and Artificial Intelligence gives background only.</span>
   <p>The outline assumes familiarity with the terms, and questions often turn on distinguishing them. A <strong>model</strong> is the artefact produced by training, holding learned parameters or weights. <strong>Training</strong> is the process of deriving those weights from a dataset; <strong>inference</strong> is using the finished model to produce an output for a new input. <strong>Fine-tuning</strong> adapts an existing pre-trained model with additional, usually narrower, data rather than training from scratch. A <strong>foundation model</strong> is a large general-purpose model intended to be adapted for many downstream uses.</p>
   <p><strong>Retrieval-Augmented Generation (RAG)</strong> supplies a model with relevant documents retrieved at query time rather than relying only on what it learned during training, which keeps answers current without retraining but introduces the retrieval store as a new attack surface. An <strong>agent</strong> is a model given tools and the autonomy to call them, which converts a system that produces text into one that takes actions.</p>
   <div class="example-box">
@@ -1018,6 +1071,7 @@
   </div>
 
   <h3>AI governance frameworks</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Because the 3rd Edition study guide predates this material entirely, these frameworks are worth knowing by name and purpose.</p>
   <ul class="plain">
     <li><strong>NIST AI Risk Management Framework (AI RMF)</strong>, a voluntary framework structured around four functions: Govern, Map, Measure, and Manage. Govern establishes the culture and accountability, Map establishes context and identifies risks, Measure analyses and tracks them, and Manage allocates resources to treat them.
@@ -1035,6 +1089,7 @@
   </div>
 
   <h3>Adversarial attacks against AI systems</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Beyond model inversion and extraction covered above, several attack classes recur and are distinguished by which phase they target and what the attacker gains.</p>
   <ul class="plain">
     <li><strong>Data poisoning</strong>, corrupting training data so the finished model behaves as the attacker intends. Targets the training phase.
@@ -1050,6 +1105,7 @@
   </ul>
 
   <h3>AI supply chain and transparency artefacts</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Conventional supply chain is Ch 6 &rsaquo; Supply Chain Management and Licensing.</span>
   <p>An AI system inherits risk from every model, dataset, and library it depends on, most of which the organisation did not create. Two artefacts address this.</p>
   <ul class="plain">
     <li><strong>AI Bill of Materials (AI-BOM)</strong>, extending the SBOM concept to record the models, datasets, and frameworks a system depends on, so that when a public model or dataset is found to be compromised the affected systems can be identified quickly.</li>
@@ -1061,6 +1117,7 @@
   </div>
 
   <h3>Guardrails and AI red teaming</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p><strong>Guardrails</strong> are controls placed around a model rather than inside it, filtering what reaches it and what it returns. Input guardrails screen for prompt injection and disallowed requests; output guardrails screen for sensitive data disclosure, unsafe content, and malformed responses before anything downstream consumes them. Because the model itself is probabilistic and cannot be guaranteed to behave, guardrails are where deterministic enforcement lives.</p>
   <p><strong>AI red teaming</strong> is structured adversarial testing of an AI system, probing for prompt injection, data leakage, unsafe outputs, and excessive agency. It differs from conventional penetration testing in that the same input may produce different outputs on different runs, so findings are expressed as likelihood across repeated attempts rather than as a single reproducible exploit.</p>
   <div class="example-box">
@@ -1069,6 +1126,7 @@
   </div>
 
   <h3>Securing agentic AI</h3>
+  <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>An agent that can call tools can take actions with real consequences, which changes the risk profile substantially. Three controls matter most: <strong>least privilege for tools</strong>, granting the agent only the specific capabilities its task requires rather than broad access; <strong>identity per agent</strong>, so actions are attributable and revocable individually rather than hidden behind a shared service account; and <strong>human-in-the-loop approval</strong> for consequential or irreversible actions.</p>
   <div class="example-box">
     <span class="label">Example</span>

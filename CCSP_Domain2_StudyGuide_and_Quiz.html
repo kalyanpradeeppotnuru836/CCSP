@@ -30,9 +30,17 @@
     line-height:1.6;
   }
   .page{
-    max-width:880px;
+    max-width:1180px;
     margin:0 auto;
     padding:2.5rem 1.5rem 4rem;
+  }
+  .page > .masthead,
+  .page > .stickynav,
+  .page > .pagernav,
+  #tab-quiz{
+    max-width:880px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .masthead{
     margin-bottom:1rem;
@@ -314,6 +322,167 @@
   }
   .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
 
+
+  /* ---------- STUDY INDEX SIDEBAR ---------- */
+  :root{ --topbar-h:104px; }
+
+  .study-layout{
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    gap:2.25rem;
+    align-items:start;
+  }
+  .study-body{ min-width:0; max-width:880px; }
+
+  .study-index{
+    position:sticky;
+    top:calc(var(--topbar-h) + 12px);
+    max-height:calc(100vh - var(--topbar-h) - 32px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.9rem .75rem 1rem;
+  }
+  .study-index::-webkit-scrollbar{ width:6px; }
+  .study-index::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .study-index::-webkit-scrollbar-thumb:hover{ background:var(--navy-light); }
+  .study-index{ scrollbar-width:thin; }
+
+  .idx-title{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--text-muted);
+    margin:0 0 .6rem .35rem;
+  }
+  .study-index ul{ list-style:none; margin:0; padding:0; }
+
+  .idx-obj > button{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    width:100%;
+    text-align:left;
+    font:inherit;
+    font-size:12.8px;
+    font-weight:700;
+    color:var(--navy);
+    background:none;
+    border:0;
+    border-radius:6px;
+    padding:.4rem .45rem;
+    cursor:pointer;
+    line-height:1.35;
+  }
+  .idx-obj > button:hover{ background:#F4F7FC; }
+  .idx-obj > button .caret{
+    flex-shrink:0;
+    width:9px;
+    height:9px;
+    border-right:1.6px solid currentColor;
+    border-bottom:1.6px solid currentColor;
+    transform:rotate(-45deg);
+    transition:transform .18s ease;
+    opacity:.55;
+    margin-top:-2px;
+  }
+  .idx-obj.open > button .caret{ transform:rotate(45deg); }
+  .idx-obj.current > button{ background:#EEF3FB; }
+
+  .idx-sub{ display:none; margin:.1rem 0 .5rem; }
+  .idx-obj.open .idx-sub{ display:block; }
+  .idx-sub a{
+    display:block;
+    font-size:12.4px;
+    line-height:1.4;
+    color:var(--text-secondary);
+    text-decoration:none;
+    padding:.3rem .45rem .3rem 1.35rem;
+    border-left:2px solid transparent;
+    border-radius:0 6px 6px 0;
+  }
+  .idx-sub a:hover{ background:#F4F7FC; color:var(--navy); }
+  .idx-sub a.active{
+    color:var(--navy);
+    font-weight:600;
+    background:#EEF3FB;
+    border-left-color:var(--navy);
+  }
+
+  /* headings clear the sticky top bar when jumped to */
+  #tab-study h3[id], #tab-study a[id]{ scroll-margin-top:calc(var(--topbar-h) + 16px); }
+
+  /* drawer toggle, hidden on desktop */
+  .idx-toggle{
+    display:none;
+    align-items:center;
+    gap:.45rem;
+    font:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+    margin-bottom:1.1rem;
+    cursor:pointer;
+  }
+  .idx-toggle:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .idx-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.38);
+    z-index:40;
+  }
+  .idx-backdrop.show{ display:block; }
+
+  @media (max-width:1000px){
+    .study-layout{ display:block; }
+    .idx-toggle{ display:inline-flex; }
+    .study-body{ max-width:none; }
+    .study-index{
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      width:290px;
+      max-width:86vw;
+      max-height:none;
+      z-index:41;
+      border-radius:0;
+      border-width:0 1px 0 0;
+      padding:1.1rem .85rem 2rem;
+      transform:translateX(-100%);
+      transition:transform .22s ease;
+      box-shadow:0 0 24px rgba(15,23,42,.16);
+    }
+    .study-index.open{ transform:translateX(0); }
+    .idx-close{
+      display:block;
+      position:absolute;
+      top:.6rem;
+      right:.65rem;
+      font:inherit;
+      font-size:20px;
+      line-height:1;
+      color:var(--text-muted);
+      background:none;
+      border:0;
+      cursor:pointer;
+      padding:.2rem .35rem;
+    }
+  }
+  .idx-close{ display:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    .study-index, .idx-obj > button .caret{ transition:none; }
+  }
+
   /* ---------- QUIZ TAB ---------- */
   .quiz-header{
     display:flex;
@@ -482,17 +651,113 @@
   <!-- ===================== STUDY TAB ===================== -->
   <div class="tabpanel active" id="tab-study">
 
-    <div class="study-subnav">
-      <a href="#s21">2.1 Data concepts</a>
-      <a href="#s22">2.2 Storage architectures</a>
-      <a href="#s23">2.3 Security technologies</a>
-      <a href="#s24">2.4 Data discovery</a>
-      <a href="#s25">2.5 Classification</a>
-      <a href="#s26">2.6 IRM</a>
-      <a href="#s27">2.7 Retention and deletion</a>
-      <a href="#s28">2.8 Auditability</a>
-      <a href="#s29">2.9 AI and ML data</a>
-    </div>
+    <button class="idx-toggle" type="button" id="idx-open">&#9776; Sections</button>
+    <div class="idx-backdrop" id="idx-backdrop"></div>
+
+    <div class="study-layout">
+      <aside class="study-index" id="study-index" aria-label="Section index">
+        <button class="idx-close" type="button" id="idx-close" aria-label="Close index">&times;</button>
+        <p class="idx-title">On this page</p>
+        <ul>
+      <li class="idx-obj" data-obj="s21">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.1 Cloud data concepts</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s21">Overview</a></li>
+          <li><a href="#s21-the-six-lifecycle-phases">The six lifecycle phases</a></li>
+          <li><a href="#s21-data-dispersion">Data dispersion</a></li>
+          <li><a href="#s21-data-flows">Data flows</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s22">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.2 Cloud data storage architectures</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s22">Overview</a></li>
+          <li><a href="#s22-ephemeral-storage">Ephemeral storage</a></li>
+          <li><a href="#s22-raw-storage">Raw storage</a></li>
+          <li><a href="#s22-volume-storage">Volume storage</a></li>
+          <li><a href="#s22-object-storage">Object storage</a></li>
+          <li><a href="#s22-database-and-blob-storage">Database and BLOB storage</a></li>
+          <li><a href="#s22-saas-storage">SaaS storage</a></li>
+          <li><a href="#s22-long-term-storage">Long-term storage</a></li>
+          <li><a href="#s22-general-threats-across-storage-types">General threats across storage types</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s23">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.3 Data security technologies and strategies</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s23">Overview</a></li>
+          <li><a href="#s23-encryption-levels-in-cloud-environments">Encryption levels in cloud environments</a></li>
+          <li><a href="#s23-key-management">Key management</a></li>
+          <li><a href="#s23-hashing">Hashing</a></li>
+          <li><a href="#s23-data-obfuscation">Data obfuscation</a></li>
+          <li><a href="#s23-anonymization">Anonymization</a></li>
+          <li><a href="#s23-tokenization">Tokenization</a></li>
+          <li><a href="#s23-data-loss-prevention">Data Loss Prevention</a></li>
+          <li><a href="#s23-keys-secrets-and-certificates-management">Keys, secrets, and certificates management</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s24">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.4 Data discovery</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s24">Overview</a></li>
+          <li><a href="#s24-structured-data">Structured data</a></li>
+          <li><a href="#s24-unstructured-data">Unstructured data</a></li>
+          <li><a href="#s24-semi-structured-data">Semi-structured data</a></li>
+          <li><a href="#s24-data-location">Data location</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s25">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.5 Data classification</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s25">Overview</a></li>
+          <li><a href="#s25-data-classification-policies">Data classification policies</a></li>
+          <li><a href="#s25-data-mapping">Data mapping</a></li>
+          <li><a href="#s25-data-labeling-and-tagging">Data labeling and tagging</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s26">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.6 Information Rights Management</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s26">Overview</a></li>
+          <li><a href="#s26-objectives">Objectives</a></li>
+          <li><a href="#s26-appropriate-tools-certificates-issuance-and-revocation">Appropriate tools: certificates, issuance, and revocation</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s27">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.7 Retention, deletion, and archiving</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s27">Overview</a></li>
+          <li><a href="#s27-data-retention-policies">Data retention policies</a></li>
+          <li><a href="#s27-data-deletion-procedures-and-mechanisms">Data deletion procedures and mechanisms</a></li>
+          <li><a href="#s27-data-archiving-procedures-and-mechanisms">Data archiving procedures and mechanisms</a></li>
+          <li><a href="#s27-legal-hold">Legal hold</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s28">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.8 Auditability, traceability, and accountability of data events</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s28">Overview</a></li>
+          <li><a href="#s28-event-sources-and-event-attributes">Event sources and event attributes</a></li>
+          <li><a href="#s28-logging-storage-and-analysis-of-data-events">Logging, storage, and analysis of data events</a></li>
+          <li><a href="#s28-chain-of-custody-and-non-repudiation">Chain of custody and non-repudiation</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s29">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>2.9 Data protection for AI and ML</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s29">Overview</a></li>
+          <li><a href="#s29-data-set-and-model-privacy">Data set and model privacy</a></li>
+          <li><a href="#s29-data-set-and-model-security-validation-and-verification">Data set and model security: validation and verification</a></li>
+          <li><a href="#s29-privacy-preserving-techniques-compared">Privacy-preserving techniques compared</a></li>
+          <li><a href="#s29-securing-the-rag-and-vector-pipeline">Securing the RAG and vector pipeline</a></li>
+          <li><a href="#s29-applying-the-data-lifecycle-to-ai-assets">Applying the data lifecycle to AI assets</a></li>
+          <li><a href="#s29-data-provenance-and-lineage">Data provenance and lineage</a></li>
+        </ul>
+      </li>
+        </ul>
+      </aside>
+
+      <div class="study-body">
 
     <a id="s21"></a>
 
@@ -504,7 +769,7 @@
 
   <p>Data is intangible, constantly created, moved, and eventually discarded, which makes it harder to secure than a physical asset. The practical answer is to model the stages data passes through and attach the right controls to each stage, rather than trying to track every individual data element in the organisation.</p>
 
-  <h3>The six lifecycle phases</h3>
+  <h3 id="s21-the-six-lifecycle-phases">The six lifecycle phases</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Data Lifecycle</span>
   <p>The cloud secure data lifecycle has six phases: create, store, use, share, archive, destroy. The exam expects you to know the sequence, and more importantly, which controls belong to which phase.</p>
   <ul class="plain">
@@ -540,7 +805,7 @@
     <p>Scenario questions often name an activity and ask which phase it belongs to, or name a control and ask where it applies. Classification belongs to create. IRM and DLP are share phase controls. Key ageing is an archive phase problem. If a question describes the longest running phase, it means use.</p>
   </div>
 
-  <h3>Data dispersion</h3>
+  <h3 id="s21-data-dispersion">Data dispersion</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures</span>
   <p>Data dispersion breaks data into smaller chunks and distributes them across multiple physical storage devices, much like striping in RAID. Cloud implementations add erasure coding, which works like parity in RAID: if some segments are lost, the remaining segments plus the parity information can reconstruct the missing data.</p>
   <p>The security effect cuts both ways. Availability improves, because the failure of one physical device does not lose the data, and a single compromised device does not hold a complete usable copy. The risk is jurisdictional: segments dispersed across regions can land in countries with unexpected legal requirements. Most providers now offer geographic restriction features so customers get the resilience benefit without the regulatory exposure.</p>
@@ -549,7 +814,7 @@
     <p>A maritime company's vessel records are dispersed across a provider's storage estate. A failed disk in one data centre loses nothing, because the segments elsewhere reconstruct the data. But without geographic restrictions, some segments could end up stored outside the UK and EU, dragging the data under laws the company never planned for. Configuring region restrictions keeps the resilience and drops the legal surprise.</p>
   </div>
 
-  <h3>Data flows</h3>
+  <h3 id="s21-data-flows">Data flows</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Flows</span>
   <p>Understanding where data travels is a design responsibility. The three states to track are data in transit, moving across networks between users, services, and clouds; data at rest, held in storage; and data in use, being actively processed. Each state has its own protection profile: encryption in transit, encryption at rest with access controls, and emerging protections such as confidential computing for data in use. Mapping data flows also surfaces compliance obligations, since a flow that crosses a border can trigger residency requirements under regimes such as GDPR.</p>
   <div class="example-box">
@@ -566,31 +831,31 @@
 
   <p>Each cloud service category offers its own storage types, and each type has a distinct threat profile. The exam tests whether you can match the storage type to its service model, its typical use, and its characteristic risk.</p>
 
-  <h3>Ephemeral storage</h3>
+  <h3 id="s22-ephemeral-storage">Ephemeral storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Temporary storage that persists only while the instance is running, commonly implemented in RAM or other volatile memory, and wiped when the instance terminates. Associated with IaaS. Typical use is short lived working data such as session state. The characteristic risk is data loss on unexpected termination, and residual data if the underlying resources are reassigned without proper sanitisation.</p>
 
-  <h3>Raw storage</h3>
+  <h3 id="s22-raw-storage">Raw storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Direct access to the underlying physical or block level storage media, without a filesystem or higher abstraction imposed by the provider. It offers maximum control and performance for specialised workloads, and correspondingly places responsibility for structure, management, and protection on the customer.</p>
 
-  <h3>Volume storage</h3>
+  <h3 id="s22-volume-storage">Volume storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Volume Storage: File-Based Storage and Block Storage</span>
   <p>Persistent storage that emulates a physical drive attached to a cloud instance. Associated with IaaS. Typical use is databases, application files, and anything that must survive instance reboots. The characteristic risks are unauthorised access and breach where encryption and access controls are weak.</p>
 
-  <h3>Object storage</h3>
+  <h3 id="s22-object-storage">Object storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Object-Based Storage</span>
   <p>Data managed as discrete self contained objects, each holding the data itself, its metadata, and a unique identifier, in a distributed storage environment. Associated with IaaS and PaaS. Typical use is large volumes of unstructured data such as images, video, and backups. Characteristic risks are unauthorised access, data manipulation, and compliance violations where management practices drift from regulatory requirements. Misconfigured public access on object storage is one of the most common real world causes of cloud data exposure.</p>
 
-  <h3>Database and BLOB storage</h3>
+  <h3 id="s22-database-and-blob-storage">Database and BLOB storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Structured storage such as SQL databases, and Binary Large Objects for big unstructured files, associated with PaaS. Typical use is applications needing structured query access, and storage of large media or document files. The characteristic risks are SQL injection against the structured side and unauthorised access to the unstructured side.</p>
 
-  <h3>SaaS storage</h3>
+  <h3 id="s22-saas-storage">SaaS storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Storage wholly managed by the provider behind a SaaS application, often specialised for that application. The customer interacts with data only through the application interface. The characteristic risk is loss of control: the customer depends entirely on the provider's controls and has limited visibility into how storage is secured.</p>
 
-  <h3>Long-term storage</h3>
+  <h3 id="s22-long-term-storage">Long-term storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures &rsaquo; Storage Types</span>
   <p>Archival storage tiers designed for infrequently accessed data retained over years, trading retrieval speed for low cost. The characteristic considerations are retrieval delay, key management over long periods, and ensuring archived data remains readable and compliant for its whole retention life.</p>
 
@@ -599,7 +864,7 @@
     <p>An energy company's monitoring platform uses all of these at once: sensor readings buffer in ephemeral storage on the processing instances, the application database sits on volume storage, raw historical readings land in object storage, the reporting application is SaaS with its own managed storage, and seven year compliance archives go to a long-term tier. A single "where is our data" question has at least five answers, each needing its own controls.</p>
   </div>
 
-  <h3>General threats across storage types</h3>
+  <h3 id="s22-general-threats-across-storage-types">General threats across storage types</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Threats to Cloud Storage</span>
   <ul class="plain">
     <li><strong>Unauthorised access</strong>, mitigated with strong authentication, comprehensive access controls, and encryption at rest and in transit.
@@ -634,7 +899,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (encryption, hashing, masking, tokenization, and DLP sections).</span>
   <h2>Encryption, hashing, obfuscation, tokenization, DLP, and secrets management</h2>
 
-  <h3>Encryption levels in cloud environments</h3>
+  <h3 id="s23-encryption-levels-in-cloud-environments">Encryption levels in cloud environments</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage &rsaquo; Encryption</span>
   <p>Encryption can be applied at several levels, and the level chosen determines who is protected against whom.</p>
   <ul class="plain">
@@ -703,7 +968,7 @@
     database-level. Read for who the attacker is, not for which technology sounds strongest.</p>
   </div>
 
-  <h3>Key management</h3>
+  <h3 id="s23-key-management">Key management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Secrets Management</span>
   <p>Encryption is only as strong as the management of its keys. A cloud Key Management System (KMS) handles cryptographic operations and the key lifecycle inside a secure boundary. Customer Managed Encryption Keys (CMEK) let the customer control its own keys while integrating with the provider's KMS, which matters for compliance regimes that require customer key custody.</p>
   <p>The key lifecycle runs: <strong>creation</strong>, using cryptographically secure random generation; <strong>storage</strong>, in encrypted vaults or hardware security modules with tightly restricted access; <strong>usage</strong>, under defined protocols with all use logged and monitored; <strong>sharing</strong>, discouraged, and done only through secure channels when unavoidable; and <strong>archiving</strong>, retaining retired keys securely where they are still needed to decrypt historical data. Keys must be stored separately from the data they protect, and rotated on a schedule so a compromised key has a limited exposure window.</p>
@@ -719,7 +984,7 @@
     <p>If a scenario stores keys alongside the encrypted data, that is the flaw, whatever else the question says. And remember why archived keys exist at all: destroying a key that still protects archived data is equivalent to destroying the data, which is exactly what cryptographic erase exploits deliberately.</p>
   </div>
 
-  <h3>Hashing</h3>
+  <h3 id="s23-hashing">Hashing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Designing and Applying Security Strategies for Storage &rsaquo; Hashing</span>
   <p>Hashing is often described as one way encryption, though strictly it is not encryption at all, because it is not reversible. A hash function takes input of any length and produces a fixed unique hash value. Comparing hash values computed at two points in time proves whether data changed, which is why hashing serves the integrity principle: verifying the accuracy of backups, confirming messages arrived unaltered, and detecting file changes that indicate system compromise.</p>
   <p>Hashing also underpins <strong>digital signatures</strong>, which deliver non-repudiation. The signer computes a hash of the data and encrypts that hash with their private key. The recipient computes their own hash of what arrived and decrypts the signature with the signer's public key. Matching values prove both that the data is unaltered and that it came from the holder of the private key, who cannot later deny having signed it.</p>
@@ -728,7 +993,7 @@
     <p>A telecom company integrates a third party software library into its cloud platform. Before deployment, the build pipeline verifies the library's digital signature against the vendor's public key. A mismatch would mean the package was altered after signing, or never came from the vendor at all, and the deployment stops.</p>
   </div>
 
-  <h3>Data obfuscation</h3>
+  <h3 id="s23-data-obfuscation">Data obfuscation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Obfuscation, also called de-identification or masking, produces data that looks and behaves like the original without exposing the sensitive values, typically so testers, developers, or researchers can work without being authorised to see live data. Regulations often mandate it when data is used beyond its original operational purpose. Common methods include <strong>substitution</strong>, replacing values with other data, either randomly or following integrity rules; <strong>shuffling</strong>, rearranging real values within a column so each value is genuine but attached to the wrong record; and <strong>value variance</strong>, applying mathematical changes to numerical data such as dates or amounts. Encryption is a poor fit for this purpose, because encrypted data is unreadable and therefore useless for testing.</p>
   <div class="example-box">
@@ -736,11 +1001,11 @@
     <p>A bank refreshes its test environment from production monthly. Customer names are substituted with synthetic ones, account numbers are shuffled within the column, and balances have a small random variance applied. The test data still exercises every code path realistically, but no tester ever sees a real customer's real balance.</p>
   </div>
 
-  <h3>Anonymization</h3>
+  <h3 id="s23-anonymization">Anonymization</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Anonymization goes further than masking: it aims to remove the link between the data and the individual permanently, including the indirect identifiers that could re-identify someone when combined. Done properly, anonymized data falls outside many privacy regimes entirely. The difficulty is that true anonymization is hard, because seemingly harmless attributes in combination can re-identify individuals.</p>
 
-  <h3>Tokenization</h3>
+  <h3 id="s23-tokenization">Tokenization</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization</span>
   <p>Tokenization substitutes a sensitive data element with a non-sensitive token. It is not encryption: rather than obscuring data with a key, it removes the sensitive value from the environment entirely and stores it in a separate, tightly controlled token vault. The application keeps only the token. When an authorised process needs the real value, it presents the token to the tokenization server, which checks identity and authorisation before returning the original. The classic application is payment cards, where merchants hold tokens rather than card numbers, drastically shrinking their compliance scope under PCI DSS.</p>
   <div class="example-box">
@@ -765,7 +1030,7 @@
     <p>Keep the trio straight. Masking produces realistic fake data for use in place of the real thing. Tokenization removes the real value to a vault and leaves a reversible reference. Anonymization severs the link to the individual permanently. If reversibility through a secure mapping is described, the answer is tokenization. If the goal is test data, the answer is masking. If the goal is escaping privacy regulation entirely, the answer is anonymization, along with a healthy scepticism about whether it was truly achieved. A recurring scenario describes an organisation wanting to reduce the number of systems in scope for PCI DSS while still letting multiple applications process card transactions; the answer is tokenization, precisely because only the tokenization server and the token database sit inside the compliance boundary.</p>
   </div>
 
-  <h3>Data Loss Prevention</h3>
+  <h3 id="s23-data-loss-prevention">Data Loss Prevention</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Data Loss Prevention</span>
   <p>DLP, also called data leakage prevention, is a set of controls that keep defined types of data, structured and unstructured, inside the organisation's control in line with policy. Its primary function is detecting and preventing unauthorised exfiltration of sensitive data such as account numbers and national identifiers. A DLP capability has three components: <strong>policy management</strong>, defining what data is protected and how; <strong>monitoring and enforcement</strong>, watching data at rest and in transit and acting on violations; and <strong>incident response</strong>, handling what happens when a violation is detected.</p>
   <div class="example-box">
@@ -790,7 +1055,7 @@
     what DLP is for.</p>
   </div>
 
-  <h3>Keys, secrets, and certificates management</h3>
+  <h3 id="s23-keys-secrets-and-certificates-management">Keys, secrets, and certificates management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Certificate Management; Ch 6 &rsaquo; Secrets Management</span>
   <p>Beyond encryption keys, cloud environments run on secrets, meaning API keys, passwords, tokens, and connection strings, and on digital certificates. A <strong>secrets manager</strong> centralises storage of these values with access control and audit logging, replacing the dangerous habit of embedding credentials in code or configuration files. A <strong>certificate manager</strong> handles the lifecycle of digital certificates and the secure handling of their private keys, including issuance, renewal, and revocation. Centralising both means credentials can be rotated, audited, and revoked in one place.</p>
   <div class="example-box">
@@ -830,7 +1095,7 @@
 
   <p>You cannot classify, protect, or delete data you do not know you have. Data discovery is the process of locating data across an organisation's estate, and it depends on understanding the three structural forms data takes.</p>
 
-  <h3>Structured data</h3>
+  <h3 id="s24-structured-data">Structured data</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with a predefined format and content type, organised into distinct fields, the classic example being a relational database. Its defining attributes are a defined structure, validation before storage, ease of search, and strong suitability for analysis. Discovery in structured data is comparatively straightforward, because the schema itself describes what each field contains.</p>
 
@@ -842,11 +1107,11 @@
   column level, with row-level security and column masking available, and automated discovery tools can flag a
   column named for a card number or a national insurance number with high confidence.</p>
 
-  <h3>Unstructured data</h3>
+  <h3 id="s24-unstructured-data">Unstructured data</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with no imposed structure or format: documents and text files, emails, images, videos, office documents, and scientific datasets. Unstructured data is the hardest to discover and govern, because nothing about its container reliably describes its contents. A spreadsheet named notes.xlsx can hold anything from a lunch rota to a full customer export.</p>
 
-  <h3>Semi-structured data</h3>
+  <h3 id="s24-semi-structured-data">Semi-structured data</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>The middle ground: data that uses markers or tags to delineate semantic elements and hierarchies, without conforming to a rigid tabular schema. XML and JSON are the canonical examples, widely used for data interchange and in object oriented databases. It may carry metadata tags for attributes such as location, date, or source, while the content inside the tags remains unstructured.</p>
   <div class="example-box">
@@ -860,7 +1125,7 @@
   to, so it falls back on coarser controls such as file-level or volume-level encryption, which is why it
   accounts for most of the sensitive data organisations fail to find.</p>
 
-  <h3>Data location</h3>
+  <h3 id="s24-data-location">Data location</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Cloud mobility means customers often do not know precisely where their data physically sits, and for routine operations that may not matter. It matters greatly for regulated and sensitive data, where compliance depends on knowing and controlling location. Organisations with legal, compliance, or operational reasons should define a preferred data location, use the provider's geographic controls to enforce it, and engage the provider proactively for clarity on where data is actually stored, including replicas and backups.</p>
   <p>Two practical steps support this. First, train employees to recognise what counts as sensitive data in
@@ -881,7 +1146,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (classification policies, data mapping, and labeling sections).</span>
   <h2>Classification policies, mapping, and labeling</h2>
 
-  <h3>Data classification policies</h3>
+  <h3 id="s25-data-classification-policies">Data classification policies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Classification</span>
   <p>A data classification policy is the framework of procedures, processes, and guidelines by which an organisation categorises stored information by sensitivity. Its purposes are consistent handling, guidance across the entire data lifecycle from creation to disposal, and risk reduction against privacy breaches, compliance violations, and security incidents. Two properties matter: the policy must be tailored to the organisation, since a bank's categories will not fit a logistics firm, and it must align with the laws and regulations that apply to the data.</p>
   <div class="example-box">
@@ -898,7 +1163,7 @@
   privacy breaches, regulatory fines, and group claims brought by data subjects; done as a labelling exercise
   alone it achieves nothing.</p>
 
-  <h3>Data mapping</h3>
+  <h3 id="s25-data-mapping">Data mapping</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Data mapping builds the picture of where data resides across applications and storage infrastructure. Discovery software scans data sources using a range of attributes, the most important being <strong>metadata</strong>, meaning data about data: details of a file's creator, origin, format, and context. A sound mapping strategy lets the organisation identify precisely where data lives, which is the foundation for governance, and for enforcing security policy, since you can only protect what the map shows you.</p>
 
@@ -909,7 +1174,7 @@
   recent incident in the organisation's own sector from reconnaissance and social engineering through command
   and control to exfiltration.</p>
 
-  <h3>Data labeling and tagging</h3>
+  <h3 id="s25-data-labeling-and-tagging">Data labeling and tagging</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Classification</span>
   <p>Labeling attaches identifying information to data, typically covering attributes such as department, location, and creator, and often carrying the classification itself, with labels such as confidential or restricted. Digital data cannot carry a physical sticker, so labeling uses methods such as <strong>metadata tagging</strong>, associating descriptive metadata with the asset, and <strong>header labels</strong>, embedding the label in the file's header for quick identification. Labels are what allow automated controls, such as DLP, to act on classification: the policy says restricted data may not leave, and the label is how the tooling recognises restricted data when it sees it.</p>
   <div class="example-box">
@@ -936,7 +1201,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (Information Rights Management section).</span>
   <h2>IRM objectives and the certificate machinery behind it</h2>
 
-  <h3>Objectives</h3>
+  <h3 id="s26-objectives">Objectives</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Information Rights Management &rsaquo; IRM Tool Traits; IRM in the Cloud</span>
   <p>Information Rights Management extends protection beyond standard encryption by attaching access control to the data object itself. Its key objectives:</p>
   <ul class="plain">
@@ -954,7 +1219,7 @@
     <p>The IRM versus DLP boundary is a favourite. DLP watches channels and stops sensitive data leaving. IRM travels with the object and controls use after it has left. If the scenario needs control over a file already outside the organisation, DLP cannot help; the answer is IRM.</p>
   </div>
 
-  <h3>Appropriate tools: certificates, issuance, and revocation</h3>
+  <h3 id="s26-appropriate-tools-certificates-issuance-and-revocation">Appropriate tools: certificates, issuance, and revocation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Information Rights Management &rsaquo; Certificates and IRM</span>
   <p>IRM implementations depend on identity, and identity at scale depends on Public Key Infrastructure. The exam focus is on revocation, the mechanism that ends trust in a certificate before its natural expiry.</p>
   <ul class="plain">
@@ -974,7 +1239,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 2, Data Classification (retention, deletion, archiving, and legal hold sections).</span>
   <h2>Keeping data as long as required, and no longer</h2>
 
-  <h3>Data retention policies</h3>
+  <h3 id="s27-data-retention-policies">Data retention policies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>A retention policy sets out how long information is kept to satisfy regulatory, legal, and business requirements, balanced against the cost and complexity of storing it. Its objectives include compliance, cost management by disposing of data that is no longer needed, risk reduction by not holding sensitive data longer than necessary, and ensuring retained data stays accessible and retrievable. A complete retention policy defines:</p>
   <ul class="plain">
@@ -1011,7 +1276,7 @@
     from reviewing the document itself.</p>
   </div>
 
-  <h3>Data deletion procedures and mechanisms</h3>
+  <h3 id="s27-data-deletion-procedures-and-mechanisms">Data deletion procedures and mechanisms</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal</span>
   <p>Deletion procedures define how data is actually destroyed when retention ends, and they must produce irrecoverable results proportionate to the data's sensitivity. In the cloud, where the customer cannot physically destroy media, the practical mechanisms are overwriting and cryptographic erase, with cryptographic erase, destroying the key that protected the data, being the standard answer for multi-tenant storage the customer cannot touch.</p>
 
@@ -1021,7 +1286,7 @@
   scepticism. Data that was merely embarrassing to lose a decade ago is now raw material for a targeted
   attack on the people it describes.</p>
 
-  <h3>Data archiving procedures and mechanisms</h3>
+  <h3 id="s27-data-archiving-procedures-and-mechanisms">Data archiving procedures and mechanisms</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>Archiving identifies inactive data and moves it into specialised long term storage, which keeps primary systems fast and storage costs down. The elements of an archiving policy include data encryption procedures for the archive, data monitoring, the ability to perform e-discovery against archived content when legal proceedings demand it, and backup and disaster recovery arrangements for the archive itself. The long time horizon is what makes archiving distinctive: keys age, formats age, and the archive must remain both secure and readable for its whole life.</p>
 
@@ -1038,7 +1303,7 @@
   <strong>Restoration testing</strong> should be periodic, and should restore into an isolated environment
   rather than production, since a trial restore can reintroduce old malware or overwrite current data.</p>
 
-  <h3>Legal hold</h3>
+  <h3 id="s27-legal-hold">Legal hold</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>A legal hold preserves data in response to actual or anticipated legal proceedings, triggered by a judicial or law enforcement order. Its key aspects: the hold notice defines the <strong>scope</strong> of data that must be preserved; the <strong>duration</strong> normally runs until proceedings conclude; the organisation may be required to keep <strong>custody and protection</strong> of the data, safeguarding it from alteration or destruction; and some situations impose <strong>escrow or independent custody</strong> requirements, placing the data with a neutral party.</p>
   <p>Two further requirements are easy to overlook. Hold notices frequently specify the state and format in
@@ -1064,7 +1329,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 3, Cloud Data Security (auditability, traceability, and accountability of data events section).</span>
   <h2>Event sources, logging, and proving who did what</h2>
 
-  <h3>Event sources and event attributes</h3>
+  <h3 id="s28-event-sources-and-event-attributes">Event sources and event attributes</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Audit and Audit Mechanisms; Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>An event source is any software, hardware, or system that generates activity logs: operating systems, applications, network devices, cloud platform services. Identifying event sources is the first step in monitoring, incident detection, and compliance, because you can only analyse what something actually recorded. Event attributes are the details each event must carry to be meaningful. The attributes the outline names are <strong>identity</strong>, who or what performed the action; <strong>IP address</strong>, where the request came from; and <strong>geolocation</strong>, the physical origin. In practice a useful event also carries a timestamp and the action performed. Rich attributes are what turn a log line into evidence: they support troubleshooting, security analysis, auditing, and compliance reporting.</p>
   <p>A fuller attribute set, as it appears in most log formats, records the timestamp of the event, the type
@@ -1078,7 +1343,7 @@
     <p>A bank investigates an unusual bulk download from its document platform. The event log shows the identity used, the source IP, a geolocation inconsistent with the employee's location, and the exact objects accessed with timestamps. Those attributes let the team reconstruct the incident hour by hour. Without them, the log would say only that something happened.</p>
   </div>
 
-  <h3>Logging, storage, and analysis of data events</h3>
+  <h3 id="s28-logging-storage-and-analysis-of-data-events">Logging, storage, and analysis of data events</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>Three interconnected activities. <strong>Logging</strong> records events as they occur. <strong>Storage</strong> keeps logs secure and intact for a defined retention period, which is often itself a regulatory requirement, and protects them from tampering, since an attacker's first move is frequently to alter the logs. <strong>Analysis</strong> turns stored logs into insight: identifying trends, diagnosing issues, and detecting anomalies that indicate security incidents. Each depends on the previous: analysis is only as good as what was logged, and logs are only trustworthy if storage preserved them unaltered.</p>
 
@@ -1091,7 +1356,7 @@
   correlated alert into an understood incident. Faster correlation is what drives down mean time to detection,
   and not every event that warrants investigation is malicious; suspicious is a sufficient threshold.</p>
 
-  <h3>Chain of custody and non-repudiation</h3>
+  <h3 id="s28-chain-of-custody-and-non-repudiation">Chain of custody and non-repudiation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Evidence Preservation and Management</span>
   <p><strong>Chain of custody</strong> is the documented record of how evidence has been collected, handled, stored, and transferred, capturing who touched it, when, and why. A rigorous chain establishes the integrity and credibility of evidence, demonstrating it could not have been tampered with, which is what makes it admissible in court. <strong>Non-repudiation</strong> is proof that a specific action or communication genuinely originated from a specific party, who cannot later deny it. Digital signatures are the standard mechanism: only the holder of the private key could have signed, so the signature is proof of origin and integrity together. Non-repudiation matters wherever denial would be damaging: financial transactions, contract signing, and system administration actions.</p>
   <div class="example-box">
@@ -1112,7 +1377,7 @@
 
   <p>This subtopic was added to the outline in the August 2026 update. It treats AI training data and the models themselves as data assets requiring the same discipline as any other sensitive data, plus some protections unique to machine learning. The outline names two areas: data set and model privacy, and data set and model security through validation and verification.</p>
 
-  <h3>Data set and model privacy</h3>
+  <h3 id="s29-data-set-and-model-privacy">Data set and model privacy</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Training data often contains personal information, and a trained model can leak what it learned. An attacker querying a deployed model repeatedly can sometimes infer whether a specific individual's record was in the training set, or reconstruct attributes of that record. Two technical controls address privacy at this level. <strong>Differential privacy</strong> adds calibrated statistical noise so that a model's outputs do not reliably reveal any individual training record, protecting privacy during the inference phase. <strong>Homomorphic encryption</strong> allows computation to be performed on data while it remains encrypted, so sensitive data can be processed, including by a model, without ever being exposed in plain form.</p>
   <div class="example-box">
@@ -1120,7 +1385,7 @@
     <p>A bank's fraud model is trained on real transaction histories. Without protection, a determined adversary querying the model's risk scores could infer details about specific customers' transactions. Applying differential privacy to the model's outputs means each answer carries enough statistical noise that no individual customer's history can be reconstructed, while the model remains accurate in aggregate.</p>
   </div>
 
-  <h3>Data set and model security: validation and verification</h3>
+  <h3 id="s29-data-set-and-model-security-validation-and-verification">Data set and model security: validation and verification</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>The security of an AI system rests on the integrity of its data pipeline. <strong>Validation</strong> checks that training data is accurate, representative, and free of corruption before it is used. <strong>Verification</strong> confirms the data's provenance and integrity, that it came from trusted sources and has not been tampered with. Together they defend against data poisoning, where an adversary corrupts the training set to change the model's behaviour. The same discipline applies at inference time, since a model in production continues to consume data that can be manipulated.</p>
   <p>Large training sets commonly live in <strong>data lakes</strong>, which concentrate enormous volumes of raw data and therefore concentrate risk: a poorly governed lake mixes sensitive and non-sensitive data with weak visibility. Discovery and classification tooling, increasingly AI assisted itself, identifies sensitive information before it enters an ML pipeline. Two further concerns round out the picture. <strong>Data sovereignty</strong> applies when training data is processed across multiple cloud regions, since each jurisdiction's rules follow the data. And <strong>data remanence</strong> applies to the ephemeral storage used by AI compute nodes: training residuals left on de-provisioned nodes must be purged, typically by cryptographic erase, before the resources return to the shared pool.</p>
@@ -1128,7 +1393,7 @@
     <span class="label">Example</span>
     <p>A telecom company trains a churn model on customer data in a cloud data lake. Before training, discovery tooling scans the lake and flags fields containing personal data, which are masked. The pipeline verifies each source feed's integrity by checksum before ingestion. Training runs in a region-restricted environment to satisfy UK data residency, and when the training cluster is torn down, the ephemeral volumes are cryptographically erased so no fragment of customer data survives on the recycled hardware.</p>
   </div>
-  <h3>Privacy-preserving techniques compared</h3>
+  <h3 id="s29-privacy-preserving-techniques-compared">Privacy-preserving techniques compared</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Conventional techniques are Ch 3 &rsaquo; Masking, Obfuscation, Anonymization, and Tokenization.</span>
   <p>Several techniques protect personal data in AI pipelines, and they solve different problems. Selecting the wrong one is a common design error.</p>
   <ul class="plain">
@@ -1148,7 +1413,7 @@
     <p>Match the technique to the constraint. If data must not leave its location, the answer is federated learning. If it must be processed by a party who may not read it, the answer is homomorphic encryption. If outputs must not reveal individuals, the answer is differential privacy. If a realistic dataset is needed for development, the answer is synthetic data.</p>
   </div>
 
-  <h3>Securing the RAG and vector pipeline</h3>
+  <h3 id="s29-securing-the-rag-and-vector-pipeline">Securing the RAG and vector pipeline</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>Retrieval-augmented generation introduces a data store that is queried at inference time, which makes it a live data security concern rather than a training-phase one. Three issues recur.</p>
   <p><strong>Tenant isolation in vector databases</strong> must be enforced explicitly, because embeddings from different customers stored in a shared index can be returned by a semantic search that has no inherent concept of ownership. <strong>Embedding inversion</strong> is the risk that the original text can be partially reconstructed from its vector representation, which means embeddings of sensitive text must be protected as though they were the text itself. <strong>Retrieval poisoning</strong> occurs where an attacker places content into the corpus specifically so it will be retrieved and influence answers.</p>
@@ -1157,7 +1422,7 @@
     <p>A bank indexes internal policy documents alongside customer correspondence in one vector store, assuming the application layer will filter results. A query phrased to match correspondence returns another customer's letter, because the retrieval step ran before any access check. Isolation belongs in the index, not only in the application above it.</p>
   </div>
 
-  <h3>Applying the data lifecycle to AI assets</h3>
+  <h3 id="s29-applying-the-data-lifecycle-to-ai-assets">Applying the data lifecycle to AI assets</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. The general lifecycle is Ch 3 &rsaquo; Cloud Data Lifecycle.</span>
   <p>The six lifecycle phases apply to training data and to models themselves, and each raises a question that conventional data governance does not.</p>
   <ul class="plain">
@@ -1172,7 +1437,7 @@
     <p>A customer exercises the right to erasure. Deleting the source record is straightforward. Whether the model trained on that record must also be retrained, or whether machine unlearning techniques suffice, is unsettled and expensive either way. Organisations increasingly address it in advance by minimising personal data in training sets and documenting retraining cycles, rather than resolving it case by case.</p>
   </div>
 
-  <h3>Data provenance and lineage</h3>
+  <h3 id="s29-data-provenance-and-lineage">Data provenance and lineage</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p><strong>Provenance</strong> records where data originated and under what terms; <strong>lineage</strong> records how it was transformed on its way into a model. Together they answer the questions an investigation or regulator will ask: what data trained this model, was the organisation entitled to use it, and can that be evidenced. Provenance also underpins licensing compliance, since public datasets frequently carry terms restricting commercial use that are easy to overlook.</p>
   <div class="example-box">
@@ -1186,6 +1451,9 @@
   </div>
 </div>
 
+
+      </div><!-- /.study-body -->
+    </div><!-- /.study-layout -->
 
   </div>
   <!-- END STUDY TAB -->
@@ -2821,6 +3089,124 @@ const quizData = {
     }
 };
 
+
+  // ---------- Study index sidebar ----------
+  (function studyIndexInit(){
+    const idx = document.getElementById('study-index');
+    if(!idx) return;
+
+    const bar       = document.querySelector('.stickynav');
+    const backdrop  = document.getElementById('idx-backdrop');
+    const openBtn   = document.getElementById('idx-open');
+    const closeBtn  = document.getElementById('idx-close');
+    const objs      = Array.from(idx.querySelectorAll('.idx-obj'));
+    const links     = Array.from(idx.querySelectorAll('.idx-sub a'));
+    const isDrawer  = () => window.matchMedia('(max-width:1000px)').matches;
+
+    // keep the sticky offset in sync with the actual top bar height
+    function measure(){
+      if(bar){
+        document.documentElement.style.setProperty('--topbar-h', Math.round(bar.getBoundingClientRect().height) + 'px');
+      }
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    if(window.ResizeObserver && bar){ new ResizeObserver(measure).observe(bar); }
+
+    // drawer open/close on narrow screens
+    function openDrawer(){ idx.classList.add('open'); backdrop.classList.add('show'); }
+    function closeDrawer(){ idx.classList.remove('open'); backdrop.classList.remove('show'); }
+    if(openBtn)  openBtn.addEventListener('click', openDrawer);
+    if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if(backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+    // accordion: one objective open at a time
+    function openObj(li, {scrollIntoView = false} = {}){
+      objs.forEach(o => {
+        const on = (o === li);
+        o.classList.toggle('open', on);
+        const b = o.querySelector('button');
+        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      });
+      if(scrollIntoView && li && !isDrawer()){
+        const r = li.getBoundingClientRect(), ir = idx.getBoundingClientRect();
+        if(r.top < ir.top || r.bottom > ir.bottom){
+          idx.scrollTop += (r.top - ir.top) - 12;
+        }
+      }
+    }
+
+    objs.forEach(li => {
+      li.querySelector('button').addEventListener('click', () => {
+        if(li.classList.contains('open')){
+          const t = document.getElementById(li.dataset.obj);
+          if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+          if(isDrawer()) closeDrawer();
+        } else {
+          openObj(li);
+        }
+      });
+    });
+
+    // section links
+    links.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){
+          t.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', a.getAttribute('href'));
+        }
+        if(isDrawer()) closeDrawer();
+      });
+    });
+
+    // scrollspy over objective anchors and section headings
+    const targets = links
+      .map(a => ({link: a, el: document.querySelector(a.getAttribute('href'))}))
+      .filter(t => t.el);
+
+    let ticking = false;
+    function spy(){
+      ticking = false;
+      const offset = (parseInt(getComputedStyle(document.documentElement)
+                      .getPropertyValue('--topbar-h'), 10) || 104) + 40;
+      let current = null;
+      for(const t of targets){
+        if(t.el.getBoundingClientRect().top <= offset) current = t;
+        else break;
+      }
+      if(!current && targets.length) current = targets[0];
+      links.forEach(a => a.classList.remove('active'));
+      objs.forEach(o => o.classList.remove('current'));
+      if(current){
+        current.link.classList.add('active');
+        const li = current.link.closest('.idx-obj');
+        li.classList.add('current');
+        if(!li.classList.contains('open')) openObj(li, {scrollIntoView:true});
+      }
+    }
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(spy); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+
+    // open the first objective by default, or the one named in the URL
+    const fromHash = location.hash && idx.querySelector('.idx-sub a[href="' + location.hash + '"]');
+    openObj(fromHash ? fromHash.closest('.idx-obj') : objs[0]);
+    spy();
+
+    // re-run the spy when returning to the study tab
+    document.querySelectorAll('.tabbtn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.tab === 'study'){ measure(); setTimeout(spy, 30); }
+        else { closeDrawer(); }
+      });
+    });
+  })();
+
   // Tab switching
   document.querySelectorAll('.tabbtn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2829,15 +3215,6 @@ const quizData = {
       btn.classList.add('active');
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
       window.scrollTo({top: 0, behavior: 'auto'});
-    });
-  });
-
-  // Study subnav smooth scroll (stay within study tab)
-  document.querySelectorAll('.study-subnav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
 

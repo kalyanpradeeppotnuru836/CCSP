@@ -30,9 +30,17 @@
     line-height:1.6;
   }
   .page{
-    max-width:880px;
+    max-width:1180px;
     margin:0 auto;
     padding:2.5rem 1.5rem 4rem;
+  }
+  .page > .masthead,
+  .page > .stickynav,
+  .page > .pagernav,
+  #tab-quiz{
+    max-width:880px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .masthead{
     margin-bottom:1rem;
@@ -314,6 +322,167 @@
   }
   .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
 
+
+  /* ---------- STUDY INDEX SIDEBAR ---------- */
+  :root{ --topbar-h:104px; }
+
+  .study-layout{
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    gap:2.25rem;
+    align-items:start;
+  }
+  .study-body{ min-width:0; max-width:880px; }
+
+  .study-index{
+    position:sticky;
+    top:calc(var(--topbar-h) + 12px);
+    max-height:calc(100vh - var(--topbar-h) - 32px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.9rem .75rem 1rem;
+  }
+  .study-index::-webkit-scrollbar{ width:6px; }
+  .study-index::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .study-index::-webkit-scrollbar-thumb:hover{ background:var(--navy-light); }
+  .study-index{ scrollbar-width:thin; }
+
+  .idx-title{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--text-muted);
+    margin:0 0 .6rem .35rem;
+  }
+  .study-index ul{ list-style:none; margin:0; padding:0; }
+
+  .idx-obj > button{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    width:100%;
+    text-align:left;
+    font:inherit;
+    font-size:12.8px;
+    font-weight:700;
+    color:var(--navy);
+    background:none;
+    border:0;
+    border-radius:6px;
+    padding:.4rem .45rem;
+    cursor:pointer;
+    line-height:1.35;
+  }
+  .idx-obj > button:hover{ background:#F4F7FC; }
+  .idx-obj > button .caret{
+    flex-shrink:0;
+    width:9px;
+    height:9px;
+    border-right:1.6px solid currentColor;
+    border-bottom:1.6px solid currentColor;
+    transform:rotate(-45deg);
+    transition:transform .18s ease;
+    opacity:.55;
+    margin-top:-2px;
+  }
+  .idx-obj.open > button .caret{ transform:rotate(45deg); }
+  .idx-obj.current > button{ background:#EEF3FB; }
+
+  .idx-sub{ display:none; margin:.1rem 0 .5rem; }
+  .idx-obj.open .idx-sub{ display:block; }
+  .idx-sub a{
+    display:block;
+    font-size:12.4px;
+    line-height:1.4;
+    color:var(--text-secondary);
+    text-decoration:none;
+    padding:.3rem .45rem .3rem 1.35rem;
+    border-left:2px solid transparent;
+    border-radius:0 6px 6px 0;
+  }
+  .idx-sub a:hover{ background:#F4F7FC; color:var(--navy); }
+  .idx-sub a.active{
+    color:var(--navy);
+    font-weight:600;
+    background:#EEF3FB;
+    border-left-color:var(--navy);
+  }
+
+  /* headings clear the sticky top bar when jumped to */
+  #tab-study h3[id], #tab-study a[id]{ scroll-margin-top:calc(var(--topbar-h) + 16px); }
+
+  /* drawer toggle, hidden on desktop */
+  .idx-toggle{
+    display:none;
+    align-items:center;
+    gap:.45rem;
+    font:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+    margin-bottom:1.1rem;
+    cursor:pointer;
+  }
+  .idx-toggle:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .idx-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.38);
+    z-index:40;
+  }
+  .idx-backdrop.show{ display:block; }
+
+  @media (max-width:1000px){
+    .study-layout{ display:block; }
+    .idx-toggle{ display:inline-flex; }
+    .study-body{ max-width:none; }
+    .study-index{
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      width:290px;
+      max-width:86vw;
+      max-height:none;
+      z-index:41;
+      border-radius:0;
+      border-width:0 1px 0 0;
+      padding:1.1rem .85rem 2rem;
+      transform:translateX(-100%);
+      transition:transform .22s ease;
+      box-shadow:0 0 24px rgba(15,23,42,.16);
+    }
+    .study-index.open{ transform:translateX(0); }
+    .idx-close{
+      display:block;
+      position:absolute;
+      top:.6rem;
+      right:.65rem;
+      font:inherit;
+      font-size:20px;
+      line-height:1;
+      color:var(--text-muted);
+      background:none;
+      border:0;
+      cursor:pointer;
+      padding:.2rem .35rem;
+    }
+  }
+  .idx-close{ display:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    .study-index, .idx-obj > button .caret{ transition:none; }
+  }
+
   /* ---------- QUIZ TAB ---------- */
   .quiz-header{
     display:flex;
@@ -482,13 +651,68 @@
   <!-- ===================== STUDY TAB ===================== -->
   <div class="tabpanel active" id="tab-study">
 
-    <div class="study-subnav">
-      <a href="#s31">3.1 Infrastructure components</a>
-      <a href="#s32">3.2 Secure data centre design</a>
-      <a href="#s33">3.3 Risk analysis</a>
-      <a href="#s34">3.4 Security controls</a>
-      <a href="#s35">3.5 BC and DR</a>
-    </div>
+    <button class="idx-toggle" type="button" id="idx-open">&#9776; Sections</button>
+    <div class="idx-backdrop" id="idx-backdrop"></div>
+
+    <div class="study-layout">
+      <aside class="study-index" id="study-index" aria-label="Section index">
+        <button class="idx-close" type="button" id="idx-close" aria-label="Close index">&times;</button>
+        <p class="idx-title">On this page</p>
+        <ul>
+      <li class="idx-obj" data-obj="s31">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>3.1 Cloud infrastructure and platform components</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s31">Overview</a></li>
+          <li><a href="#s31-physical-environment">Physical environment</a></li>
+          <li><a href="#s31-network-and-communications">Network and communications</a></li>
+          <li><a href="#s31-compute">Compute</a></li>
+          <li><a href="#s31-storage">Storage</a></li>
+          <li><a href="#s31-virtualisation">Virtualisation</a></li>
+          <li><a href="#s31-management-plane">Management plane</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s32">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>3.2 Design a secure data center</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s32">Overview</a></li>
+          <li><a href="#s32-logical-design">Logical design</a></li>
+          <li><a href="#s32-physical-design">Physical design</a></li>
+          <li><a href="#s32-environmental-design">Environmental design</a></li>
+          <li><a href="#s32-design-for-resilience">Design for resilience</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s33">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>3.3 Risks associated with cloud infrastructure and platforms</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s33">Overview</a></li>
+          <li><a href="#s33-risk-assessment">Risk assessment</a></li>
+          <li><a href="#s33-cloud-vulnerabilities-threats-and-attacks">Cloud vulnerabilities, threats, and attacks</a></li>
+          <li><a href="#s33-risk-treatment-strategies">Risk treatment strategies</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s34">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>3.4 Plan and implement security controls</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s34">Overview</a></li>
+          <li><a href="#s34-physical-and-environmental-protection">Physical and environmental protection</a></li>
+          <li><a href="#s34-system-storage-and-communication-protection">System, storage, and communication protection</a></li>
+          <li><a href="#s34-identification-authentication-and-authorisation">Identification, authentication, and authorisation</a></li>
+          <li><a href="#s34-audit-mechanisms">Audit mechanisms</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s35">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>3.5 Business continuity and disaster recovery</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s35">Overview</a></li>
+          <li><a href="#s35-main-components-of-a-bcdr-strategy">Main components of a BCDR strategy</a></li>
+          <li><a href="#s35-business-requirements-rpo-rto-and-rsl">Business requirements: RPO, RTO, and RSL</a></li>
+          <li><a href="#s35-creating-implementing-and-testing-the-plan">Creating, implementing, and testing the plan</a></li>
+        </ul>
+      </li>
+        </ul>
+      </aside>
+
+      <div class="study-body">
 
     <a id="s31"></a>
 
@@ -513,7 +737,7 @@
   hypervisor breakout, virtual machine sprawl, and API abuse are abstraction layer problems while power,
   cooling, and physical access are not.</p>
 
-  <h3>Physical environment</h3>
+  <h3 id="s31-physical-environment">Physical environment</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Facilities and Redundancy</span>
   <p>The server rooms, data centres, and physical locations where the infrastructure sits. Who owns this depends on the deployment model, which is a point worth remembering: in a private cloud built on premises, the organisation is effectively its own provider and owns the physical environment. In a community cloud, a community member often supplies the space and hardware. With a commercial public provider, the provider owns it entirely and the customer typically never sees it.</p>
   <div class="example-box">
@@ -529,11 +753,11 @@
   in the facility. Data centres offering colocation sell that capacity at varying levels of aggregation, from
   a single unit slot in a rack up to floor space, lockable cages, or an entire room.</p>
 
-  <h3>Network and communications</h3>
+  <h3 id="s31-network-and-communications">Network and communications</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <p>The provider secures the networking components it houses. The customer manages any components in its own facilities. The public internet connecting the two is the primary area of concern, because neither party controls it. The provider must support secure methods such as HTTPS, encryption before transmission, and VPN access, and the customer is expected to actually use them. Both parties implement firewalls and related technologies on their own side of the boundary.</p>
 
-  <h3>Compute</h3>
+  <h3 id="s31-compute">Compute</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Hardware and Compute</span>
   <p>Compute capability is defined mainly by CPU, which determines processing power, and RAM, which holds data actively being processed and keeps latency low. What makes cloud compute distinctive is how it is allocated in a multi-tenant environment, through three mechanisms you should be able to distinguish:</p>
   <p>On the underlying hardware, multi-core processors perform more operations simultaneously and so raise
@@ -549,15 +773,15 @@
     <p>An energy company's monitoring workload has a reservation guaranteeing four CPU cores so it never starves during a busy period. A batch reporting job has a limit capping it at two cores so it cannot crowd out anything else. When both compete for whatever is left over, their shares values decide who wins.</p>
   </div>
 
-  <h3>Storage</h3>
+  <h3 id="s31-storage">Storage</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Cloud Storage Architectures; Ch 7 &rsaquo; Storage Operations</span>
   <p>Cloud storage spreads data across distributed and often replicated resources. The two primary types at infrastructure level are <strong>volume storage</strong>, which behaves like a traditional hard drive attached to a virtual machine and suits file systems and databases needing low latency, and <strong>object storage</strong>, which suits unstructured data such as media, backups, and analytics datasets. Two underlying technologies support them: <strong>RAID</strong>, improving data integrity and performance through redundancy across disks, and <strong>SAN</strong>, connecting storage devices over a separate high speed network for reliable, flexible capacity.</p>
 
-  <h3>Virtualisation</h3>
+  <h3 id="s31-virtualisation">Virtualisation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Virtualization; Ch 7 &rsaquo; Virtualization Operations</span>
   <p>Virtualisation is the backbone of every cloud hosting model. It is what makes resource pooling, on-demand self-service, and scalability possible in the first place: without the ability to carve physical hardware into isolated logical instances, none of the essential characteristics could be delivered. It also introduces the hypervisor as a high value target and tenant isolation as a security requirement.</p>
 
-  <h3>Management plane</h3>
+  <h3 id="s31-management-plane">Management plane</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The management plane enables remote administration of one or many hosts, providing the functions that define cloud operation: creating, starting, and stopping virtual machines, provisioning storage, and configuring networking. It is the single most security-sensitive component in the infrastructure, because compromising it grants control over everything beneath it. A stolen credential for a virtual machine costs you one machine; a stolen management plane credential can cost you the entire environment.</p>
   <p>Architecturally, requests from users, applications, and administrators arrive at two orchestration
@@ -585,7 +809,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 5, Cloud Platform, Infrastructure, and Operational Security (logical, physical, and environmental design sections).</span>
   <h2>Logical, physical, environmental, and resilient design</h2>
 
-  <h3>Logical design</h3>
+  <h3 id="s32-logical-design">Logical design</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Logical Design</span>
   <p>The logical layout is the abstract representation of the data centre, and in a public cloud it is what the customer actually builds using the provider's tools and services. Getting it right is central to security. It covers tenant partitioning and access control, and in practice includes access management, regulatory compliance monitoring, patch management, log analysis, and service configuration, with Identity and Access Management establishing the secure perimeter.</p>
   <p>Consistency of configuration is the recurring theme. The business specifies how each authorised cloud service should be configured and used, and uniform configuration makes administration simpler and usually more secure. Deviations from the established pattern should not be approved without first assessing the risk the variance introduces.</p>
@@ -594,7 +818,7 @@
     <p>A bank defines one approved configuration pattern for its cloud storage buckets: encryption on, public access blocked, logging enabled. When a project team asks for an exception to allow public access for a marketing asset, the request goes through risk assessment before approval rather than being granted as a routine change. The pattern is what makes the exception visible.</p>
   </div>
 
-  <h3>Physical design</h3>
+  <h3 id="s32-physical-design">Physical design</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Build vs. Buy; Data Center Tiers</span>
   <p>Physical design is normally the owner's responsibility, which in a public cloud means the provider. Multi-tenancy adds complexity, but otherwise a provider's data centre resembles an on-premises one. Two considerations dominate:</p>
   <ul class="plain">
@@ -611,7 +835,7 @@
   door proves only that someone authorised opened it, not that only that person went through, which is why
   camera coverage of sensitive areas backs up the access control rather than duplicating it.</p>
 
-  <h3>Environmental design</h3>
+  <h3 id="s32-environmental-design">Environmental design</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy; Ch 8 &rsaquo; Physical and Environmental Protection</span>
   <p>Except in private clouds, the provider owns environmental design, and it directly affects the availability of cloud resources. For customers, evaluating a vendor's environmental design is part of vendor risk analysis.</p>
   <ul class="plain">
@@ -628,7 +852,7 @@
   evaluating a provider, look at both the capacity of the environmental systems and the process for switching
   workloads between data centres when that capacity is compromised.</p>
 
-  <h3>Design for resilience</h3>
+  <h3 id="s32-design-for-resilience">Design for resilience</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy</span>
   <p>Resilience is the ability to adapt to changing conditions and recover from disruption, achieved by proactive design rather than reaction. The outline anchors it to power, HVAC, and connectivity, the three utilities whose loss stops a data centre regardless of anything else. Practical design actions include siting the facility away from known hazard regions, designing with flexibility, building reliable and simple systems, adding redundancy wherever possible, and applying passive design principles that keep working without active intervention.</p>
   <p>The discipline is the same one that applies to secure development: resilience is designed in, never an
@@ -652,7 +876,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 4, Security in the Cloud (cloud risks and risk management sections) and Chapter 5.</span>
   <h2>Assessing, understanding, and treating cloud risk</h2>
 
-  <h3>Risk assessment</h3>
+  <h3 id="s33-risk-assessment">Risk assessment</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Shared Cloud Platform Risks and Responsibilities; Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Assessment</span>
   <p>Industry bodies publish useful risk lists, but every organisation, whether providing or consuming cloud services, must conduct its own assessment, because risk depends on the organisation's own data, obligations, and tolerance. Risk assessment has two parts: <strong>identification</strong>, finding what could go wrong, and <strong>analysis</strong>, judging how likely it is and how much it would hurt.</p>
   <p>The organisational and regulatory risks that recur in cloud adoption include <strong>lock-in</strong>, where dependence on a single provider reduces flexibility; <strong>governance</strong>, ensuring policies actually manage cloud resources effectively and compliantly; <strong>data security and privacy</strong>, protecting stored data from unauthorised access; and compliance and jurisdictional exposure arising from where data and processing sit.</p>
@@ -665,7 +889,7 @@
   awareness campaigns, simulated phishing exercises, and penetration tests. Documentation is what a
   supervisory authority or external auditor will ask to see.</p>
 
-  <h3>Cloud vulnerabilities, threats, and attacks</h3>
+  <h3 id="s33-cloud-vulnerabilities-threats-and-attacks">Cloud vulnerabilities, threats, and attacks</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Cloud Computing Risks by Deployment Model; by Service Model; Virtualization Threats</span>
   <p>The fundamental risk of cloud is its internet-based model: the service is reachable by anyone with a connection, which means attacks can originate anywhere in the world. Threats may target the customer, the provider, or another of the provider's customers, and may also stem from the geographic location of the data centre itself. Denial of service is the classic example of an attack whose effect can reach a customer who was never the intended target, because shared infrastructure means shared consequences.</p>
   <p>A second category is the insider risk on the provider's side: the possibility of data theft by provider employees. Contractual agreements help, but prevention is stronger. The practical defence is encryption with the customer managing its own keys externally, so that data exposed at the provider is unreadable without keys the provider never holds.</p>
@@ -674,7 +898,7 @@
     <p>A volumetric denial of service attack aimed at one tenant saturates shared network capacity, degrading service for unrelated customers on the same infrastructure. None of them were targeted, and none of them could have prevented it, which is the essence of shared technology risk.</p>
   </div>
 
-  <h3>Risk treatment strategies</h3>
+  <h3 id="s33-risk-treatment-strategies">Risk treatment strategies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Treatment and Response</span>
   <p>Once risk is identified and analysed, it must be treated. The five formal treatments are the ones to know precisely, because distractors trade on confusing them:</p>
   <ul class="plain">
@@ -708,11 +932,11 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 5, Cloud Platform, Infrastructure, and Operational Security (physical and environmental protection, system and communication protection, IAM, and audit mechanisms sections).</span>
   <h2>Protecting systems, controlling access, and proving it happened</h2>
 
-  <h3>Physical and environmental protection</h3>
+  <h3 id="s34-physical-and-environmental-protection">Physical and environmental protection</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Physical and Environmental Protection</span>
   <p>Site selection drives physical protection. Placing a data centre near water in a region subject to storms, flooding, tornadoes, or seismic activity is poor practice. The selection criteria include the ability to restrict physical access, an adequate available workforce, and reliable access to power and other essential resources. Network capacity is a baseline requirement for any data centre, and for a provider serving many clients across a wide geography these standards are often more demanding than for an on-premises facility.</p>
 
-  <h3>System, storage, and communication protection</h3>
+  <h3 id="s34-system-storage-and-communication-protection">System, storage, and communication protection</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <ul class="plain">
     <li><strong>Policy and procedures</strong>, the documented foundation that makes every other control consistent and enforceable.</li>
@@ -775,7 +999,7 @@
     eyes on the visible event.</p>
   </div>
 
-  <h3>Identification, authentication, and authorisation</h3>
+  <h3 id="s34-identification-authentication-and-authorisation">Identification, authentication, and authorisation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Identity Assurance in Cloud and Virtual Environments; Ch 6 &rsaquo; Identity and Access Management</span>
   <p>Organisations either extend existing on-premises IAM into the cloud or adopt cloud-based IAM services, weighing ease of management, security requirements, and the prospect of single sign-on across systems. Provider-supplied IAM systems are an option but tie the organisation more closely to that provider. User education underpins all of it: teaching people not to reuse passwords and to recognise phishing protects the identity layer in a way no technical control fully can.</p>
   <p>The vendor IAM question is worth separating out. A cloud provider's own IAM service is one option; a
@@ -790,7 +1014,7 @@
     <p>A telecom company extends its corporate identity provider into its cloud accounts so engineers use one set of credentials with single sign-on and central revocation. When an engineer leaves, disabling one account removes access everywhere, rather than leaving forgotten local accounts scattered across cloud services.</p>
   </div>
 
-  <h3>Audit mechanisms</h3>
+  <h3 id="s34-audit-mechanisms">Audit mechanisms</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider; Ch 2 &rsaquo; Data Audit and Audit Mechanisms</span>
   <p>The purpose of an audit is to confirm that enough risk controls exist and that they work. Audits are commonly driven by regulatory or compliance requirements, and they work best integrated into corporate governance and enterprise risk management, where legal, technical, jurisdictional, contractual, and compliance requirements can be consolidated in one place.</p>
   <p>Two mechanisms carry a cloud-specific complication that the exam tests directly, and both follow the same pattern: <strong>how much you can collect depends on the service model and your contract.</strong></p>
@@ -813,7 +1037,7 @@
 
   <p>BC and DR protect against data being unavailable and the business processes depending on it being non-functional, both of which carry adverse consequences for the organisation. Business continuity is about keeping operating; disaster recovery is about restoring after a disruptive event.</p>
 
-  <h3>Main components of a BCDR strategy</h3>
+  <h3 id="s35-main-components-of-a-bcdr-strategy">Main components of a BCDR strategy</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Business Continuity and Disaster Recovery &rsaquo; BC/DR Planning; The BC/DR Toolkit</span>
   <ul class="plain">
     <li><strong>Location</strong>, where the recovery capability sits, and crucially far enough from the primary site that one event cannot take both.</li>
@@ -860,7 +1084,7 @@
     the two sites stay in parity on what has been deleted as well as on what has been written.</p>
   </div>
 
-  <h3>Business requirements: RPO, RTO, and RSL</h3>
+  <h3 id="s35-business-requirements-rpo-rto-and-rsl">Business requirements: RPO, RTO, and RSL</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Business Continuity and Disaster Recovery; Ch 4 &rsaquo; Cloud-Specific BIA Concerns</span>
   <p>Three terms define recovery expectations, and the third is the one candidates most often miss:</p>
   <ul class="plain">
@@ -889,7 +1113,7 @@
     <p>A bank sets an RPO of fifteen minutes, an RTO of two hours, and an RSL of sixty percent. Translated: it can lose at most the last fifteen minutes of transactions, must be serving customers again within two hours, and can run at sixty percent of normal capacity while in recovery, accepting degraded throughput but not an outage.</p>
   </div>
 
-  <h3>Creating, implementing, and testing the plan</h3>
+  <h3 id="s35-creating-implementing-and-testing-the-plan">Creating, implementing, and testing the plan</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; BC/DR Planning</span>
   <p>Implementing a BCDR plan runs through defining the <strong>scope</strong> of what the plan covers, <strong>gathering requirements</strong> from the business, <strong>analysing</strong> the resulting plan, and <strong>risk assessment</strong> of the arrangements themselves, followed by implementation and, critically, testing. An untested plan is an assumption. Testing is what converts a document into a capability, and it routinely reveals gaps such as missing dependencies, stale credentials, or capacity that exists on paper but not in practice.</p>
   <p>Requirements gathering is where the plan either earns its keep or fails. It means identifying the
@@ -920,6 +1144,9 @@
   </div>
 </div>
 
+
+      </div><!-- /.study-body -->
+    </div><!-- /.study-layout -->
 
   </div>
   <!-- END STUDY TAB -->
@@ -2555,6 +2782,124 @@ const quizData = {
     }
 };
 
+
+  // ---------- Study index sidebar ----------
+  (function studyIndexInit(){
+    const idx = document.getElementById('study-index');
+    if(!idx) return;
+
+    const bar       = document.querySelector('.stickynav');
+    const backdrop  = document.getElementById('idx-backdrop');
+    const openBtn   = document.getElementById('idx-open');
+    const closeBtn  = document.getElementById('idx-close');
+    const objs      = Array.from(idx.querySelectorAll('.idx-obj'));
+    const links     = Array.from(idx.querySelectorAll('.idx-sub a'));
+    const isDrawer  = () => window.matchMedia('(max-width:1000px)').matches;
+
+    // keep the sticky offset in sync with the actual top bar height
+    function measure(){
+      if(bar){
+        document.documentElement.style.setProperty('--topbar-h', Math.round(bar.getBoundingClientRect().height) + 'px');
+      }
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    if(window.ResizeObserver && bar){ new ResizeObserver(measure).observe(bar); }
+
+    // drawer open/close on narrow screens
+    function openDrawer(){ idx.classList.add('open'); backdrop.classList.add('show'); }
+    function closeDrawer(){ idx.classList.remove('open'); backdrop.classList.remove('show'); }
+    if(openBtn)  openBtn.addEventListener('click', openDrawer);
+    if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if(backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+    // accordion: one objective open at a time
+    function openObj(li, {scrollIntoView = false} = {}){
+      objs.forEach(o => {
+        const on = (o === li);
+        o.classList.toggle('open', on);
+        const b = o.querySelector('button');
+        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      });
+      if(scrollIntoView && li && !isDrawer()){
+        const r = li.getBoundingClientRect(), ir = idx.getBoundingClientRect();
+        if(r.top < ir.top || r.bottom > ir.bottom){
+          idx.scrollTop += (r.top - ir.top) - 12;
+        }
+      }
+    }
+
+    objs.forEach(li => {
+      li.querySelector('button').addEventListener('click', () => {
+        if(li.classList.contains('open')){
+          const t = document.getElementById(li.dataset.obj);
+          if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+          if(isDrawer()) closeDrawer();
+        } else {
+          openObj(li);
+        }
+      });
+    });
+
+    // section links
+    links.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){
+          t.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', a.getAttribute('href'));
+        }
+        if(isDrawer()) closeDrawer();
+      });
+    });
+
+    // scrollspy over objective anchors and section headings
+    const targets = links
+      .map(a => ({link: a, el: document.querySelector(a.getAttribute('href'))}))
+      .filter(t => t.el);
+
+    let ticking = false;
+    function spy(){
+      ticking = false;
+      const offset = (parseInt(getComputedStyle(document.documentElement)
+                      .getPropertyValue('--topbar-h'), 10) || 104) + 40;
+      let current = null;
+      for(const t of targets){
+        if(t.el.getBoundingClientRect().top <= offset) current = t;
+        else break;
+      }
+      if(!current && targets.length) current = targets[0];
+      links.forEach(a => a.classList.remove('active'));
+      objs.forEach(o => o.classList.remove('current'));
+      if(current){
+        current.link.classList.add('active');
+        const li = current.link.closest('.idx-obj');
+        li.classList.add('current');
+        if(!li.classList.contains('open')) openObj(li, {scrollIntoView:true});
+      }
+    }
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(spy); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+
+    // open the first objective by default, or the one named in the URL
+    const fromHash = location.hash && idx.querySelector('.idx-sub a[href="' + location.hash + '"]');
+    openObj(fromHash ? fromHash.closest('.idx-obj') : objs[0]);
+    spy();
+
+    // re-run the spy when returning to the study tab
+    document.querySelectorAll('.tabbtn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.tab === 'study'){ measure(); setTimeout(spy, 30); }
+        else { closeDrawer(); }
+      });
+    });
+  })();
+
   // Tab switching
   document.querySelectorAll('.tabbtn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2563,15 +2908,6 @@ const quizData = {
       btn.classList.add('active');
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
       window.scrollTo({top: 0, behavior: 'auto'});
-    });
-  });
-
-  // Study subnav smooth scroll (stay within study tab)
-  document.querySelectorAll('.study-subnav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
 

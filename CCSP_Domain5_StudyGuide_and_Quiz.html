@@ -30,9 +30,17 @@
     line-height:1.6;
   }
   .page{
-    max-width:880px;
+    max-width:1180px;
     margin:0 auto;
     padding:2.5rem 1.5rem 4rem;
+  }
+  .page > .masthead,
+  .page > .stickynav,
+  .page > .pagernav,
+  #tab-quiz{
+    max-width:880px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .masthead{
     margin-bottom:1rem;
@@ -334,6 +342,167 @@
   }
   .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
 
+
+  /* ---------- STUDY INDEX SIDEBAR ---------- */
+  :root{ --topbar-h:104px; }
+
+  .study-layout{
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    gap:2.25rem;
+    align-items:start;
+  }
+  .study-body{ min-width:0; max-width:880px; }
+
+  .study-index{
+    position:sticky;
+    top:calc(var(--topbar-h) + 12px);
+    max-height:calc(100vh - var(--topbar-h) - 32px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.9rem .75rem 1rem;
+  }
+  .study-index::-webkit-scrollbar{ width:6px; }
+  .study-index::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .study-index::-webkit-scrollbar-thumb:hover{ background:var(--navy-light); }
+  .study-index{ scrollbar-width:thin; }
+
+  .idx-title{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--text-muted);
+    margin:0 0 .6rem .35rem;
+  }
+  .study-index ul{ list-style:none; margin:0; padding:0; }
+
+  .idx-obj > button{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    width:100%;
+    text-align:left;
+    font:inherit;
+    font-size:12.8px;
+    font-weight:700;
+    color:var(--navy);
+    background:none;
+    border:0;
+    border-radius:6px;
+    padding:.4rem .45rem;
+    cursor:pointer;
+    line-height:1.35;
+  }
+  .idx-obj > button:hover{ background:#F4F7FC; }
+  .idx-obj > button .caret{
+    flex-shrink:0;
+    width:9px;
+    height:9px;
+    border-right:1.6px solid currentColor;
+    border-bottom:1.6px solid currentColor;
+    transform:rotate(-45deg);
+    transition:transform .18s ease;
+    opacity:.55;
+    margin-top:-2px;
+  }
+  .idx-obj.open > button .caret{ transform:rotate(45deg); }
+  .idx-obj.current > button{ background:#EEF3FB; }
+
+  .idx-sub{ display:none; margin:.1rem 0 .5rem; }
+  .idx-obj.open .idx-sub{ display:block; }
+  .idx-sub a{
+    display:block;
+    font-size:12.4px;
+    line-height:1.4;
+    color:var(--text-secondary);
+    text-decoration:none;
+    padding:.3rem .45rem .3rem 1.35rem;
+    border-left:2px solid transparent;
+    border-radius:0 6px 6px 0;
+  }
+  .idx-sub a:hover{ background:#F4F7FC; color:var(--navy); }
+  .idx-sub a.active{
+    color:var(--navy);
+    font-weight:600;
+    background:#EEF3FB;
+    border-left-color:var(--navy);
+  }
+
+  /* headings clear the sticky top bar when jumped to */
+  #tab-study h3[id], #tab-study a[id]{ scroll-margin-top:calc(var(--topbar-h) + 16px); }
+
+  /* drawer toggle, hidden on desktop */
+  .idx-toggle{
+    display:none;
+    align-items:center;
+    gap:.45rem;
+    font:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+    margin-bottom:1.1rem;
+    cursor:pointer;
+  }
+  .idx-toggle:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .idx-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.38);
+    z-index:40;
+  }
+  .idx-backdrop.show{ display:block; }
+
+  @media (max-width:1000px){
+    .study-layout{ display:block; }
+    .idx-toggle{ display:inline-flex; }
+    .study-body{ max-width:none; }
+    .study-index{
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      width:290px;
+      max-width:86vw;
+      max-height:none;
+      z-index:41;
+      border-radius:0;
+      border-width:0 1px 0 0;
+      padding:1.1rem .85rem 2rem;
+      transform:translateX(-100%);
+      transition:transform .22s ease;
+      box-shadow:0 0 24px rgba(15,23,42,.16);
+    }
+    .study-index.open{ transform:translateX(0); }
+    .idx-close{
+      display:block;
+      position:absolute;
+      top:.6rem;
+      right:.65rem;
+      font:inherit;
+      font-size:20px;
+      line-height:1;
+      color:var(--text-muted);
+      background:none;
+      border:0;
+      cursor:pointer;
+      padding:.2rem .35rem;
+    }
+  }
+  .idx-close{ display:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    .study-index, .idx-obj > button .caret{ transition:none; }
+  }
+
   /* ---------- QUIZ TAB ---------- */
   .quiz-header{
     display:flex;
@@ -502,14 +671,89 @@
   <!-- ===================== STUDY TAB ===================== -->
   <div class="tabpanel active" id="tab-study">
 
-    <div class="study-subnav">
-      <a href="#s51">5.1 Build infrastructure</a>
-      <a href="#s52">5.2 Operate and maintain</a>
-      <a href="#s53">5.3 Operational controls</a>
-      <a href="#s54">5.4 Digital forensics</a>
-      <a href="#s55">5.5 Communication</a>
-      <a href="#s56">5.6 Security operations</a>
-    </div>
+    <button class="idx-toggle" type="button" id="idx-open">&#9776; Sections</button>
+    <div class="idx-backdrop" id="idx-backdrop"></div>
+
+    <div class="study-layout">
+      <aside class="study-index" id="study-index" aria-label="Section index">
+        <button class="idx-close" type="button" id="idx-close" aria-label="Close index">&times;</button>
+        <p class="idx-title">On this page</p>
+        <ul>
+      <li class="idx-obj" data-obj="s51">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.1 Build and implement physical and logical infrastructure</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s51">Overview</a></li>
+          <li><a href="#s51-hardware-specific-security-configuration">Hardware specific security configuration</a></li>
+          <li><a href="#s51-network-device-security">Network device security</a></li>
+          <li><a href="#s51-device-decommissioning-and-residual-data">Device decommissioning and residual data</a></li>
+          <li><a href="#s51-virtual-hardware-specific-configuration">Virtual hardware specific configuration</a></li>
+          <li><a href="#s51-secure-by-default">Secure by default</a></li>
+          <li><a href="#s51-installation-and-configuration-of-management-plane-tools">Installation and configuration of management plane tools</a></li>
+          <li><a href="#s51-guest-operating-system-virtualisation-toolsets">Guest operating system virtualisation toolsets</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s52">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.2 Operate and maintain physical and logical infrastructure</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s52">Overview</a></li>
+          <li><a href="#s52-access-controls-for-local-and-remote-access">Access controls for local and remote access</a></li>
+          <li><a href="#s52-secure-network-configuration">Secure network configuration</a></li>
+          <li><a href="#s52-operating-system-hardening">Operating system hardening</a></li>
+          <li><a href="#s52-patch-management">Patch management</a></li>
+          <li><a href="#s52-patching-responsibility-under-iaas">Patching responsibility under IaaS</a></li>
+          <li><a href="#s52-infrastructure-as-code">Infrastructure as Code</a></li>
+          <li><a href="#s52-availability-of-clustered-hosts-and-guest-operating-systems">Availability of clustered hosts and guest operating systems</a></li>
+          <li><a href="#s52-monitoring-and-backup">Monitoring and backup</a></li>
+          <li><a href="#s52-management-plane-operations">Management plane operations</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s53">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.3 Operational controls and standards</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s53">Overview</a></li>
+          <li><a href="#s53-incident-management-in-practice">Incident management in practice</a></li>
+          <li><a href="#s53-problem-management-in-practice">Problem management in practice</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s54">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.4 Digital forensics</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s54">Overview</a></li>
+          <li><a href="#s54-root-cause-analysis-techniques">Root cause analysis techniques</a></li>
+          <li><a href="#s54-release-deployment-and-configuration-in-detail">Release, deployment, and configuration in detail</a></li>
+          <li><a href="#s54-availability-and-capacity-management-in-detail">Availability and capacity management in detail</a></li>
+          <li><a href="#s54-forensic-data-collection-methodologies">Forensic data collection methodologies</a></li>
+          <li><a href="#s54-evidence-management">Evidence management</a></li>
+          <li><a href="#s54-collecting-acquiring-and-preserving">Collecting, acquiring, and preserving</a></li>
+          <li><a href="#s54-handling-evidence-end-to-end">Handling evidence end to end</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s55">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.5 Communication with relevant parties</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s55">Overview</a></li>
+          <li><a href="#s55-communicating-during-an-incident">Communicating during an incident</a></li>
+          <li><a href="#s55-subject-access-requests-and-the-front-line">Subject access requests and the front line</a></li>
+          <li><a href="#s55-communicating-with-regulators">Communicating with regulators</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s56">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>5.6 Manage security operations</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s56">Overview</a></li>
+          <li><a href="#s56-security-operations-centre">Security Operations Centre</a></li>
+          <li><a href="#s56-building-or-buying-a-soc">Building or buying a SOC</a></li>
+          <li><a href="#s56-intelligent-monitoring-of-security-controls">Intelligent monitoring of security controls</a></li>
+          <li><a href="#s56-log-capture-and-analysis">Log capture and analysis</a></li>
+          <li><a href="#s56-incident-response">Incident response</a></li>
+          <li><a href="#s56-vulnerability-assessments">Vulnerability assessments</a></li>
+          <li><a href="#s56-penetration-testing">Penetration testing</a></li>
+        </ul>
+      </li>
+        </ul>
+      </aside>
+
+      <div class="study-body">
 
     <a id="s51"></a>
 
@@ -519,7 +763,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 7, Operations Elements (hardware configuration, management plane installation, and guest OS toolset sections).</span>
   <h2>Getting the environment built securely in the first place</h2>
 
-  <h3>Hardware specific security configuration</h3>
+  <h3 id="s51-hardware-specific-security-configuration">Hardware specific security configuration</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Hardware and Compute</span>
   <p>Different hardware types need tailored security settings, spanning servers, workstations, routers, and switches. Typical measures include BIOS passwords to prevent unauthorised changes to system settings, disabling unused ports and services to reduce the attack surface, and configuring firewalls and intrusion detection to monitor and block malicious activity. Two hardware components carry specific exam weight:</p>
   <ul class="plain">
@@ -531,7 +775,7 @@
     <p>TPM and HSM both protect keys in hardware and are routinely offered as alternatives to each other. The TPM is device or platform level, tied to integrity measurement of one machine. The HSM is an enterprise key management appliance serving many systems. If the scenario is about secure boot or attesting one machine's integrity, it wants TPM.</p>
   </div>
 
-  <h3>Network device security</h3>
+  <h3 id="s51-network-device-security">Network device security</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure (Firewalls, IDS/IPS, Bastion Hosts)</span>
   <p>Routers, switches, firewalls, load balancers, and wireless access points form the backbone that server and endpoint security depend on, yet they are routinely hardened less thoroughly than the systems they carry. The measures that matter most:</p>
   <ul class="plain">
@@ -545,7 +789,7 @@
     <li><strong>Physical port security</strong>, disabling unused switch ports and applying MAC address filtering, since physical access to a switch or router bypasses most logical controls entirely.</li>
   </ul>
 
-  <h3>Device decommissioning and residual data</h3>
+  <h3 id="s51-device-decommissioning-and-residual-data">Device decommissioning and residual data</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal; Ch 1 &rsaquo; Emerging Technologies &rsaquo; Internet of Things</span>
   <p>Hardening a device covers its working life. Its disposal is a separate problem, because hardware leaving the organisation carries whatever was left on it. This applies to servers and storage, and increasingly to the wide range of connected devices that were never designed with sanitisation in mind.</p>
   <div class="example-box">
@@ -555,20 +799,20 @@
 
   
 
-  <h3>Virtual hardware specific configuration</h3>
+  <h3 id="s51-virtual-hardware-specific-configuration">Virtual hardware specific configuration</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Virtualization Operations; Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>Virtual network devices add complexity beyond the traditional data centre model, because although they perform the same operations as physical devices they have distinct characteristics and configuration surfaces. A specific point worth remembering: storage traffic must be treated as LAN rather than WAN traffic because of its heavy network utilisation and criticality. Latency is the primary concern for storage, unlike general network traffic which is more flexible and resilient to delay.</p>
   <p>Configuration also covers memory and CPU allocation, and the distinction between <strong>Type 1 hypervisors</strong>, which run directly on the hardware, and <strong>Type 2 hypervisors</strong>, which run as an application on top of a host operating system. Type 1 is standard for production cloud infrastructure because it presents a smaller attack surface, having no underlying host operating system to compromise.</p>
 
-  <h3>Secure by default</h3>
+  <h3 id="s51-secure-by-default">Secure by default</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Systems should ship and deploy in their most secure configuration, with the customer deliberately relaxing settings where needed rather than having to discover and tighten insecure defaults. This inverts the failure mode: an overlooked setting leaves the system secure rather than exposed.</p>
 
-  <h3>Installation and configuration of management plane tools</h3>
+  <h3 id="s51-installation-and-configuration-of-management-plane-tools">Installation and configuration of management plane tools</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The virtualisation platform dictates which management tools are installed on each host. The most recent versions should be installed, and the procedure for updating them belongs in the configuration management plan. Adequate server resources must be allocated so virtual machines can be migrated during updates to the virtualisation platform, which is what allows maintenance without downtime.</p>
 
-  <h3>Guest operating system virtualisation toolsets</h3>
+  <h3 id="s51-guest-operating-system-virtualisation-toolsets">Guest operating system virtualisation toolsets</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Managing Virtual Systems</span>
   <p>These are software packages installed inside a virtual machine to optimise performance, management, and integration between the guest operating system and the host environment. They improve functionality and manageability, but each toolset is also code running with privilege inside the guest, so it must be kept patched and installed only from trusted sources.</p>
 </div>
@@ -579,7 +823,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 7, Operations Elements and Chapter 8, Operations Management (access controls, network configuration, hardening, patching, availability, and monitoring sections).</span>
   <h2>Keeping the environment secure once it is running</h2>
 
-  <h3>Access controls for local and remote access</h3>
+  <h3 id="s52-access-controls-for-local-and-remote-access">Access controls for local and remote access</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure &rsaquo; Bastion Hosts</span>
   <p>Access controls ensure only authorised individuals reach sensitive resources, combining physical practices with logical controls. Local access control secures physical and console access to systems.</p>
   <p>Local access control begins with the physical premises: CCTV, trained security personnel monitoring access points, physical or biometric locks, and smart cards using NFC to restrict entry to authorised staff. On-site authentication should combine factors in the same way remote authentication does, pairing something the person has, such as a card, with something they are, such as a biometric.</p>
@@ -596,7 +840,7 @@
     <span class="label">Watch this in the exam</span>
     <p>Access control policies define who may reach what, and under what conditions. RBAC assigns permissions by organisational role. ABAC, attribute-based access control, grants access on attributes such as location, device type, or time of access, which makes it the better answer whenever a scenario turns on conditions rather than job title.</p>
   </div>
-<h3>Secure network configuration</h3>
+<h3 id="s52-secure-network-configuration">Secure network configuration</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure (Firewalls, IDS/IPS, Honeypots)</span>
   <p>Network security management integrates preventive, detective, corrective, and recovery controls to protect confidentiality, integrity, and availability. The named technologies:</p>
   <ul class="plain">
@@ -608,11 +852,11 @@
   </ul>
   <p>Network security controls include firewalls, IDS and IPS, honeypots, vulnerability assessments, network security groups, bastion hosts, and segmentation. The distinction between <strong>IDS</strong>, which detects and alerts, and <strong>IPS</strong>, which detects and actively blocks, is frequently tested. <strong>Honeypots</strong> are decoy systems deployed to attract and study attacker activity that has already breached the perimeter.</p>
 
-  <h3>Operating system hardening</h3>
+  <h3 id="s52-operating-system-hardening">Operating system hardening</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Hardening reduces an operating system's surface of vulnerability by configuring and strengthening its security settings. Measures include removing unnecessary services and software, closing unused ports, applying least privilege to accounts, and enforcing strong authentication. Hardening is applied through <strong>baselines</strong>, the defined secure configuration standard, followed by <strong>monitoring</strong> to detect drift from that baseline and <strong>remediation</strong> to correct it. The cycle matters more than any single hardening action, because configurations drift continuously.</p>
 
-  <h3>Patch management</h3>
+  <h3 id="s52-patch-management">Patch management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management; Ch 5 &rsaquo; OS Hardening, Monitoring, and Remediation</span>
   <p>Patch management identifies, acquires, tests, and installs updates to enhance security, improve functionality, and fix defects. Testing before deployment is the step organisations are most tempted to skip and most regret skipping, since an untested patch can cause the outage the patch was meant to prevent. In cloud, patching increasingly means rebuilding from an updated image rather than modifying running instances.</p>
   <p>The process runs through <strong>identification and assessment</strong>, scanning to find missing patches and judging criticality by potential impact, informed by threat intelligence feeds; <strong>acquisition and testing</strong>, obtaining patches only from trusted sources and proving them in a staging or non-production environment first; and <strong>deployment</strong>, prioritised by vulnerability severity and system criticality. Tooling such as AWS Systems Manager or Azure Update Management makes this manageable across large, dispersed estates.</p>
@@ -625,7 +869,7 @@
     <p>A widely reported 2024 incident saw a security vendor push a faulty content update straight to production endpoints worldwide, causing mass outages across airlines, hospitals, and banks. No attacker was involved. The update itself was the outage, which is precisely the failure mode that testing in a non-production environment exists to catch.</p>
   </div>
 
-  <h3>Patching responsibility under IaaS</h3>
+  <h3 id="s52-patching-responsibility-under-iaas">Patching responsibility under IaaS</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Foundations of Managed Services &rsaquo; Shared Responsibilities by Service Type</span>
   <p>All of which raises a question that comes up constantly in practice: who patches what, when the customer runs its own virtual machines on someone else's hardware. The boundary follows control:</p>
   <ul class="plain">
@@ -635,7 +879,7 @@
   <p>The provider has deliberately abstracted the layers beneath the boundary and has no visibility into, or responsibility for, what runs inside a customer's instances. That abstraction is the defining characteristic of IaaS, and it is also why the customer cannot defer a hypervisor-level change: the provider controls when infrastructure layer maintenance happens, and the customer has visibility rather than a veto.</p>
 
 
-  <h3>Infrastructure as Code</h3>
+  <h3 id="s52-infrastructure-as-code">Infrastructure as Code</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Emerging Technologies &rsaquo; DevOps and DevSecOps</span>
   <p>IaC is a DevOps practice managing and provisioning infrastructure through machine-readable definition files rather than physical hardware configuration or interactive tools. It makes infrastructure versioned and reusable, promoting consistency and reducing human error. Its core components:</p>
   <ul class="plain">
@@ -677,7 +921,7 @@
 
   
 
-  <h3>Availability of clustered hosts and guest operating systems</h3>
+  <h3 id="s52-availability-of-clustered-hosts-and-guest-operating-systems">Availability of clustered hosts and guest operating systems</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Virtualization Operations</span>
   <p>Clustered hosts are groups of interconnected servers working together to improve performance, load balancing, and failover. The named capabilities are <strong>distributed resource scheduling</strong> and <strong>dynamic optimisation</strong>, which move workloads between hosts automatically; <strong>storage clusters</strong>; <strong>maintenance mode</strong>, which evacuates a host so it can be serviced without interrupting workloads; and <strong>high availability</strong>, restarting affected virtual machines elsewhere when a host fails.</p>
   <p>Several further considerations shape whether a cluster genuinely delivers availability:</p>
@@ -695,7 +939,7 @@
   </div>
 
 
-  <h3>Monitoring and backup</h3>
+  <h3 id="s52-monitoring-and-backup">Monitoring and backup</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Monitoring, Capacity, and Maintenance</span>
   <p>Performance and capacity monitoring identifies bottlenecks, resource limitations, and performance issues before they reach end users, covering network, compute, storage, and response time. <strong>Hardware monitoring</strong> tracks disk health, CPU, fan speed, and temperature, which gives early warning of physical failure. Backup and restore functions for both host and guest operating systems are essential for recovering from failures, cyber attacks, and crashes. A backup that has never been restored is an assumption, so restore testing is what proves the capability exists.</p>
   <p>The metrics that matter, and what each indicates:</p>
@@ -722,7 +966,7 @@
   </div>
 
 
-  <h3>Management plane operations</h3>
+  <h3 id="s52-management-plane-operations">Management plane operations</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The management plane controls and administers cloud resources, providing web-based consoles and dashboards for visual management alongside APIs and command line interfaces for automation. Operationally it covers scheduling, orchestration, and maintenance. Because it holds administrative reach across the environment, it warrants the strongest authentication, tightest privilege restriction, and most thorough logging of any component.</p>
   <p>Functionally the management plane is used to add, modify, and delete cloud resources including virtual machines, storage, and networks; to collect and analyse data on resource usage, performance, and security events; and to manage user identities, roles, and permissions so that only authorised users can take elevated actions. That logging and monitoring capability is also what supplies evidence for certification against standards such as ISO/IEC 27001, and what makes policy enforcement demonstrable rather than asserted.</p>
@@ -769,7 +1013,7 @@
     <li><strong>Capacity management</strong>, ensuring infrastructure and services have the right amount of resource for current and future demand, balancing cost against performance.</li>
   </ul>
 
-  <h3>Incident management in practice</h3>
+  <h3 id="s53-incident-management-in-practice">Incident management in practice</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Problem and Incident Management; Ch 7 &rsaquo; Managing Security Operations &rsaquo; Incident Management</span>
   <p>Several of those processes carry enough operational detail to be worth taking individually, starting with the two most often confused. Detection and recording draw on monitoring tooling already in place, SIEM platforms, network monitoring, and intrusion detection and prevention systems, all working to reduce mean time to detection. The human channel matters just as much: end users need frictionless ways to report something suspicious, whether by help desk, email, or hotline. The principle is the one used on public transport, that if you see something, you say something, and it works only if reporting is easy enough that people actually bother.</p>
   <p>Events are then categorised and classified by severity, which differs between organisations according to business impact, ranging from minor issues to critical outages. Triage addresses the most critical first. A dedicated incident response team, sometimes called a CSIRT, needs both the skills and the delegated authority to act, and must document every step for the post-incident analysis that follows.</p>
@@ -778,7 +1022,7 @@
     <p>Communication obligations begin during the incident, not after it. Internally that means IT, security, HR, and corporate communications. Externally it may include partners and vendors, because they may themselves be data controllers whose customers are affected. If your organisation is acting as a <strong>processor</strong>, you must notify the <strong>controller</strong> without undue delay so that they can decide how to notify data subjects. The processor does not make that call.</p>
   </div>
 
-  <h3>Problem management in practice</h3>
+  <h3 id="s53-problem-management-in-practice">Problem management in practice</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Problem and Incident Management</span>
   <p>Identification runs in two directions. <strong>Proactive</strong> identification looks for problems before they cause incidents, analysing trends and patterns across previous incident data, system logs, and performance metrics. <strong>Reactive</strong> identification responds to recurring incidents, systemic issues, or significant outages already reported. Problems are then categorised by nature, whether hardware failure, software defect, network issue, or misconfiguration, which determines what resource is needed to resolve them, and prioritised by impact and urgency.</p>
   <p>Resolution addresses the root cause rather than the symptom, which in practice often means patching, reconfiguration, or updating training and awareness programmes. Temporary <strong>workarounds</strong> may mitigate impact while a permanent fix is developed. <strong>Knowledge management</strong> then captures what was learned into a knowledge base, which speeds resolution of similar problems and supplies the documented evidence that standards such as ISO/IEC 27001 require. The principle is blunt: if it is not documented, it did not happen.</p>
@@ -791,7 +1035,7 @@
     <p>A cloud service fails three times in a month. Each time, the on-call team restarts the service and users are back within minutes, which is incident management working correctly. Nobody asks why it keeps failing. Problem management is the discipline that investigates the memory leak causing all three, and its absence is why there will be a fourth.</p>
   </div>
 
-  <h3>Root cause analysis techniques</h3>
+  <h3 id="s54-root-cause-analysis-techniques">Root cause analysis techniques</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Problem and Incident Management; Ch 8 &rsaquo; IT Service Management and Continual Service Improvement</span>
   <p>Two techniques come up repeatedly, and they complement rather than compete with each other.</p>
   <p>The <strong>five whys</strong> follows a single causal chain by asking why repeatedly until the answer stops being a symptom. The <strong>fishbone diagram</strong>, also called Ishikawa, suits incidents with several contributing causes rather than one linear chain: plausible contributing categories are mapped broadly across headings such as people, process, technology, and policy or governance, and the one or two branches with the strongest evidence are then pursued with the five whys to reach something actionable.</p>
@@ -806,7 +1050,7 @@
     <p><strong>Root cause:</strong> a governance gap, specifically unassigned ownership of the IAM lifecycle and the absence of periodic entitlement review, which allowed over-permissioned roles to persist unnoticed. The developer's action was the symptom. Disciplining the developer would leave every other over-permissioned role in place and the same incident free to recur.</p>
   </div>
 
-  <h3>Release, deployment, and configuration in detail</h3>
+  <h3 id="s54-release-deployment-and-configuration-in-detail">Release, deployment, and configuration in detail</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management &rsaquo; Release and Deployment Management; Roles and Process</span>
   <p><strong>Release management</strong> begins with planning and scheduling: defining the scope and content of the release, identifying which features, updates, and fixes it carries, and setting timelines and resource requirements. A release calendar coordinates stakeholders and avoids clashing with other business activity. The design and build stage produces the release package, and testing then covers unit, integration, system, and user acceptance testing before anything moves. Training materials and documentation are part of the release, not an afterthought.</p>
   <p><strong>Deployment management</strong> moves the release into production, and the exam expects familiarity with the common strategies:</p>
@@ -826,7 +1070,7 @@
     <p>Incident management restores service fast. Problem management finds and eliminates the root cause so it stops happening. A scenario describing urgency and restoration wants incident management; one describing recurrence and underlying cause wants problem management. Equally, release management prepares and tests the release, deployment management puts it into production, and change management authorises it.</p>
   </div>
 
-  <h3>Availability and capacity management in detail</h3>
+  <h3 id="s54-availability-and-capacity-management-in-detail">Availability and capacity management in detail</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Monitoring, Capacity, and Maintenance; IT Service Management and Continual Service Improvement</span>
   <p><strong>Availability management</strong> optimises the capability of services, infrastructure, and the support organisation to deliver a cost-effective and sustained level of availability that lets the business meet its objectives. Its benefits run beyond uptime: fewer and shorter outages, better customer satisfaction, less time and resource consumed handling incidents, and a return on investment from preventive maintenance that avoids the far higher cost of emergency repair and lost productivity.</p>
   <div class="example-box">
@@ -847,7 +1091,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (digital forensics section), with related legal material in Chapter 9.</span>
   <h2>Collecting, acquiring, and preserving evidence that will hold up</h2>
 
-  <h3>Forensic data collection methodologies</h3>
+  <h3 id="s54-forensic-data-collection-methodologies">Forensic data collection methodologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition</span>
   <p>The central distinction is between <strong>live data acquisition</strong>, capturing data from a running system including volatile memory, network connections, and running processes, and <strong>static or dead acquisition</strong>, capturing data from a powered-down system. Live acquisition is necessary because volatile evidence such as memory contents, encryption keys held in RAM, and active network connections disappears the moment power is lost. This is why the standard incident response guidance is to contain while preserving rather than to shut systems down immediately.</p>
   <p><strong>Order of volatility</strong> governs collection sequence: capture the most transient evidence first, working from CPU registers and cache, through RAM and network state, to disk and finally archived media.</p>
@@ -864,11 +1108,11 @@
   </div>
 
 
-  <h3>Evidence management</h3>
+  <h3 id="s54-evidence-management">Evidence management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Evidence Preservation and Management</span>
   <p>Evidence management ensures digital evidence is collected, preserved, and presented so that its integrity and admissibility hold in legal contexts. <strong>Chain of custody</strong> is the core mechanism, documenting every person who handled the evidence, when, and why, demonstrating it was not tampered with.</p>
 
-  <h3>Collecting, acquiring, and preserving</h3>
+  <h3 id="s54-collecting-acquiring-and-preserving">Collecting, acquiring, and preserving</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition; Evidence Preservation and Management</span>
   <p>Collection is the initial gathering of evidence from its sources. Acquisition creates the working copy. Preservation protects the integrity of the evidence from collection through analysis to presentation in court, using three named techniques:</p>
   <ul class="plain">
@@ -881,7 +1125,7 @@
     <p>An investigator images a suspect volume through a write blocker, hashes both original and image, and confirms the values match. Every subsequent analysis runs against the image. If the defence later questions whether evidence was altered, the matching hashes and the custody log answer the question, which is precisely what makes the finding usable.</p>
   </div>
 
-  <h3>Handling evidence end to end</h3>
+  <h3 id="s54-handling-evidence-end-to-end">Handling evidence end to end</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Collection and Acquisition; Evidence Preservation and Management</span>
   <p>Those three techniques sit inside a wider sequence that the exam expects you to know in order: collection, transport, analysis, storage, and presentation. <strong>Collection</strong> begins with identification, determining what data is in scope for the investigation, then documentation of each item's location, condition, and the context it was found in, using photographs, video, or written notes as appropriate. The scene must be secured against unauthorised access or tampering, which may mean isolating devices, controlling entry points, and maintaining a log of everyone who enters. Handling uses write blockers, static-free bags, and secure containers so nothing changes state in transit.</p>
   <p><strong>Secure storage</strong> deserves more attention than it usually gets: access control restricting who can reach the evidence, physical measures such as locked cabinets and controlled-access rooms, environmental control of temperature and humidity to preserve the physical integrity of the media, and redundancy across locations to protect against hardware failure or disaster. <strong>Documentation</strong> throughout covers case notes, chain of custody records for each transfer, and the forensic analysis report itself, which must be detailed enough that another examiner could reproduce the findings.</p>
@@ -913,7 +1157,7 @@
     <li><strong>Other stakeholders</strong>, including internal leadership, staff, insurers, and where relevant law enforcement and the public.</li>
   </ul>
 
-  <h3>Communicating during an incident</h3>
+  <h3 id="s55-communicating-during-an-incident">Communicating during an incident</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Manage Communication with Relevant Parties; Ch 8 &rsaquo; Problem and Incident Management</span>
   <p>An incident produces obligations in several directions at once, on different clocks, and the audiences need different detail at different moments. That is why the channels have to exist beforehand rather than being improvised while the investigation is still running.</p>
   <div class="example-box">
@@ -930,11 +1174,11 @@
     <p>A telecom operator confirms a breach affecting customer data. Within the same window it must notify its regulator inside the statutory deadline, inform affected customers, brief its board, coordinate with the SaaS vendor whose platform was involved, and manage press enquiries. Each audience needs different detail at a different time, which is why the channels must exist before the incident rather than being improvised during it.</p>
   </div>
 
-  <h3>Subject access requests and the front line</h3>
+  <h3 id="s55-subject-access-requests-and-the-front-line">Subject access requests and the front line</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud; Ch 10 &rsaquo; Manage Communication with Relevant Parties</span>
   <p>A data subject access request starts a clock the moment it is made, and the organisation generally has one calendar month to respond. The practical difficulty is recognition rather than response, because a data subject is under no obligation to use the correct terminology. Someone asking what information you hold about them, or what address you have on file, has made a valid request whether or not they call it one. That makes front-line training a compliance control in itself, since the clock runs from the moment the question is asked rather than from the moment somebody senior recognises what it was.</p>
 
-  <h3>Communicating with regulators</h3>
+  <h3 id="s55-communicating-with-regulators">Communicating with regulators</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; U.S. Privacy and Security Laws; International Laws; Ch 10 &rsaquo; Manage Communication with Relevant Parties</span>
   <p>The <strong>Data Protection Officer</strong>, a role established under GDPR, is the conduit between the organisation and the supervisory authority, and the role exists in both controller and processor organisations. Reporting mechanisms have modernised, with the UK regulator now expecting breach reports through its online service rather than a form. Failing to report properly, or lacking an effective channel through a DPO, can attract a penalty in its own right, separate from any penalty for the breach itself and separate again from class action exposure brought by the data subjects.</p>
   <p>Communication with regulators is not solely reactive. Periodic compliance reports, readiness assessments, certification against ISO/IEC 27001 or schemes such as Cyber Essentials, and evidence of corrective action taken in response to earlier findings all maintain standing. Where an ISO/IEC 27001 audit raises <strong>non-conformities</strong>, whether major or minor, those findings and the response to them belong in the documentation.</p>
@@ -952,7 +1196,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 8, Operations Management (security operations centre, monitoring, and incident response sections). Penetration testing is named in the current exam outline and is included here.</span>
   <h2>Running the SOC and the assurance activities around it</h2>
 
-  <h3>Security Operations Centre</h3>
+  <h3 id="s56-security-operations-centre">Security Operations Centre</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Security Operations Center (SOC)</span>
   <p>A SOC is a centralised unit handling security issues at organisational and technical level, built on three components: <strong>people</strong>, meaning skilled analysts, incident responders, and managers; <strong>process</strong>, the defined procedures they follow; and <strong>technology</strong>, the tooling that gives them visibility and response capability. All three are required, and a common failure is investing in technology while under-resourcing the people and processes needed to use it.</p>
   <div class="example-box">
@@ -962,7 +1206,7 @@
 
   <p>The <strong>process</strong> element means documented playbooks for monitoring, incident response, and threat hunting. <strong>Threat hunting</strong> is the proactive half: analysts going looking for indicators rather than waiting for an alert, checking for signs such as lateral movement, privilege escalation, or the use of compression tools that typically precede exfiltration. A managed provider may trigger hunting activity in each customer environment on a defined cycle rather than only on suspicion. The <strong>technology</strong> element covers IDS and IPS, endpoint detection and response, SIEM, and threat intelligence feeds, both commercial and open source such as those published by national cyber security bodies.</p>
 
-  <h3>Building or buying a SOC</h3>
+  <h3 id="s56-building-or-buying-a-soc">Building or buying a SOC</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Security Operations Center (SOC); Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
   <p>Assembling all three elements is expensive, which is why the model itself is a decision rather than an assumption. Standing up an in-house SOC is a significant capital commitment, with industry estimates for a mature organisation of a thousand people or more running to several million in initial investment before ongoing staffing is counted. That cost, combined with a persistent global shortfall in qualified security staff, is why many organisations use a <strong>managed SOC</strong> from an MSSP, or a <strong>hybrid</strong> model pairing an internal team with external coverage outside working hours.</p>
   <div class="note-box">
@@ -972,7 +1216,7 @@
 
 
 
-  <h3>Intelligent monitoring of security controls</h3>
+  <h3 id="s56-intelligent-monitoring-of-security-controls">Intelligent monitoring of security controls</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Continuous Monitoring</span>
   <p>Intelligent monitoring uses advanced technology to continuously oversee and analyse security mechanisms, aiming to detect, prevent, and respond efficiently. By leveraging automation, machine learning, and artificial intelligence, organisations extend their capability beyond what manual review can achieve at cloud scale. The controls monitored include firewalls, IDS and IPS, honeypots, and network security groups. The consistent principle across this certification is that AI augments analysts rather than replacing them, handling volume so humans can concentrate on complex and novel cases.</p>
   <p>Those controls fall into four categories, a grouping that maps onto the 93 controls in <strong>Annex A of ISO/IEC 27001</strong> and is worth carrying into the exam:</p>
@@ -993,7 +1237,7 @@
 
 
 
-  <h3>Log capture and analysis</h3>
+  <h3 id="s56-log-capture-and-analysis">Log capture and analysis</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>Log management runs through collection, storage, analysis, and response. <strong>SIEM</strong> platforms aggregate and correlate logs from across the environment, turning isolated events into detectable patterns. <strong>Threat intelligence</strong> supplies external context about active threats and indicators of compromise, sharpening what the SIEM is looking for. Log storage must be secure and tamper-resistant, since altering logs is among an attacker's first moves.</p>
   <p>The full process runs through <strong>collection</strong> from applications, network devices, and servers; <strong>secure and scalable storage</strong> preserving integrity and access control at the volumes cloud generates; <strong>analysis</strong> to identify patterns and anomalies, increasingly assisted by machine learning; <strong>real-time monitoring</strong> so indicators of compromise are acted on before they escalate; <strong>compliance and auditing</strong>, where the log trail is the evidence; and <strong>integration with incident response</strong>, so that a detection reaches the response team through a defined escalation path rather than sitting in a queue.</p>
@@ -1007,7 +1251,7 @@
   </div>
 
 
-  <h3>Incident response</h3>
+  <h3 id="s56-incident-response">Incident response</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Managing Security Operations &rsaquo; Incident Management; Ch 8 &rsaquo; Problem and Incident Management</span>
   <p>Incident response follows preparation, detection and analysis, containment, eradication, recovery, and post-incident review. The order matters: containment comes before eradication, and evidence preservation runs alongside containment rather than after it, because volatile evidence is lost when systems are shut down or rebuilt. The post-incident review is what feeds improvement back into preparation.</p>
   <div class="example-box">
@@ -1020,7 +1264,7 @@
   </div>
 
 
-  <h3>Vulnerability assessments</h3>
+  <h3 id="s56-vulnerability-assessments">Vulnerability assessments</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Vulnerability Assessment Tools; Assessing Vulnerabilities</span>
   <p>Vulnerability assessment proceeds through identification of assets, scanning for vulnerabilities, risk assessment of what was found, and remediation. It is particularly important in cloud, where resources are dynamically scaled and updated, so the asset inventory changes continuously and a scan is only accurate for the moment it ran. Assessment is broad and automated, identifying known weaknesses across the estate.</p>
   <div class="example-box">
@@ -1035,7 +1279,7 @@
 
 
 
-  <h3>Penetration testing</h3>
+  <h3 id="s56-penetration-testing">Penetration testing</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition. Ch 5 &rsaquo; Vulnerability Assessment Tools is the closest coverage.</span>
   <p>Penetration testing goes further than assessment by actively exploiting weaknesses to demonstrate real impact, showing what an attacker could actually achieve rather than what might theoretically be possible. It may be conducted black-box, grey-box, or white-box depending on how much information the tester is given. In cloud, penetration testing carries an additional constraint: the provider's rules of engagement govern what may be tested, since the infrastructure is shared and testing beyond the customer's own scope would affect other tenants.</p>
   <div class="note-box">
@@ -1044,6 +1288,9 @@
   </div>
 </div>
 
+
+      </div><!-- /.study-body -->
+    </div><!-- /.study-layout -->
 
   </div>
   <!-- END STUDY TAB -->
@@ -2679,6 +2926,124 @@ const quizData = {
     }
 };
 
+
+  // ---------- Study index sidebar ----------
+  (function studyIndexInit(){
+    const idx = document.getElementById('study-index');
+    if(!idx) return;
+
+    const bar       = document.querySelector('.stickynav');
+    const backdrop  = document.getElementById('idx-backdrop');
+    const openBtn   = document.getElementById('idx-open');
+    const closeBtn  = document.getElementById('idx-close');
+    const objs      = Array.from(idx.querySelectorAll('.idx-obj'));
+    const links     = Array.from(idx.querySelectorAll('.idx-sub a'));
+    const isDrawer  = () => window.matchMedia('(max-width:1000px)').matches;
+
+    // keep the sticky offset in sync with the actual top bar height
+    function measure(){
+      if(bar){
+        document.documentElement.style.setProperty('--topbar-h', Math.round(bar.getBoundingClientRect().height) + 'px');
+      }
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    if(window.ResizeObserver && bar){ new ResizeObserver(measure).observe(bar); }
+
+    // drawer open/close on narrow screens
+    function openDrawer(){ idx.classList.add('open'); backdrop.classList.add('show'); }
+    function closeDrawer(){ idx.classList.remove('open'); backdrop.classList.remove('show'); }
+    if(openBtn)  openBtn.addEventListener('click', openDrawer);
+    if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if(backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+    // accordion: one objective open at a time
+    function openObj(li, {scrollIntoView = false} = {}){
+      objs.forEach(o => {
+        const on = (o === li);
+        o.classList.toggle('open', on);
+        const b = o.querySelector('button');
+        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      });
+      if(scrollIntoView && li && !isDrawer()){
+        const r = li.getBoundingClientRect(), ir = idx.getBoundingClientRect();
+        if(r.top < ir.top || r.bottom > ir.bottom){
+          idx.scrollTop += (r.top - ir.top) - 12;
+        }
+      }
+    }
+
+    objs.forEach(li => {
+      li.querySelector('button').addEventListener('click', () => {
+        if(li.classList.contains('open')){
+          const t = document.getElementById(li.dataset.obj);
+          if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+          if(isDrawer()) closeDrawer();
+        } else {
+          openObj(li);
+        }
+      });
+    });
+
+    // section links
+    links.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){
+          t.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', a.getAttribute('href'));
+        }
+        if(isDrawer()) closeDrawer();
+      });
+    });
+
+    // scrollspy over objective anchors and section headings
+    const targets = links
+      .map(a => ({link: a, el: document.querySelector(a.getAttribute('href'))}))
+      .filter(t => t.el);
+
+    let ticking = false;
+    function spy(){
+      ticking = false;
+      const offset = (parseInt(getComputedStyle(document.documentElement)
+                      .getPropertyValue('--topbar-h'), 10) || 104) + 40;
+      let current = null;
+      for(const t of targets){
+        if(t.el.getBoundingClientRect().top <= offset) current = t;
+        else break;
+      }
+      if(!current && targets.length) current = targets[0];
+      links.forEach(a => a.classList.remove('active'));
+      objs.forEach(o => o.classList.remove('current'));
+      if(current){
+        current.link.classList.add('active');
+        const li = current.link.closest('.idx-obj');
+        li.classList.add('current');
+        if(!li.classList.contains('open')) openObj(li, {scrollIntoView:true});
+      }
+    }
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(spy); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+
+    // open the first objective by default, or the one named in the URL
+    const fromHash = location.hash && idx.querySelector('.idx-sub a[href="' + location.hash + '"]');
+    openObj(fromHash ? fromHash.closest('.idx-obj') : objs[0]);
+    spy();
+
+    // re-run the spy when returning to the study tab
+    document.querySelectorAll('.tabbtn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.tab === 'study'){ measure(); setTimeout(spy, 30); }
+        else { closeDrawer(); }
+      });
+    });
+  })();
+
   // Tab switching
   document.querySelectorAll('.tabbtn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2687,15 +3052,6 @@ const quizData = {
       btn.classList.add('active');
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
       window.scrollTo({top: 0, behavior: 'auto'});
-    });
-  });
-
-  // Study subnav smooth scroll (stay within study tab)
-  document.querySelectorAll('.study-subnav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
 

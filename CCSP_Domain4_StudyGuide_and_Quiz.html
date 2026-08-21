@@ -30,9 +30,17 @@
     line-height:1.6;
   }
   .page{
-    max-width:880px;
+    max-width:1180px;
     margin:0 auto;
     padding:2.5rem 1.5rem 4rem;
+  }
+  .page > .masthead,
+  .page > .stickynav,
+  .page > .pagernav,
+  #tab-quiz{
+    max-width:880px;
+    margin-left:auto;
+    margin-right:auto;
   }
   .masthead{
     margin-bottom:1rem;
@@ -334,6 +342,167 @@
   }
   .study-subnav a:hover{ border-color:var(--navy-light); background:#F4F7FC; }
 
+
+  /* ---------- STUDY INDEX SIDEBAR ---------- */
+  :root{ --topbar-h:104px; }
+
+  .study-layout{
+    display:grid;
+    grid-template-columns:250px minmax(0,1fr);
+    gap:2.25rem;
+    align-items:start;
+  }
+  .study-body{ min-width:0; max-width:880px; }
+
+  .study-index{
+    position:sticky;
+    top:calc(var(--topbar-h) + 12px);
+    max-height:calc(100vh - var(--topbar-h) - 32px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:.9rem .75rem 1rem;
+  }
+  .study-index::-webkit-scrollbar{ width:6px; }
+  .study-index::-webkit-scrollbar-thumb{ background:var(--border); border-radius:4px; }
+  .study-index::-webkit-scrollbar-thumb:hover{ background:var(--navy-light); }
+  .study-index{ scrollbar-width:thin; }
+
+  .idx-title{
+    font-size:11px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    font-weight:700;
+    color:var(--text-muted);
+    margin:0 0 .6rem .35rem;
+  }
+  .study-index ul{ list-style:none; margin:0; padding:0; }
+
+  .idx-obj > button{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    width:100%;
+    text-align:left;
+    font:inherit;
+    font-size:12.8px;
+    font-weight:700;
+    color:var(--navy);
+    background:none;
+    border:0;
+    border-radius:6px;
+    padding:.4rem .45rem;
+    cursor:pointer;
+    line-height:1.35;
+  }
+  .idx-obj > button:hover{ background:#F4F7FC; }
+  .idx-obj > button .caret{
+    flex-shrink:0;
+    width:9px;
+    height:9px;
+    border-right:1.6px solid currentColor;
+    border-bottom:1.6px solid currentColor;
+    transform:rotate(-45deg);
+    transition:transform .18s ease;
+    opacity:.55;
+    margin-top:-2px;
+  }
+  .idx-obj.open > button .caret{ transform:rotate(45deg); }
+  .idx-obj.current > button{ background:#EEF3FB; }
+
+  .idx-sub{ display:none; margin:.1rem 0 .5rem; }
+  .idx-obj.open .idx-sub{ display:block; }
+  .idx-sub a{
+    display:block;
+    font-size:12.4px;
+    line-height:1.4;
+    color:var(--text-secondary);
+    text-decoration:none;
+    padding:.3rem .45rem .3rem 1.35rem;
+    border-left:2px solid transparent;
+    border-radius:0 6px 6px 0;
+  }
+  .idx-sub a:hover{ background:#F4F7FC; color:var(--navy); }
+  .idx-sub a.active{
+    color:var(--navy);
+    font-weight:600;
+    background:#EEF3FB;
+    border-left-color:var(--navy);
+  }
+
+  /* headings clear the sticky top bar when jumped to */
+  #tab-study h3[id], #tab-study a[id]{ scroll-margin-top:calc(var(--topbar-h) + 16px); }
+
+  /* drawer toggle, hidden on desktop */
+  .idx-toggle{
+    display:none;
+    align-items:center;
+    gap:.45rem;
+    font:inherit;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--navy);
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:6px 14px;
+    margin-bottom:1.1rem;
+    cursor:pointer;
+  }
+  .idx-toggle:hover{ border-color:var(--navy-light); background:#F4F7FC; }
+  .idx-backdrop{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.38);
+    z-index:40;
+  }
+  .idx-backdrop.show{ display:block; }
+
+  @media (max-width:1000px){
+    .study-layout{ display:block; }
+    .idx-toggle{ display:inline-flex; }
+    .study-body{ max-width:none; }
+    .study-index{
+      position:fixed;
+      top:0;
+      left:0;
+      bottom:0;
+      width:290px;
+      max-width:86vw;
+      max-height:none;
+      z-index:41;
+      border-radius:0;
+      border-width:0 1px 0 0;
+      padding:1.1rem .85rem 2rem;
+      transform:translateX(-100%);
+      transition:transform .22s ease;
+      box-shadow:0 0 24px rgba(15,23,42,.16);
+    }
+    .study-index.open{ transform:translateX(0); }
+    .idx-close{
+      display:block;
+      position:absolute;
+      top:.6rem;
+      right:.65rem;
+      font:inherit;
+      font-size:20px;
+      line-height:1;
+      color:var(--text-muted);
+      background:none;
+      border:0;
+      cursor:pointer;
+      padding:.2rem .35rem;
+    }
+  }
+  .idx-close{ display:none; }
+
+  @media (prefers-reduced-motion:reduce){
+    .study-index, .idx-obj > button .caret{ transition:none; }
+  }
+
   /* ---------- QUIZ TAB ---------- */
   .quiz-header{
     display:flex;
@@ -502,15 +671,92 @@
   <!-- ===================== STUDY TAB ===================== -->
   <div class="tabpanel active" id="tab-study">
 
-    <div class="study-subnav">
-      <a href="#s41">4.1 Training and awareness</a>
-      <a href="#s42">4.2 Secure SDLC process</a>
-      <a href="#s43">4.3 Applying the SDLC</a>
-      <a href="#s44">4.4 Assurance and validation</a>
-      <a href="#s45">4.5 Verified secure software</a>
-      <a href="#s46">4.6 Application architecture</a>
-      <a href="#s47">4.7 IAM solutions</a>
-    </div>
+    <button class="idx-toggle" type="button" id="idx-open">&#9776; Sections</button>
+    <div class="idx-backdrop" id="idx-backdrop"></div>
+
+    <div class="study-layout">
+      <aside class="study-index" id="study-index" aria-label="Section index">
+        <button class="idx-close" type="button" id="idx-close" aria-label="Close index">&times;</button>
+        <p class="idx-title">On this page</p>
+        <ul>
+      <li class="idx-obj" data-obj="s41">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.1 Training and awareness for application security</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s41">Overview</a></li>
+          <li><a href="#s41-cloud-development-basics">Cloud development basics</a></li>
+          <li><a href="#s41-common-pitfalls">Common pitfalls</a></li>
+          <li><a href="#s41-common-cloud-vulnerabilities-and-the-reference-lists">Common cloud vulnerabilities and the reference lists</a></li>
+          <li><a href="#s41-owasp-top-10-web-applications">OWASP Top 10 (web applications)</a></li>
+          <li><a href="#s41-owasp-application-security-verification-standard-asvs">OWASP Application Security Verification Standard (ASVS)</a></li>
+          <li><a href="#s41-owasp-top-10-api-security-risks">OWASP Top 10 API Security Risks</a></li>
+          <li><a href="#s41-owasp-top-10-for-large-language-model-applications">OWASP Top 10 for Large Language Model Applications</a></li>
+          <li><a href="#s41-sans-top-25-cwe-most-dangerous-software-errors">SANS Top 25 (CWE Most Dangerous Software Errors)</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s42">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.2 The Secure Software Development Life Cycle</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s42">Overview</a></li>
+          <li><a href="#s42-business-requirements">Business requirements</a></li>
+          <li><a href="#s42-phases">Phases</a></li>
+          <li><a href="#s42-methodologies">Methodologies</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s43">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.3 Applying the Secure SDLC</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s43">Overview</a></li>
+          <li><a href="#s43-cloud-specific-risks">Cloud-specific risks</a></li>
+          <li><a href="#s43-threat-modeling-techniques">Threat modeling techniques</a></li>
+          <li><a href="#s43-secure-coding-standards">Secure coding standards</a></li>
+          <li><a href="#s43-software-configuration-management-and-versioning">Software configuration management and versioning</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s44">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.4 Cloud software assurance and validation</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s44">Overview</a></li>
+          <li><a href="#s44-functional-and-non-functional-testing">Functional and non-functional testing</a></li>
+          <li><a href="#s44-knowledge-based-testing-perspectives">Knowledge-based testing perspectives</a></li>
+          <li><a href="#s44-security-testing-methodologies">Security testing methodologies</a></li>
+          <li><a href="#s44-quality-assurance-and-abuse-case-testing">Quality assurance and abuse case testing</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s45">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.5 Using verified secure software</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s45">Overview</a></li>
+          <li><a href="#s45-securing-apis">Securing APIs</a></li>
+          <li><a href="#s45-supply-chain-management">Supply chain management</a></li>
+          <li><a href="#s45-third-party-software-management-and-open-source">Third-party software management and open source</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s46">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.6 Cloud application architecture</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s46">Overview</a></li>
+          <li><a href="#s46-supplemental-security-components">Supplemental security components</a></li>
+          <li><a href="#s46-cryptography">Cryptography</a></li>
+          <li><a href="#s46-sandboxing">Sandboxing</a></li>
+          <li><a href="#s46-application-virtualisation-and-orchestration">Application virtualisation and orchestration</a></li>
+        </ul>
+      </li>
+      <li class="idx-obj" data-obj="s47">
+        <button type="button" aria-expanded="false"><span class="caret" aria-hidden="true"></span><span>4.7 Identity and Access Management solutions</span></button>
+        <ul class="idx-sub">
+          <li><a href="#s47">Overview</a></li>
+          <li><a href="#s47-federated-identity">Federated identity</a></li>
+          <li><a href="#s47-identity-providers">Identity providers</a></li>
+          <li><a href="#s47-single-sign-on">Single sign-on</a></li>
+          <li><a href="#s47-multi-factor-authentication">Multi-factor authentication</a></li>
+          <li><a href="#s47-cloud-access-security-broker">Cloud Access Security Broker</a></li>
+          <li><a href="#s47-secrets-key-and-certificate-management">Secrets, key, and certificate management</a></li>
+        </ul>
+      </li>
+        </ul>
+      </aside>
+
+      <div class="study-body">
 
     <a id="s41"></a>
 
@@ -520,7 +766,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (training and awareness, common pitfalls, and common vulnerabilities sections). The OWASP Top 10 for Large Language Model Applications is new to the August 2026 outline and is not covered in the 3rd Edition.</span>
   <h2>Building a security-aware development culture</h2>
 
-  <h3>Cloud development basics</h3>
+  <h3 id="s41-cloud-development-basics">Cloud development basics</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Developing Software for the Cloud</span>
   <p>The Cloud Security Alliance and SAFECode identify collaborative accountability as the foundation of a security-conscious development programme, built on three components:</p>
   <ul class="plain">
@@ -529,7 +775,7 @@
     <li><strong>Security as a business objective</strong>, where security is central to business operations rather than a part of them, and every business goal carries a security element.</li>
   </ul>
 
-  <h3>Common pitfalls</h3>
+  <h3 id="s41-common-pitfalls">Common pitfalls</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Cloud Application Deployment Pitfalls</span>
   <p>The primary pitfall is failure to secure immediate and ongoing support from upper management. If senior leadership does not approve and adhere to security policies, and does not adequately fund and staff security work aligned to organisational goals, efforts to build a security culture will fail. Other recurring pitfalls include not understanding the organisation's culture, since even businesses in the same sector differ; inconsistency across teams when no established secure development framework exists; and cutting training programmes when there is no immediate consequence. A committed organisation finds ways to sustain awareness training under financial pressure, for example through online course subscriptions rather than abandoning it.</p>
   <div class="example-box">
@@ -550,11 +796,11 @@
   anyone wanting to understand the social engineering side properly, the writings of Kevin Mitnick, including
   Ghost in the Wires and The Art of Deception, are the standard first-hand accounts.</p>
 
-  <h3>Common cloud vulnerabilities and the reference lists</h3>
+  <h3 id="s41-common-cloud-vulnerabilities-and-the-reference-lists">Common cloud vulnerabilities and the reference lists</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Assurance and Validation &rsaquo; Common Threats to Applications</span>
   <p>Cloud's reliance on network systems exposes it to data breaches, compromised integrity, insecure APIs, and denial of service, with applications and transmissions operating in potentially hostile environments. Five reference lists are named in the outline. Each is set out in full below, since the exam expects recognition of individual entries rather than the list's general purpose.</p>
 
-  <h3>OWASP Top 10 (web applications)</h3>
+  <h3 id="s41-owasp-top-10-web-applications">OWASP Top 10 (web applications)</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications</span>
   <p>The most widely used catalogue of critical web application security risks. The current edition is organised as ten categories rather than ten individual bugs.</p>
   <ul class="plain">
@@ -610,11 +856,11 @@
     <p>A01 Broken Access Control and A07 Identification and Authentication Failures are frequently confused. Authentication asks who you are; access control asks what you may do once identified. A user correctly logged in who then reaches another customer's data is an access control failure, not an authentication one.</p>
   </div>
 
-  <h3>OWASP Application Security Verification Standard (ASVS)</h3>
+  <h3 id="s41-owasp-application-security-verification-standard-asvs">OWASP Application Security Verification Standard (ASVS)</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p>Not a risk list but a verification framework, giving developers and testers a common standard of security requirements to assess an application against. It is organised into levels of increasing rigour, so an organisation can state which level a given application must meet. Where the Top 10 raises awareness of what commonly goes wrong, ASVS defines what must be demonstrably right.</p>
 
-  <h3>OWASP Top 10 API Security Risks</h3>
+  <h3 id="s41-owasp-top-10-api-security-risks">OWASP Top 10 API Security Risks</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Programming Interfaces; Common Threats to Applications</span>
   <p>APIs fail differently from web front ends, chiefly because authorisation must be enforced per object and per function on every endpoint rather than once at a page boundary.</p>
   <ul class="plain">
@@ -630,7 +876,7 @@
     <li><strong>API10 Unsafe Consumption of APIs</strong>, trusting responses from third-party APIs without validation. <span class="li-eg"><span class="label">Example</span>passing a partner API's response straight into a database query.</span></li>
   </ul>
 
-  <h3>OWASP Top 10 for Large Language Model Applications</h3>
+  <h3 id="s41-owasp-top-10-for-large-language-model-applications">OWASP Top 10 for Large Language Model Applications</h3>
   <span class="sec-ref none"><b>Study guide:</b> Not covered in the 3rd Edition.</span>
   <p>New to this exam outline. The current edition is the 2025 release, and several categories were renamed from the original 2023 list, so material written before then uses different names for the same risks.</p>
   <ul class="plain">
@@ -650,7 +896,7 @@
     <p>Keep prompt injection and improper output handling apart, since both appear together in options. Prompt injection is manipulation arriving on the way in. Improper output handling is failure to validate on the way out. A single incident often involves both, and the question will describe which end it means. Note also that older material calls LLM05 insecure output handling, LLM04 training data poisoning, and LLM10 model denial of service.</p>
   </div>
 
-  <h3>SANS Top 25 (CWE Most Dangerous Software Errors)</h3>
+  <h3 id="s41-sans-top-25-cwe-most-dangerous-software-errors">SANS Top 25 (CWE Most Dangerous Software Errors)</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications</span>
   <p>Maintained as the CWE Top 25, this list catalogues the specific coding weaknesses behind most exploited vulnerabilities. Where the OWASP lists describe risks in deployed applications, this one names the underlying implementation defects, which is why it is aimed at developers rather than architects. Recurring entries include out-of-bounds write and out-of-bounds read, cross-site scripting, SQL injection, use after free, OS command injection, improper input validation, cross-site request forgery, path traversal, unrestricted upload of dangerous file types, missing authorisation, integer overflow, deserialisation of untrusted data, and use of hard-coded credentials. For the exam, recognise its purpose and its developer orientation rather than memorising the ranking, which is re-ordered annually.</p>
   <div class="note-box">
@@ -675,11 +921,11 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (SDLC business requirements, phases, and methodologies sections).</span>
   <h2>Requirements, phases, and methodologies</h2>
 
-  <h3>Business requirements</h3>
+  <h3 id="s42-business-requirements">Business requirements</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud-Secure Software Development Lifecycle (SDLC)</span>
   <p>Gathering, reviewing, and understanding business requirements is essential to meeting organisational goals and customer expectations, whether for a new system or an improvement to an existing one. At conception, the requirements must rest on a comprehensive understanding of the project's necessity, its objectives, and its target audience, and should incorporate feedback from as many stakeholders as possible. Security requirements belong in this gathering alongside functional ones, because a requirement discovered late costs far more to satisfy than one captured at the start.</p>
 
-  <h3>Phases</h3>
+  <h3 id="s42-phases">Phases</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Phases</span>
   <p>Any SDLC, including a secure SDLC, runs through a common set of phases: requirements gathering, design, development or coding, testing, deployment, and maintenance through to eventual retirement. What makes an SSDLC distinct is that security activity attaches to every phase rather than appearing only at testing.</p>
 
@@ -693,7 +939,7 @@
   after release including operational monitoring and ongoing maintenance; most of an application's security
   life happens here rather than during development.</p>
 
-  <h3>Methodologies</h3>
+  <h3 id="s42-methodologies">Methodologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Models</span>
   <ul class="plain">
     <li><strong>Waterfall</strong>, a sequential and linear approach where each phase completes before the next begins. Predictable and well documented, but slow to accommodate change once underway.</li>
@@ -722,11 +968,11 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (cloud-specific risks, threat modeling, secure coding, and configuration management sections).</span>
   <h2>Cloud-specific risks, threat modeling, secure coding, and configuration management</h2>
 
-  <h3>Cloud-specific risks</h3>
+  <h3 id="s43-cloud-specific-risks">Cloud-specific risks</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Common Threats to Applications; Ch 4 &rsaquo; Cloud Computing Risks by Service Model</span>
   <p>Risks that arise specifically from using cloud services include data breaches; insufficient identity, credential, and access management; insecure interfaces and APIs; system vulnerabilities; compliance risks; data sovereignty; vendor lock-in; service reliability; scalability issues; cost management; and integration challenges. The outline also names shared technology issues, provider insider threats, lack of visibility and control, and legal and jurisdictional issues.</p>
 
-  <h3>Threat modeling techniques</h3>
+  <h3 id="s43-threat-modeling-techniques">Threat modeling techniques</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Assurance and Validation &rsaquo; Threat Modeling</span>
   <p>Four techniques are named, and the exam relies on you distinguishing what each actually does:</p>
   <ul class="plain">
@@ -772,11 +1018,11 @@
     its attack surface is usually the optimistic one, and external intelligence is what corrects it.</p>
   </div>
 
-  <h3>Secure coding standards</h3>
+  <h3 id="s43-secure-coding-standards">Secure coding standards</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>OWASP ASVS</strong> provides a comprehensive framework for evaluating the technical security measures in web applications, giving development and testing teams a common, standardised basis for verification. <strong>SAFECode</strong> is a forum where company executives and technical experts share knowledge and collaborate on developing, improving, and promoting scalable and effective software security programmes, helping businesses establish or improve their own.</p>
 
-  <h3>Software configuration management and versioning</h3>
+  <h3 id="s43-software-configuration-management-and-versioning">Software configuration management and versioning</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Change and Configuration Management</span>
   <p>Versioning and configuration management matter for any system, and take on added significance in cloud because rapid provisioning and self-elasticity make it easy for environments to drift apart. System stability and cohesiveness become paramount. In traditional data centres, upgrades and patches are applied directly to existing servers and hosts. In cloud, the immutable pattern is preferred: deploy a new, correctly configured instance and retire the old one, so that every running instance matches a known version rather than accumulating undocumented change.</p>
   <div class="example-box">
@@ -792,12 +1038,12 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (testing, quality assurance, and abuse case sections). SAST, DAST, IAST, and SCA are named in the current exam outline and are covered here alongside the white, grey, and black-box perspectives.</span>
   <h2>Testing what was built, and testing how it can be abused</h2>
 
-  <h3>Functional and non-functional testing</h3>
+  <h3 id="s44-functional-and-non-functional-testing">Functional and non-functional testing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>Functional testing</strong> is a focused assessment of a particular function or component, checking that the system does what its functional requirements say it should. In cloud projects this carries extra considerations, notably understanding the legal and regulatory requirements that apply. <strong>Non-functional testing</strong> covers the aspects functional testing does not: performance, usability, and dependability. Where functional testing examines precise behaviours against requirements, non-functional testing establishes how the system performs and whether it is ready for use.</p>
   <p><strong>CI/CD</strong> processes automate build, test, and deployment so that changes are validated continuously rather than in a large batch before release, which is what makes frequent secure delivery practical.</p>
 
-  <h3>Knowledge-based testing perspectives</h3>
+  <h3 id="s44-knowledge-based-testing-perspectives">Knowledge-based testing perspectives</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <ul class="plain">
     <li><strong>White-box testing</strong>, conducted with full knowledge of the internal structure, source code, and design.</li>
@@ -817,7 +1063,7 @@
   <strong>grey-box</strong> test sits between the two, with partial knowledge of defences or architecture but
   no source code access, and is the usual choice for integration and application penetration testing.</p>
 
-  <h3>Security testing methodologies</h3>
+  <h3 id="s44-security-testing-methodologies">Security testing methodologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p>These are the tool-based methodologies named in the outline, and they are distinguished by what they examine and when:</p>
   <ul class="plain">
@@ -831,7 +1077,7 @@
     <p>Anchor each to what it inspects. SAST reads code without running it. DAST attacks the running app without reading code. IAST instruments the running app and sees both. SCA looks at dependencies, not your own code. A question about a vulnerable third-party library wants SCA, not SAST.</p>
   </div>
 
-  <h3>Quality assurance and abuse case testing</h3>
+  <h3 id="s44-quality-assurance-and-abuse-case-testing">Quality assurance and abuse case testing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p><strong>QA</strong> encompasses planning, evaluation, and inspection to guarantee the constructed system meets its quality requirements, applying across all cloud deployment models. <strong>Abuse case testing</strong> inverts the perspective: rather than confirming the software does what it should, testers compile a list of known misuse cases and actively attempt to exploit them using manual or automated attack techniques. It asks what an attacker would try, not what a user is meant to do.</p>
   <div class="example-box">
@@ -846,7 +1092,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (API security, supply chain, and third-party software sections), with vendor management material in Chapter 10.</span>
   <h2>APIs, supply chain, third-party software, and open source</h2>
 
-  <h3>Securing APIs</h3>
+  <h3 id="s45-securing-apis">Securing APIs</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Architecture &rsaquo; Application Programming Interfaces</span>
   <p>API security is central to overall application security. Introducing inadequately secured APIs, particularly when integrating APIs outside the application's own control or security boundary, poses significant risk and can jeopardise the entire dataset within the application, leading to exposure or loss. Practical controls include strong authentication and authorisation on every endpoint, input validation, rate limiting and throttling, TLS for all traffic, and careful review of what each endpoint returns, since excessive data exposure is a leading API weakness.</p>
 
@@ -863,7 +1109,7 @@
     a game of whack-a-mole against the same systemic flaw.</p>
   </div>
 
-  <h3>Supply chain management</h3>
+  <h3 id="s45-supply-chain-management">Supply chain management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Supply Chain Management and Licensing</span>
   <p>Supply chain management has two aspects. First, a provider, and potentially the customer, will engage third-party providers to deliver services, so a provider often relies on other vendors to supply what its customers ultimately consume. This encompasses vendor risk management when establishing those relationships. Second, cloud itself extends the reach of supply chain management, since globally interconnected supply chains need access to primary and secondary sources and cloud infrastructure improves the efficiency of coordinating them. The security concern is that your risk extends through providers you have no contract with.</p>
   <div class="example-box">
@@ -884,7 +1130,7 @@
     when the assessment misses one.</p>
   </div>
 
-  <h3>Third-party software management and open source</h3>
+  <h3 id="s45-third-party-software-management-and-open-source">Third-party software management and open source</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Software &rsaquo; Third-Party Software Management; Validating Open-Source Software</span>
   <p>Cloud shifts software from local installation toward remote hosted services, which changes how licensing works: cloud-based licensing is efficient enough that end users often need not navigate separate licence processes, making licensing effectively invisible from their perspective. That convenience does not remove the obligation to track what is in use.</p>
   <p>Open-source software is pervasive in cloud, with developers relying on open-source applications, toolsets, and frameworks. What distinguishes the most widely used packages is the rigour of their development process, including peer review and active maintenance. <strong>Validated</strong> open source means components that have been assessed for provenance, maintenance status, and known vulnerabilities before adoption, rather than pulled in simply because they solve the immediate problem. Software Composition Analysis and a maintained Software Bill of Materials are the practical mechanisms for keeping that inventory current.</p>
@@ -896,7 +1142,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (supplemental security devices, cryptography, sandboxing, and application virtualization sections).</span>
   <h2>Supplemental components, cryptography, sandboxing, and orchestration</h2>
 
-  <h3>Supplemental security components</h3>
+  <h3 id="s46-supplemental-security-components">Supplemental security components</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Architecture &rsaquo; Supplemental Security Components</span>
   <p>These devices augment a defence-in-depth architecture, where multiple overlapping layers of security mutually reinforce one another.</p>
   <ul class="plain">
@@ -940,7 +1186,7 @@
     actually deploy.</p>
   </div>
 
-  <h3>Cryptography</h3>
+  <h3 id="s46-cryptography">Cryptography</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Cloud Application Architecture</span>
   <p>Cloud systems operate across trusted and untrusted networks, which can be described as hostile or semi-hostile environments, so encryption is essential for data stored within and transmitted between cloud services. Three encryption scopes are distinguished:</p>
   <ul class="plain">
@@ -949,7 +1195,7 @@
     <li><strong>File or directory encryption</strong>, encrypting an individual file or directory.</li>
   </ul>
 
-  <h3>Sandboxing</h3>
+  <h3 id="s46-sandboxing">Sandboxing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
   <p>Sandboxing is the segregation and isolation of information or processes within the same system or application for security purposes. It isolates different communities and user populations from one another's data, and the requirement can be driven internally by organisational policy or externally by regulation. It is also the standard technique for safely executing untrusted code or analysing suspected malware.</p>
 
@@ -960,7 +1206,7 @@
   near production risks exactly the spread the analysis is meant to prevent. Sandboxing becomes more important
   in cloud, not less, because physical network separation is generally unavailable as a fallback.</p>
 
-  <h3>Application virtualisation and orchestration</h3>
+  <h3 id="s46-application-virtualisation-and-orchestration">Application virtualisation and orchestration</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
   <p>Infrastructure virtualisation underpins cloud computing, while containerisation underpins many cloud application architectures including microservices. Containers separate corporate data and software from the user's device, which lets an organisation remotely wipe corporate data, applications, and access without touching the employee's personal content, a meaningful protection for both parties. Orchestration software manages containers and applications at scale and plays a critical role in enforcing security and compliance with the organisation's secure computing policies, letting customers oversee all their cloud resources from a central platform. Kubernetes is the dominant orchestration platform, and securing it, along with the container registry and the images themselves, is part of securing the application.</p>
 </div>
@@ -971,7 +1217,7 @@
   <span class="book-ref"><i>Study guide reference:</i> Maps to Chapter 6, Cloud Application Security (identity and access management, federated identity, and multifactor authentication sections).</span>
   <h2>Federation, identity providers, SSO, MFA, CASB, and secrets</h2>
 
-  <h3>Federated identity</h3>
+  <h3 id="s47-federated-identity">Federated identity</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Federated Identity Management</span>
   <p>Federated identity works much like single sign-on, with one digital identity granting access to multiple systems, but it extends across boundaries: a federated identity can reach applications across different cloud providers, multi-cloud resources, and on-premises systems, and it enables single sign-on across systems belonging to different organisations. Both the on-premises IAM system and the IAM systems of each cloud vendor must be closely safeguarded against unauthorised use. Federation carries the same drawback as SSO in amplified form: when one federated system is compromised, that compromise exposes vulnerabilities across all the federated systems.</p>
 
@@ -984,15 +1230,15 @@
   in a self-contained environment, and why the on-premises IAM and each provider's IAM both need safeguarding
   against overlapping or unauthorised use.</p>
 
-  <h3>Identity providers</h3>
+  <h3 id="s47-identity-providers">Identity providers</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Identity Providers</span>
   <p>An identity provider may be a provider's own service or a third-party service. In multi-cloud scenarios a third-party identity provider is often the most efficient choice, since it gives one unified solution across providers rather than several separate ones. Identity providers complement rather than replace existing cloud security technologies such as CASBs.</p>
 
-  <h3>Single sign-on</h3>
+  <h3 id="s47-single-sign-on">Single sign-on</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Single Sign-On</span>
   <p>SSO streamlines access to all approved systems within a single IAM system after one authentication, letting users move between systems without re-authenticating. Because one credential now opens many doors, monitoring all access within an SSO system is critical: a compromised digital identity puts every connected system at risk, which is precisely why SSO is normally paired with strong authentication.</p>
 
-  <h3>Multi-factor authentication</h3>
+  <h3 id="s47-multi-factor-authentication">Multi-factor authentication</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Multifactor Authentication</span>
   <p>MFA, also called strong authentication, adds verification layers by requiring at least two factors from different categories: something you know such as a password, something you have such as a token or phone, and something you are such as a fingerprint or other biometric. Two instances of the same category, such as a password and a security question, do not constitute genuine multi-factor authentication.</p>
   <div class="example-box">
@@ -1008,7 +1254,7 @@
   for communicating a first login credential to a new user, which is a step often handled far less carefully
   than the authentication system it protects.</p>
 
-  <h3>Cloud Access Security Broker</h3>
+  <h3 id="s47-cloud-access-security-broker">Cloud Access Security Broker</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Roles and Responsibilities; Ch 6 &rsaquo; Cloud Identity and Access Control</span>
   <p>A CASB is a software product or service positioned between an organisation's on-premises infrastructure and a cloud provider's infrastructure. Acting as a gatekeeper, it lets the organisation extend its reach beyond its own network boundaries and enforce security policy within cloud environments. Typical CASB capabilities include visibility into cloud usage including unsanctioned shadow IT, data security enforcement such as DLP across sanctioned services, threat protection, and compliance monitoring.</p>
 
@@ -1042,11 +1288,14 @@
     acronym.</p>
   </div>
 
-  <h3>Secrets, key, and certificate management</h3>
+  <h3 id="s47-secrets-key-and-certificate-management">Secrets, key, and certificate management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Secrets Management</span>
   <p>Cloud secrets management covers the methods and technologies used to safeguard digital credentials in cloud environments, with accessibility and authorisation as the key priorities, noting that each cloud platform implements secrets management differently. Cloud-based secrets include API keys, SSH keys, encryption keys, passwords, private certificates, and tokens. Centralised management enables rotation, auditing, and revocation in one place, replacing credentials embedded in code or configuration files.</p>
 </div>
 
+
+      </div><!-- /.study-body -->
+    </div><!-- /.study-layout -->
 
   </div>
   <!-- END STUDY TAB -->
@@ -2682,6 +2931,124 @@ const quizData = {
     }
 };
 
+
+  // ---------- Study index sidebar ----------
+  (function studyIndexInit(){
+    const idx = document.getElementById('study-index');
+    if(!idx) return;
+
+    const bar       = document.querySelector('.stickynav');
+    const backdrop  = document.getElementById('idx-backdrop');
+    const openBtn   = document.getElementById('idx-open');
+    const closeBtn  = document.getElementById('idx-close');
+    const objs      = Array.from(idx.querySelectorAll('.idx-obj'));
+    const links     = Array.from(idx.querySelectorAll('.idx-sub a'));
+    const isDrawer  = () => window.matchMedia('(max-width:1000px)').matches;
+
+    // keep the sticky offset in sync with the actual top bar height
+    function measure(){
+      if(bar){
+        document.documentElement.style.setProperty('--topbar-h', Math.round(bar.getBoundingClientRect().height) + 'px');
+      }
+    }
+    measure();
+    window.addEventListener('resize', measure);
+    if(window.ResizeObserver && bar){ new ResizeObserver(measure).observe(bar); }
+
+    // drawer open/close on narrow screens
+    function openDrawer(){ idx.classList.add('open'); backdrop.classList.add('show'); }
+    function closeDrawer(){ idx.classList.remove('open'); backdrop.classList.remove('show'); }
+    if(openBtn)  openBtn.addEventListener('click', openDrawer);
+    if(closeBtn) closeBtn.addEventListener('click', closeDrawer);
+    if(backdrop) backdrop.addEventListener('click', closeDrawer);
+    document.addEventListener('keydown', e => { if(e.key === 'Escape') closeDrawer(); });
+
+    // accordion: one objective open at a time
+    function openObj(li, {scrollIntoView = false} = {}){
+      objs.forEach(o => {
+        const on = (o === li);
+        o.classList.toggle('open', on);
+        const b = o.querySelector('button');
+        if(b) b.setAttribute('aria-expanded', on ? 'true' : 'false');
+      });
+      if(scrollIntoView && li && !isDrawer()){
+        const r = li.getBoundingClientRect(), ir = idx.getBoundingClientRect();
+        if(r.top < ir.top || r.bottom > ir.bottom){
+          idx.scrollTop += (r.top - ir.top) - 12;
+        }
+      }
+    }
+
+    objs.forEach(li => {
+      li.querySelector('button').addEventListener('click', () => {
+        if(li.classList.contains('open')){
+          const t = document.getElementById(li.dataset.obj);
+          if(t) t.scrollIntoView({behavior:'smooth', block:'start'});
+          if(isDrawer()) closeDrawer();
+        } else {
+          openObj(li);
+        }
+      });
+    });
+
+    // section links
+    links.forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const t = document.querySelector(a.getAttribute('href'));
+        if(t){
+          t.scrollIntoView({behavior:'smooth', block:'start'});
+          history.replaceState(null, '', a.getAttribute('href'));
+        }
+        if(isDrawer()) closeDrawer();
+      });
+    });
+
+    // scrollspy over objective anchors and section headings
+    const targets = links
+      .map(a => ({link: a, el: document.querySelector(a.getAttribute('href'))}))
+      .filter(t => t.el);
+
+    let ticking = false;
+    function spy(){
+      ticking = false;
+      const offset = (parseInt(getComputedStyle(document.documentElement)
+                      .getPropertyValue('--topbar-h'), 10) || 104) + 40;
+      let current = null;
+      for(const t of targets){
+        if(t.el.getBoundingClientRect().top <= offset) current = t;
+        else break;
+      }
+      if(!current && targets.length) current = targets[0];
+      links.forEach(a => a.classList.remove('active'));
+      objs.forEach(o => o.classList.remove('current'));
+      if(current){
+        current.link.classList.add('active');
+        const li = current.link.closest('.idx-obj');
+        li.classList.add('current');
+        if(!li.classList.contains('open')) openObj(li, {scrollIntoView:true});
+      }
+    }
+    function onScroll(){
+      if(!ticking){ ticking = true; requestAnimationFrame(spy); }
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', onScroll);
+
+    // open the first objective by default, or the one named in the URL
+    const fromHash = location.hash && idx.querySelector('.idx-sub a[href="' + location.hash + '"]');
+    openObj(fromHash ? fromHash.closest('.idx-obj') : objs[0]);
+    spy();
+
+    // re-run the spy when returning to the study tab
+    document.querySelectorAll('.tabbtn').forEach(b => {
+      b.addEventListener('click', () => {
+        if(b.dataset.tab === 'study'){ measure(); setTimeout(spy, 30); }
+        else { closeDrawer(); }
+      });
+    });
+  })();
+
   // Tab switching
   document.querySelectorAll('.tabbtn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2690,15 +3057,6 @@ const quizData = {
       btn.classList.add('active');
       document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
       window.scrollTo({top: 0, behavior: 'auto'});
-    });
-  });
-
-  // Study subnav smooth scroll (stay within study tab)
-  document.querySelectorAll('.study-subnav a').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if(target){ target.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });
 

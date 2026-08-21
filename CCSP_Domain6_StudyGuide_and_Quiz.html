@@ -754,6 +754,29 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Laws, Regulations, and Standards &rsaquo; Conflicting International Legislation</span>
   <p>Laws on data protection, privacy, and cybersecurity vary significantly between countries and regions, and organisations operating globally can find themselves subject to requirements that genuinely conflict. One jurisdiction may compel disclosure of data that another jurisdiction forbids transferring. Cloud sharpens this because data moves and replicates across regions by default unless deliberately restricted.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Moving personal data across borders</h4>
+  <p>The practical rule follows the destination. Transfers within the European Economic Area need no
+  additional mechanism. Transfers to a country holding an adequacy decision are permitted, but the contracts
+  with the receiving processors still need to be in order. Transfers elsewhere require an appropriate
+  safeguard, and the mechanisms are contractual and procedural as much as technical: binding corporate rules
+  for transfers inside a corporate group, standard contractual clauses between separate organisations, and the
+  encryption, multi-factor authentication, and network segmentation that sit underneath them. Responsibility
+  cannot be delegated away with the data. As the controller, the organisation that obtained the data from the
+  data subjects remains accountable for what happens to it downstream, including for setting the minimum
+  security requirements the processor must meet.</p>
+  <p>Two contractual points follow. The contract must state without ambiguity that the data is shared strictly
+  for the purposes it specifies. And the consequence of breaching that is structural rather than merely
+  punitive: a processor that decides to use the data for its own purposes, a direct marketing campaign being
+  the standard example, reverts to being a controller in its own right for that processing, with no lawful
+  basis, no consent from the data subjects, and full exposure to the upper tier of GDPR fines at 20 million
+  euros or 4 percent of global annual turnover, whichever is higher.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>The controller decides the purpose; the processor follows the contract and nothing beyond it. If a
+    scenario describes a processor making its own decisions about why data is used, the answer almost always
+    involves that party having become a controller and having acquired the obligations that come with it.</p>
+  </div>
+
   <h3 id="s61-legal-risks-specific-to-cloud-computing">Legal risks specific to cloud computing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Legal Requirements and Unique Risks in the Cloud Environment</span>
   <p>These arise from the nature of cloud itself, where data is stored, processed, and managed remotely on third-party servers. Key risks include data privacy and protection obligations following the data wherever it goes; uncertainty over which jurisdiction's law applies; loss of direct control over data handling; contractual gaps where the provider's standard terms do not meet the customer's regulatory duties; and difficulty exercising rights such as audit or evidence collection on infrastructure the customer does not own.</p>
@@ -762,9 +785,48 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Legal Requirements and Unique Risks (Constitutional, Administrative, Case, Common, Contract Law)</span>
   <p>The framework is the set of laws, regulations, standards, and ethical guidelines governing how data is handled, processed, and stored, designed to protect individual privacy and secure sensitive data. A CCSP is not expected to give legal advice but must recognise which regimes apply and when to involve counsel.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The UK position and why it keeps moving</h4>
+  <p>Candidates working in the UK should hold four instruments clearly. The <strong>UK GDPR</strong> and the
+  <strong>Data Protection Act 2018</strong> operate together, the DPA 2018 supplementing the UK GDPR and
+  setting national provisions including the age at which a child can consent to information society services,
+  which is 13 in the UK against a default of 16 in much of the EEA. The <strong>Data (Use and Access) Act
+  2025</strong> amends both, along with the Privacy and Electronic Communications Regulations. The
+  <strong>Investigatory Powers Act 2016</strong> allows the Home Office to issue technical capability notices,
+  which is the mechanism behind the ongoing dispute over access to end-to-end encrypted cloud storage.</p>
+  <p>That last matter is worth stating precisely, because it is often described loosely as a government
+  backdoor. A technical capability notice was issued in early 2025 and the provider responded by withdrawing
+  its end-to-end encrypted backup option from new UK users rather than building an access mechanism. The
+  original notice, which reportedly extended to users outside the UK, was withdrawn; a narrower notice
+  covering UK users followed, and the provider filed a fresh challenge at the Investigatory Powers Tribunal in
+  August 2026. The lawfulness question is undecided. The exam point is the principle rather than the case: a
+  legal power to compel access can defeat an encryption control that is otherwise technically sound, which is
+  why jurisdiction belongs in an architecture decision and not only in a contract review.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>This area moves faster than any other in the certification. The UK Cyber Security and Resilience Bill,
+    which expands the NIS Regulations 2018 and is the vehicle for a proposed ban on ransomware payments by
+    public sector bodies and critical national infrastructure operators, was still progressing through
+    Parliament in mid-2026 and had not received Royal Assent. Treat proposed measures as proposed: an exam
+    question about what an organisation must do today is answered by law in force, not by a bill.</p>
+  </div>
+
   <h3 id="s61-ediscovery">eDiscovery</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics; Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>eDiscovery is the process of identifying, collecting, preserving, and reviewing electronic information for use as evidence in legal proceedings. In cloud it is complicated by not controlling the infrastructure, by data being dispersed across regions, and by the need to extract only the requesting party's data without capturing other tenants' information. <strong>ISO/IEC 27050</strong> provides the standard for electronic discovery, and <strong>CSA guidance</strong> addresses the cloud-specific dimension. A legal hold suspends normal retention and deletion for data within its scope until proceedings conclude.</p>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The stages in practice</h4>
+  <p><strong>Identification</strong> means locating relevant data across cloud platforms, and the difficulty
+  varies sharply by data type: a sixteen-digit card number has a recognisable pattern and can be found
+  reliably, while names, free-text notes, and unstructured documents cannot, which is where specialist
+  eDiscovery tooling earns its cost. <strong>Preservation</strong> means holding that data in a state that
+  protects its integrity, preventing alteration or deletion, which is what the legal hold enforces, including
+  against routine deletion schedules and backup rotation. <strong>Processing and review</strong> makes the
+  collected data suitable for analysis, at volumes that in cloud environments rule out manual handling.
+  Throughout, security and privacy obligations continue to apply: access control and encryption protect the
+  data during discovery, and third-party personal data must be redacted before disclosure. That last step
+  causes real breaches. A meaningful number of personal data breaches arise from organisations responding to
+  subject access requests and disclosing other people's data in the process, which is a breach committed in
+  the act of complying.</p>
 
   <h3 id="s61-forensics-requirements">Forensics requirements</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Forensic Requirements; Cloud Forensic Challenges</span>
@@ -803,13 +865,60 @@
     <li><strong>Sarbanes-Oxley</strong>, imposing disclosure and internal control requirements over financial reporting for companies listed in the US. <span class="li-eg"><span class="label">Example</span>it drives the control evidence a SOC 1 report is designed to supply.</span></li>
   </ul>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Automated decision-making and the right to human intervention</h4>
+  <p>One GDPR provision deserves separating out because cloud-hosted algorithms now make decisions that
+  materially affect people, from mortgage and loan applications to insurance pricing and recruitment
+  shortlisting. Where a decision is based solely on automated processing and produces legal or similarly
+  significant effects, the data subject has the right to obtain human intervention, to express their point of
+  view, and to contest the decision. This is what stops the automated refusal from being the end of the
+  matter. It is also a design requirement rather than a policy statement: a system architected with no route
+  to a human reviewer cannot deliver the right, and adding one afterwards is expensive.</p>
+  <div class="example-box">
+    <span class="label">Why this matters</span>
+    <p>An organisation deploying a cloud-hosted scoring model to assess loan eligibility needs three things
+    beyond the model itself: a documented route for an applicant to request human review, staff empowered to
+    overturn the automated outcome, and enough explainability to tell the applicant something meaningful about
+    why the decision went the way it did. A model that cannot produce a reason leaves the organisation unable
+    to answer the challenge the regulation guarantees.</p>
+  </div>
+
   <h3 id="s62-jurisdictional-differences">Jurisdictional differences</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Determining Jurisdiction; Ch 10 &rsaquo; The Impact of Diverse Geographical Locations and Legal Jurisdictions</span>
   <p>Some regions such as the EU maintain robust comprehensive frameworks emphasising individual rights, strict consent, and strong enforcement. Others take a sectoral approach, regulating particular industries rather than personal data generally, and some have limited protection. An organisation operating across borders must satisfy the strictest applicable regime for each dataset rather than assuming one standard suffices.</p>
 
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>Privacy law moves in both directions, and not every change tightens obligations. The Data (Use and
+    Access) Act 2025 introduced a charitable purposes soft opt-in, in force from 5 February 2026, which
+    amended the Privacy and Electronic Communications Regulations so that charities can send direct marketing
+    by electronic mail to people who have expressed interest in or offered support to their charitable
+    purposes, without first obtaining consent, provided strict conditions are met. Two details matter for
+    anyone implementing it: the provision is not retrospective, applying only to contact details collected on
+    or after that date, so pre-existing supporter lists still require consent; and the ICO published final
+    guidance in April 2026 setting out the boundaries, including that a purely commercial transaction with a
+    charity does not by itself indicate support for its cause. The wider lesson for a compliance programme is
+    that a retention and marketing policy written before a change like this becomes wrong quietly, which is
+    why scheduled review matters as much as initial drafting.</p>
+  </div>
+
   <h3 id="s62-standard-privacy-requirements">Standard privacy requirements</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud &rsaquo; GAPP; ISO 27018</span>
   <p><strong>ISO/IEC 27018</strong> is the code of practice for protecting PII in public clouds acting as PII processors. <strong>GAPP</strong>, the Generally Accepted Privacy Principles, provides a recognised set of privacy principles. GDPR itself functions as a standard many organisations align to globally.</p>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">AI regulation as an emerging privacy regime</h4>
+  <p>The EU AI Act entered into force on 1 August 2024 with obligations phased in over several years, and it
+  now sits alongside the GDPR as a second regime governing how personal data is used in automated systems. Its
+  timeline changed materially in 2026. The Digital Omnibus on AI, Regulation (EU) 2026/1744, entered into
+  force on 27 July 2026 and deferred the high-risk obligations: standalone high-risk systems under Annex III
+  moved from 2 August 2026 to 2 December 2027, and high-risk AI embedded in regulated products under Annex I
+  moved to 2 August 2028. The deferral is narrower than the headlines suggested. The Article 50 transparency
+  obligations still applied from 2 August 2026, the AI literacy duty was untouched, and the watermarking
+  requirement for systems already on the market applies from 2 December 2026, alongside a new prohibition on
+  AI systems used to generate non-consensual intimate imagery and child sexual abuse material.</p>
+  <p>For a cloud security professional the practical consequence is that an AI deployment can be simultaneously
+  in scope for the GDPR, as processing of personal data, and for the AI Act, as an AI system in a defined risk
+  category, with different obligations, different regulators, and now different commencement dates. A DPIA
+  under the GDPR does not discharge an AI Act conformity assessment, and neither replaces the other.</p>
 
   <h3 id="s62-privacy-impact-assessments">Privacy Impact Assessments</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Privacy in the Cloud &rsaquo; Privacy Impact Assessments</span>
@@ -825,6 +934,35 @@
   <h3 id="s63-internal-and-external-audit-controls">Internal and external audit controls</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes, Methodologies, and Cloud Adaptations</span>
   <p>Organisations moving to cloud need ongoing assurance that controls remain in place. Internal audit serves as a third line of defence, independent of the operational teams it examines. External audit brings independent third-party attestation that carries weight with customers and regulators. Both are needed: internal audit provides continuous visibility, external audit provides credible independent assurance.</p>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">First, second, and third-party audits</h4>
+  <p>Audits come in three flavours and the exam expects the distinction. A <strong>first-party audit</strong>
+  is internal: the organisation auditing itself, often as a readiness or stage one exercise before
+  certification. A <strong>second-party audit</strong> is conducted by a party with a direct interest, either
+  a customer auditing its supplier under a right-to-audit clause, or the organisation auditing its own
+  suppliers. A <strong>third-party audit</strong> is performed by an independent body, and it is the only one
+  that leads to certification; the auditors carrying it out on behalf of a certification body are sometimes
+  called registrars.</p>
+  <div class="example-box">
+    <span class="label">In practice</span>
+    <p>The relationship between the first two and the third is the point. A first-party audit before a
+    certification audit is the equivalent of tidying the house before the professional cleaner arrives:
+    checking that the documents exist, that they say what they should, and that the evidence an external
+    auditor will ask for can actually be produced. The documents that get asked for first are consistent
+    across engagements: the Statement of Applicability, the risk register, and the risk treatment plan.</p>
+  </div>
+  <p>Internal audit serves a further purpose beyond finding gaps. It provides assurance to senior leaders and
+  risk management functions about cloud-related business risk, and the reporting from it is what justifies
+  budget for controls, training, and staff. Framing internal audit output in terms leaders act on, using
+  compliance status reporting and dashboards, is what turns an audit finding into a funded remediation.</p>
+  <div class="example-box">
+    <span class="label">Why control testing matters</span>
+    <p>Shelfware is the standing argument for testing effectiveness rather than existence. Substantial sums
+    are spent on tools acquired to satisfy a procurement checklist, installed on the network, and never
+    properly configured or tested. The control appears on the register and in the audit evidence, and defends
+    nothing. Penetration testing, internal audit, red and blue team exercises, and validation activity exist
+    to establish that a control does what it is recorded as doing.</p>
+  </div>
 
   <h3 id="s63-assurance-challenges-of-virtualisation-and-cloud">Assurance challenges of virtualisation and cloud</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider &rsaquo; Adapting Processes for the Cloud</span>
@@ -852,9 +990,34 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Audit Processes &rsaquo; Gap Analysis</span>
   <p>Gap analysis compares the current control state against a required or desired state, identifying the difference to be closed. It draws on control analysis, baselines, and risk and control self-assessment, and it typically precedes a formal audit so that known gaps are remediated first.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Major and minor non-conformities</h4>
+  <p>Audit findings are graded, and the grading drives what happens next. A <strong>major
+  non-conformity</strong> represents a significant failure: the absence of an acceptable use policy
+  altogether would be found immediately and graded major. A <strong>minor non-conformity</strong> is a lapse
+  within something that otherwise works: the acceptable use policy exists, employees know it and follow it,
+  but the senior leader's approval signature is missing. An <strong>opportunity for improvement</strong> is
+  neither, a suggestion recorded alongside the findings. Auditors assess all three together at the next visit,
+  because the pattern of what was remediated is the evidence of continual improvement, which is the principle
+  the certification ultimately tests.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Distinguish absence from imperfection. A control that does not exist is a major non-conformity; a
+    control that exists with a procedural gap is minor. Scenario questions describe the situation and expect
+    you to grade it.</p>
+  </div>
+
   <h3 id="s63-audit-planning">Audit planning</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Auditing Your Environment and Provider &rsaquo; Planning for Cloud Audits</span>
   <p>Planning sets the foundation for the engagement: understanding the audit objectives, defining scope, assessing risk to focus effort where it matters, allocating resources, and agreeing the schedule and evidence requirements with the parties involved.</p>
+
+  <p>Two execution details recur. Separation of duties applies to the audit itself: the lead auditor and
+  the lead implementer must be different people, because whoever implemented a control cannot independently
+  assess it. And volume forces sampling. Access control lists, monitoring logs, and transaction records cannot
+  be reviewed in full, so auditors use statistical or random sampling, for example examining every tenth
+  record. Interviews supply the qualitative side that documents cannot: one-to-one conversations with
+  employees and managers establish whether policy dissemination actually changed behaviour or merely produced
+  a document. Where an environment runs 24/7/365, the sampling has to reach every shift rotation rather than
+  the day shift alone.</p>
 
   <h3 id="s63-internal-isms-controls-system-and-policies">Internal ISMS, controls system, and policies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Information Security Management Systems; Ch 10 &rsaquo; Security Policy Framework</span>
@@ -899,6 +1062,28 @@
     <p>Owner and controller determine purpose. Custodian and processor act on instruction. Accountability stays with the controller even when processing is fully outsourced, which is why a scenario asking who is accountable after a provider breach almost always answers with the customer.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Quantitative and qualitative risk assessment</h4>
+  <p>The two approaches answer different questions and are complementary rather than competing.
+  <strong>Quantitative</strong> assessment attaches monetary values: it starts from an inventory of the most
+  important assets, personal data, health and financial records, intellectual property, and the infrastructure
+  itself, assigns a value to each, and calculates potential loss against the ranked risks. Its strength is
+  that boards understand it, because it answers how many records would be exposed and what the financial
+  impact would be, and it lets leaders compare the cost of a control against the value of what it protects.
+  Its weakness is that some assets resist valuation, and it says nothing about disruption that is not
+  financial.</p>
+  <p><strong>Qualitative</strong> assessment fills exactly that gap. It works through structured conversations
+  with different business units about how an attack would affect their operations: what a team could not do,
+  which platforms are mission critical to them, how service delivery to customers would degrade, how a
+  supplier disruption would propagate. It lacks the precision of a monetary figure but surfaces consequences
+  that the numbers miss, and it identifies the critical systems that an asset register alone would not flag.
+  Run both, and run the qualitative side across departments rather than inside the security function.</p>
+  <div class="example-box">
+    <span class="label">In practice</span>
+    <p>A sales team losing access to its CRM platform during working hours will be the loudest signal in the
+    building, and that noise is diagnostic. It identifies a mission-critical dependency faster than an asset
+    inventory does, and it comes with the productivity impact already quantified in the team's own terms.</p>
+  </div>
+
   <h3 id="s64-regulatory-transparency-requirements">Regulatory transparency requirements</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; U.S. Privacy and Security Laws (HIPAA, HITECH, SOX, State Data Breach Notification Laws)</span>
   <p>Transparency obligations require organisations to disclose certain matters to regulators, individuals, or markets. <strong>Breach notification</strong> is the principal example: the HIPAA Breach Notification Rule requires covered entities and their business associates to notify following a breach of unsecured protected health information, and GDPR requires notification to the supervisory authority, generally within 72 hours of becoming aware of a qualifying breach. <strong>Sarbanes-Oxley</strong> imposes disclosure and internal control requirements on financial reporting for listed companies.</p>
@@ -917,6 +1102,24 @@
   <h3 id="s64-risk-frameworks">Risk frameworks</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Management Frameworks</span>
   <p>The named frameworks are <strong>ISO 31000</strong>, providing generic risk management principles and guidelines applicable to any organisation; <strong>ENISA</strong>, the European Union Agency for Cybersecurity, whose cloud risk assessment work addresses cloud specifically; and <strong>NIST</strong>, particularly its cloud computing synopsis and recommendations alongside the Risk Management Framework.</p>
+
+  <p>Their character differs in ways worth knowing. <strong>ISO 31000</strong> is generic by design,
+  applicable to any risk type in any sector and not specific to cloud, and it is explicitly not a certifiable
+  standard: no organisation holds an ISO 31000 certificate. The 2018 second edition remains current, having
+  been confirmed by systematic review, with a further revision in development but not yet published, so
+  material referring to a newer published edition is mistaken. Its purpose is to build internal capability for
+  identifying, analysing, evaluating, and treating risk. <strong>ENISA</strong>, the European Union Agency for
+  Cybersecurity, publishes guidance and threat reporting in the way the NCSC does in the UK, with a strong
+  cyber focus. <strong>NIST</strong> is the most prescriptive of the three and the most detailed on cloud
+  specifically, through its special publication series.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Prescriptiveness is the axis to hold. NIST tells you what to do in technical detail; ISO 31000 gives
+    principles you adapt; the GDPR sits at the opposite end from NIST, requiring appropriate technical and
+    organisational measures without specifying them, which is precisely why implementing it required so much
+    interpretation. If a question contrasts a framework that dictates controls with one that sets outcomes,
+    that is the distinction being tested.</p>
+  </div>
 
   <h3 id="s64-metrics-and-assessment-of-the-risk-environment">Metrics and assessment of the risk environment</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Calculation; Risk Analysis; Risk Reporting</span>
@@ -946,6 +1149,27 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Vendor Management</span>
   <p>Rapid growth in the provider market means many new entrants competing for share, and not all will prove durable. Vendor management covers <strong>vendor assessments</strong> of security, financial, and operational fitness; <strong>vendor lock-in risks</strong>, where proprietary dependency makes switching impractical; <strong>vendor viability</strong>, the provider's financial stability and prospects as a going concern; and <strong>escrow</strong>, placing source code or critical materials with a neutral third party so the customer can continue operating if the vendor fails.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Due diligence before signing</h4>
+  <p>Four checks belong in the evaluation. <strong>Data portability</strong>: confirm the provider stores data
+  in formats compatible with other platforms rather than proprietary structures that make exit expensive.
+  <strong>Independent backups</strong>: maintain copies outside the provider, segmented from production, since
+  backups reachable from the production environment are encrypted along with it in a ransomware event, which
+  is how organisations that believed they had recovery capability discover they do not. <strong>Provider
+  viability</strong>: competition for market share has been fierce and aggressive pricing has not always been
+  sustainable, so providers do withdraw services or change direction, which is a live consideration when
+  contracts run three to five years. <strong>Sovereignty in hybrid designs</strong>: where some data stays on
+  premises and some sits in public cloud, confirm which is which and where it physically resides.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Ransomware payment is becoming a legal question rather than a commercial one. The UK government
+    confirmed in 2025 that it would legislate for a targeted ban on payments by public sector bodies and
+    critical national infrastructure operators, together with a payment notification regime and mandatory
+    incident reporting, with the Cyber Security and Resilience Bill as the vehicle. As of mid-2026 the bill
+    was still before Parliament, so no such ban was yet in force. Cyber insurance sits alongside this: policies
+    are expensive, insurers retain negotiators, and the honest question is whether the premium would be better
+    spent on mitigating controls.</p>
+  </div>
+
   <h3 id="s65-contract-management">Contract management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 10 &rsaquo; Cloud Contract Design &rsaquo; Negotiating Contracts; Common Contract Provisions; Contracting Documents</span>
   <p>Effective contract management requires appropriate governance and covers monitoring contract performance, addressing ongoing needs, adhering to terms, and managing incidents, outages, discrepancies, and violations of contractual obligations. The terms the outline names:</p>
@@ -963,6 +1187,14 @@
   <h3 id="s65-supply-chain-management">Supply chain management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Supply Chain Management and Licensing; Ch 10 &rsaquo; Vendor Management</span>
   <p>Organisations invest heavily in protecting key assets and intellectual property, and changes in supply chain practice can put that at risk. The governing principle is that security is only as strong as the weakest link: a provider's own dependencies become the customer's exposure, even where no direct contract exists. <strong>ISO/IEC 27036</strong> is the standard for information security in supplier relationships, covering how security requirements are defined, agreed, and monitored across the chain.</p>
+  <p>Two obligations in the supply chain are easy to miss and both are time-bound. Breach notification
+  responsibilities must be stipulated in the contract, with SLAs that let the controller meet its own 72-hour
+  deadline; a processor that takes three days to report leaves the controller already in default. Subject
+  access requests are the same problem in reverse: if a data subject sends a request to a processor, the clock
+  starts when the processor receives it, not when the controller finds out, so there must be a defined and
+  fast route for passing it back. The contract also needs to state precisely what constitutes the personal
+  data being shared and how the processor must protect it.</p>
+
   <div class="example-box">
     <span class="label">Example</span>
     <p>An energy company contracts with a SaaS vendor that subcontracts data processing to a smaller analytics firm. The energy company has no contract with that firm, yet a breach there exposes its data just as directly. Assessing only the immediate vendor leaves the actual weakest link unexamined, which is precisely what supply chain management exists to prevent.</p>

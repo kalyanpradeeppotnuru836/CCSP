@@ -500,6 +500,19 @@
 
   <p>Cloud infrastructure is the physical and virtual resources inside data centres: compute nodes, storage systems, and networking hardware, together with the virtualisation software and management layer that turn them into a service. The outline names six components, and the exam expects you to know what each covers and who is responsible for it.</p>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The physical layer and the abstraction layer</h4>
+  <p>It helps to picture the six components as two stacked layers. The <strong>physical layer</strong> holds
+  the data centre infrastructure itself, the buildings, power, and cooling that everything else sits on,
+  together with the physical storage systems and the physical and virtual network hardware connecting them:
+  software-defined networking overlays, load balancers, routers, and switches. The <strong>abstraction
+  layer</strong> is what makes it cloud rather than hosting: virtualisation software abstracts physical
+  resources into virtual machines and containers, enabling multi-tenancy and resource pooling, and management
+  software provides the orchestration, provisioning, and automation that deliver self-service, elasticity, and
+  metered billing. Reading the stack this way answers two exam-relevant questions at once: where the
+  responsibility boundary falls for a given service model, and which risks attach to which layer, since
+  hypervisor breakout, virtual machine sprawl, and API abuse are abstraction layer problems while power,
+  cooling, and physical access are not.</p>
+
   <h3>Physical environment</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Designing a Secure Data Center &rsaquo; Facilities and Redundancy</span>
   <p>The server rooms, data centres, and physical locations where the infrastructure sits. Who owns this depends on the deployment model, which is a point worth remembering: in a private cloud built on premises, the organisation is effectively its own provider and owns the physical environment. In a community cloud, a community member often supplies the space and hardware. With a commercial public provider, the provider owns it entirely and the customer typically never sees it.</p>
@@ -508,6 +521,14 @@
     <p>A bank running a private cloud in its own data centre is responsible for the locks on the doors, the guards, and the fire suppression. The same bank using a public provider inherits all of that from the provider and can only verify it through audit reports, never by walking the floor.</p>
   </div>
 
+  <p>Two characteristics make data centre operation unlike anything else at contemporary scale: a very high
+  concentration of expensive hardware, potentially holding billions of pounds worth of information and
+  intellectual property in one building, and the immediate impact of downtime on every business depending on
+  it. The basic service level is often summarised as power, pipe, and ping: electrical power, the cooling
+  pipe, and network connectivity. Power and cooling capacity together limit how densely servers can be stacked
+  in the facility. Data centres offering colocation sell that capacity at varying levels of aggregation, from
+  a single unit slot in a rack up to floor space, lockable cages, or an entire room.</p>
+
   <h3>Network and communications</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Communications and Infrastructure</span>
   <p>The provider secures the networking components it houses. The customer manages any components in its own facilities. The public internet connecting the two is the primary area of concern, because neither party controls it. The provider must support secure methods such as HTTPS, encryption before transmission, and VPN access, and the customer is expected to actually use them. Both parties implement firewalls and related technologies on their own side of the boundary.</p>
@@ -515,6 +536,9 @@
   <h3>Compute</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing Hardware and Compute</span>
   <p>Compute capability is defined mainly by CPU, which determines processing power, and RAM, which holds data actively being processed and keeps latency low. What makes cloud compute distinctive is how it is allocated in a multi-tenant environment, through three mechanisms you should be able to distinguish:</p>
+  <p>On the underlying hardware, multi-core processors perform more operations simultaneously and so raise
+  throughput, while adequate RAM keeps frequently accessed data close to the processor and cuts latency, which
+  is an availability concern as much as a performance one.</p>
   <ul class="plain">
     <li><strong>Reservations</strong>, a guaranteed minimum of resource for a system, ensuring it always has what it needs to perform.</li>
     <li><strong>Shares</strong>, a relative priority weighting used to decide who gets contested resources when demand exceeds supply.</li>
@@ -536,6 +560,19 @@
   <h3>Management plane</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Securing the Management Plane</span>
   <p>The management plane enables remote administration of one or many hosts, providing the functions that define cloud operation: creating, starting, and stopping virtual machines, provisioning storage, and configuring networking. It is the single most security-sensitive component in the infrastructure, because compromising it grants control over everything beneath it. A stolen credential for a virtual machine costs you one machine; a stolen management plane credential can cost you the entire environment.</p>
+  <p>Architecturally, requests from users, applications, and administrators arrive at two orchestration
+  components: the <strong>compute controller</strong> and the <strong>storage and volume controller</strong>.
+  Each decides which physical resource to allocate when someone asks for a virtual machine or a storage
+  volume, and the two stay in sync with each other so that a volume is attached to the right machine. Beneath
+  the compute controller sits the compute pool, where hypervisors let one physical machine run many virtual
+  machines; beneath the storage controller sits the storage pool of physical devices presented as allocatable
+  volumes. The management plane runs above both. The shift this represents is from one server running one
+  application to resources being pooled and carved out dynamically on demand, which is exactly what delivers
+  elasticity and self-service, and exactly why the abstraction layer introduces risks such as VM escape and
+  storage isolation failure. Management plane components typically run on dedicated servers with dedicated
+  connectivity to the hosts they manage, which is itself a security control: administrative traffic does not
+  share a path with tenant traffic.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Reservations, shares, and limits are frequently swapped in distractors. Reservation is a guaranteed floor, limit is a hard ceiling, and shares are relative priority during contention. If a scenario describes a workload that must never be starved, it wants a reservation. If it describes a workload that must never run away with the host, it wants a limit.</p>
@@ -565,6 +602,15 @@
     <li><strong>Buy or build, and buy and hold</strong>, recognising that moving to a cloud data centre is a long-term commitment. The decision weighs data sensitivity, the legal regulations governing where data may be stored, and the availability of qualified staff for on-premises maintenance. Where law prevents data crossing borders, the customer may have to keep data on premises unless the provider's contract can guarantee compliance.</li>
   </ul>
 
+  <p>Physical controls at a large provider's facility start well beyond the building line. Bollards resist
+  vehicle attack on the perimeter, turnstiles and man traps admit one person at a time so that an authorised
+  entrant cannot hold the door for a follower, facial recognition or similar biometrics verify identity at the
+  door, and some facilities add body scanners. Entry and exit are deliberately slow: allowing the better part
+  of an hour for each is realistic at the largest providers, which is worth planning for if you are auditing
+  an off-site facility. The reason tailgating gets this much attention is that an access control list on a
+  door proves only that someone authorised opened it, not that only that person went through, which is why
+  camera coverage of sensitive areas backs up the access control rather than duplicating it.</p>
+
   <h3>Environmental design</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy; Ch 8 &rsaquo; Physical and Environmental Protection</span>
   <p>Except in private clouds, the provider owns environmental design, and it directly affects the availability of cloud resources. For customers, evaluating a vendor's environmental design is part of vendor risk analysis.</p>
@@ -577,9 +623,22 @@
     <p>A contractor severs a fibre run outside a data centre. With a single connectivity vendor, the facility is unreachable however healthy the servers inside are. With multi-vendor pathway connectivity over physically separate routes, traffic shifts to the second carrier and the outage is invisible to users.</p>
   </div>
 
+  <p>One HVAC risk is easy to overlook: air conditioning systems carry fluid, and water and server rooms do
+  not mix, so pipe routing and leak detection belong in the design review alongside cooling capacity. When
+  evaluating a provider, look at both the capacity of the environmental systems and the process for switching
+  workloads between data centres when that capacity is compromised.</p>
+
   <h3>Design for resilience</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 7 &rsaquo; Facilities and Redundancy</span>
   <p>Resilience is the ability to adapt to changing conditions and recover from disruption, achieved by proactive design rather than reaction. The outline anchors it to power, HVAC, and connectivity, the three utilities whose loss stops a data centre regardless of anything else. Practical design actions include siting the facility away from known hazard regions, designing with flexibility, building reliable and simple systems, adding redundancy wherever possible, and applying passive design principles that keep working without active intervention.</p>
+  <p>The discipline is the same one that applies to secure development: resilience is designed in, never an
+  afterthought bolted on at the end. The comparison worth carrying is urban planning, where resilience means
+  building infrastructure that withstands extreme weather, developing emergency response strategies in
+  advance, and reinforcing the systems communities fall back on. Data centre resilience now carries an
+  environmental dimension too, particularly for the very large facilities being built for AI workloads, where
+  water consumption and local ecosystem impact have become part of the design conversation and, increasingly,
+  of the planning permission.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Match the design category to the concern. Tenant partitioning and access control are logical design. Site selection and the buy or build decision are physical design. HVAC and multi-vendor connectivity are environmental design. Redundant power, cooling, and connectivity are resilience. Questions often describe one concern and offer all four categories as options.</p>
@@ -597,6 +656,14 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Shared Cloud Platform Risks and Responsibilities; Ch 10 &rsaquo; Enterprise Risk Management &rsaquo; Risk Assessment</span>
   <p>Industry bodies publish useful risk lists, but every organisation, whether providing or consuming cloud services, must conduct its own assessment, because risk depends on the organisation's own data, obligations, and tolerance. Risk assessment has two parts: <strong>identification</strong>, finding what could go wrong, and <strong>analysis</strong>, judging how likely it is and how much it would hurt.</p>
   <p>The organisational and regulatory risks that recur in cloud adoption include <strong>lock-in</strong>, where dependence on a single provider reduces flexibility; <strong>governance</strong>, ensuring policies actually manage cloud resources effectively and compliantly; <strong>data security and privacy</strong>, protecting stored data from unauthorised access; and compliance and jurisdictional exposure arising from where data and processing sit.</p>
+
+  <p>Two practical points sit alongside the list. Vendor diversification can be applied within a control
+  category as well as across providers: a vulnerability in one vendor's firewall is unlikely to exist in
+  another's, so layering technologies from different vendors lowers the chance that a single flaw opens the
+  whole path. And the assessment must be documented. Under an audited management system the working rule is
+  that if it is not documented, it did not happen, and that applies equally to risk assessments, training and
+  awareness campaigns, simulated phishing exercises, and penetration tests. Documentation is what a
+  supervisory authority or external auditor will ask to see.</p>
 
   <h3>Cloud vulnerabilities, threats, and attacks</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 4 &rsaquo; Cloud Computing Risks by Deployment Model; by Service Model; Virtualization Threats</span>
@@ -618,6 +685,17 @@
     <li><strong>Accept</strong>, consciously deciding to bear the risk because treatment costs more than the exposure warrants.</li>
   </ul>
   <p>Alongside the formal taxonomy, the practical mitigation measures emphasised for cloud infrastructure are data encryption at rest, two-factor authentication, eliminating shared accounts so actions are attributable to individuals, insisting on a well-defined shared responsibility model, and using standardised cloud assessment questionnaires when evaluating providers.</p>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Residual risk and who signs it off</h4>
+  <p>Residual risk is what remains after treatment has been applied, and it exists because no risk can be
+  treated to complete effectiveness. Social engineering is the clearest example: no control makes the eyes and
+  ears of employees unhackable, so the exposure is reduced through awareness training rather than removed.
+  Accepting residual risk is legitimate, but it should be a conscious decision taken at the right level.
+  Bring residual risks to management review, check they are not disproportionate to the organisation's stated
+  risk appetite, and obtain a documented signature from senior leaders where the residual risk touches
+  personal data, intellectual property, or other regulated information. The reason is accountability: in the
+  event of a breach involving personal data, liability sits with those senior leaders, so the record of what
+  they were told and what they accepted matters to them as much as to the security function.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Transfer moves the financial impact, usually via insurance, but the incident still happens and the reputational damage is still yours. Mitigate reduces likelihood or impact through controls. Accept is a deliberate documented decision, not the absence of one. A scenario describing cyber insurance is transfer, never mitigation.</p>
@@ -642,11 +720,70 @@
     <li><strong>Denial of service protection</strong>, combining resilience, prompt detection and response, and effective bandwidth and capacity management.</li>
     <li><strong>Boundary protection</strong>, firewalls, intrusion detection and prevention, and related controls at the edges between trust zones.</li>
   </ul>
+  <p>Boundary protection is where the difference between detection and prevention becomes concrete. An IDS
+  is passive: it raises an alert to a security administrator, and a human decides whether to contain, isolate,
+  or remove the threat. An IPS is proactive: it can be configured to act on the traffic itself, blocking or
+  isolating a suspected threat without waiting for a person. The trade is the familiar one between false
+  positives interrupting legitimate traffic and dwell time while an alert waits for attention.</p>
   <p>For <strong>data in transit</strong>, the recommended protections are TLS, IPSec, and VPNs, ensuring transmitted data cannot be read or altered in flight.</p>
+
+  <p>Security function isolation is about separating the administration of security from the administration
+  of the systems being secured, so that network administrators are not marking their own homework. It does not
+  mean isolating the security team from the business; the opposite is true. Regular management review with the
+  CISO, CIO, or security manager keeps security decisions aligned with where the business is actually going,
+  whether that is a new region, a new category of sensitive data, or the adoption of AI and machine learning.
+  Without it, security drifts: a single degree of divergence looks like nothing at the point of decision and
+  becomes a large gap several nautical miles down the line.</p>
+  <div class="example-box">
+    <span class="label">Why availability is a security concern</span>
+    <p>When connectivity to a cloud CRM platform fails, the commercial pressure is immediate, and the
+    predictable response from a sales team under pressure is to download customer records onto local devices
+    so they can keep working. That converts an availability incident into a personal data breach the moment
+    one of those devices is lost, and the organisation is liable under the GDPR. It is a good illustration of
+    why availability belongs in the CIA triad rather than being treated as an operational concern, and why
+    the acceptable-use rules covering it need enforcing through policy and awareness training rather than
+    being left to judgement in the moment.</p>
+  </div>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Denial of service protection in the cloud</h4>
+  <p>Denial of service deserves more than one bullet, because cloud changes its risk profile rather than
+  removing it. Three families of attack recur. <strong>Volumetric</strong> attacks flood bandwidth at the
+  network layer, DNS amplification being the classic technique. <strong>Protocol</strong> attacks exploit
+  weaknesses in network protocols, the SYN flood against the TCP handshake being the standard example.
+  <strong>Application layer</strong> attacks target specific application functions at layer seven, such as
+  HTTP floods, and are the hardest to detect because the traffic looks legitimate. Adding the second D for
+  distributed means the traffic arrives from a botnet of compromised devices, which increasingly means
+  insecure IoT devices pressed into service.</p>
+  <p>Two cloud-specific consequences follow. Multi-tenancy means an attack on one tenant can degrade
+  performance for others sharing the infrastructure, the noisy neighbour problem in its most hostile form. And
+  elasticity, which absorbs the traffic, also converts the attack into a bill: auto-scaling in response to
+  attack traffic can accumulate very large costs before anyone notices, which is why this is called economic
+  denial of sustainability, abbreviated EDoS. Cloud-native protections include elasticity and auto-scaling to
+  absorb spikes, load balancers that distribute traffic and can detect and drop malicious patterns, and web
+  application firewalls filtering layer seven attacks on signature and behaviour.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>The exam tests that cloud does not eliminate denial of service risk, it changes the profile: better
+    absorption capacity, but new exposures in EDoS and cross-tenant impact. Know where provider protection
+    ends and customer configuration begins, because that boundary is what the scenario usually turns on.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Security caution</span>
+    <p>A denial of service event is sometimes the distraction rather than the attack. While attention and
+    analyst effort shift to the flood of traffic, the actual intrusion proceeds elsewhere in the estate. Keep
+    monitoring coverage holistic during a denial of service incident rather than concentrating every pair of
+    eyes on the visible event.</p>
+  </div>
 
   <h3>Identification, authentication, and authorisation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 5 &rsaquo; Identity Assurance in Cloud and Virtual Environments; Ch 6 &rsaquo; Identity and Access Management</span>
   <p>Organisations either extend existing on-premises IAM into the cloud or adopt cloud-based IAM services, weighing ease of management, security requirements, and the prospect of single sign-on across systems. Provider-supplied IAM systems are an option but tie the organisation more closely to that provider. User education underpins all of it: teaching people not to reuse passwords and to recognise phishing protects the identity layer in a way no technical control fully can.</p>
+  <p>The vendor IAM question is worth separating out. A cloud provider's own IAM service is one option; a
+  third-party identity product integrated into the environment, such as the identity layer of a SaaS platform
+  the organisation already uses, is another. Vendor-supplied IAM introduces its own dependency and its own
+  security practices, so it needs evaluating against the organisation's standards rather than accepted because
+  it is convenient, and the people who will operate it need to be trained on it.</p>
+
   <p>The <strong>shared responsibility model</strong> governs the split. Providers are generally responsible for securing the infrastructure supporting the services. Customers are responsible for the security of their own data within those services, including encryption at rest and in transit and the implementation of robust access controls.</p>
   <div class="example-box">
     <span class="label">Example</span>
@@ -691,6 +828,38 @@
     <p>A maritime company replicates its tracking database to a second region and assumes it is covered. During a test, the failover succeeds but the application tier does not exist in the second region, so there is nothing to serve the data. Data replication without functionality replication produces a recoverable database and an unusable service.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Recovery architectures and what they cost</h4>
+  <p>Active-passive with full replication is the architecture the exam most often depicts. In normal
+  operation, traffic reaches a load balancer at the active site, which distributes it across the service
+  instances; data is written to the active site's database and storage and continuously replicated to the
+  passive site, which holds the same architecture already provisioned and running but serving no live traffic.
+  On failover, traffic is redirected to the passive site, which can take over with minimal data loss because
+  its replica is current. Replication is typically bidirectional, so that once the original site is restored
+  it can resynchronise before failback.</p>
+  <p>That design maps onto the traditional recovery site tiers adapted for cloud. A full replica corresponds
+  to a hot site: fast to activate, expensive, because duplicate infrastructure sits mostly idle. A pilot light
+  or warm standby replicates less and costs less, at the price of a longer recovery. Backup and restore, the
+  equivalent of a cold site, is cheapest and slowest. Active-active is a further step again, with both sites
+  serving traffic simultaneously, which brings its own requirement for data consistency and conflict
+  handling. The choice is a cost trade-off, not a technical preference: pushing both RPO and RTO towards zero
+  means more replication, more standby capacity, and more expense.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>A telecom operator built exactly this pattern in a public cloud, using the provider's traffic manager
+    to control failover. The validation that mattered was not a document review: in the test environment the
+    team deliberately took down the database at the active site, watched the dependent services fail, and
+    confirmed that the load balancer diverted traffic to the failover site as designed. Testing frequency
+    should follow the criticality of the data, and automated failover mechanisms still need proving under
+    conditions that resemble a real failure.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Security caution</span>
+    <p>Replication has a data protection dimension that is easy to miss. If personal data is replicated to a
+    second site, an erasure request must be honoured at both, or the deletion is incomplete and the obligation
+    unmet. Classification, labelling, and discovery need to reach the replica as well as the primary, so that
+    the two sites stay in parity on what has been deleted as well as on what has been written.</p>
+  </div>
+
   <h3>Business requirements: RPO, RTO, and RSL</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; Business Continuity and Disaster Recovery; Ch 4 &rsaquo; Cloud-Specific BIA Concerns</span>
   <p>Three terms define recovery expectations, and the third is the one candidates most often miss:</p>
@@ -699,6 +868,22 @@
     <li><strong>Recovery Time Objective (RTO)</strong>, how quickly a system must be operational again after a disruption.</li>
     <li><strong>Recovery Service Level (RSL)</strong>, the proportion of normal service capacity that must be available during recovery. Recovery is rarely all or nothing: an organisation may accept running at a defined percentage of full capacity while operating from the recovery site.</li>
   </ul>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Reading the recovery timeline</h4>
+  <p>Placing the two objectives on a timeline is the clearest way to keep them apart, and it is one of the
+  most heavily tested concepts in this domain. The RPO sits <strong>before</strong> the disaster: the gap
+  between the last recovery point and the moment of failure is the window of lost transactions, because
+  anything created or changed in that window was never replicated. RPO therefore answers how much data the
+  organisation can afford to lose, it is backward looking, and it is driven by backup and replication
+  frequency; snapshots every four hours produce a four-hour RPO, continuous synchronous replication produces
+  a near-zero one. The RTO sits <strong>after</strong> the disaster: the gap between failure and service
+  restoration, covering the time to detect, respond, and restore. RTO answers how fast the service must be
+  back, and it is forward looking.</p>
+  <p>The two are independent, and a tight RTO can sit alongside a loose RPO or the reverse, depending on
+  business need. Both values should come out of the business impact analysis rather than being set by the
+  architecture team, because they are business risk decisions; the architecture is then chosen to meet them.
+  The exam tests that direction of travel specifically. A memory hook that holds up: RPO is data and looks
+  backwards, RTO is time and looks forwards.</p>
+
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank sets an RPO of fifteen minutes, an RTO of two hours, and an RSL of sixty percent. Translated: it can lose at most the last fifteen minutes of transactions, must be serving customers again within two hours, and can run at sixty percent of normal capacity while in recovery, accepting degraded throughput but not an outage.</p>
@@ -707,6 +892,28 @@
   <h3>Creating, implementing, and testing the plan</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 8 &rsaquo; BC/DR Planning</span>
   <p>Implementing a BCDR plan runs through defining the <strong>scope</strong> of what the plan covers, <strong>gathering requirements</strong> from the business, <strong>analysing</strong> the resulting plan, and <strong>risk assessment</strong> of the arrangements themselves, followed by implementation and, critically, testing. An untested plan is an assumption. Testing is what converts a document into a capability, and it routinely reveals gaps such as missing dependencies, stale credentials, or capacity that exists on paper but not in practice.</p>
+  <p>Requirements gathering is where the plan either earns its keep or fails. It means identifying the
+  critical business processes with input from across the business rather than from the security function
+  alone, mapping the data and service dependencies those processes rely on, documenting the service level
+  agreements held with third parties, and listing the risks and threats in scope, from natural disasters to
+  cyber attacks to ordinary system failure. The risk assessment stage then examines the provider as much as
+  the plan: can the provider deliver during a failover, can it scale resources during a disaster, and does the
+  contract contain anything, from data sovereignty terms to service continuity guarantees, that would
+  undermine the arrangement when it is invoked.</p>
+  <p>Design decisions worth recording explicitly: whether failover is manual or automated, who owns each part
+  of the plan, and whether there is no single point of failure in the plan itself, including the people.
+  Naming one individual for a role with no named deputy reproduces at the human level exactly the fragility
+  the architecture is designed to avoid, and people take holidays and fall ill. Note also that the failover
+  mechanism, usually a load balancer, cluster manager, or DNS manipulation, can itself become a new single
+  point of failure if it is not designed with the same care as what it protects.</p>
+  <p>Testing should start simple and build towards enterprise-wide exercises, extending to third-party
+  suppliers where they matter, and should validate that the RPO and RTO targets are actually achievable
+  rather than aspirational. Gather feedback from participants after every test, since the people who ran it
+  know where it strained. There is a balance to strike: a realistic trial run introduces some risk to
+  production, and that has to be weighed against the value of knowing the plan works. Well run simulations
+  also raise the security culture of the organisation, because they leave people knowing exactly what they
+  own when something goes wrong.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Keep the three objectives separate. RPO is data loss measured in time. RTO is time to restore service. RSL is the percentage of capacity available during recovery. A scenario that meets its restoration deadline but loses more data than allowed has failed its RPO, not its RTO, and the corrective action belongs with replication frequency rather than failover speed.</p>

@@ -519,6 +519,22 @@
     <span class="label">Example</span>
     <p>A bank generates a customer statement (create), writes it to cloud object storage over an encrypted connection (store), serves it to the customer through online banking for months (use), sends a copy to the customer's accountant on request (share), moves it to low cost archival storage to satisfy a seven year retention rule (archive), and cryptographically erases it when the retention period ends (destroy). Each handover point has its own control set.</p>
   </div>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Phase controls in practice</h4>
+  <p>Each phase has controls that are easy to state and harder to operate. At <strong>create</strong>,
+  classification is performed by the data owner or the person creating the record, with a data custodian
+  responsible for day-to-day handling once it exists; getting this wrong at creation means every downstream
+  control is applied to the wrong sensitivity level. At <strong>store</strong>, data usually crosses public
+  networks on its way to cloud storage, so TLS, SSH, and VPN tunnels are the practical protections. At
+  <strong>use</strong>, the GDPR term for viewing and processing is handling, which is why controller and
+  processor obligations attach here rather than at creation. At <strong>share</strong>, distinguish role-based
+  access control, where rights follow the job, from rule-based access control, where rights follow conditions
+  such as time or location; regular access reviews catch the rights that were granted for a project and never
+  withdrawn. At <strong>archive</strong>, segment archives and backups from the production network, because a
+  ransomware campaign that reaches both leaves nothing to restore from. At <strong>destroy</strong>, physical
+  media handled by a third party should return a certificate of destruction, and the traditional risks have
+  not gone away: discarded paper records remain a productive target for anyone willing to go through the
+  bins.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Scenario questions often name an activity and ask which phase it belongs to, or name a control and ask where it applies. Classification belongs to create. IRM and DLP are share phase controls. Key ageing is an archive phase problem. If a question describes the longest running phase, it means use.</p>
@@ -586,10 +602,25 @@
   <h3>General threats across storage types</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Threats to Cloud Storage</span>
   <ul class="plain">
-    <li><strong>Unauthorised access</strong>, mitigated with strong authentication, comprehensive access controls, and encryption at rest and in transit.</li>
-    <li><strong>Regulatory noncompliance</strong>, mitigated by aligning storage configuration with the regulations that apply to the data, and auditing regularly.</li>
+    <li><strong>Unauthorised access</strong>, mitigated with strong authentication, comprehensive access controls, and encryption at rest and in transit.
+      <span class="li-eg"><span class="label">In practice</span>Multi-factor authentication combines something
+      you know, something you have, and something you are. On the something you know factor, public
+      demonstrations by security researchers have shown a password built from two dictionary words and two
+      digits falling to a dictionary-driven brute force attack in minutes, which is the argument for
+      passphrases with substituted characters rather than passwords.</span></li>
+    <li><strong>Regulatory noncompliance</strong>, mitigated by aligning storage configuration with the regulations that apply to the data, and auditing regularly.
+      <span class="li-eg"><span class="label">In practice</span>Internal audits test the control; external
+      audits test the organisation, and only the second avoids marking your own homework.</span></li>
     <li><strong>Jurisdictional issues</strong>, mitigated by knowing where data may legally be stored and using the provider's geographic controls to keep it there.</li>
   </ul>
+  <p>In the UK, the assurance schemes that evidence these mitigations form a progression. Cyber Essentials is
+  the self-assessed entry point, covering basic technical controls. Cyber Essentials Plus is the same control
+  set with external, third-party validation rather than self-declaration. ISO/IEC 27001 sits above both,
+  certifying a full information security management system on a three-year cycle. The direction of travel
+  matters commercially: the National Cyber Security Centre has been pressing suppliers to UK critical national
+  infrastructure to commit to Cyber Essentials Plus, so for many organisations the scheme is becoming a
+  condition of winning public sector and CNI contracts rather than an optional badge.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Match the storage type to its service model. Ephemeral and volume belong to IaaS. Object spans IaaS and PaaS. Database and BLOB belong to PaaS. If a question pairs SQL injection with a storage type, it is pointing at database storage. If it pairs session state or volatile memory with a type, it is pointing at ephemeral.</p>
@@ -617,10 +648,72 @@
     <p>A bank encrypts card numbers at the application level before they reach the database, encrypts the sensitive columns of the database itself, and runs the whole database on an encrypted volume. Three layers, three different attackers defeated: an application layer eavesdropper, a database administrator overreaching, and someone with access to the underlying storage.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Choosing the encryption layer</h4>
+  <p>The four levels differ in where the encryption happens, how finely it can be targeted, and which
+  attacker it defeats. The exam tests the choice, not the mechanism, so learn them as a set of trade-offs.</p>
+  <ul class="plain">
+    <li><strong>Application-level</strong>, encryption happens in application logic using keys the application
+    controls, before data is written anywhere. Granularity is field or object level, so salary can be
+    encrypted while employee ID stays readable. It is the strongest option against everything below the
+    application layer: database administrators, storage administrators, and provider staff cannot read the
+    data even with full access to the underlying store, and it works consistently whatever the storage
+    technology.
+      <span class="li-eg"><span class="label">Trade-off</span>The highest implementation complexity. Every
+      application touching the data needs the encryption and decryption logic, database functions such as
+      indexing, searching, and sorting break on encrypted fields, and the key management burden falls on the
+      application team. Typical use: specific regulated elements such as cardholder data, health record
+      fields, or GDPR special category data.</span></li>
+    <li><strong>Database-level</strong>, encryption is handled by the database engine itself, commonly through
+    transparent data encryption, encrypting on write and decrypting on authorised read. Granularity runs from
+    the column to the whole table space. It is easy to adopt, often a configuration setting rather than a code
+    change, and it preserves indexing and query behaviour because decryption happens after the session is
+    authorised.
+      <span class="li-eg"><span class="label">Security caution</span>It does not protect against a compromised
+      database administrator account or anyone holding legitimate query permissions, who simply sees plain
+      text. The engine holds the keys, so the circle of trust is wider than the application-layer
+      approach.</span></li>
+    <li><strong>File-level</strong>, encryption is applied at the filesystem layer through software agents,
+    operating system features, or provider tooling such as server-side encryption on object storage. It is
+    indifferent to what the file contains, which makes it flexible and simple to apply broadly across
+    unstructured data such as documents, logs, and media.
+      <span class="li-eg"><span class="label">Trade-off</span>All or nothing per file: you cannot selectively
+      encrypt part of a file's contents, and keys must be tracked per file or per encryption zone. Typical
+      use: object storage buckets, document repositories, and backups.</span></li>
+    <li><strong>Volume-level</strong>, encryption happens at the block layer beneath the filesystem, so
+    everything written to the volume is encrypted with no awareness of individual files. This is what most
+    people mean by the blanket phrase encryption at rest, and full disk encryption products fall into the same
+    category.
+      <span class="li-eg"><span class="label">Security caution</span>It offers no protection once the volume is
+      mounted and the operating system has decrypted it, so an attacker with operating system access or a
+      compromised virtual machine sees plain text. Typical use: protecting virtual machine disks and block
+      storage against media theft and improper decommissioning, and meeting encryption at rest obligations
+      under the GDPR.</span></li>
+  </ul>
+  <p>The layers fit together rather than competing: volume-level defeats physical media theft and careless
+  decommissioning, file-level defeats object storage exposure and unauthorised file access, database-level
+  defeats unauthorised database access and satisfies compliance baselines, and application-level defeats
+  insider threats and privileged administrator access. The governing principle is worth memorising: the closer
+  to the application you encrypt, the stronger the protection, and the higher the complexity and performance
+  cost.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Scenario questions typically describe a threat model and ask which layer is most appropriate. Protect
+    against a rogue cloud provider employee: application-level. Protect against physical disk theft after
+    decommissioning: volume-level. Protect regulated columns without redesigning the application:
+    database-level. Read for who the attacker is, not for which technology sounds strongest.</p>
+  </div>
+
   <h3>Key management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Secrets Management</span>
   <p>Encryption is only as strong as the management of its keys. A cloud Key Management System (KMS) handles cryptographic operations and the key lifecycle inside a secure boundary. Customer Managed Encryption Keys (CMEK) let the customer control its own keys while integrating with the provider's KMS, which matters for compliance regimes that require customer key custody.</p>
   <p>The key lifecycle runs: <strong>creation</strong>, using cryptographically secure random generation; <strong>storage</strong>, in encrypted vaults or hardware security modules with tightly restricted access; <strong>usage</strong>, under defined protocols with all use logged and monitored; <strong>sharing</strong>, discouraged, and done only through secure channels when unavoidable; and <strong>archiving</strong>, retaining retired keys securely where they are still needed to decrypt historical data. Keys must be stored separately from the data they protect, and rotated on a schedule so a compromised key has a limited exposure window.</p>
+  <p>Three operational details are worth adding. Keys should be generated with cryptographically secure
+  pseudo-random number generators, because predictable key material defeats an otherwise sound algorithm.
+  Where keys must be shared, the transfer should happen out of band, through a different channel from the
+  ciphertext, so intercepting one does not yield both. And secrets systems commonly use envelope encryption,
+  where a master key encrypts the data encryption keys rather than the data itself, which means rotating the
+  master key does not require re-encrypting everything it ultimately protects.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>If a scenario stores keys alongside the encrypted data, that is the flaw, whatever else the question says. And remember why archived keys exist at all: destroying a key that still protects archived data is equivalent to destroying the data, which is exactly what cryptographic erase exploits deliberately.</p>
@@ -654,9 +747,22 @@
     <span class="label">Example</span>
     <p>A retail bank's mobile app displays a saved card as a token ending in the same four digits. The real card number lives only in the token vault, behind its own access controls. A breach of the app's database yields tokens that are worthless outside the bank's own tokenization system.</p>
   </div>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">How the tokenization architecture works</h4>
+  <p>Four components make up the pattern. The <strong>application server</strong> holds the business logic and
+  talks to its ordinary database for non-sensitive data. When it handles something sensitive, such as a card
+  number, it sends that value to the <strong>tokenization server</strong> rather than storing it. The
+  tokenization server generates a surrogate value with no derivable mathematical relationship to the original,
+  returns the token to the application, and writes the real value alongside its token into the
+  <strong>token database</strong>. That database is the only place the mapping exists, which makes it the
+  system's crown jewels and the one component needing the heaviest controls: encryption, strict least
+  privilege, and extensive auditing. <strong>Downstream systems</strong> exchange only tokens; when an
+  authorised process needs the real value back, such as a payment processor completing a
+  transaction, only the tokenization server can detokenise, and it does so under access control. The critical
+  property is that the application never stores the real data, so compromising the application database yields
+  meaningless tokens.</p>
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
-    <p>Keep the trio straight. Masking produces realistic fake data for use in place of the real thing. Tokenization removes the real value to a vault and leaves a reversible reference. Anonymization severs the link to the individual permanently. If reversibility through a secure mapping is described, the answer is tokenization. If the goal is test data, the answer is masking. If the goal is escaping privacy regulation entirely, the answer is anonymization, along with a healthy scepticism about whether it was truly achieved.</p>
+    <p>Keep the trio straight. Masking produces realistic fake data for use in place of the real thing. Tokenization removes the real value to a vault and leaves a reversible reference. Anonymization severs the link to the individual permanently. If reversibility through a secure mapping is described, the answer is tokenization. If the goal is test data, the answer is masking. If the goal is escaping privacy regulation entirely, the answer is anonymization, along with a healthy scepticism about whether it was truly achieved. A recurring scenario describes an organisation wanting to reduce the number of systems in scope for PCI DSS while still letting multiple applications process card transactions; the answer is tokenization, precisely because only the tokenization server and the token database sit inside the compliance boundary.</p>
   </div>
 
   <h3>Data Loss Prevention</h3>
@@ -667,6 +773,23 @@
     <p>An energy company's DLP policy flags any outbound email containing grid asset identifiers. When an engineer attaches a substation schematic to a message addressed outside the company, the DLP engine blocks the send, notifies the security team, and logs the incident, all before the data leaves.</p>
   </div>
 
+  <p>Deployment location shapes what a DLP capability can see. Network-based DLP typically sits near the
+  organisation's gateway, inspecting ingress and egress traffic. Endpoint-based DLP uses software agents on
+  devices, and those agents often bring adjacent capabilities such as full device encryption and remote wipe.
+  That combination has a regulatory pay-off: a lost or stolen laptop whose disk is encrypted and which can be
+  wiped remotely may not amount to a reportable personal data breach, because the data is ciphertext and
+  therefore unreadable by whoever has the device.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>A UK government department sent a single email to a large group of recipients, placing the addresses in
+    the To field instead of the blind copy field. Every recipient could see every other recipient's name and
+    email address, which is a personal data breach, and it attracted regulatory enforcement from the
+    Information Commissioner's Office. No attacker was involved and no system was compromised. A DLP rule
+    inspecting outbound mail for large recipient counts in the To field would have flagged the message before
+    it left, which is why employee negligence sits alongside insider threat and exfiltration in the list of
+    what DLP is for.</p>
+  </div>
+
   <h3>Keys, secrets, and certificates management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Certificate Management; Ch 6 &rsaquo; Secrets Management</span>
   <p>Beyond encryption keys, cloud environments run on secrets, meaning API keys, passwords, tokens, and connection strings, and on digital certificates. A <strong>secrets manager</strong> centralises storage of these values with access control and audit logging, replacing the dangerous habit of embedding credentials in code or configuration files. A <strong>certificate manager</strong> handles the lifecycle of digital certificates and the secure handling of their private keys, including issuance, renewal, and revocation. Centralising both means credentials can be rotated, audited, and revoked in one place.</p>
@@ -674,6 +797,28 @@
     <span class="label">Example</span>
     <p>A maritime company's deployment pipeline once held database passwords in a configuration file inside the code repository. Anyone with repository access could read production credentials. Moving them into a secrets manager meant the pipeline retrieves credentials at run time, every retrieval is logged, and rotating a compromised password is one change in one place rather than a hunt through every repository.</p>
   </div>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">What a secrets manager actually does</h4>
+  <p>The problem secrets management solves is historical practice: developers hard coded credentials into
+  source code, configuration files, and environment variables, so the secrets ended up in code repositories,
+  container images, log files, and pipeline output. Once a secret leaks, even briefly into a public
+  repository or a commit history, it is compromised permanently unless it is rotated. Managed services such as
+  AWS Secrets Manager, Azure Key Vault, and Google Cloud Secret Manager share a common set of functions:
+  centralised encrypted storage, usually with envelope encryption; fine-grained identity and access management
+  policies determining which users, roles, or applications may retrieve which secret; versioning, so an
+  earlier version can be rolled back to if a rotation breaks something; audit logging of every read, write,
+  and rotation event, which doubles as compliance evidence; and injection into runtime environments,
+  integrating with orchestration platforms so secrets reach containers and pipelines at deploy time rather
+  than sitting in manifest files.</p>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Certificate managers and why renewal matters</h4>
+  <p>Certificate managers handle the lifecycle of the digital certificates that establish trust and encrypt
+  traffic between systems, covering TLS, mutual TLS, and code signing. Their functions are issuance,
+  requesting and provisioning certificates from a public or private certificate authority; automatic renewal,
+  tracking expiry and renewing before the certificate lapses; revocation, replacing a certificate whose
+  private key is compromised and updating the revocation list or responder; and integration with the
+  organisation's wider public key infrastructure, including private certificate authorities issuing
+  certificates for internal mutual TLS between microservices. Automatic renewal deserves emphasis:
+  certificates commonly last from ninety days to a year, and expired certificates are one of the most common
+  causes of real-world cloud outages when renewal is left to a human to remember.</p>
 </div>
 
 <a id="s24"></a>
@@ -689,6 +834,14 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with a predefined format and content type, organised into distinct fields, the classic example being a relational database. Its defining attributes are a defined structure, validation before storage, ease of search, and strong suitability for analysis. Discovery in structured data is comparatively straightforward, because the schema itself describes what each field contains.</p>
 
+  <p>The relational vocabulary is worth knowing precisely: the tables are relations, the rows are records,
+  and the columns hold attributes, with relationships connecting tables to one another. The schema is defined
+  before any data is loaded, which is what makes structured data validated at the point of entry, precisely
+  queryable, and reliably discoverable. That last property has direct security consequences. Database-level
+  encryption applies cleanly because the schema is known, permissions can be granted down to table, row, or
+  column level, with row-level security and column masking available, and automated discovery tools can flag a
+  column named for a card number or a national insurance number with high confidence.</p>
+
   <h3>Unstructured data</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery &rsaquo; Data Discovery Methods</span>
   <p>Data with no imposed structure or format: documents and text files, emails, images, videos, office documents, and scientific datasets. Unstructured data is the hardest to discover and govern, because nothing about its container reliably describes its contents. A spreadsheet named notes.xlsx can hold anything from a lunch rota to a full customer export.</p>
@@ -701,9 +854,21 @@
     <p>A telecom company's customer records sit in a relational database (structured), its call centre voice recordings sit in object storage (unstructured), and the data feeds it exchanges with partner networks are JSON documents (semi-structured). A subject access request under GDPR has to find the customer in all three, which is precisely why discovery tooling must handle every form.</p>
   </div>
 
+  <p>The pattern behind all three forms is the one the exam tests: the more structured the data, the more
+  precisely it can be classified, the more finely access to it can be controlled, and the more granular the
+  protection that can be applied at field level. Unstructured data has no schema to attach fine-grained rules
+  to, so it falls back on coarser controls such as file-level or volume-level encryption, which is why it
+  accounts for most of the sensitive data organisations fail to find.</p>
+
   <h3>Data location</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Cloud mobility means customers often do not know precisely where their data physically sits, and for routine operations that may not matter. It matters greatly for regulated and sensitive data, where compliance depends on knowing and controlling location. Organisations with legal, compliance, or operational reasons should define a preferred data location, use the provider's geographic controls to enforce it, and engage the provider proactively for clarity on where data is actually stored, including replicas and backups.</p>
+  <p>Two practical steps support this. First, train employees to recognise what counts as sensitive data in
+  the first place, since discovery tooling cannot compensate for staff who do not know that a spreadsheet they
+  built contains personal data. Second, review the cloud contract: the responsibility matrix in the contract
+  is the document that settles who is accountable for location controls, and it is where an obligation to keep
+  data in a named region either exists or does not.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Discovery questions often hinge on matching the data form to the discovery difficulty. Structured data is easiest because the schema is self describing. Unstructured is hardest and is where most undiscovered sensitive data hides. If a question mentions tags, markers, XML, or JSON, it means semi-structured.</p>
@@ -724,9 +889,25 @@
     <p>A bank defines four levels: public, internal, confidential, and restricted. Each level carries defined handling rules, storage requirements, sharing constraints, and destruction methods. Marketing material is public. Board papers are restricted. The point is not the labels themselves but that every employee handling a document knows, from its level alone, exactly what they may and may not do with it.</p>
   </div>
 
+  <p>Two cautions apply. There is no single classification scheme that fits every organisation, so treat
+  vendor claims of a universal solution with scepticism and build the scheme case by case around the data the
+  organisation actually holds and the regulations that apply to it. And classification is only useful if it
+  drives something: the classification level should determine the security measures applied, whether that is
+  multi-factor authentication, access control lists, network segmentation around the systems holding the data,
+  or intrusion detection and prevention monitoring those segments. Done properly it reduces exposure to
+  privacy breaches, regulatory fines, and group claims brought by data subjects; done as a labelling exercise
+  alone it achieves nothing.</p>
+
   <h3>Data mapping</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Inventory and Discovery</span>
   <p>Data mapping builds the picture of where data resides across applications and storage infrastructure. Discovery software scans data sources using a range of attributes, the most important being <strong>metadata</strong>, meaning data about data: details of a file's creator, origin, format, and context. A sound mapping strategy lets the organisation identify precisely where data lives, which is the foundation for governance, and for enforcing security policy, since you can only protect what the map shows you.</p>
+
+  <p>Metadata earns its place twice over. It drives discovery, and it is what lets security analysts
+  reconstruct the timeline of an incident afterwards, since timestamps, locations, and originating addresses
+  are what turn isolated events into a sequence. Frameworks such as the Lockheed Martin cyber kill chain are a
+  useful way to present that sequence to non-specialist colleagues in awareness training, walking through a
+  recent incident in the organisation's own sector from reconnaissance and social engineering through command
+  and control to exfiltration.</p>
 
   <h3>Data labeling and tagging</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Classification</span>
@@ -735,6 +916,14 @@
     <span class="label">Example</span>
     <p>An energy company's document management system stamps a classification label into the metadata and header of every file at creation. Months later, when someone attaches a restricted engineering drawing to an outbound email, the DLP engine does not need to understand the drawing. It reads the label and blocks the send. Classification did the thinking at create time; the label carried the decision forward.</p>
   </div>
+  <p>Two operational points. Policy-based labelling applies labels automatically from predefined rules
+  rather than relying on the person creating the file, which is the only approach that scales. And the label
+  scheme itself is not fixed: government classification schemes have been restructured more than once, so a
+  scheme copied from a public sector example may be out of date. Control the policy documents that define the
+  scheme centrally and distribute links rather than copies, both so that everyone works from the current
+  version and because internal policy documents describing where sensitive data lives are useful to an
+  attacker who obtains them.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>Keep the sequence straight: discovery finds the data, classification decides its sensitivity, mapping records where it lives, and labeling attaches the decision to the data so controls can enforce it. Questions that ask what must happen first are usually pointing at discovery or classification, depending on whether the scenario is about finding data or deciding how to treat it.</p>
@@ -801,17 +990,64 @@
     <p>A bank retains transaction records for the period its regulator requires, then destroys them on schedule. Keeping them longer is not generosity, it is risk: every extra year of retained personal data is another year it can be breached, subpoenaed, or fall within the scope of a subject access request. A good retention policy treats deletion on schedule as seriously as retention on schedule.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Retention obligations that come from data subjects</h4>
+  <p>Retention schedules are also driven by individual rights, not only by regulators. Under the GDPR a
+  subject access request must be answered within one calendar month, so retained data has to be findable and
+  retrievable to that deadline, and the right to erasure works in the opposite direction by requiring deletion
+  on request where no lawful basis for keeping the data remains. Neither right is satisfiable if nobody knows
+  what is held or where.</p>
+  <p>Treat the policy as a living document. The legal landscape moves, with the EU AI Act the most active
+  current example and supervisory authorities publishing guidance in response to it, so scheduled management
+  reviews should ask whether new technologies, new data sets, or new regions have been taken on since the last
+  review, and whether organisational drift has opened a gap between the written retention periods and actual
+  practice. Adoption depends on senior executive buy-in and policy dissemination sessions, because policies
+  disseminated from the top are absorbed far better than policies circulated by email.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>One effective way to audit whether a retention policy is actually lived: sit down with employees at a
+    supplier site, hand them a blank sheet of paper, ask them to imagine it is a candidate's CV, and have them
+    walk through how they would store it, process it, and dispose of it once it is no longer needed. Gaps
+    between the written policy and what people actually do surface within minutes, and far more reliably than
+    from reviewing the document itself.</p>
+  </div>
+
   <h3>Data deletion procedures and mechanisms</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Destruction/Disposal</span>
   <p>Deletion procedures define how data is actually destroyed when retention ends, and they must produce irrecoverable results proportionate to the data's sensitivity. In the cloud, where the customer cannot physically destroy media, the practical mechanisms are overwriting and cryptographic erase, with cryptographic erase, destroying the key that protected the data, being the standard answer for multi-tenant storage the customer cannot touch.</p>
+
+  <p>The reason to hold the standard high has changed in recent years. Personal data recovered from
+  incomplete disposal now feeds identity fraud and, increasingly, material for AI-assisted social engineering,
+  where leaked personal details make a synthetic voice or video call convincing enough to defeat a colleague's
+  scepticism. Data that was merely embarrassing to lose a decade ago is now raw material for a targeted
+  attack on the people it describes.</p>
 
   <h3>Data archiving procedures and mechanisms</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>Archiving identifies inactive data and moves it into specialised long term storage, which keeps primary systems fast and storage costs down. The elements of an archiving policy include data encryption procedures for the archive, data monitoring, the ability to perform e-discovery against archived content when legal proceedings demand it, and backup and disaster recovery arrangements for the archive itself. The long time horizon is what makes archiving distinctive: keys age, formats age, and the archive must remain both secure and readable for its whole life.</p>
 
+  <p>Six elements make an archiving policy workable. <strong>Encryption procedures</strong> should state
+  which method is used, what the restoration options are, and which threats the encryption is meant to
+  address; mismanaged keys can render an entire archive permanently unreadable, which is destruction by
+  accident. <strong>Monitoring</strong> matters because archived data in the cloud is still replicated and
+  moved, so access and movement must be tracked to keep governance intact. <strong>E-discovery and granular
+  retrieval</strong> means being able to retrieve by parameters such as date, subject, or author, which is
+  what makes both litigation and subject access requests answerable. <strong>Backup and disaster recovery</strong>
+  arrangements for the archive itself must be documented and aligned with the wider continuity plans.
+  <strong>Data format and media type</strong> need deliberate choice, because proprietary formats and media
+  change over a retention period measured in years and can leave data technically intact but unreadable.
+  <strong>Restoration testing</strong> should be periodic, and should restore into an isolated environment
+  rather than production, since a trial restore can reintroduce old malware or overwrite current data.</p>
+
   <h3>Legal hold</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Control &rsaquo; Data Retention</span>
   <p>A legal hold preserves data in response to actual or anticipated legal proceedings, triggered by a judicial or law enforcement order. Its key aspects: the hold notice defines the <strong>scope</strong> of data that must be preserved; the <strong>duration</strong> normally runs until proceedings conclude; the organisation may be required to keep <strong>custody and protection</strong> of the data, safeguarding it from alteration or destruction; and some situations impose <strong>escrow or independent custody</strong> requirements, placing the data with a neutral party.</p>
+  <p>Two further requirements are easy to overlook. Hold notices frequently specify the state and format in
+  which data is preserved, so that evidence is not altered, mishandled, or converted out of its original form
+  and rendered inadmissible; and everything done under the hold must be documented, because the documentation
+  is what demonstrates compliance with the order and protects the organisation during the proceedings. The
+  scope commonly reaches wider than the obvious records, covering emails, electronic documents, database
+  records, and the metadata describing them.</p>
+
   <div class="example-box">
     <span class="label">Example</span>
     <p>An energy company receives a hold notice covering all correspondence about a disputed contract. Some of those emails are three weeks from automated deletion under the retention policy. The hold overrides the schedule: deletion is suspended for everything in scope until the litigation ends. Letting the automated deletion run would be spoliation of evidence, with consequences far worse than the storage bill.</p>
@@ -831,6 +1067,12 @@
   <h3>Event sources and event attributes</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 2 &rsaquo; Data Audit and Audit Mechanisms; Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>An event source is any software, hardware, or system that generates activity logs: operating systems, applications, network devices, cloud platform services. Identifying event sources is the first step in monitoring, incident detection, and compliance, because you can only analyse what something actually recorded. Event attributes are the details each event must carry to be meaningful. The attributes the outline names are <strong>identity</strong>, who or what performed the action; <strong>IP address</strong>, where the request came from; and <strong>geolocation</strong>, the physical origin. In practice a useful event also carries a timestamp and the action performed. Rich attributes are what turn a log line into evidence: they support troubleshooting, security analysis, auditing, and compliance reporting.</p>
+  <p>A fuller attribute set, as it appears in most log formats, records the timestamp of the event, the type
+  of event, such as a login attempt or a system reboot, the source and destination involved, the user details
+  including the originating address, and the outcome or status of the action. Those last two matter more than
+  they look: an attribute set that captures attempts as well as successes is what allows failed access to be
+  distinguished from successful access when the sequence is reconstructed later.</p>
+
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank investigates an unusual bulk download from its document platform. The event log shows the identity used, the source IP, a geolocation inconsistent with the employee's location, and the exact objects accessed with timestamps. Those attributes let the team reconstruct the incident hour by hour. Without them, the log would say only that something happened.</p>
@@ -839,6 +1081,15 @@
   <h3>Logging, storage, and analysis of data events</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Log Capture and Analysis</span>
   <p>Three interconnected activities. <strong>Logging</strong> records events as they occur. <strong>Storage</strong> keeps logs secure and intact for a defined retention period, which is often itself a regulatory requirement, and protects them from tampering, since an attacker's first move is frequently to alter the logs. <strong>Analysis</strong> turns stored logs into insight: identifying trends, diagnosing issues, and detecting anomalies that indicate security incidents. Each depends on the previous: analysis is only as good as what was logged, and logs are only trustworthy if storage preserved them unaltered.</p>
+
+  <p>Three practical consequences follow. Log retention periods vary by sector and regulator, so the storage
+  design has to start from the compliance requirement rather than from available disk. Logs themselves
+  frequently contain personal data, including usernames and addresses, so the log store inherits the
+  protection and retention obligations of the data it describes rather than sitting outside them. And analysis
+  at cloud scale is the province of security information and event management platforms correlating events
+  across sources, increasingly with machine learning assistance, though human enrichment remains what turns a
+  correlated alert into an understood incident. Faster correlation is what drives down mean time to detection,
+  and not every event that warrants investigation is malicious; suspicious is a sufficient threshold.</p>
 
   <h3>Chain of custody and non-repudiation</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 9 &rsaquo; Cloud Forensics &rsaquo; Evidence Preservation and Management</span>

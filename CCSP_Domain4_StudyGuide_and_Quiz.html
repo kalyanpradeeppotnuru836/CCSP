@@ -537,6 +537,19 @@
     <p>A bank mandates secure coding standards but does not fund the training or give teams time to apply them. Developers meet delivery deadlines by treating the standard as optional. The policy exists on paper and fails in practice, which is exactly what inadequate leadership commitment produces.</p>
   </div>
 
+  <p>Two arguments help when training budgets come under pressure. Frame the case in terms the board already
+  works in: the upper tier of GDPR fines, and the reputational damage that follows a breach handled badly.
+  And recognise that awareness training is one of the highest-return interventions available for raising an
+  organisation's security maturity, precisely because reconnaissance and social engineering now account for so
+  much of the early stages of the kill chain. The perimeter that matters most is the eyes and ears of
+  employees, and it is the only one that cannot be bought.</p>
+  <p>Where security expertise is scarce, distributing it works better than concentrating it. Rather than
+  holding all specialists in one team, embed them into development teams for the secure SDLC, or make them
+  available as internal consultants. Identifying and upskilling people across departments who already have an
+  interest in security, sometimes called security champions, extends reach without extending headcount. For
+  anyone wanting to understand the social engineering side properly, the writings of Kevin Mitnick, including
+  Ghost in the Wires and The Art of Deception, are the standard first-hand accounts.</p>
+
   <h3>Common cloud vulnerabilities and the reference lists</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Assurance and Validation &rsaquo; Common Threats to Applications</span>
   <p>Cloud's reliance on network systems exposes it to data breaches, compromised integrity, insecure APIs, and denial of service, with applications and transmissions operating in potentially hostile environments. Five reference lists are named in the outline. Each is set out in full below, since the exam expects recognition of individual entries rather than the list's general purpose.</p>
@@ -556,6 +569,42 @@
     <li><strong>A09 Security Logging and Monitoring Failures</strong>, insufficient recording or alerting, so breaches go undetected. <span class="li-eg"><span class="label">Example</span>authentication failures never logged, leaving a months-long brute force attempt invisible.</span></li>
     <li><strong>A10 Server-Side Request Forgery (SSRF)</strong>, an application fetching a remote resource from a user-supplied URL without validation. <span class="li-eg"><span class="label">Example</span>submitting an internal metadata service address so the server retrieves cloud credentials and returns them.</span></li>
   </ul>
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Mitigations for the cloud-relevant entries</h4>
+  <p>Knowing the risk is half the requirement; the exam also expects the control that addresses it.</p>
+  <ul class="plain">
+    <li><strong>A01 Broken Access Control</strong>, enforce least privilege in IAM policies by default, run
+    regular access reviews, and use policy as code so permissions cannot drift silently.</li>
+    <li><strong>A02 Cryptographic Failures</strong>, encrypt at rest and in transit by default, use the
+    provider's key management service with proper rotation, and retire deprecated protocols; TLS 1.2 or above
+    only.</li>
+    <li><strong>A03 Injection</strong>, parameterised queries and prepared statements, input validation and
+    sanitisation, WAF rules, and avoiding dynamic query construction in serverless functions.</li>
+    <li><strong>A04 Insecure Design</strong>, threat modelling during design, architecture review, and
+    security requirements agreed before coding starts. This one cannot be patched later, which is the whole
+    point of the category.</li>
+    <li><strong>A05 Security Misconfiguration</strong>, infrastructure as code with security baselines, cloud
+    security posture management tools scanning continuously for drift, disabling default accounts and unused
+    services, and automated hardening templates.</li>
+    <li><strong>A06 Vulnerable and Outdated Components</strong>, software composition analysis, a maintained
+    patch schedule, and minimal hardened base container images.</li>
+    <li><strong>A07 Identification and Authentication Failures</strong>, enforce MFA, strong session
+    management, rate limiting on login attempts, and federated identity rather than local credential
+    stores.</li>
+    <li><strong>A08 Software and Data Integrity Failures</strong>, code signing, verifying package checksums
+    and signatures, restricting write access to CI/CD pipelines, and reviewing the software bill of
+    materials.</li>
+    <li><strong>A09 Security Logging and Monitoring Failures</strong>, centralise cloud-native logs, integrate
+    them with a SIEM for real-time alerting, and define and test incident response playbooks.</li>
+    <li><strong>A10 Server-Side Request Forgery</strong>, restrict outbound requests through allow lists,
+    protect cloud metadata endpoints, and segment the application tier from internal services.</li>
+  </ul>
+  <p>Two observations follow from that list. Several of these entries sit squarely on the customer side of
+  the shared responsibility model in IaaS and PaaS, security misconfiguration, broken access control, and
+  cryptographic failures above all, and the exam likes to test that boundary. And SSRF is the most
+  cloud-specific entry: added in the 2021 edition, it targets internal metadata services to steal credentials
+  and has no real equivalent in a traditional on-premises estate. The list is not ranked by real-world
+  frequency in cloud either; if it were, security misconfiguration would be first.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>A01 Broken Access Control and A07 Identification and Authentication Failures are frequently confused. Authentication asks who you are; access control asks what you may do once identified. A user correctly logged in who then reaches another customer's data is an access control failure, not an authentication one.</p>
@@ -608,6 +657,16 @@
     <span class="label">Watch this in the exam</span>
     <p>Do not confuse prompt injection with improper output handling. Prompt injection is crafted input manipulating the model into ignoring its instructions. Improper output handling is the application failing to sanitise what the model produced before using it downstream. They sit at opposite ends of the same request, and questions often describe one while offering both.</p>
   </div>
+
+  <div class="note-box">
+    <span class="label">How this gets examined</span>
+    <p>Questions on these lists do not follow one pattern. Some ask for the root cause of a described failure,
+    some ask which category a scenario belongs to, and some are scenario-based and test whether you are
+    reading carefully rather than recognising a keyword. Two habits help: read each question more than once
+    before looking at the options, since the answer is often signalled in the wording of the question itself,
+    and expect more than one option to look defensible. The task is to select the most appropriate answer,
+    not the only possible one.</p>
+  </div>
 </div>
 
 <a id="s42"></a>
@@ -624,6 +683,16 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Phases</span>
   <p>Any SDLC, including a secure SDLC, runs through a common set of phases: requirements gathering, design, development or coding, testing, deployment, and maintenance through to eventual retirement. What makes an SSDLC distinct is that security activity attaches to every phase rather than appearing only at testing.</p>
 
+  <p>Two phases repay closer attention. At <strong>deployment</strong>, the work is the initial release, and
+  the security task is ensuring default configurations conform to security requirements and good practice,
+  including the configuration of APIs and of identity and access management. Getting those defaults right is
+  what reduces the risk of credential compromise and protects account creation, maintenance, and installation
+  processes. Where an application consumes several cloud services, produce a standard configuration guide for
+  each service approved for use, so that every team configures it the same way. At <strong>operations and
+  maintenance</strong>, remember that this is the longest phase of the entire life cycle, covering everything
+  after release including operational monitoring and ongoing maintenance; most of an application's security
+  life happens here rather than during development.</p>
+
   <h3>Methodologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Software Development Models</span>
   <ul class="plain">
@@ -635,6 +704,15 @@
   <div class="example-box">
     <span class="label">Example</span>
     <p>A telecom company building a regulated billing platform uses waterfall, because the requirements are fixed by regulation and a documented sequential trail supports the audit. Its customer-facing app team uses agile, because requirements shift with market feedback. Both need security in every phase; only the cadence differs.</p>
+  </div>
+  <div class="example-box">
+    <span class="label">Why staging matters</span>
+    <p>In 2024 a widely deployed endpoint security product distributed a faulty content update to production
+    systems worldwide without adequate validation in a non-production environment. The result was large-scale
+    disruption reaching critical national infrastructure, including aviation and healthcare, from a change
+    that was not itself malicious. The reputational damage was contained because the vendor identified and
+    rolled back the change quickly, which is the second lesson: the ability to reverse a deployment is as much
+    a security control as the testing that should have caught it.</p>
   </div>
 </div>
 
@@ -657,9 +735,41 @@
     <li><strong>ATASM</strong>, Architecture, Threats, Attack Surfaces, and Mitigations, working from the architecture outward to identify where the system can be attacked and what should defend it.</li>
     <li><strong>PASTA</strong>, the Process for Attack Simulation and Threat Analysis, a seven-stage risk-centric methodology aligning technical threats to business objectives through attacker-focused simulation.</li>
   </ul>
+  <p>Two of these deserve more detail. <strong>PASTA</strong> is the one most often encountered in regulated
+  sectors, particularly financial services, because it integrates threat analysis into an organisation-wide
+  risk model rather than treating it as a development activity. It begins by defining business objectives and
+  scope, then works through threat analysis grounded in actual threat intelligence: what attackers are doing
+  in the wild, in your sector, against your technology stack, rather than a generic checklist. That depends on
+  the quality of the intelligence, and not all threat intelligence feeds are created equal. Commercial feeds
+  from established vendors, open-source feeds, and the national feeds published by bodies such as the NCSC
+  differ in coverage and timeliness, and with proprietary feeds you broadly get what you pay for.
+  <strong>ATASM</strong> contributes attack trees: modelling how an adversary could chain individual
+  vulnerabilities together to reach an objective, which surfaces paths that no single vulnerability rating
+  would flag.</p>
+
   <div class="note-box">
     <span class="label">Watch this in the exam</span>
     <p>STRIDE categorises, DREAD scores. If a scenario is identifying what could go wrong, it wants STRIDE. If it is prioritising threats already found, it wants DREAD. PASTA is the seven-stage business-aligned one; ATASM starts from architecture and attack surfaces.</p>
+  </div>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">Insider threat and the leaver process</h4>
+  <p>Insider risk deserves separating out from the general risk list, because the controls are organisational
+  rather than technical. A malicious insider with administrative rights can cause damage that no perimeter
+  control addresses. In one 2025 case at a financial services firm, an employee installed a logic bomb on the
+  corporate network configured to trigger on a change in system state rather than at a set time; when his
+  administrative account was deleted after his departure, the condition was met and critical data was
+  destroyed, costing the organisation a substantial sum within a single day. The lesson is not about the
+  malware. It is that the communication line between HR and IT administration is a security control: privilege
+  revocation for leavers and movers has to be timely, and for privileged accounts it has to be coordinated
+  with whatever else that account is wired into. Segregation of duties and awareness training are the other
+  mitigations, and insider incidents typically run a longer mean time to detection than external ones because
+  the activity looks authorised.</p>
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>A UK bank believed it was tracking around eight hundred fraudulent copies of its banking pages. After
+    engaging specialist third-party services and analysis of deep and dark web sources, the true figure proved
+    to be several times higher. The point for account hijacking defence is that an organisation's own view of
+    its attack surface is usually the optimistic one, and external intelligence is what corrects it.</p>
   </div>
 
   <h3>Secure coding standards</h3>
@@ -695,6 +805,18 @@
     <li><strong>Black-box testing</strong>, conducted with no internal knowledge, approaching the system as an external attacker would.</li>
   </ul>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The same three perspectives in penetration testing</h4>
+  <p>These perspectives carry over into penetration testing, where the practical differences are cost,
+  duration, and which attacker is being simulated. A <strong>white-box</strong> test supplies the testers with
+  the organisation's topology, architecture, and in some engagements legitimate administrative credentials,
+  because it simulates an attack from inside: little or no reconnaissance is needed, so the engagement is
+  shorter and cheaper and the effort goes into depth rather than discovery. A <strong>black-box</strong> test
+  provides nothing, simulating an external attacker who must begin at the reconnaissance stage of the kill
+  chain, which is why it takes longer, costs more, and often extends to social engineering and physical
+  attempts on the organisation's premises, testing the awareness programme as much as the technology. A
+  <strong>grey-box</strong> test sits between the two, with partial knowledge of defences or architecture but
+  no source code access, and is the usual choice for integration and application penetration testing.</p>
+
   <h3>Security testing methodologies</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Quality Assurance and Testing Techniques</span>
   <p>These are the tool-based methodologies named in the outline, and they are distinguished by what they examine and when:</p>
@@ -728,12 +850,38 @@
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Cloud Application Architecture &rsaquo; Application Programming Interfaces</span>
   <p>API security is central to overall application security. Introducing inadequately secured APIs, particularly when integrating APIs outside the application's own control or security boundary, poses significant risk and can jeopardise the entire dataset within the application, leading to exposure or loss. Practical controls include strong authentication and authorisation on every endpoint, input validation, rate limiting and throttling, TLS for all traffic, and careful review of what each endpoint returns, since excessive data exposure is a leading API weakness.</p>
 
+  <div class="example-box">
+    <span class="label">Example from the field</span>
+    <p>In 2021 an attacker used a data scraping service against a major professional network's APIs to collect
+    profile data covering hundreds of millions of users, a very large proportion of its user base, including
+    email addresses, phone numbers, geolocation records, and linked social accounts. The root cause was not a
+    broken authentication control or an unpatched server: the API permitted mass, unthrottled scraping of
+    profile data with no meaningful rate limiting and no anomaly detection. It is the textbook case of API4
+    Unrestricted Resource Consumption, and it makes a point worth carrying into the exam: data that is
+    individually public can still constitute a serious breach when an API allows it to be harvested at scale.
+    Treating root cause rather than symptom is what stops this recurring, otherwise incident response becomes
+    a game of whack-a-mole against the same systemic flaw.</p>
+  </div>
+
   <h3>Supply chain management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Supply Chain Management and Licensing</span>
   <p>Supply chain management has two aspects. First, a provider, and potentially the customer, will engage third-party providers to deliver services, so a provider often relies on other vendors to supply what its customers ultimately consume. This encompasses vendor risk management when establishing those relationships. Second, cloud itself extends the reach of supply chain management, since globally interconnected supply chains need access to primary and secondary sources and cloud infrastructure improves the efficiency of coordinating them. The security concern is that your risk extends through providers you have no contract with.</p>
   <div class="example-box">
     <span class="label">Example</span>
     <p>A bank contracts with a SaaS vendor that depends on a third-party analytics service, which in turn runs on another provider's infrastructure. The bank has a contract with one party but exposure through three. Vendor assessment must ask what the vendor's own dependencies are, not just what the vendor does.</p>
+  </div>
+
+  <div class="example-box">
+    <span class="label">Examples from the field</span>
+    <p>Two cases make the supply chain argument better than any policy statement. In the 2013 breach of a
+    large US retailer, attackers entered through a compromised heating, ventilation, and air conditioning
+    contractor holding excessive network access, then pivoted from there into payment systems, resulting in
+    the theft of tens of millions of card records. In a later incident at a casino, the entry point was an
+    internet-connected sensor managing a reception aquarium, installed by a third party and never segmented
+    from the production network. Neither supplier was an IT security vendor, and neither would have appeared
+    on a list of critical technology dependencies. Third-party risk assessment has to cover any supplier with
+    network access, not only the ones selling software, and network segmentation is what limits the damage
+    when the assessment misses one.</p>
   </div>
 
   <h3>Third-party software management and open source</h3>
@@ -763,6 +911,35 @@
     <p>WAF understands HTTP, DAM understands SQL. Both operate at layer 7 but inspect different protocols, and questions frequently offer both. If the scenario concerns web request content, it wants a WAF; if it concerns database queries and access patterns, it wants DAM.</p>
   </div>
 
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">How the supplemental components fit together</h4>
+  <p>These are complementary layers, not alternatives, and the clearest way to hold them is by what each
+  inspects and where it sits. The <strong>network firewall</strong> filters at layer 3 and 4 on IP addresses
+  and port numbers. The <strong>WAF</strong> sits in front of the application and filters malicious HTTP and
+  HTTPS requests at layer 7 by inspecting the content of the request rather than only the packet headers,
+  which makes it the primary control for injection and broken access control attempts. The <strong>API
+  gateway</strong> governs API traffic specifically, handling authentication, rate limiting, request
+  validation, and routing before traffic reaches back-end services, which addresses exactly the failure
+  pattern behind large-scale API scraping. <strong>Database activity monitoring</strong> watches what happens
+  at the database once a query gets through, understanding SQL and database protocols natively, and flags
+  anomalous or unauthorised activity such as unusual exfiltration patterns, privilege escalation, or injection
+  attempts that passed the WAF. <strong>XML security</strong> ensures data exchanged between services is well
+  formed and safely parsed, which matters because XML carries its own vulnerability class including external
+  entity attacks.</p>
+  <p>Two points follow. Database activity monitoring complements encryption and access control rather than
+  duplicating them, by providing visibility into who is doing what with the data, and it feeds directly into
+  the audit logging requirements from the data security domain. And placement and ownership shift with the
+  service model: in IaaS the customer typically manages its own firewalls and security groups, while in SaaS
+  the provider manages almost all of it, which makes this list a reliable vehicle for shared responsibility
+  questions.</p>
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>Zero trust network access and secure access service edge are not part of this outline's supplemental
+    components list, despite being central to current cloud security practice and arguably belonging here.
+    Know the concepts, since zero trust appears elsewhere in the certification, but answer questions on
+    supplemental security components from the list above rather than reaching for the architecture you would
+    actually deploy.</p>
+  </div>
+
   <h3>Cryptography</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 3 &rsaquo; Encryption; Ch 6 &rsaquo; Cloud Application Architecture</span>
   <p>Cloud systems operate across trusted and untrusted networks, which can be described as hostile or semi-hostile environments, so encryption is essential for data stored within and transmitted between cloud services. Three encryption scopes are distinguished:</p>
@@ -775,6 +952,13 @@
   <h3>Sandboxing</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
   <p>Sandboxing is the segregation and isolation of information or processes within the same system or application for security purposes. It isolates different communities and user populations from one another's data, and the requirement can be driven internally by organisational policy or externally by regulation. It is also the standard technique for safely executing untrusted code or analysing suspected malware.</p>
+
+  <p>Two uses dominate in practice. The first is separation of data and user populations, keeping
+  communities isolated from one another's data within a shared system. The second is safe execution of
+  untrusted code: testing new code or deployments without exposing production systems, and detonating suspect
+  files to observe their behaviour. Malware analysis is the clearest case, since running a sample anywhere
+  near production risks exactly the spread the analysis is meant to prevent. Sandboxing becomes more important
+  in cloud, not less, because physical network separation is generally unavailable as a fallback.</p>
 
   <h3>Application virtualisation and orchestration</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Application Virtualization and Orchestration</span>
@@ -790,6 +974,15 @@
   <h3>Federated identity</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Federated Identity Management</span>
   <p>Federated identity works much like single sign-on, with one digital identity granting access to multiple systems, but it extends across boundaries: a federated identity can reach applications across different cloud providers, multi-cloud resources, and on-premises systems, and it enables single sign-on across systems belonging to different organisations. Both the on-premises IAM system and the IAM systems of each cloud vendor must be closely safeguarded against unauthorised use. Federation carries the same drawback as SSO in amplified form: when one federated system is compromised, that compromise exposes vulnerabilities across all the federated systems.</p>
+
+  <p>The security trade-off is concentration of risk. If one digital identity is compromised, every
+  federated platform that identity reaches is exposed, and the same applies if one member system in the
+  federation is breached. Two properties make this harder than single sign-on inside one organisation: the
+  member systems belong to different organisations that may not share the same level of trust, and no single
+  organisation controls how the others secure their systems or validate their users. That is why continuous
+  monitoring of identity usage, and a fast response to suspicious activity, matter more in a federation than
+  in a self-contained environment, and why the on-premises IAM and each provider's IAM both need safeguarding
+  against overlapping or unauthorised use.</p>
 
   <h3>Identity providers</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Identity Providers</span>
@@ -807,9 +1000,47 @@
     <p>A bank pairs SSO with mandatory MFA. SSO means one compromised password would otherwise reach every internal system, so the second factor is what keeps a phished credential from becoming a full breach. The convenience of SSO and the necessity of MFA are two sides of the same design decision.</p>
   </div>
 
+  <p>Beyond the three factor categories, several mechanisms recur. One-time passwords, whether from a
+  hardware token displaying a rotating code, a soft token application, or a push notification, are the
+  familiar something-you-have implementations. Challenge questions and out-of-band authentication, where
+  verification travels over a separate channel from the login attempt, add further layers. The joiners,
+  movers, and leavers process is where much of this succeeds or fails in practice, particularly the mechanism
+  for communicating a first login credential to a new user, which is a step often handled far less carefully
+  than the authentication system it protects.</p>
+
   <h3>Cloud Access Security Broker</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 1 &rsaquo; Cloud Computing Roles and Responsibilities; Ch 6 &rsaquo; Cloud Identity and Access Control</span>
   <p>A CASB is a software product or service positioned between an organisation's on-premises infrastructure and a cloud provider's infrastructure. Acting as a gatekeeper, it lets the organisation extend its reach beyond its own network boundaries and enforce security policy within cloud environments. Typical CASB capabilities include visibility into cloud usage including unsanctioned shadow IT, data security enforcement such as DLP across sanctioned services, threat protection, and compliance monitoring.</p>
+
+  <h4 style="font-size:14.5px;margin:1.1rem 0 .4rem;">The four pillars of a CASB</h4>
+  <ul class="plain">
+    <li><strong>Visibility</strong>, discovering shadow IT: the unsanctioned cloud applications employees are
+    using without the knowledge or approval of IT, which cannot be governed until they are known.</li>
+    <li><strong>Compliance</strong>, checking cloud usage against regulatory requirements such as PCI DSS,
+    HIPAA, and the GDPR, supporting data residency requirements by monitoring and controlling where data is
+    stored and processed, and generating audit evidence and compliance reporting across services.</li>
+    <li><strong>Data security</strong>, extending DLP into cloud services so sensitive data such as card
+    numbers, intellectual property, and personal data can be detected and blocked before it is uploaded to or
+    shared through sanctioned and unsanctioned applications alike.</li>
+    <li><strong>Threat protection</strong>, detecting anomalous behaviour such as impossible travel logins,
+    bulk downloads, and unusual access patterns that indicate compromised credentials or insider activity,
+    scanning files for malware on upload and share, and applying adaptive access control that can step up
+    authentication or block access outright based on real-time risk signals.</li>
+  </ul>
+  <p>The four capability areas above are the industry framing of what a CASB delivers. The courseware
+  presents the same product from the technology angle, listing firewalls, authentication, web application
+  firewalls, and data loss prevention as the mechanisms a CASB typically brings. The two descriptions are the
+  same thing viewed from different ends: authentication and adaptive access serve visibility and threat
+  protection, DLP serves data security, and the reporting built on top serves compliance.</p>
+
+  <div class="note-box">
+    <span class="label">Watch this in the exam</span>
+    <p>A CASB does more than one job, which is what makes it a favourite for questions. If a scenario is about
+    discovering unsanctioned applications, enforcing policy consistently across several providers, or
+    producing compliance evidence spanning cloud services, the CASB is usually the answer. The exam may also
+    describe the function without using the term, so recognise the capability rather than only the
+    acronym.</p>
+  </div>
 
   <h3>Secrets, key, and certificate management</h3>
   <span class="sec-ref"><b>Study guide:</b> Ch 6 &rsaquo; Identity and Access Management &rsaquo; Secrets Management</span>
